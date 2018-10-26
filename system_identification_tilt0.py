@@ -1,33 +1,45 @@
 # -*- coding: utf-8 -*-
-## import library or package
-import numpy as np
 
 #---------------------------
-# VTOL Parameters
+# Import library or package
+#---------------------------
+
+import numpy as np
+import pandas as pd
+
+#---------------------------
+# Aircraft values
 #---------------------------
 
 # Moment of inertia [g/mm^2] -> [kg/m^2]
-inertia_moments = np.matrix([[ 0.2484,-0.0037,-0.0078],
-                             [-0.0037, 0.1668, 0.0005],
-                             [-0.0078, 0.0005, 0.3804]])
-inertia_moment_Ixx = inertia_moments[0,0] # X-axis
-inertia_moment_Iyy = inertia_moments[1,1] # Y-axis
-inertia_moment_Izz = inertia_moments[2,2] # Z-axis
+INERTIA_MOMENTS = np.matrix(
+        [[ 0.2484,-0.0037,-0.0078],
+         [-0.0037, 0.1668, 0.0005],
+         [-0.0078, 0.0005, 0.3804]]
+        )
+INERTIA_MOMENT_XX = INERTIA_MOMENTS[0,0] # X-axis
+INERTIA_MOMENT_YY = INERTIA_MOMENTS[1,1] # Y-axis
+INERTIA_MOMENT_ZZ = INERTIA_MOMENTS[2,2] # Z-axis
 
 # Length [m]
-length_from_center_to_main = 0.042 # Center of gravity <-> Main
-length_from_center_to_sub_front = 0.496 # Center of gravity <-> Sub front
-length_from_center_to_sub_left_right_x = 0.232 # Center of gravity <-> Sub x-axis
-length_from_center_to_sub_left_right_y = 0.503 # Center of gravity <-> Sub y-axis
-length_from_center_to_pixhawk = 0.353 # Center of gravity <-> Pixhawk
+LENGTH_FROM_CENTER_TO_MAIN = 0.042 # Center of gravity <-> Main
+LENGTH_FROM_CENTER_TO_SUB_front = 0.496 # Center of gravity <-> Sub front
+LENGTH_FROM_CENTER_TO_SUB_LEFT_RIGHT_X = 0.232 # Center of gravity <-> Sub x-axis
+LENGTH_FROM_CENTER_TO_SUB_LEFT_RIGHT_Y = 0.503 # Center of gravity <-> Sub y-axis
+LENGTH_FROM_CENTER_TO_PIXHAWK = 0.353 # Center of gravity <-> Pixhawk
 
 # Other parameters
-mass = 5.7376 # Airframe weight
-gravity = 9.80665 # Gravity acceleration
-rho = 1.205 # Air density ρ
-surface_area = 0.2087*2 + 0.1202 # Main wing + body
-mean_aerodynamic_chord = 0.43081 # MAC
+MASS = 5.7376 # Airframe weight
+GRAVITY = 9.80665 # Gravity acceleration
+RHO = 1.205 # Air density ρ
+SURFACE_AREA = 0.2087*2 + 0.1202 # Main wing + body
+MEAN_AERODYNAMIC_CHORD = 0.43081 # MAC
 
 #---------------------------
-# 
+# Read log data (CSV)
 #---------------------------
+
+# Read log data
+read_log_data = pd.read_csv(filepath_or_buffer="./log_data/Book1.csv", encoding="ASCII", sep=",")
+
+print(read_log_data.values[:,0])
