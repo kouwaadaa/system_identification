@@ -1,7 +1,11 @@
+# -*- coding: utf-8 -*-
 ## import library or package
 import numpy as np
 
-## VTOL Parameters
+#---------------------------
+# VTOL Parameters
+#---------------------------
+
 # Moment of inertia [g/mm^2] -> [kg/m^2]
 inertia_moments = np.matrix([[ 0.2484,-0.0037,-0.0078],
                              [-0.0037, 0.1668, 0.0005],
@@ -23,3 +27,7 @@ gravity = 9.80665 # Gravity acceleration
 rho = 1.205 # Air density ρ
 surface_area = 0.2087*2 + 0.1202 # Main wing + body
 mean_aerodynamic_chord = 0.43081 # MAC
+
+#---------------------------
+# 
+#---------------------------
