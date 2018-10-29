@@ -23,7 +23,7 @@ INERTIA_MOMENT_ZZ = INERTIA_MOMENTS[2,2] # Z-axis
 
 # Length [m]
 LENGTH_FROM_CENTER_TO_MAIN = 0.042 # Center of gravity <-> Main
-LENGTH_FROM_CENTER_TO_SUB_front = 0.496 # Center of gravity <-> Sub front
+LENGTH_FROM_CENTER_TO_SUB_FRONT = 0.496 # Center of gravity <-> Sub front
 LENGTH_FROM_CENTER_TO_SUB_LEFT_RIGHT_X = 0.232 # Center of gravity <-> Sub x-axis
 LENGTH_FROM_CENTER_TO_SUB_LEFT_RIGHT_Y = 0.503 # Center of gravity <-> Sub y-axis
 LENGTH_FROM_CENTER_TO_PIXHAWK = 0.353 # Center of gravity <-> Pixhawk
@@ -42,4 +42,47 @@ MEAN_AERODYNAMIC_CHORD = 0.43081 # MAC
 # Read log data
 read_log_data = pd.read_csv(filepath_or_buffer="./log_data/Book1.csv", encoding="ASCII", sep=",")
 
-print(read_log_data.values[:,0])
+# Angle
+phi = read_log_data.values[:,0]
+theta = read_log_data.values[:,1]
+psi = read_log_data.values[:,2]
+# Angular velocity
+dot_phi = read_log_data.values[:,3]
+dot_theta = read_log_data.values[:,4]
+dot_psi = read_log_data.values[:,5]
+# Position
+x_position = read_log_data.values[:,53]
+y_position = read_log_data.values[:,54]
+z_position = read_log_data.values[:,55]
+# Velocity
+dot_x_position = read_log_data.values[:,58]
+dot_y_position = read_log_data.values[:,59]
+dot_z_position = read_log_data.values[:,60]
+# GPS altitude
+gps_altitude = read_log_data.values[:,79]
+# Airspeed by Pitot tube
+airspeed = read_log_data.values[:,133]
+# Pulese Width Modulation of rotors
+main_up_pwm = read_log_data.values[:,116] # T1
+main_low_pwm = read_log_data.values[:,117] # T2
+sub_right_pwm = read_log_data.values[:,118] # T3
+sub_left_pwm = read_log_data.values[:,119] # T4
+sub_front_up_pwm = read_log_data.values[:,120] #T5
+sub_front_low_pwm = read_log_data.values[:,121] #T6
+# Elevon steering angle (command 0 ~ 1)
+delta_e_right = read_log_data.values[:,124]
+delta_e_left = read_log_data.values[:,125]
+# Manual manipulation quantity
+manual_pitch = read_log_data.values[:,374]
+manual_thrust = read_log_data.values[:,377]
+manual_tilt = read_log_data.values[:,389]
+# Time log
+time_log = read_log_data.values[:,390] / 1000000
+# Set start time to 0 second
+time = time_log - time_log[0]
+# Get data size (rows)
+data_size = len(read_log_data)
+
+#---------------------------
+# Caliculate datum
+#---------------------------
