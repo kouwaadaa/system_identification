@@ -6,19 +6,20 @@
 
 import numpy as np
 from numpy import pi
-import pymap3d as pm
 import pandas as pd
+
+import math_extention
 
 #---------------------------
 # Aircraft values
 #---------------------------
 
 # Moment of inertia [g/mm^2] -> [kg/m^2]
-INERTIA_MOMENTS = np.matrix(
-        [[ 0.2484,-0.0037,-0.0078],
-         [-0.0037, 0.1668, 0.0005],
-         [-0.0078, 0.0005, 0.3804]]
-        )
+INERTIA_MOMENTS = np.array(
+    [[ 0.2484,-0.0037,-0.0078],
+     [-0.0037, 0.1668, 0.0005],
+     [-0.0078, 0.0005, 0.3804]]
+)
 INERTIA_MOMENT_XX = INERTIA_MOMENTS[0,0] # X-axis
 INERTIA_MOMENT_YY = INERTIA_MOMENTS[1,1] # Y-axis
 INERTIA_MOMENT_ZZ = INERTIA_MOMENTS[2,2] # Z-axis
@@ -103,7 +104,7 @@ time = np.array(time_log - time_log[0])
 data_size = len(read_log_data)
 
 #---------------------------
-# Caliculate datum
+# Calculate datum
 #---------------------------
 # Thrust by rotor
 main_up_thrust = [] # T1
@@ -113,7 +114,7 @@ sub_left_thrust = [] # T4
 sub_front_up_thrust = [] # T5
 sub_front_low_thrust = [] # T6
 
-# Caliculate thrust
+# Calculate thrust
 # From 2017/06 AS Mr.Hirai
 for i in range(data_size):
 
@@ -146,7 +147,7 @@ sub_front_low_thrust[sub_front_low_thrust > SUB_THRUST_MAX] = SUB_THRUST_MAX
 delta_e_right = []
 delta_e_left = []
 
-# Caliculate elevon steering angle
+# Calculate elevon steering angle
 for i in range(data_size):
   delta_e_right.append(((delta_e_right_command[i]*400 + 1500)/8 - 1500/8)*pi/180)
   delta_e_left.append(((delta_e_left_command[i]*400 + 1500)/8 - 1500/8)*pi/180)
@@ -165,6 +166,5 @@ pixhawk_body_frame_velocity = []
 body_frame_velocity = [] # pixhawk -> center
 body_frame_wind_velocity = []
 
-# Caliculate velocity
+# Calculate velocity
 pixhawk_ground_velocity = np.sqrt(dot_x_position**2 + dot_y_position**2 + dot_z_position**2)
-pixhawk_body_frame_velocity =

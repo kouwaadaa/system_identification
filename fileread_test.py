@@ -17,43 +17,39 @@ Created on Fri Oct 26 16:36:52 2018
 #    print(row)
 
 import numpy as np
-from numpy import pi
-import pymap3d as pm
 import pandas as pd
+import math_extention
 
-csv_input = pd.read_csv(filepath_or_buffer="./log_data/Book1.csv", encoding="ASCII", sep=",") # sepはデフォルトで,なので不要
+read_log_data = pd.read_csv(filepath_or_buffer="./log_data/Book1.csv", encoding="ASCII", sep=",") # sepはデフォルトで,なので不要
 #値を二次元配列形式?で返却します。
 #返却される型は、numpy.ndarray
-#print(csv_input.values)
+#print(read_log_data.values)
 
 #行インデックス、カラムインデックスの順番で指定して項目の値を取得できます。
-# Velocity
-dot_x_position = np.array(csv_input.values[:,58])
-dot_y_position = np.array(csv_input.values[:,59])
-dot_z_position = np.array(csv_input.values[:,60])
 
-# for文の練習
-# data_size = len(csv_input)
-#
-# w_theta = []
-# for i in range(data_size):
-# 	w_theta.append(theta[i]*theta[i])
-#
-# print(w_theta)
-
-# 行列の四則演算の練習
-# 要素ごとに一気に計算する場合
-# print(phi + theta)
-# print((phi + theta)/2)
-#
-# print(phi**2 + phi*phi)
+phi = np.array(read_log_data.values[:,0])
+theta = np.array(read_log_data.values[:,1])
+psi = np.array(read_log_data.values[:,2])
 
 # Velocity
-pixhawk_ground_velocity = []
-pixhawk_airframe_system_velocity = []
-airframe_system_velocity = [] # pixhawk -> center
-airframe_system_wind_velocity = []
+dot_x_position = np.array(read_log_data.values[:,58])
+dot_y_position = np.array(read_log_data.values[:,59])
+dot_z_position = np.array(read_log_data.values[:,60])
+#
+# dot_x_position = dot_x_position[:,None]
+# dot_y_position = dot_y_position[:,None]
+# dot_z_position = dot_z_position[:,None]
+#
+# dot_xyz_position = np.concatenate([dot_x_position,dot_y_position,dot_z_position], axis=1)
 
-# Caliculate velocity
-pixhawk_ground_velocity = np.sqrt(dot_x_position**2 + dot_y_position**2 + dot_z_position**2)
-pixhawk_airframe_system_velocity = 
+data_size = len(read_log_data)
+
+# Velocity
+ned_velocity = []
+
+for i in range(data_size):
+	ned_velocity.append(math_extention.bc2ned(phi[i],theta[i],psi[i],dot_x_position[i],dot_y_position[i],dot_z_position[i]))
+
+ned_velocity = np.array(ned_velocity)
+
+print(ned_velocity)
