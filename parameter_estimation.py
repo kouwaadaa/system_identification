@@ -122,10 +122,10 @@ for i in range(data_size):
   # List append is more fast
   main_up_thrust.append(THRUST_EFFICIENCY*0.5*9.8*(9.5636* 10**(-3)*main_up_pwm[i] - 12.1379))
   main_low_thrust.append(THRUST_EFFICIENCY*0.5*9.8*(9.5636* 10**(-3)*main_low_pwm[i] - 12.1379))
-  sub_right_thrust.append(9.8*(1.5701* 10**(-6) *(sub_right_pwm) *1.9386))
-  sub_left_thrust.append(9.8*(1.5701* 10**(-6) *(sub_left_pwm) *1.9386))
-  sub_front_up_thrust.append(9.8*(1.5701* 10**(-6) *(sub_front_up_pwm) *1.9386))
-  sub_front_low_thrust.append(9.8*(1.5701* 10**(-6) *(sub_front_low_pwm) *1.9386))
+  sub_right_thrust.append(9.8*(1.5701* 10**(-6) *(sub_right_pwm[i]) *1.9386))
+  sub_left_thrust.append(9.8*(1.5701* 10**(-6) *(sub_left_pwm[i]) *1.9386))
+  sub_front_up_thrust.append(9.8*(1.5701* 10**(-6) *(sub_front_up_pwm[i]) *1.9386))
+  sub_front_low_thrust.append(9.8*(1.5701* 10**(-6) *(sub_front_low_pwm[i]) *1.9386))
 
 # List to ndarray(numpy)
 main_up_thrust = np.array(main_up_thrust)
@@ -168,3 +168,12 @@ body_frame_wind_velocity = []
 
 # Calculate velocity
 pixhawk_ground_velocity = np.sqrt(dot_x_position**2 + dot_y_position**2 + dot_z_position**2)
+
+# Convert body frame to NED frame
+for i in range(data_size):
+    pixhawk_body_frame_velocity.append(
+        math_extention.bc2ned(phi[i],theta[i],psi[i],dot_x_position[i],dot_y_position[i],dot_z_position[i])
+    )
+
+# List to ndarray
+pixhawk_body_frame_velocity = np.array(pixhawk_body_frame_velocity)
