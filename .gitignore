@@ -1,2 +1,6 @@
 # Mac一時ファイル
 .DS_Store
+
+# pythonキャッシュディレクトリ
+# 自前のモジュールをimportしたとき
+__pycache__
