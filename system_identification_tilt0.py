@@ -50,43 +50,43 @@ SUB_THRUST_MAX = 9.0
 read_log_data = pd.read_csv(filepath_or_buffer="./log_data/Book1.csv", encoding="ASCII", sep=",")
 
 # Angle
-phi = read_log_data.values[:,0]
-theta = read_log_data.values[:,1]
-psi = read_log_data.values[:,2]
+phi = np.array(read_log_data.values[:,0])
+theta = np.array(read_log_data.values[:,1])
+psi = np.array(read_log_data.values[:,2])
 # Angular velocity
-dot_phi = read_log_data.values[:,3]
-dot_theta = read_log_data.values[:,4]
-dot_psi = read_log_data.values[:,5]
+dot_phi = np.array(read_log_data.values[:,3])
+dot_theta = np.array(read_log_data.values[:,4])
+dot_psi = np.array(read_log_data.values[:,5])
 # Position
-x_position = read_log_data.values[:,53]
-y_position = read_log_data.values[:,54]
-z_position = read_log_data.values[:,55]
+x_position = np.array(read_log_data.values[:,53])
+y_position = np.array(read_log_data.values[:,54])
+z_position = np.array(read_log_data.values[:,55])
 # Velocity
-dot_x_position = read_log_data.values[:,58]
-dot_y_position = read_log_data.values[:,59]
-dot_z_position = read_log_data.values[:,60]
+dot_x_position = np.array(read_log_data.values[:,58])
+dot_y_position = np.array(read_log_data.values[:,59])
+dot_z_position = np.array(read_log_data.values[:,60])
 # GPS altitude
-gps_altitude = read_log_data.values[:,79]
+gps_altitude = np.array(read_log_data.values[:,79])
 # Airspeed by Pitot tube
-airspeed = read_log_data.values[:,133]
+airspeed = np.array(read_log_data.values[:,133])
 # Pulese Width Modulation of rotors
-main_up_pwm = read_log_data.values[:,116] # T1
-main_low_pwm = read_log_data.values[:,117] # T2
-sub_right_pwm = read_log_data.values[:,118] # T3
-sub_left_pwm = read_log_data.values[:,119] # T4
-sub_front_up_pwm = read_log_data.values[:,120] # T5
-sub_front_low_pwm = read_log_data.values[:,121] # T6
+main_up_pwm = np.array(read_log_data.values[:,116]) # T1
+main_low_pwm = np.array(read_log_data.values[:,117]) # T2
+sub_right_pwm = np.array(read_log_data.values[:,118]) # T3
+sub_left_pwm = np.array(read_log_data.values[:,119]) # T4
+sub_front_up_pwm = np.array(read_log_data.values[:,120]) # T5
+sub_front_low_pwm = np.array(read_log_data.values[:,121]) # T6
 # Elevon steering angle (command 0 ~ 1)
-delta_e_right_command = read_log_data.values[:,124]
-delta_e_left_command = read_log_data.values[:,125]
+delta_e_right_command = np.array(read_log_data.values[:,124])
+delta_e_left_command = np.array(read_log_data.values[:,125])
 # Manual manipulation quantity
-manual_pitch = read_log_data.values[:,374]
-manual_thrust = read_log_data.values[:,377]
-manual_tilt = read_log_data.values[:,389]
+manual_pitch = np.array(read_log_data.values[:,374])
+manual_thrust = np.array(read_log_data.values[:,377])
+manual_tilt = np.array(read_log_data.values[:,389])
 # Time log
-time_log = read_log_data.values[:,390] / 1000000
+time_log = np.array(read_log_data.values[:,390] / 1000000)
 # Set start time to 0 second
-time = time_log - time_log[0]
+time = np.array(time_log - time_log[0])
 # Get data size (rows)
 data_size = len(read_log_data)
 
