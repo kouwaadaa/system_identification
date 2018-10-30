@@ -16,6 +16,9 @@ Created on Fri Oct 26 16:36:52 2018
 #    #row[0]で必要な項目を取得することができる
 #    print(row)
 
+import numpy as np
+from numpy import pi
+import pymap3d as pm
 import pandas as pd
 
 csv_input = pd.read_csv(filepath_or_buffer="./log_data/Book1.csv", encoding="ASCII", sep=",") # sepはデフォルトで,なので不要
@@ -24,13 +27,33 @@ csv_input = pd.read_csv(filepath_or_buffer="./log_data/Book1.csv", encoding="ASC
 #print(csv_input.values)
 
 #行インデックス、カラムインデックスの順番で指定して項目の値を取得できます。
-theta = csv_input.values[:, 1]
+# Velocity
+dot_x_position = np.array(csv_input.values[:,58])
+dot_y_position = np.array(csv_input.values[:,59])
+dot_z_position = np.array(csv_input.values[:,60])
 
 # for文の練習
-data_size = len(csv_input)
+# data_size = len(csv_input)
+#
+# w_theta = []
+# for i in range(data_size):
+# 	w_theta.append(theta[i]*theta[i])
+#
+# print(w_theta)
 
-w_theta = []
-for i in range(data_size):
-	w_theta.append(theta[i]*theta[i])
+# 行列の四則演算の練習
+# 要素ごとに一気に計算する場合
+# print(phi + theta)
+# print((phi + theta)/2)
+#
+# print(phi**2 + phi*phi)
 
-print(w_theta)
+# Velocity
+pixhawk_ground_velocity = []
+pixhawk_airframe_system_velocity = []
+airframe_system_velocity = [] # pixhawk -> center
+airframe_system_wind_velocity = []
+
+# Caliculate velocity
+pixhawk_ground_velocity = np.sqrt(dot_x_position**2 + dot_y_position**2 + dot_z_position**2)
+pixhawk_airframe_system_velocity = 
