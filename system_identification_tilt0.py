@@ -112,29 +112,21 @@ for i in range(data_size):
   sub_front_up_thrust.append(9.8*(1.5701* 10**(-6) *(sub_front_up_pwm) *1.9386))
   sub_front_low_thrust.append(9.8*(1.5701* 10**(-6) *(sub_front_low_pwm) *1.9386))
 
+# List to ndarray(numpy)
+main_up_thrust = np.array(main_up_thrust)
+main_low_thrust = np.array(main_low_thrust)
+sub_right_thrust = np.array(sub_right_thrust)
+sub_left_thrust = np.array(sub_left_thrust)
+sub_front_up_thrust = np.array(sub_front_up_thrust)
+sub_front_low_thrust = np.array(sub_front_low_thrust)
+
 #Thrust limmiter
-main_up_thrust = [0 if i < 0 else i for i in main_up_thrust]
-main_low_thrust = [0 if i < 0 else i for i in main_low_thrust]
-sub_right_thrust = []
-
-  # # Thrust limitter
-  # if main_up_thrust < 0:
-  #   main_up_thrust = 0
-
-  # if main_low_thrust < 0:
-  #   main_low_thrust = 0
-
-  # if sub_right_thrust > SUB_THRUST_MAX:
-  #   sub_right_thrust = SUB_THRUST_MAX
-
-  # if sub_left_thrust > SUB_THRUST_MAX:
-  #   sub_left_thrust = SUB_THRUST_MAX
-
-  # if sub_front_up_thrust > SUB_THRUST_MAX:
-  #   sub_front_up_thrust = SUB_THRUST_MAX
-
-  # if sub_front_low_thrust > SUB_THRUST_MAX:
-  #   sub_front_low_thrust = SUB_THRUST_MAX
+main_up_thrust[main_up_thrust < 0] = 0
+main_low_thrust[main_low_thrust < 0] = 0
+sub_right_thrust[sub_right_thrust > SUB_THRUST_MAX] = SUB_THRUST_MAX
+sub_left_thrust[sub_left_thrust > SUB_THRUST_MAX] = SUB_THRUST_MAX
+sub_front_up_thrust[sub_front_up_thrust > SUB_THRUST_MAX] = SUB_THRUST_MAX
+sub_front_low_thrust[sub_front_low_thrust > SUB_THRUST_MAX] = SUB_THRUST_MAX
 
 # Elevon sterring angle
 delta_e_right = []
