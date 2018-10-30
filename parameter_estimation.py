@@ -5,10 +5,12 @@
 #---------------------------
 
 import numpy as np
-from numpy import pi
 import pandas as pd
+import matplotlib.pyplot as plt
 
 import math_extention
+
+from numpy import pi
 
 #---------------------------
 # Aircraft values
@@ -75,7 +77,7 @@ dot_z_position = np.array(read_log_data.values[:,60])
 gps_altitude = np.array(read_log_data.values[:,79])
 
 # Airspeed by Pitot tube
-airspeed = np.array(read_log_data.values[:,133])
+measurement_airspeed = np.array(read_log_data.values[:,133])
 
 # Pulese Width Modulation of rotors
 main_up_pwm = np.array(read_log_data.values[:,116]) # T1
@@ -161,19 +163,43 @@ elevator = (delta_e_left - delta_e_right)/2
 aileron = (delta_e_left + delta_e_right)/2
 
 # Velocity
-pixhawk_ground_velocity = []
-pixhawk_body_frame_velocity = []
-body_frame_velocity = [] # pixhawk -> center
+pixhawk_groundspeed = []
+body_frame_velocity = []
 body_frame_wind_velocity = []
+body_frame_airspeed = []
 
 # Calculate velocity
-pixhawk_ground_velocity = np.sqrt(dot_x_position**2 + dot_y_position**2 + dot_z_position**2)
+pixhawk_groundspeed = np.sqrt(
+    dot_x_position**2
+    + dot_y_position**2
+    + dot_z_position**2
+)
 
-# Convert body frame to NED frame
+# Convert NED frame to body frame
 for i in range(data_size):
-    pixhawk_body_frame_velocity.append(
-        math_extention.bc2ned(phi[i],theta[i],psi[i],dot_x_position[i],dot_y_position[i],dot_z_position[i])
+    body_frame_velocity.append(
+        math_extention.ned2bc(phi[i],theta[i],psi[i],dot_x_position[i],dot_y_position[i],dot_z_position[i])
+    )
+    body_frame_wind_velocity.append(
+        math_extention.ned2bc(phi[i],theta[i],0,WIND_SPEED,0,0)
     )
 
 # List to ndarray
-pixhawk_body_frame_velocity = np.array(pixhawk_body_frame_velocity)
+body_frame_velocity = np.array(body_frame_velocity)
+body_frame_wind_velocity = np.array(body_frame_wind_velocity)
+
+# Convert pixhawk position to center
+body_frame_velocity[:,2] = body_frame_velocity[:,2] + dot_theta*LENGTH_FROM_CENTER_TO_PIXHAWK
+
+# Calculate airspeed
+body_frame_airspeed = body_frame_velocity - body_frame_wind_velocity
+body_frame_airspeed_mag = np.sqrt(
+    body_frame_airspeed[:,0]**2
+    + body_frame_airspeed[:,1]**2
+    + body_frame_airspeed[:,2]**2
+)
+
+# plot
+plt.plot(time,body_frame_airspeed_mag)
+plt.plot(time,measurement_airspeed)
+plt.show()
