@@ -24,4 +24,13 @@ csv_input = pd.read_csv(filepath_or_buffer="./log_data/Book1.csv", encoding="ASC
 #print(csv_input.values)
 
 #行インデックス、カラムインデックスの順番で指定して項目の値を取得できます。
-print(csv_input.values[:, 1])
+theta = csv_input.values[:, 1]
+
+# for文の練習
+data_size = len(csv_input)
+
+w_theta = []
+for i in range(data_size):
+	w_theta.append(theta[i]*theta[i])
+
+print(w_theta)
