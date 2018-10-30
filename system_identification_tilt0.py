@@ -5,6 +5,7 @@
 #---------------------------
 
 import numpy as np
+from numpy import pi
 import pandas as pd
 
 #---------------------------
@@ -28,12 +29,18 @@ LENGTH_FROM_CENTER_TO_SUB_LEFT_RIGHT_X = 0.232 # Center of gravity <-> Sub x-axi
 LENGTH_FROM_CENTER_TO_SUB_LEFT_RIGHT_Y = 0.503 # Center of gravity <-> Sub y-axis
 LENGTH_FROM_CENTER_TO_PIXHAWK = 0.353 # Center of gravity <-> Pixhawk
 
-# Other parameters
+# Other values
 MASS = 5.7376 # Airframe weight
 GRAVITY = 9.80665 # Gravity acceleration
 RHO = 1.205 # Air density ρ
 SURFACE_AREA = 0.2087*2 + 0.1202 # Main wing + body
 MEAN_AERODYNAMIC_CHORD = 0.43081 # MAC
+
+WIND_VELOCITY = -3.0000
+THRUST_EFFICIENCY = 40/48
+
+# Max thrust value of sub rotor
+SUB_THRUST_MAX = 9.0
 
 #---------------------------
 # Read log data (CSV)
@@ -67,11 +74,11 @@ main_up_pwm = read_log_data.values[:,116] # T1
 main_low_pwm = read_log_data.values[:,117] # T2
 sub_right_pwm = read_log_data.values[:,118] # T3
 sub_left_pwm = read_log_data.values[:,119] # T4
-sub_front_up_pwm = read_log_data.values[:,120] #T5
-sub_front_low_pwm = read_log_data.values[:,121] #T6
+sub_front_up_pwm = read_log_data.values[:,120] # T5
+sub_front_low_pwm = read_log_data.values[:,121] # T6
 # Elevon steering angle (command 0 ~ 1)
-delta_e_right = read_log_data.values[:,124]
-delta_e_left = read_log_data.values[:,125]
+delta_e_right_command = read_log_data.values[:,124]
+delta_e_left_command = read_log_data.values[:,125]
 # Manual manipulation quantity
 manual_pitch = read_log_data.values[:,374]
 manual_thrust = read_log_data.values[:,377]
@@ -86,3 +93,56 @@ data_size = len(read_log_data)
 #---------------------------
 # Caliculate datum
 #---------------------------
+# Thrust by rotor
+main_up_thrust = [] # T1
+main_low_thrust = [] # T2
+sub_right_thrust = [] # T3
+sub_left_thrust = [] # T4
+sub_front_up_thrust = [] # T5
+sub_front_low_thrust = [] # T6
+
+# Caliculate thrust
+# From 2017/06 AS Mr.Hirai
+for i in range(data_size):
+  # Linear approximation
+  main_up_thrust.append(THRUST_EFFICIENCY*0.5*9.8*(9.5636* 10**(-3)*main_up_pwm[i] - 12.1379))
+  main_low_thrust.append(THRUST_EFFICIENCY*0.5*9.8*(9.5636* 10**(-3)*main_low_pwm[i] - 12.1379))
+  sub_right_thrust.append(9.8*(1.5701* 10**(-6) *(sub_right_pwm) *1.9386))
+  sub_left_thrust.append(9.8*(1.5701* 10**(-6) *(sub_left_pwm) *1.9386))
+  sub_front_up_thrust.append(9.8*(1.5701* 10**(-6) *(sub_front_up_pwm) *1.9386))
+  sub_front_low_thrust.append(9.8*(1.5701* 10**(-6) *(sub_front_low_pwm) *1.9386))
+
+#Thrust limmiter
+main_up_thrust = [0 if i < 0 else i for i in main_up_thrust]
+main_low_thrust = [0 if i < 0 else i for i in main_low_thrust]
+sub_right_thrust = []
+
+  # # Thrust limitter
+  # if main_up_thrust < 0:
+  #   main_up_thrust = 0
+
+  # if main_low_thrust < 0:
+  #   main_low_thrust = 0
+
+  # if sub_right_thrust > SUB_THRUST_MAX:
+  #   sub_right_thrust = SUB_THRUST_MAX
+
+  # if sub_left_thrust > SUB_THRUST_MAX:
+  #   sub_left_thrust = SUB_THRUST_MAX
+
+  # if sub_front_up_thrust > SUB_THRUST_MAX:
+  #   sub_front_up_thrust = SUB_THRUST_MAX
+
+  # if sub_front_low_thrust > SUB_THRUST_MAX:
+  #   sub_front_low_thrust = SUB_THRUST_MAX
+
+# Elevon sterring angle
+delta_e_right = []
+delta_e_left = []
+
+# Caliculate elevon steering angle
+for i in range(data_size):
+  delta_e_right.append(((delta_e_right_command[i]*400 + 1500)/8 - 1500/8)*pi/180)
+
+
+
