@@ -97,10 +97,10 @@ manual_thrust = np.array(read_log_data.values[:,377])
 manual_tilt = np.array(read_log_data.values[:,389])
 
 # Time log
-time_log = np.array(read_log_data.values[:,390] / 1000000)
+# time_log = np.array(read_log_data.values[:,390] / 1000000)
 
 # Set start time to 0 second
-time = np.array(time_log - time_log[0])
+# time = np.array(time_log - time_log[0])
 
 # Get data size (rows)
 data_size = len(read_log_data)
@@ -203,3 +203,6 @@ body_frame_airspeed_mag = np.sqrt(
 plt.plot(time,body_frame_airspeed_mag)
 plt.plot(time,measurement_airspeed)
 plt.show()
+
+# Calculate angle of attack, rad
+alpha = np.arctan2(body_frame_airspeed[:,2],body_frame_airspeed[:,0])
