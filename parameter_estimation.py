@@ -51,7 +51,22 @@ SUB_THRUST_MAX = 9.0
 #---------------------------
 
 # Read log data
-read_log_data = pd.read_csv(filepath_or_buffer="./log_data/Book6.csv", encoding="ASCII", sep=",")
+read_log_data = pd.read_csv(
+    filepath_or_buffer="./log_data/Book6.csv",
+    encoding="ASCII",
+    sep=",",
+    header=None
+)
+
+#---------------------------
+# Delete Time duplicate lines
+#---------------------------
+
+read_log_data = read_log_data.drop_duplicates(subset=390)
+
+#---------------------------
+# Assign log data
+#---------------------------
 
 # Angle
 phi = np.array(read_log_data.values[:,0])
@@ -97,10 +112,10 @@ manual_thrust = np.array(read_log_data.values[:,377])
 manual_tilt = np.array(read_log_data.values[:,389])
 
 # Time log
-# time_log = np.array(read_log_data.values[:,390] / 1000000)
+time_log = np.array(read_log_data.values[:,390] / 1000000)
 
 # Set start time to 0 second
-# time = np.array(time_log - time_log[0])
+time = np.array(time_log - time_log[0])
 
 # Get data size (rows)
 data_size = len(read_log_data)
