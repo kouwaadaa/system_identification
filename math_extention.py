@@ -48,3 +48,13 @@ def ned2bc(phi, theta, psi, x, y, z):
     bc = np.dot(euler,ned)
 
     return bc
+
+
+def central_diff():
+    '''
+    Calculate central differences.
+
+    Parameters
+    ----------
+
+    '''

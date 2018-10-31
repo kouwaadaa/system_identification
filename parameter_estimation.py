@@ -123,6 +123,7 @@ data_size = len(read_log_data)
 #---------------------------
 # Calculate datum
 #---------------------------
+
 # Thrust by rotor
 main_up_thrust = [] # T1
 main_low_thrust = [] # T2
@@ -221,3 +222,7 @@ plt.show()
 
 # Calculate angle of attack, rad
 alpha = np.arctan2(body_frame_airspeed[:,2],body_frame_airspeed[:,0])
+
+#---------------------------
+# 
+#---------------------------
