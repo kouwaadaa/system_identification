@@ -24,13 +24,13 @@ read_log_data = pd.read_csv(filepath_or_buffer="./log_data/Book1.csv", encoding=
 #値を二次元配列形式?で返却します。
 #返却される型は、numpy.ndarray
 
-print(read_log_data.duplicated(subset=390))
-print(read_log_data.duplicated(subset=390).value_counts())
-
+# print(read_log_data.duplicated(subset=390))
+# print(read_log_data.duplicated(subset=390).value_counts())
+#
 read_log_data = read_log_data.drop_duplicates(subset=390)
-
-print(read_log_data.duplicated(subset=390))
-print(read_log_data.duplicated(subset=390).value_counts())
+#
+# print(read_log_data.duplicated(subset=390))
+# print(read_log_data.duplicated(subset=390).value_counts())
 
 # read_log_data = read_log_data.T
 # read_log_data = read_log_data.drop_duplicates()
@@ -45,7 +45,16 @@ psi = np.array(read_log_data.values[:,2])
 dot_x_position = np.array(read_log_data.values[:,58])
 dot_y_position = np.array(read_log_data.values[:,59])
 dot_z_position = np.array(read_log_data.values[:,60])
-#
+
+# # 差分関数の確認
+# size = np.size(dot_x_position)
+# diff_x = np.insert(dot_x_position,[0,0],[0,0])
+# diff_x = np.delete(diff_x,[size,size+1])
+# diff = dot_x_position - diff_x
+# diff = np.delete(diff,[0,1])
+
+print(math_extention.both_side_diff(dot_x_position))
+
 # dot_x_position = dot_x_position[:,None]
 # dot_y_position = dot_y_position[:,None]
 # dot_z_position = dot_z_position[:,None]

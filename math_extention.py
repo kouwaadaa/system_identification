@@ -50,9 +50,45 @@ def ned2bc(phi, theta, psi, x, y, z):
     return bc
 
 
+def both_side_diff(x):
+    '''
+    Calculate differences.
+
+    Parameters
+    ----------
+    x : array-like
+
+    Returns
+    -------
+    diff : array-like
+        Result.
+
+    Raises
+    ------
+    ValueError
+        if x contains 2 or less numbers, cannot calculate and raise error.
+
+    Examples
+    --------
+    >>> x = np.array([1,2,4,5,8])
+    >>> diff = both_side_diff(x)
+    >>> print(diff)
+    [3,3,4]
+    '''
+
+    x = np.array(x) # Convert ndarray style.
+    size = np.size(x) # Get array size.
+    diff_x = np.insert(x, [0,0], [0,0]) # Insert first two [0,0].
+    diff_x = np.delete(diff_x,[size,size+1]) # Delete last two.
+    diff = x - diff_x # Calculate differences.
+    diff = np.delete(diff, [0,1]) # Delete first two.
+
+    return diff
+
+
 def central_diff():
     '''
-    Calculate central differences.
+    Calculate with central differences.
 
     Parameters
     ----------

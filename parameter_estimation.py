@@ -223,6 +223,4 @@ plt.show()
 # Calculate angle of attack, rad
 alpha = np.arctan2(body_frame_airspeed[:,2],body_frame_airspeed[:,0])
 
-#---------------------------
-# 
-#---------------------------
+# Calculate time deviation
