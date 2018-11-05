@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-import math_extention
+import math_extention as matex
 
 from numpy import pi
 
@@ -74,9 +74,9 @@ theta = np.array(read_log_data.values[:,1])
 psi = np.array(read_log_data.values[:,2])
 
 # Angular velocity
-dot_phi = np.array(read_log_data.values[:,3])
-dot_theta = np.array(read_log_data.values[:,4])
-dot_psi = np.array(read_log_data.values[:,5])
+dphi = np.array(read_log_data.values[:,3])
+dtheta = np.array(read_log_data.values[:,4])
+dpsi = np.array(read_log_data.values[:,5])
 
 # Position
 x_position = np.array(read_log_data.values[:,53])
@@ -84,9 +84,9 @@ y_position = np.array(read_log_data.values[:,54])
 z_position = np.array(read_log_data.values[:,55])
 
 # Velocity
-dot_x_position = np.array(read_log_data.values[:,58])
-dot_y_position = np.array(read_log_data.values[:,59])
-dot_z_position = np.array(read_log_data.values[:,60])
+dx_position = np.array(read_log_data.values[:,58])
+dy_position = np.array(read_log_data.values[:,59])
+dz_position = np.array(read_log_data.values[:,60])
 
 # GPS altitude
 gps_altitude = np.array(read_log_data.values[:,79])
@@ -186,18 +186,18 @@ body_frame_airspeed = []
 
 # Calculate velocity
 pixhawk_groundspeed = np.sqrt(
-    dot_x_position**2
-    + dot_y_position**2
-    + dot_z_position**2
+    dx_position**2
+    + dy_position**2
+    + dz_position**2
 )
 
 # Convert NED frame to body frame
 for i in range(data_size):
     body_frame_velocity.append(
-        math_extention.ned2bc(phi[i],theta[i],psi[i],dot_x_position[i],dot_y_position[i],dot_z_position[i])
+        matex.ned2bc(phi[i],theta[i],psi[i],dx_position[i],dy_position[i],dz_position[i])
     )
     body_frame_wind_velocity.append(
-        math_extention.ned2bc(phi[i],theta[i],0,WIND_SPEED,0,0)
+        matex.ned2bc(phi[i],theta[i],0,WIND_SPEED,0,0)
     )
 
 # List to ndarray
@@ -205,7 +205,7 @@ body_frame_velocity = np.array(body_frame_velocity)
 body_frame_wind_velocity = np.array(body_frame_wind_velocity)
 
 # Convert pixhawk position to center
-body_frame_velocity[:,2] = body_frame_velocity[:,2] + dot_theta*LENGTH_FROM_CENTER_TO_PIXHAWK
+body_frame_velocity[:,2] = body_frame_velocity[:,2] + dtheta*LENGTH_FROM_CENTER_TO_PIXHAWK
 
 # Calculate airspeed
 body_frame_airspeed = body_frame_velocity - body_frame_wind_velocity
@@ -215,7 +215,7 @@ body_frame_airspeed_mag = np.sqrt(
     + body_frame_airspeed[:,2]**2
 )
 
-# plot
+# Plot
 plt.plot(time,body_frame_airspeed_mag)
 plt.plot(time,measurement_airspeed)
 plt.show()
@@ -223,4 +223,36 @@ plt.show()
 # Calculate angle of attack, rad
 alpha = np.arctan2(body_frame_airspeed[:,2],body_frame_airspeed[:,0])
 
-# Calculate time deviation
+# Calculate time difference
+time_diff = np.diff(time)
+time_diff = np.append(time_diff, time_diff[data_size-2]) # Append the last value
+
+# Acceleration
+body_frame_acceleration = []
+ddphi = []
+ddtheta = []
+ddpsi = []
+
+# Calculate acceleration
+body_frame_acceleration = np.array(
+	matex.central_diff(body_frame_velocity[:,0],time)
+) # x axis
+body_frame_acceleration = np.append(
+    body_frame_acceleration,
+    matex.central_diff(body_frame_velocity[:,1],time)
+) # y axis
+body_frame_acceleration = np.append(
+    body_frame_acceleration,
+    matex.central_diff(body_frame_velocity[:,2],time)
+) # z axis
+body_frame_acceleration =  body_frame_acceleration.reshape(data_size-2,3) # Unit
+
+ddphi = matex.central_diff(dphi,time)
+ddtheta = matex.central_diff(dtheta,time)
+ddpsi = matex.central_diff(dpsi,time)
+
+# Tilt
+tilt_switch = []
+manual_tilt_diff = np.diff(manual_tilt)
+manual_tilt_diff[np.isnan(manual_tilt_diff)] = 0 # Nan -> 0
+tilt_switch = (manual_tilt_diff) / (np.abs(manual_tilt_diff))
