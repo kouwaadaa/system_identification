@@ -252,7 +252,18 @@ ddtheta = matex.central_diff(dtheta,time)
 ddpsi = matex.central_diff(dpsi,time)
 
 # Tilt
-tilt_switch = []
-manual_tilt_diff = np.diff(manual_tilt)
-manual_tilt_diff[np.isnan(manual_tilt_diff)] = 0 # Nan -> 0
-tilt_switch = (manual_tilt_diff) / (np.abs(manual_tilt_diff))
+tilt_switch = np.diff(manual_tilt)
+tilt_switch[np.isnan(tilt_switch)] = 0 # Nan -> 0
+
+for i in range(np.size(tilt_switch)):
+    if tilt_switch[i] > 0:
+        tilt_switch[i] = 1
+        continue
+    elif tilt_switch[i] < 0:
+        tilt_switch[i] = -1
+        continue
+    elif tilt_switch[i] == 0:
+        tilt_switch[i] = tilt_switch[i-1]
+        continue
+
+tilt_switch = np.append(tilt_switch,tilt_switch[data_size-2]) # Append the last value
