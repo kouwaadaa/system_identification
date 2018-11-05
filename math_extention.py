@@ -66,7 +66,7 @@ def both_side_diff(x):
     Raises
     ------
     ValueError
-        if x contains 2 or less numbers, cannot calculate and raise error.
+        if x contains only 2 or less numbers, cannot calculate and raise error.
 
     Examples
     --------
@@ -86,11 +86,21 @@ def both_side_diff(x):
     return diff
 
 
-def central_diff():
+def central_diff(y, dx):
     '''
     Calculate with central differences.
 
     Parameters
     ----------
+    y: array-like
+    dx: array-like
 
+    Returns
+    -------
+    dydx: array-like
+        Result.
     '''
+
+    dydx = both_side_diff(y) / both_side_diff(dx)
+
+    return dydx
