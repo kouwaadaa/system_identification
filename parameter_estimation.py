@@ -44,7 +44,7 @@ WIND_SPEED = -3.0000
 THRUST_EFFICIENCY = 40/48
 
 # Position to stop tilt
-GAMMA = 0
+GAMMA = 90*(pi/180)
 
 # Max thrust value of sub rotor
 SUB_THRUST_MAX = 9.0
@@ -219,9 +219,9 @@ body_frame_airspeed_mag = np.sqrt(
 )
 
 # Plot
-plt.plot(time,body_frame_airspeed_mag)
-plt.plot(time,measurement_airspeed)
-plt.show()
+# plt.plot(time,body_frame_airspeed_mag)
+# plt.plot(time,measurement_airspeed)
+# plt.show()
 
 # Calculate angle of attack, rad
 alpha = np.arctan2(body_frame_airspeed[:,2],body_frame_airspeed[:,0])
@@ -231,36 +231,28 @@ time_diff = np.diff(time)
 time_diff = np.append(time_diff, time_diff[data_size-2]) # Append the last value
 
 # Acceleration
-body_frame_acceleration = []
+body_frame_acceleration_list = []
 ddphi = []
 ddtheta = []
 ddpsi = []
 
 # Calculate acceleration
-body_frame_acceleration = np.array(
+body_frame_acceleration_list = np.array(
 	matex.central_diff(body_frame_velocity[:,0],time)
 ) # x axis
-body_frame_acceleration = np.append(
-    body_frame_acceleration,
+body_frame_acceleration_list = np.append(
+    body_frame_acceleration_list,
     matex.central_diff(body_frame_velocity[:,1],time)
 ) # y axis
-body_frame_acceleration = np.append(
-    body_frame_acceleration,
+body_frame_acceleration_list = np.append(
+    body_frame_acceleration_list,
     matex.central_diff(body_frame_velocity[:,2],time)
 ) # z axis
-body_frame_acceleration =  body_frame_acceleration.reshape(data_size,3) # Unit
+body_frame_acceleration =  np.reshape(body_frame_acceleration_list,(data_size,3),order='F') # Unit
 
 ddphi = matex.central_diff(dphi,time)
 ddtheta = matex.central_diff(dtheta,time)
 ddpsi = matex.central_diff(dpsi,time)
-
-# # 要素数合わせ
-# ddphi = np.insert(ddphi,0,0)
-# ddphi = np.append(ddphi,ddphi[data_size-2])
-# ddtheta = np.insert(ddtheta,0,0)
-# ddtheta = np.append(ddtheta,ddtheta[data_size-2])
-# ddpsi = np.insert(ddpsi,0,0)
-# ddpsi = np.append(ddpsi,ddpsi[data_size-2])
 
 # Tilt
 tilt_switch = np.diff(manual_tilt)
@@ -296,4 +288,14 @@ for i in range(np.size(tilt_switch)):
         tilt = np.append(tilt,0)
 
 # Translation motion
-# body_translation_x = MASS * (body_frame_acceleration[:,0]+ dtheta*body_frame_velocity[:,2])+ MASS * GRAVITY * np.sin(theta)
+body_translation_x = MASS * (body_frame_acceleration[:,0] + dtheta*body_frame_velocity[:,2]) \
+                    + MASS * GRAVITY * np.sin(theta)
+body_translation_z = MASS * (body_frame_acceleration[:,2] - dtheta*body_frame_velocity[:,0]) \
+                    + MASS * GRAVITY * np.cos(theta)
+rotor_translation_x = (main_up_pwm + main_low_pwm) * np.sin(tilt)
+rotor_translation_z = - ((main_up_pwm + main_low_pwm) * np.cos(tilt) \
+                      - (sub_right_pwm + sub_left_pwm + sub_front_up_pwm + sub_front_low_pwm))
+translation_x = body_translation_x - rotor_translation_x
+translation_z = body_translation_z - rotor_translation_z
+lift_force = translation_x * np.sin(alpha) - translation_z * np.cos(alpha)
+drag_force = - translation_x * np.cos(alpha) - translation_z * np.sin(alpha)
