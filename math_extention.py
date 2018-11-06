@@ -102,5 +102,7 @@ def central_diff(y, dx):
     '''
 
     dydx = both_side_diff(y) / both_side_diff(dx)
+    dydx = np.insert(dydx,0,0) # First facotor is 0.
+    dydx = np.append(dydx,dydx[-1]) # Copy the last factor.
 
     return dydx

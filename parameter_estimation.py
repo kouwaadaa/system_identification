@@ -36,12 +36,15 @@ LENGTH_FROM_CENTER_TO_PIXHAWK = 0.353 # Center of gravity <-> Pixhawk
 # Other values
 MASS = 5.7376 # Airframe weight
 GRAVITY = 9.80665 # Gravity acceleration
-RHO = 1.205 # Air density ρ
+RHO = 1.205 # Air density
 SURFACE_AREA = 0.2087*2 + 0.1202 # Main wing + body
 MEAN_AERODYNAMIC_CHORD = 0.43081 # MAC
 
 WIND_SPEED = -3.0000
 THRUST_EFFICIENCY = 40/48
+
+# Position to stop tilt
+GAMMA = 0
 
 # Max thrust value of sub rotor
 SUB_THRUST_MAX = 9.0
@@ -245,21 +248,29 @@ body_frame_acceleration = np.append(
     body_frame_acceleration,
     matex.central_diff(body_frame_velocity[:,2],time)
 ) # z axis
-body_frame_acceleration =  body_frame_acceleration.reshape(data_size-2,3) # Unit
+body_frame_acceleration =  body_frame_acceleration.reshape(data_size,3) # Unit
 
 ddphi = matex.central_diff(dphi,time)
 ddtheta = matex.central_diff(dtheta,time)
 ddpsi = matex.central_diff(dpsi,time)
+
+# # 要素数合わせ
+# ddphi = np.insert(ddphi,0,0)
+# ddphi = np.append(ddphi,ddphi[data_size-2])
+# ddtheta = np.insert(ddtheta,0,0)
+# ddtheta = np.append(ddtheta,ddtheta[data_size-2])
+# ddpsi = np.insert(ddpsi,0,0)
+# ddpsi = np.append(ddpsi,ddpsi[data_size-2])
 
 # Tilt
 tilt_switch = np.diff(manual_tilt)
 tilt_switch[np.isnan(tilt_switch)] = 0 # Nan -> 0
 
 for i in range(np.size(tilt_switch)):
-    if tilt_switch[i] > 0:
+    if tilt_switch[i] > 0: # MC -> FW
         tilt_switch[i] = 1
         continue
-    elif tilt_switch[i] < 0:
+    elif tilt_switch[i] < 0: # FW -> MC
         tilt_switch[i] = -1
         continue
     elif tilt_switch[i] == 0:
@@ -267,3 +278,22 @@ for i in range(np.size(tilt_switch)):
         continue
 
 tilt_switch = np.append(tilt_switch,tilt_switch[data_size-2]) # Append the last value
+
+tilt = []
+
+for i in range(np.size(tilt_switch)):
+    if tilt_switch[i] == 1:
+        tilt = np.append(tilt,tilt[i-1] + (90/4.0)*time_diff[i])
+        if tilt[i] >= GAMMA:
+            tilt[i] = GAMMA
+            continue
+    elif tilt_switch[i] == -1:
+        tilt = np.append(tilt,tilt[i-1] - (90/4.0)*time_diff[i])
+        if tilt[i] < 0.0:
+            tilt[i] = 0
+            continue
+    elif tilt_switch[i] == 0:
+        tilt = np.append(tilt,0)
+
+# Translation motion
+# body_translation_x = MASS * (body_frame_acceleration[:,0]+ dtheta*body_frame_velocity[:,2])+ MASS * GRAVITY * np.sin(theta)
