@@ -52,31 +52,33 @@ THRUST_EFFICIENCY = 40/48
 # Max thrust value of sub rotor
 SUB_THRUST_MAX = 9.0
 
+print(matex.ned2bc(0.1,0.2,0.1,1,2,3))
+
 # Read log data
-read_book3 = pd.read_csv(
-    filepath_or_buffer='./log_data/Book3.csv',
-    encoding='ASCII',
-    sep=',',
-    header=None
-)
-
-# Delete Time duplicate lines
-read_book3 = read_book3.drop_duplicates(subset=390)
-
-# Convert "time"
-read_book3['Time_ST'] = read_book3.at[0,390]
-read_book3['Time_Conv'] = (read_book3[390] - read_book3['Time_ST'])/1000000
-read_book3 = read_book3.query(
-    '17.52 <= Time_Conv <= 19.14 \
-    |13 > Time_Conv'
-) # Cut time band
-
-# Insert data(windspeed, thrust efficiency, gamma(tilt angle))
-read_book3['V_wind'] = -4.03
-read_book3['Thrust_Ef'] = 40/48
-read_book3['Gamma'] = 0
-
-print(read_book3)
+# read_book3 = pd.read_csv(
+#     filepath_or_buffer='./log_data/Book3.csv',
+#     encoding='ASCII',
+#     sep=',',
+#     header=None
+# )
+#
+# # Delete Time duplicate lines
+# read_book3 = read_book3.drop_duplicates(subset=390)
+#
+# # Convert "time"
+# read_book3['Time_ST'] = read_book3.at[0,390]
+# read_book3['Time_Conv'] = (read_book3[390] - read_book3['Time_ST'])/1000000
+# read_book3 = read_book3.query(
+#     '17.52 <= Time_Conv <= 19.14 \
+#     |13 > Time_Conv'
+# ) # Cut time band
+#
+# # Insert data(windspeed, thrust efficiency, gamma(tilt angle))
+# read_book3['V_wind'] = -4.03
+# read_book3['Thrust_Ef'] = 40/48
+# read_book3['Gamma'] = 0
+#
+# print(read_book3)
 # print(pd.concat([read_log_data,read_book3_conv]))
 
 #---------------------------

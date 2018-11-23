@@ -303,10 +303,10 @@ for file_number in range(FILE_NUM):
     # Rotor thrust
     Tm_up = THRUST_EF*0.5*GRA*(9.5636* 10**(-3)*main_up_pwm - 12.1379)
     Tm_down = THRUST_EF*0.5*GRA*(9.5636* 10**(-3)*main_low_pwm - 12.1379)
-    Ts_r = GRA*(1.5701* 10**(-6) *(sub_right_pwm) *1.9386)
-    Ts_l = GRA*(1.5701* 10**(-6) *(sub_left_pwm) *1.9386)
-    Tf_up = GRA*(1.5701* 10**(-6) *(sub_front_up_pwm) *1.9386)
-    Tf_down = GRA*(1.5701* 10**(-6) *(sub_front_low_pwm) *1.9386)
+    Ts_r = GRA*(1.5701* 10**(-6) *(sub_right_pwm)**2 - 3.3963*10**(-3)*sub_right_pwm + 1.9386)
+    Ts_l = GRA*(1.5701* 10**(-6) *(sub_left_pwm)**2 - 3.3963*10**(-3)*sub_left_pwm + 1.9386)
+    Tf_up = GRA*(1.5701* 10**(-6) *(sub_front_up_pwm)**2 - 3.3963*10**(-3)*sub_front_up_pwm + 1.9386)
+    Tf_down = GRA*(1.5701* 10**(-6) *(sub_front_low_pwm)**2 - 3.3963*10**(-3)*sub_front_low_pwm + 1.9386)
 
     # Thrust limmiter
     Tm_up[Tm_up < 0] = 0
@@ -332,8 +332,8 @@ for file_number in range(FILE_NUM):
 
     # Calculate velocity
     pixhawk_groundspeed = np.sqrt(
-        dx_position**2
-        + dy_position**2
+        dx_position**2 \
+        + dy_position**2 \
         + dz_position**2
     )
 
@@ -434,10 +434,10 @@ for file_number in range(FILE_NUM):
     body_translation_x = MASS * (body_frame_acceleration[:,0] + d_theta*body_frame_velocity[:,2]) \
                         + MASS * GRA * np.sin(theta)
     body_translation_z = MASS * (body_frame_acceleration[:,2] - d_theta*body_frame_velocity[:,0]) \
-                        + MASS * GRA * np.cos(theta)
-    rotor_translation_x = (main_up_pwm + main_low_pwm) * np.sin(tilt)
-    rotor_translation_z = - ((main_up_pwm + main_low_pwm) * np.cos(tilt) \
-                          - (sub_right_pwm + sub_left_pwm + sub_front_up_pwm + sub_front_low_pwm))
+                        - MASS * GRA * np.cos(theta)
+    rotor_translation_x = (Tm_up + Tm_down) * np.sin(tilt)
+    rotor_translation_z = - (Tm_up + Tm_down) * np.cos(tilt) \
+                          - (Ts_r + Ts_l + Tf_up + Tf_down)
     translation_x = body_translation_x - rotor_translation_x
     translation_z = body_translation_z - rotor_translation_z
     lift_force = translation_x * np.sin(alpha) - translation_z * np.cos(alpha)
@@ -469,7 +469,48 @@ for file_number in range(FILE_NUM):
         'dd_phi' : dd_phi,
         'dd_theta' : dd_theta,
         'dd_psi' : dd_psi,
-        'x_position' : x_position,
-        'y_position' : y_position,
-        'z_position' : z_position,
+        'alpha' : alpha,
+        'Va' : body_frame_airspeed_mag,
+        'delta_e' : elevator,
+        'L' : lift_force
     })])
+
+#---------------------------
+# Extract data
+#---------------------------
+data_size = len(format_log_data)
+d_theta = np.array(format_log_data.values[:,4])
+alpha = np.array(format_log_data.values[:,9])
+Va = np.array(format_log_data.values[:,10])
+delta_e = np.array(format_log_data.values[:,11])
+L = np.array(format_log_data.values[:,12])
+
+CL_0 = 0.0634
+CL_alpha = 2.68
+
+yL = (L/((1/2)*RHO*(Va**2)*S)) - CL_0 - CL_alpha*alpha
+xL = np.zeros((data_size,3))
+xL[:,0] = (MAC*d_theta)/(2*Va)
+xL[:,1] = delta_e
+xL[:,2] = 1/((1/2)*RHO*Va*S)
+
+theta_hat = np.dot((np.linalg.pinv(xL)),yL)
+
+CL_q = theta_hat[0]
+CL_delta_e = theta_hat[1]
+k_L = theta_hat[2]
+
+lift_calc = (1/2)*RHO*S*(Va**2)*( \
+                CL_0 \
+                + CL_alpha*alpha \
+                + CL_q*(MAC/(2*Va))*d_theta \
+                + CL_delta_e*delta_e \
+                + k_L*Va \
+                )
+
+plt.plot(L)
+plt.plot(lift_calc)
+plt.grid()
+plt.xlabel('データ番号')
+plt.ylabel('揚力')
+plt.show()
