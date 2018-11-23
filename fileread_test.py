@@ -52,112 +52,121 @@ THRUST_EFFICIENCY = 40/48
 # Max thrust value of sub rotor
 SUB_THRUST_MAX = 9.0
 
-#---------------------------
-# Read log data (CSV)
-#---------------------------
-
 # Read log data
-read_log_data = pd.read_csv(
-    filepath_or_buffer="./log_data/Book6.csv",
-    encoding="ASCII",
-    sep=",",
+read_book3 = pd.read_csv(
+    filepath_or_buffer='./log_data/Book3.csv',
+    encoding='ASCII',
+    sep=',',
     header=None
 )
 
-#---------------------------
 # Delete Time duplicate lines
-#---------------------------
+read_book3 = read_book3.drop_duplicates(subset=390)
 
-read_log_data = read_log_data.drop_duplicates(subset=390)
+# Convert "time"
+read_book3['Time_ST'] = read_book3.at[0,390]
+read_book3['Time_Conv'] = (read_book3[390] - read_book3['Time_ST'])/1000000
+read_book3 = read_book3.query(
+    '17.52 <= Time_Conv <= 19.14 \
+    |13 > Time_Conv'
+) # Cut time band
+
+# Insert data(windspeed, thrust efficiency, gamma(tilt angle))
+read_book3['V_wind'] = -4.03
+read_book3['Thrust_Ef'] = 40/48
+read_book3['Gamma'] = 0
+
+print(read_book3)
+# print(pd.concat([read_log_data,read_book3_conv]))
 
 #---------------------------
 # Assign log data
 #---------------------------
-
-# Angle
-phi = np.array(read_log_data.values[:,0])
-theta = np.array(read_log_data.values[:,1])
-psi = np.array(read_log_data.values[:,2])
-
-# Angular velocity
-dphi = np.array(read_log_data.values[:,3])
-dtheta = np.array(read_log_data.values[:,4])
-dpsi = np.array(read_log_data.values[:,5])
-
-# Position
-x_position = np.array(read_log_data.values[:,53])
-y_position = np.array(read_log_data.values[:,54])
-z_position = np.array(read_log_data.values[:,55])
-
-# Velocity
-dx_position = np.array(read_log_data.values[:,58])
-dy_position = np.array(read_log_data.values[:,59])
-dz_position = np.array(read_log_data.values[:,60])
-
-# GPS altitude
-gps_altitude = np.array(read_log_data.values[:,79])
-
-# Airspeed by Pitot tube
-measurement_airspeed = np.array(read_log_data.values[:,133])
-
-# Pulese Width Modulation of rotors
-main_up_pwm = np.array(read_log_data.values[:,116]) # T1
-main_low_pwm = np.array(read_log_data.values[:,117]) # T2
-sub_right_pwm = np.array(read_log_data.values[:,118]) # T3
-sub_left_pwm = np.array(read_log_data.values[:,119]) # T4
-sub_front_up_pwm = np.array(read_log_data.values[:,120]) # T5
-sub_front_low_pwm = np.array(read_log_data.values[:,121]) # T6
-
-# Elevon steering angle (command 0 ~ 1)
-delta_e_right_command = np.array(read_log_data.values[:,124])
-delta_e_left_command = np.array(read_log_data.values[:,125])
-
-# Manual manipulation quantity
-manual_pitch = np.array(read_log_data.values[:,374])
-manual_thrust = np.array(read_log_data.values[:,377])
-manual_tilt = np.array(read_log_data.values[:,389])
-
-# Time log
-time_log = np.array(read_log_data.values[:,390] / 1000000)
-
-# Set start time to 0 second
-time = np.array(time_log - time_log[0])
-
-# Get data size (rows)
-data_size = len(read_log_data)
-
-#---------------------------
 #
-#---------------------------
-
-# Velocity
-pixhawk_groundspeed = []
-body_frame_velocity = []
-body_frame_wind_velocity = []
-body_frame_airspeed = []
-
-# Calculate velocity
-pixhawk_groundspeed = np.sqrt(
-    dx_position**2
-    + dy_position**2
-    + dz_position**2
-)
-
-# Convert NED frame to body frame
-for i in range(data_size):
-    body_frame_velocity.append(
-        matex.ned2bc(phi[i],theta[i],psi[i],dx_position[i],dy_position[i],dz_position[i])
-    )
-    body_frame_wind_velocity.append(
-        matex.ned2bc(phi[i],theta[i],0,WIND_SPEED,0,0)
-    )
-
-# List to ndarray
-body_frame_velocity = np.array(body_frame_velocity)
-body_frame_wind_velocity = np.array(body_frame_wind_velocity)
-
-# Convert pixhawk position to center
-body_frame_velocity[:,2] = body_frame_velocity[:,2] + dtheta*LENGTH_FROM_CENTER_TO_PIXHAWK
+# # Angle
+# phi = np.array(read_log_data.values[:,0])
+# theta = np.array(read_log_data.values[:,1])
+# psi = np.array(read_log_data.values[:,2])
+#
+# # Angular velocity
+# dphi = np.array(read_log_data.values[:,3])
+# dtheta = np.array(read_log_data.values[:,4])
+# dpsi = np.array(read_log_data.values[:,5])
+#
+# # Position
+# x_position = np.array(read_log_data.values[:,53])
+# y_position = np.array(read_log_data.values[:,54])
+# z_position = np.array(read_log_data.values[:,55])
+#
+# # Velocity
+# dx_position = np.array(read_log_data.values[:,58])
+# dy_position = np.array(read_log_data.values[:,59])
+# dz_position = np.array(read_log_data.values[:,60])
+#
+# # GPS altitude
+# gps_altitude = np.array(read_log_data.values[:,79])
+#
+# # Airspeed by Pitot tube
+# measurement_airspeed = np.array(read_log_data.values[:,133])
+#
+# # Pulese Width Modulation of rotors
+# main_up_pwm = np.array(read_log_data.values[:,116]) # T1
+# main_low_pwm = np.array(read_log_data.values[:,117]) # T2
+# sub_right_pwm = np.array(read_log_data.values[:,118]) # T3
+# sub_left_pwm = np.array(read_log_data.values[:,119]) # T4
+# sub_front_up_pwm = np.array(read_log_data.values[:,120]) # T5
+# sub_front_low_pwm = np.array(read_log_data.values[:,121]) # T6
+#
+# # Elevon steering angle (command 0 ~ 1)
+# delta_e_right_command = np.array(read_log_data.values[:,124])
+# delta_e_left_command = np.array(read_log_data.values[:,125])
+#
+# # Manual manipulation quantity
+# manual_pitch = np.array(read_log_data.values[:,374])
+# manual_thrust = np.array(read_log_data.values[:,377])
+# manual_tilt = np.array(read_log_data.values[:,389])
+#
+# # Time log
+# time_log = np.array(read_log_data.values[:,390] / 1000000)
+#
+# # Set start time to 0 second
+# time = np.array(time_log - time_log[0])
+#
+# # Get data size (rows)
+# data_size = len(read_log_data)
+#
+# #---------------------------
+# #
+# #---------------------------
+#
+# # Velocity
+# pixhawk_groundspeed = []
+# body_frame_velocity = []
+# body_frame_wind_velocity = []
+# body_frame_airspeed = []
+#
+# # Calculate velocity
+# pixhawk_groundspeed = np.sqrt(
+#     dx_position**2
+#     + dy_position**2
+#     + dz_position**2
+# )
+#
+# # Convert NED frame to body frame
+# for i in range(data_size):
+#     body_frame_velocity.append(
+#         matex.ned2bc(phi[i],theta[i],psi[i],dx_position[i],dy_position[i],dz_position[i])
+#     )
+#     body_frame_wind_velocity.append(
+#         matex.ned2bc(phi[i],theta[i],0,WIND_SPEED,0,0)
+#     )
+#
+# # List to ndarray
+# body_frame_velocity = np.array(body_frame_velocity)
+# body_frame_wind_velocity = np.array(body_frame_wind_velocity)
+#
+# # Convert pixhawk position to center
+# body_frame_velocity[:,2] = body_frame_velocity[:,2] + dtheta*LENGTH_FROM_CENTER_TO_PIXHAWK
 
 # # 差分関数の確認
 # size = np.size(dot_x_position)
@@ -166,13 +175,13 @@ body_frame_velocity[:,2] = body_frame_velocity[:,2] + dtheta*LENGTH_FROM_CENTER_
 # diff = dot_x_position - diff_x
 # diff = np.delete(diff,[0,1])
 
-body_frame_acceleration = np.array(
-	matex.central_diff(body_frame_velocity[:,0],time)
-)
-
-body_frame_acceleration = np.append(body_frame_acceleration,matex.central_diff(body_frame_velocity[:,1],time))
-body_frame_acceleration = np.append(body_frame_acceleration,matex.central_diff(body_frame_velocity[:,2],time))
-body_frame_acceleration =  body_frame_acceleration.reshape(data_size-2, 3)
+# body_frame_acceleration = np.array(
+# 	matex.central_diff(body_frame_velocity[:,0],time)
+# )
+#
+# body_frame_acceleration = np.append(body_frame_acceleration,matex.central_diff(body_frame_velocity[:,1],time))
+# body_frame_acceleration = np.append(body_frame_acceleration,matex.central_diff(body_frame_velocity[:,2],time))
+# body_frame_acceleration =  body_frame_acceleration.reshape(data_size-2, 3)
 
 # dot_xyz_position = np.concatenate([dot_x_position,dot_y_position,dot_z_position], axis=1)
 

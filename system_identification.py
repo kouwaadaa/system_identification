@@ -23,8 +23,7 @@ get_ipython().run_line_magic('matplotlib', 'qt')
 
 # Set font
 # print([f.name for f in matplotlib.font_manager.fontManager.ttflist])
-font = {'family':'YuGothic'}
-plt.rc('font', **font)
+plt.rc('font', **{'family':'YuGothic'})
 plt.rcParams['font.size'] = 20
 plt.rcParams['xtick.labelsize'] = 15
 plt.rcParams['ytick.labelsize'] = 15 # default: 12
@@ -60,32 +59,201 @@ RHO = 1.205 # Air density
 S = 0.2087*2 + 0.1202 # Main wing + body
 MAC = 0.43081 # MAC
 
-V_W = -3.0000 # Wind speed
-THRUST_EF = 40/48
+# V_W = -3.0000 # Wind speed
+# THRUST_EF = 40/48
 
 # Position to stop tilt
-GAMMA = 90*(pi/180)
+# GAMMA = 90*(pi/180)
 
 # Max thrust value of sub rotor
 SUB_THRUST_MAX = 9.0
 
 #---------------------------
-# Read log data (CSV)
+# Read log data (CSV) -> Format log data
 #---------------------------
 
 # Read log data
-read_log_data = pd.read_csv(
-    filepath_or_buffer="./log_data/Book6.csv",
-    encoding="ASCII",
-    sep=",",
+read_book3 = pd.read_csv(
+    filepath_or_buffer='./log_data/Book3.csv',
+    encoding='ASCII',
+    sep=',',
     header=None
 )
 
-#---------------------------
 # Delete Time duplicate lines
+read_book3 = read_book3.drop_duplicates(subset=390)
+
+# Convert "time"
+read_book3['Time_ST'] = read_book3.at[0,390]
+read_book3['Time_Conv'] = (read_book3[390] - read_book3['Time_ST'])/1000000
+
+# Cut time band
+read_book3 = read_book3.query(
+    '17.52 <= Time_Conv <= 19.14'
+)
+
+# Insert data(windspeed, thrust efficiency, gamma(tilt angle))
+read_book3['V_Wind'] = -4.03
+read_book3['Thrust_Ef'] = 40/48
+read_book3['Gamma'] = 0
+
 #---------------------------
 
-read_log_data = read_log_data.drop_duplicates(subset=390)
+# Read log data
+read_book4 = pd.read_csv(
+    filepath_or_buffer='./log_data/Book4.csv',
+    encoding='ASCII',
+    sep=',',
+    header=None
+)
+
+# Delete Time duplicate lines
+read_book4 = read_book4.drop_duplicates(subset=390)
+
+# Convert "time"
+read_book4['Time_ST'] = read_book4.at[0,390]
+read_book4['Time_Conv'] = (read_book4[390] - read_book4['Time_ST'])/1000000
+
+# Cut time band
+read_book4 = read_book4.query(
+    '11.97 <= Time_Conv <= 13.30 \
+    | 18.66 <= Time_Conv <= 21.08'
+)
+
+# Insert data(windspeed, thrust efficiency, gamma(tilt angle))
+read_book4['V_Wind'] = -5.05
+read_book4['Thrust_Ef'] = 40/45
+read_book4['Gamma'] = 0
+
+#---------------------------
+
+# Read log data
+read_book5 = pd.read_csv(
+    filepath_or_buffer='./log_data/Book5.csv',
+    encoding='ASCII',
+    sep=',',
+    header=None
+)
+
+# Delete Time duplicate lines
+read_book5 = read_book5.drop_duplicates(subset=390)
+
+# Convert "time"
+read_book5['Time_ST'] = read_book5.at[0,390]
+read_book5['Time_Conv'] = (read_book5[390] - read_book5['Time_ST'])/1000000
+
+# Cut time band
+read_book5 = read_book5.query(
+    '12.45 <= Time_Conv <= 13.66 \
+    | 16.07 <= Time_Conv <= 17.03 \
+    | 18.95 <= Time_Conv <= 22.88'
+)
+
+# Insert data(windspeed, thrust efficiency, gamma(tilt angle))
+read_book5['V_Wind'] = -4.80
+read_book5['Thrust_Ef'] = 40/48
+read_book5['Gamma'] = 0
+
+#---------------------------
+
+# Read log data
+read_book8 = pd.read_csv(
+    filepath_or_buffer='./log_data/Book8.csv',
+    encoding='ASCII',
+    sep=',',
+    header=None
+)
+
+# Delete Time duplicate lines
+read_book8 = read_book8.drop_duplicates(subset=390)
+
+# Convert "time"
+read_book8['Time_ST'] = read_book8.at[0,390]
+read_book8['Time_Conv'] = (read_book8[390] - read_book8['Time_ST'])/1000000
+
+# Cut time band
+read_book8 = read_book8.query(
+    '15.41 <= Time_Conv <= 20.10 \
+    | 21.46 <= Time_Conv <= 23.07 \
+    | 23.44 <= Time_Conv <= 24.64 \
+    | 25.28 <= Time_Conv <= 27.38'
+)
+
+# Insert data(windspeed, thrust efficiency, gamma(tilt angle))
+read_book8['V_Wind'] = -2.0
+read_book8['Thrust_Ef'] = 40/47
+read_book8['Gamma'] = 0
+
+#---------------------------
+
+# Read log data
+read_book9 = pd.read_csv(
+    filepath_or_buffer='./log_data/Book9.csv',
+    encoding='ASCII',
+    sep=',',
+    header=None
+)
+
+# Delete Time duplicate lines
+read_book9 = read_book9.drop_duplicates(subset=390)
+
+# Convert "time"
+read_book9['Time_ST'] = read_book9.at[0,390]
+read_book9['Time_Conv'] = (read_book9[390] - read_book9['Time_ST'])/1000000
+
+# Cut time band
+read_book9 = read_book9.query(
+    '20.73 <= Time_Conv <= 30.28 \
+    | 98.05 <= Time_Conv <= 104.1 \
+    | 104.9 <= Time_Conv <= 107.1 \
+    | 107.7 <= Time_Conv <= 109.7'
+)
+
+# Insert data(windspeed, thrust efficiency, gamma(tilt angle))
+read_book9['V_Wind'] = -2.647
+read_book9['Thrust_Ef'] = 40/48
+read_book9['Gamma'] = 0
+
+#---------------------------
+
+# Read log data
+read_book11 = pd.read_csv(
+    filepath_or_buffer='./log_data/Book11.csv',
+    encoding='ASCII',
+    sep=',',
+    header=None
+)
+
+# Delete Time duplicate lines
+read_book11 = read_book11.drop_duplicates(subset=390)
+
+# Convert "time"
+read_book11['Time_ST'] = read_book11.at[0,390]
+read_book11['Time_Conv'] = (read_book11[390] - read_book11['Time_ST'])/1000000
+
+# Cut time band
+read_book11 = read_book11.query(
+    '19.86 <= Time_Conv <= 25.27 \
+    | 26.43 <= Time_Conv <= 29.83'
+)
+
+# Insert data(windspeed, thrust efficiency, gamma(tilt angle))
+read_book11['V_Wind'] = -1.467
+read_book11['Thrust_Ef'] = 40/48
+read_book11['Gamma'] = 0
+
+#---------------------------
+# Concatenate log data
+#---------------------------
+
+read_log_data = pd.concat([
+    read_book3,
+    read_book4,
+    read_book5,
+    read_book8,
+    read_book9,
+    read_book11
+])
 
 #---------------------------
 # Assign log data
@@ -134,11 +302,8 @@ manual_pitch = np.array(read_log_data.values[:,374])
 manual_thrust = np.array(read_log_data.values[:,377])
 manual_tilt = np.array(read_log_data.values[:,389])
 
-# Time log
-time_log = np.array(read_log_data.values[:,390] / 1000000)
-
-# Set start time to 0 second
-time = np.array(time_log - time_log[0])
+# Time
+time = np.array(read_log_data.values[:,392])
 
 # Get data size (rows)
 data_size = len(read_log_data)
@@ -319,10 +484,3 @@ translation_x = body_translation_x - rotor_translation_x
 translation_z = body_translation_z - rotor_translation_z
 lift_force = translation_x * np.sin(alpha) - translation_z * np.cos(alpha)
 drag_force = - translation_x * np.cos(alpha) - translation_z * np.sin(alpha)
-
-plt.plot(time,lift_force, label='揚力')
-plt.title('揚力')
-plt.xlabel('Time[]')
-plt.ylabel('L[N]')
-plt.legend()
-plt.show()
