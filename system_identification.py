@@ -17,31 +17,31 @@ from numpy import pi
 #---------------------------
 
 # Moment of inertia [g/mm^2] -> [kg/m^2]
-INERTIA_MOMENTS = np.array(
+I = np.array(
     [[ 0.2484,-0.0037,-0.0078],
      [-0.0037, 0.1668, 0.0005],
      [-0.0078, 0.0005, 0.3804]]
 )
-INERTIA_MOMENT_XX = INERTIA_MOMENTS[0,0] # X-axis
-INERTIA_MOMENT_YY = INERTIA_MOMENTS[1,1] # Y-axis
-INERTIA_MOMENT_ZZ = INERTIA_MOMENTS[2,2] # Z-axis
+I_XX = I[0,0] # X-axis
+I_YY = I[1,1] # Y-axis
+I_ZZ = I[2,2] # Z-axis
 
 # Length [m]
-LENGTH_FROM_CENTER_TO_MAIN = 0.042 # Center of gravity <-> Main
-LENGTH_FROM_CENTER_TO_SUB_FRONT = 0.496 # Center of gravity <-> Sub front
-LENGTH_FROM_CENTER_TO_SUB_LEFT_RIGHT_X = 0.232 # Center of gravity <-> Sub x-axis
-LENGTH_FROM_CENTER_TO_SUB_LEFT_RIGHT_Y = 0.503 # Center of gravity <-> Sub y-axis
-LENGTH_FROM_CENTER_TO_PIXHAWK = 0.353 # Center of gravity <-> Pixhawk
+LEN_M = 0.042 # Center of gravity <-> Main
+LEN_F = 0.496 # Center of gravity <-> Sub front
+LEN_S_X = 0.232 # Center of gravity <-> Sub x-axis
+LEN_S_Y = 0.503 # Center of gravity <-> Sub y-axis
+LEN_P = 0.353 # Center of gravity <-> Pixhawk
 
 # Other values
 MASS = 5.7376 # Airframe weight
-GRAVITY = 9.80665 # Gravity acceleration
+GRA = 9.80665 # Gravity acceleration
 RHO = 1.205 # Air density
-SURFACE_AREA = 0.2087*2 + 0.1202 # Main wing + body
-MEAN_AERODYNAMIC_CHORD = 0.43081 # MAC
+S = 0.2087*2 + 0.1202 # Main wing + body
+MAC = 0.43081 # MAC
 
-WIND_SPEED = -3.0000
-THRUST_EFFICIENCY = 40/48
+V_W = -3.0000 # Wind speed
+THRUST_EF = 40/48
 
 # Position to stop tilt
 GAMMA = 90*(pi/180)
@@ -77,9 +77,9 @@ theta = np.array(read_log_data.values[:,1])
 psi = np.array(read_log_data.values[:,2])
 
 # Angular velocity
-dphi = np.array(read_log_data.values[:,3])
-dtheta = np.array(read_log_data.values[:,4])
-dpsi = np.array(read_log_data.values[:,5])
+d_phi = np.array(read_log_data.values[:,3])
+d_theta = np.array(read_log_data.values[:,4])
+d_psi = np.array(read_log_data.values[:,5])
 
 # Position
 x_position = np.array(read_log_data.values[:,53])
@@ -200,7 +200,7 @@ for i in range(data_size):
         matex.ned2bc(phi[i],theta[i],psi[i],dx_position[i],dy_position[i],dz_position[i])
     )
     body_frame_wind_velocity.append(
-        matex.ned2bc(phi[i],theta[i],0,WIND_SPEED,0,0)
+        matex.ned2bc(phi[i],theta[i],0,V_W,0,0)
     )
 
 # List to ndarray
@@ -208,7 +208,7 @@ body_frame_velocity = np.array(body_frame_velocity)
 body_frame_wind_velocity = np.array(body_frame_wind_velocity)
 
 # Convert pixhawk position to center
-body_frame_velocity[:,2] = body_frame_velocity[:,2] + dtheta*LENGTH_FROM_CENTER_TO_PIXHAWK
+body_frame_velocity[:,2] = body_frame_velocity[:,2] + d_theta*LEN_P
 
 # Calculate airspeed
 body_frame_airspeed = body_frame_velocity - body_frame_wind_velocity
@@ -232,9 +232,9 @@ time_diff = np.append(time_diff, time_diff[data_size-2]) # Append the last value
 
 # Acceleration
 body_frame_acceleration_list = []
-ddphi = []
-ddtheta = []
-ddpsi = []
+dd_phi = []
+dd_theta = []
+dd_psi = []
 
 # Calculate acceleration
 body_frame_acceleration_list = np.array(
@@ -250,9 +250,9 @@ body_frame_acceleration_list = np.append(
 ) # z axis
 body_frame_acceleration =  np.reshape(body_frame_acceleration_list,(data_size,3),order='F') # Unit
 
-ddphi = matex.central_diff(dphi,time)
-ddtheta = matex.central_diff(dtheta,time)
-ddpsi = matex.central_diff(dpsi,time)
+dd_phi = matex.central_diff(d_phi,time)
+dd_theta = matex.central_diff(d_theta,time)
+dd_psi = matex.central_diff(d_psi,time)
 
 # Tilt
 tilt_switch = np.diff(manual_tilt)
@@ -288,9 +288,9 @@ for i in range(np.size(tilt_switch)):
         tilt = np.append(tilt,0)
 
 # Translation motion
-body_translation_x = MASS * (body_frame_acceleration[:,0] + dtheta*body_frame_velocity[:,2]) \
+body_translation_x = MASS * (body_frame_acceleration[:,0] + d_theta*body_frame_velocity[:,2]) \
                     + MASS * GRAVITY * np.sin(theta)
-body_translation_z = MASS * (body_frame_acceleration[:,2] - dtheta*body_frame_velocity[:,0]) \
+body_translation_z = MASS * (body_frame_acceleration[:,2] - d_theta*body_frame_velocity[:,0]) \
                     + MASS * GRAVITY * np.cos(theta)
 rotor_translation_x = (main_up_pwm + main_low_pwm) * np.sin(tilt)
 rotor_translation_z = - ((main_up_pwm + main_low_pwm) * np.cos(tilt) \
@@ -299,3 +299,6 @@ translation_x = body_translation_x - rotor_translation_x
 translation_z = body_translation_z - rotor_translation_z
 lift_force = translation_x * np.sin(alpha) - translation_z * np.cos(alpha)
 drag_force = - translation_x * np.cos(alpha) - translation_z * np.sin(alpha)
+
+plt.plot(time,lift_force)
+plt.show()
