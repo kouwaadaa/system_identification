@@ -317,8 +317,8 @@ for file_number in range(FILE_NUM):
     Tf_down[Tf_down > SUB_THRUST_MAX] = SUB_THRUST_MAX
 
     # Elevon sterring angle
-    delta_e_right = (delta_e_right_command*400 + 1500)/8 - 1500/8)*pi/180
-    delta_e_left = (delta_e_left_command*400 + 1500)/8 - 1500/8)*pi/180
+    delta_e_right = ((delta_e_right_command*400 + 1500)/8 - 1500/8)*pi/180
+    delta_e_left = ((delta_e_left_command*400 + 1500)/8 - 1500/8)*pi/180
 
     # Elevon -> elevator & aileron
     elevator = (delta_e_left - delta_e_right)/2
