@@ -449,3 +449,27 @@ for file_number in range(FILE_NUM):
         - LEN_M*(Tm_up + Tm_down)*np.cos(tilt) \
         - LEN_S_X*(Ts_l + Ts_r) # Moment of rotor thrust
     Ma = M - tau # Moment of translate motion
+
+    #---------------------------
+    # Concatenate data
+    #---------------------------
+
+    # First format log data init
+    if file_number == 0:
+        format_log_data = pd.DataFrame()
+
+    # Concatenate log data
+    format_log_data = pd.concat([format_log_data, pd.DataFrame({
+        'phi' : phi,
+        'theta' : theta,
+        'psi' : psi,
+        'd_phi' : d_phi,
+        'd_theta' : d_theta,
+        'd_psi' : d_psi,
+        'dd_phi' : dd_phi,
+        'dd_theta' : dd_theta,
+        'dd_psi' : dd_psi,
+        'x_position' : x_position,
+        'y_position' : y_position,
+        'z_position' : z_position,
+    })])
