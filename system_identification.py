@@ -5,12 +5,32 @@
 #---------------------------
 
 import numpy as np
+from numpy import pi
 import pandas as pd
+
 import matplotlib.pyplot as plt
+# import matplotlib.font_manager
+from IPython import get_ipython
 
 import math_extention as matex
 
-from numpy import pi
+#---------------------------
+# Setting matplotlib
+#---------------------------
+
+# Plot out of Window
+get_ipython().run_line_magic('matplotlib', 'qt')
+
+# Set font
+# print([f.name for f in matplotlib.font_manager.fontManager.ttflist])
+font = {'family':'YuGothic'}
+plt.rc('font', **font)
+plt.rcParams['font.size'] = 20
+plt.rcParams['xtick.labelsize'] = 15
+plt.rcParams['ytick.labelsize'] = 15 # default: 12
+
+# Set figure
+plt.rcParams["figure.figsize"] = [20, 12]
 
 #---------------------------
 # Aircraft values
@@ -141,8 +161,8 @@ for i in range(data_size):
 
   # Linear approximation
   # List append is more fast
-  main_up_thrust.append(THRUST_EFFICIENCY*0.5*9.8*(9.5636* 10**(-3)*main_up_pwm[i] - 12.1379))
-  main_low_thrust.append(THRUST_EFFICIENCY*0.5*9.8*(9.5636* 10**(-3)*main_low_pwm[i] - 12.1379))
+  main_up_thrust.append(THRUST_EF*0.5*9.8*(9.5636* 10**(-3)*main_up_pwm[i] - 12.1379))
+  main_low_thrust.append(THRUST_EF*0.5*9.8*(9.5636* 10**(-3)*main_low_pwm[i] - 12.1379))
   sub_right_thrust.append(9.8*(1.5701* 10**(-6) *(sub_right_pwm[i]) *1.9386))
   sub_left_thrust.append(9.8*(1.5701* 10**(-6) *(sub_left_pwm[i]) *1.9386))
   sub_front_up_thrust.append(9.8*(1.5701* 10**(-6) *(sub_front_up_pwm[i]) *1.9386))
@@ -289,9 +309,9 @@ for i in range(np.size(tilt_switch)):
 
 # Translation motion
 body_translation_x = MASS * (body_frame_acceleration[:,0] + d_theta*body_frame_velocity[:,2]) \
-                    + MASS * GRAVITY * np.sin(theta)
+                    + MASS * GRA * np.sin(theta)
 body_translation_z = MASS * (body_frame_acceleration[:,2] - d_theta*body_frame_velocity[:,0]) \
-                    + MASS * GRAVITY * np.cos(theta)
+                    + MASS * GRA * np.cos(theta)
 rotor_translation_x = (main_up_pwm + main_low_pwm) * np.sin(tilt)
 rotor_translation_z = - ((main_up_pwm + main_low_pwm) * np.cos(tilt) \
                       - (sub_right_pwm + sub_left_pwm + sub_front_up_pwm + sub_front_low_pwm))
@@ -300,5 +320,9 @@ translation_z = body_translation_z - rotor_translation_z
 lift_force = translation_x * np.sin(alpha) - translation_z * np.cos(alpha)
 drag_force = - translation_x * np.cos(alpha) - translation_z * np.sin(alpha)
 
-plt.plot(time,lift_force)
+plt.plot(time,lift_force, label='揚力')
+plt.title('揚力')
+plt.xlabel('Time[]')
+plt.ylabel('L[N]')
+plt.legend()
 plt.show()
