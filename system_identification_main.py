@@ -300,36 +300,15 @@ for file_number in range(FILE_NUM):
     # Calculate datum
     #---------------------------
 
-    # Thrust by rotor
-    Tm_up = [] # T1
-    Tm_down = [] # T2
-    Ts_r = [] # T3
-    Ts_l = [] # T4
-    Tf_up = [] # T5
-    Tf_down = [] # T6
+    # Rotor thrust
+    Tm_up = THRUST_EF*0.5*GRA*(9.5636* 10**(-3)*main_up_pwm - 12.1379)
+    Tm_down = THRUST_EF*0.5*GRA*(9.5636* 10**(-3)*main_low_pwm - 12.1379)
+    Ts_r = GRA*(1.5701* 10**(-6) *(sub_right_pwm) *1.9386)
+    Ts_l = GRA*(1.5701* 10**(-6) *(sub_left_pwm) *1.9386)
+    Tf_up = GRA*(1.5701* 10**(-6) *(sub_front_up_pwm) *1.9386)
+    Tf_down = GRA*(1.5701* 10**(-6) *(sub_front_low_pwm) *1.9386)
 
-    # Calculate thrust
-    # From 2017/06 AS Mr.Hirai
-    for i in range(data_size):
-
-      # Linear approximation
-      # List append is more fast
-      Tm_up.append(THRUST_EF*0.5*GRA*(9.5636* 10**(-3)*main_up_pwm[i] - 12.1379))
-      Tm_down.append(THRUST_EF*0.5*GRA*(9.5636* 10**(-3)*main_low_pwm[i] - 12.1379))
-      Ts_r.append(GRA*(1.5701* 10**(-6) *(sub_right_pwm[i]) *1.9386))
-      Ts_l.append(GRA*(1.5701* 10**(-6) *(sub_left_pwm[i]) *1.9386))
-      Tf_up.append(GRA*(1.5701* 10**(-6) *(sub_front_up_pwm[i]) *1.9386))
-      Tf_down.append(GRA*(1.5701* 10**(-6) *(sub_front_low_pwm[i]) *1.9386))
-
-    # List to ndarray(numpy)
-    Tm_up = np.array(Tm_up)
-    Tm_down = np.array(Tm_down)
-    Ts_r = np.array(Ts_r)
-    Ts_l = np.array(Ts_l)
-    Tf_up = np.array(Tf_up)
-    Tf_down = np.array(Tf_down)
-
-    #Thrust limmiter
+    # Thrust limmiter
     Tm_up[Tm_up < 0] = 0
     Tm_down[Tm_down < 0] = 0
     Ts_r[Ts_r > SUB_THRUST_MAX] = SUB_THRUST_MAX
@@ -338,17 +317,8 @@ for file_number in range(FILE_NUM):
     Tf_down[Tf_down > SUB_THRUST_MAX] = SUB_THRUST_MAX
 
     # Elevon sterring angle
-    delta_e_right = []
-    delta_e_left = []
-
-    # Calculate elevon steering angle
-    for i in range(data_size):
-      delta_e_right.append(((delta_e_right_command[i]*400 + 1500)/8 - 1500/8)*pi/180)
-      delta_e_left.append(((delta_e_left_command[i]*400 + 1500)/8 - 1500/8)*pi/180)
-
-    # List to ndarray(numpy)
-    delta_e_right = np.array(delta_e_right)
-    delta_e_left = np.array(delta_e_left)
+    delta_e_right = (delta_e_right_command*400 + 1500)/8 - 1500/8)*pi/180
+    delta_e_left = (delta_e_left_command*400 + 1500)/8 - 1500/8)*pi/180
 
     # Elevon -> elevator & aileron
     elevator = (delta_e_left - delta_e_right)/2
@@ -474,5 +444,5 @@ for file_number in range(FILE_NUM):
     drag_force = - translation_x * np.cos(alpha) - translation_z * np.sin(alpha)
 
     # Caliculate moment
-    M = I_YY * dd_theta # Moment of all-axis
-    tau = LEN_F*()
+    # M = I_YY * dd_theta # Moment of all-axis
+    # tau = LEN_F*()
