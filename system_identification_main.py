@@ -444,5 +444,8 @@ for file_number in range(FILE_NUM):
     drag_force = - translation_x * np.cos(alpha) - translation_z * np.sin(alpha)
 
     # Caliculate moment
-    # M = I_YY * dd_theta # Moment of all-axis
-    # tau = LEN_F*()
+    M = I_YY * dd_theta # Moment of all-axis
+    tau = LEN_F*(Tf_up + Tf_down) \
+        - LEN_M*(Tm_up + Tm_down)*np.cos(tilt) \
+        - LEN_S_X*(Ts_l + Ts_r) # Moment of rotor thrust
+    Ma = M - tau # Moment of translate motion
