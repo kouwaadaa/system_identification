@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 #---------------------------
-# Import library or package
+# モジュールのインポートなど
 #---------------------------
 
 import numpy as np
@@ -15,70 +15,69 @@ from IPython import get_ipython
 import math_extention as matex
 
 #---------------------------
-# Setting matplotlib
+# matplotlibの諸設定
 #---------------------------
 
-# Plot out of Window
+# プロットデータを新しいウィンドウで表示する
 get_ipython().run_line_magic('matplotlib', 'qt')
 
-# Set font
+# 日本語フォントの設定
+# 使用できるフォントを確認したいときは，次の行のコメントアウトを外して実行
 # print([f.name for f in matplotlib.font_manager.fontManager.ttflist])
 plt.rc('font', **{'family':'YuGothic'})
 plt.rcParams['font.size'] = 20
 plt.rcParams['xtick.labelsize'] = 15
 plt.rcParams['ytick.labelsize'] = 15 # default: 12
 
-# Set figure
+# プロットデータのサイズ設定
 plt.rcParams["figure.figsize"] = [20, 12]
 
 #---------------------------
-# Aircraft values
+# 機体データ（定数）
 #---------------------------
 
-# Moment of inertia [g/mm^2] -> [kg/m^2]
+# 慣性モーメント [kg/m^2]
 I = np.array(
     [[ 0.2484,-0.0037,-0.0078],
      [-0.0037, 0.1668, 0.0005],
      [-0.0078, 0.0005, 0.3804]]
 )
-I_XX = I[0,0] # X-axis
-I_YY = I[1,1] # Y-axis
-I_ZZ = I[2,2] # Z-axis
+I_XX = I[0,0] # X軸
+I_YY = I[1,1] # Y軸
+I_ZZ = I[2,2] # Z軸
 
-# Length [m]
-LEN_M = 0.042 # Center of gravity <-> Main
-LEN_F = 0.496 # Center of gravity <-> Sub front
-LEN_S_X = 0.232 # Center of gravity <-> Sub x-axis
-LEN_S_Y = 0.503 # Center of gravity <-> Sub y-axis
-LEN_P = 0.353 # Center of gravity <-> Pixhawk
+# 各距離 [m]
+LEN_M = 0.042 # 重心〜メインロータ
+LEN_F = 0.496 # 重心〜サブロータ前
+LEN_S_X = 0.232 # 重心〜サブロータ横，X軸方向
+LEN_S_Y = 0.503 # 重心〜サブロータ横，Y軸方向
+LEN_P = 0.353 # 重心〜Pixhawk
+MAC = 0.43081 # 平均空力翼弦
 
-# Other values
+# 面積
+S = 0.2087*2 + 0.1202 # 主翼2枚 + 機体
+
+# 物理量
 MASS = 5.7376 # Airframe weight
 GRA = 9.80665 # Gravity acceleration
 RHO = 1.205 # Air density
-S = 0.2087*2 + 0.1202 # Main wing + body
-MAC = 0.43081 # MAC
 
-# Position to stop tilt
-# GAMMA = 90*(pi/180)
-
-# Max thrust value of sub rotor
+# サブロータ推力の上限
 SUB_THRUST_MAX = 9.0
 
 #---------------------------
-# Read each log data
+# ログデータの読み込み
 #---------------------------
 
-# File number
+# 読み込むファイル数
 FILE_NUM = 6
 for file_number in range(FILE_NUM):
 
     #---------------------------
-    # Read log data (CSV) -> Format log data
+    # CSVデータを読み込んで整理する
     #---------------------------
 
     if file_number == 0:
-        # Read log data
         read_log_data = pd.read_csv(
             filepath_or_buffer='./log_data/Book3.csv',
             encoding='ASCII',
@@ -86,25 +85,24 @@ for file_number in range(FILE_NUM):
             header=None
         )
 
-        # Delete Time duplicate lines
+        # 重複データの削除
         read_log_data = read_log_data.drop_duplicates(subset=390)
 
-        # Convert "time"
+        # 時間データを[秒]に変換
         read_log_data['Time_ST'] = read_log_data.at[0,390]
         read_log_data['Time_Conv'] = (read_log_data[390] - read_log_data['Time_ST'])/1000000
 
-        # Cut time band
+        # 実験時間のみ切り取り
         read_log_data = read_log_data.query(
             '17.52 <= Time_Conv <= 19.14'
         )
 
-        # Append data (windspeed, thrust efficiency, gamma(tilt angle))
+        # Aファイルに依存する値（風速，推力効率，ティルト角）
         V_W = -4.03
         THRUST_EF = 40/48
         GAMMA = 0
 
     elif file_number == 1:
-        # Read log data
         read_log_data = pd.read_csv(
             filepath_or_buffer='./log_data/Book4.csv',
             encoding='ASCII',
@@ -112,26 +110,25 @@ for file_number in range(FILE_NUM):
             header=None
         )
 
-        # Delete Time duplicate lines
+        # 重複データの削除
         read_log_data = read_log_data.drop_duplicates(subset=390)
 
-        # Convert "time"
+        # 時間データを[秒]に変換
         read_log_data['Time_ST'] = read_log_data.at[0,390]
         read_log_data['Time_Conv'] = (read_log_data[390] - read_log_data['Time_ST'])/1000000
 
-        # Cut time band
+        # 実験時間のみ切り取り
         read_log_data = read_log_data.query(
             '11.97 <= Time_Conv <= 13.30 \
             | 18.66 <= Time_Conv <= 21.08'
         )
 
-        # Insert data(windspeed, thrust efficiency, gamma(tilt angle))
+        # ファイルに依存する値（風速，推力効率，ティルト角）
         V_W = -5.05
         THRUST_EF = 40/45
         GAMMA = 0
 
     elif file_number == 2:
-        # Read log data
         read_log_data = pd.read_csv(
             filepath_or_buffer='./log_data/Book5.csv',
             encoding='ASCII',
@@ -139,27 +136,26 @@ for file_number in range(FILE_NUM):
             header=None
         )
 
-        # Delete Time duplicate lines
+        # 重複データの削除
         read_log_data = read_log_data.drop_duplicates(subset=390)
 
-        # Convert "time"
+        # 時間データを[秒]に変換
         read_log_data['Time_ST'] = read_log_data.at[0,390]
         read_log_data['Time_Conv'] = (read_log_data[390] - read_log_data['Time_ST'])/1000000
 
-        # Cut time band
+        # 実験時間のみ切り取り
         read_log_data = read_log_data.query(
             '12.45 <= Time_Conv <= 13.66 \
             | 16.07 <= Time_Conv <= 17.03 \
             | 18.95 <= Time_Conv <= 22.88'
         )
 
-        # Insert data(windspeed, thrust efficiency, gamma(tilt angle))
+        # ファイルに依存する値（風速，推力効率，ティルト角）
         V_W = -4.80
         THRUST_EF = 40/48
         GAMMA = 0
 
     elif file_number == 3:
-        # Read log data
         read_log_data = pd.read_csv(
             filepath_or_buffer='./log_data/Book8.csv',
             encoding='ASCII',
@@ -167,14 +163,14 @@ for file_number in range(FILE_NUM):
             header=None
         )
 
-        # Delete Time duplicate lines
+        # 重複データの削除
         read_log_data = read_log_data.drop_duplicates(subset=390)
 
-        # Convert "time"
+        # 時間データを[秒]に変換
         read_log_data['Time_ST'] = read_log_data.at[0,390]
         read_log_data['Time_Conv'] = (read_log_data[390] - read_log_data['Time_ST'])/1000000
 
-        # Cut time band
+        # 実験時間のみ切り取り
         read_log_data = read_log_data.query(
             '15.41 <= Time_Conv <= 20.10 \
             | 21.46 <= Time_Conv <= 23.07 \
@@ -182,13 +178,12 @@ for file_number in range(FILE_NUM):
             | 25.28 <= Time_Conv <= 27.38'
         )
 
-        # Insert data(windspeed, thrust efficiency, gamma(tilt angle))
+        # ファイルに依存する値（風速，推力効率，ティルト角）
         V_W = -2.0
         THRUST_EF = 40/47
         GAMMA = 0
 
     elif file_number == 4:
-        # Read log data
         read_log_data = pd.read_csv(
             filepath_or_buffer='./log_data/Book9.csv',
             encoding='ASCII',
@@ -196,14 +191,14 @@ for file_number in range(FILE_NUM):
             header=None
         )
 
-        # Delete Time duplicate lines
+        # 重複データの削除
         read_log_data = read_log_data.drop_duplicates(subset=390)
 
-        # Convert "time"
+        # 時間データを[秒]に変換
         read_log_data['Time_ST'] = read_log_data.at[0,390]
         read_log_data['Time_Conv'] = (read_log_data[390] - read_log_data['Time_ST'])/1000000
 
-        # Cut time band
+        # 実験時間のみ切り取り
         read_log_data = read_log_data.query(
             '20.73 <= Time_Conv <= 30.28 \
             | 98.05 <= Time_Conv <= 104.1 \
@@ -211,13 +206,12 @@ for file_number in range(FILE_NUM):
             | 107.7 <= Time_Conv <= 109.7'
         )
 
-        # Insert data(windspeed, thrust efficiency, gamma(tilt angle))
+        # ファイルに依存する値（風速，推力効率，ティルト角）
         V_W = -2.647
         THRUST_EF = 40/48
         GAMMA = 0
 
     elif file_number == 5:
-        # Read log data
         read_log_data = pd.read_csv(
             filepath_or_buffer='./log_data/Book11.csv',
             encoding='ASCII',
@@ -225,89 +219,89 @@ for file_number in range(FILE_NUM):
             header=None
         )
 
-        # Delete Time duplicate lines
+        # 重複データの削除
         read_log_data = read_log_data.drop_duplicates(subset=390)
 
-        # Convert "time"
+        # 時間データを[秒]に変換
         read_log_data['Time_ST'] = read_log_data.at[0,390]
         read_log_data['Time_Conv'] = (read_log_data[390] - read_log_data['Time_ST'])/1000000
 
-        # Cut time band
+        # 実験時間のみ切り取り
         read_log_data = read_log_data.query(
             '19.86 <= Time_Conv <= 25.27 \
             | 26.43 <= Time_Conv <= 29.83'
         )
 
-        # Insert data(windspeed, thrust efficiency, gamma(tilt angle))
+        # ファイルに依存する値（風速，推力効率，ティルト角）
         V_W = -1.467
         THRUST_EF = 40/48
         GAMMA = 0
 
     #---------------------------
-    # Assign log data
+    # 各データを取り出す
     #---------------------------
-    # Angle
+    # 角度
     phi = np.array(read_log_data.values[:,0])
     theta = np.array(read_log_data.values[:,1])
     psi = np.array(read_log_data.values[:,2])
 
-    # Angular velocity
+    # 角速度
     d_phi = np.array(read_log_data.values[:,3])
     d_theta = np.array(read_log_data.values[:,4])
     d_psi = np.array(read_log_data.values[:,5])
 
-    # Position
-    x_position = np.array(read_log_data.values[:,53])
-    y_position = np.array(read_log_data.values[:,54])
-    z_position = np.array(read_log_data.values[:,55])
+    # 位置
+    position_x = np.array(read_log_data.values[:,53])
+    position_y = np.array(read_log_data.values[:,54])
+    position_z = np.array(read_log_data.values[:,55])
 
-    # Velocity
-    dx_position = np.array(read_log_data.values[:,58])
-    dy_position = np.array(read_log_data.values[:,59])
-    dz_position = np.array(read_log_data.values[:,60])
+    # 速度
+    d_position_x = np.array(read_log_data.values[:,58])
+    d_position_y = np.array(read_log_data.values[:,59])
+    d_position_z = np.array(read_log_data.values[:,60])
 
-    # GPS altitude
+    # GPS高度
     gps_altitude = np.array(read_log_data.values[:,79])
 
-    # Airspeed by Pitot tube
+    # ピトー管から得た対気速度
     measurement_airspeed = np.array(read_log_data.values[:,133])
 
-    # Pulese Width Modulation of rotors
-    main_up_pwm = np.array(read_log_data.values[:,116]) # T1
-    main_low_pwm = np.array(read_log_data.values[:,117]) # T2
-    sub_right_pwm = np.array(read_log_data.values[:,118]) # T3
-    sub_left_pwm = np.array(read_log_data.values[:,119]) # T4
-    sub_front_up_pwm = np.array(read_log_data.values[:,120]) # T5
-    sub_front_low_pwm = np.array(read_log_data.values[:,121]) # T6
+    # ロータ指令値
+    m_up_pwm = np.array(read_log_data.values[:,116]) # T1
+    m_down_pwm = np.array(read_log_data.values[:,117]) # T2
+    s_r_pwm = np.array(read_log_data.values[:,118]) # T3
+    s_l_pwm = np.array(read_log_data.values[:,119]) # T4
+    f_up_pwm = np.array(read_log_data.values[:,120]) # T5
+    f_down_pwm = np.array(read_log_data.values[:,121]) # T6
 
-    # Elevon steering angle (command 0 ~ 1)
-    delta_e_right_command = np.array(read_log_data.values[:,124])
-    delta_e_left_command = np.array(read_log_data.values[:,125])
+    # エレボン指令値(command 0 ~ 1)
+    delta_e_r_command = np.array(read_log_data.values[:,124])
+    delta_e_l_command = np.array(read_log_data.values[:,125])
 
-    # Manual manipulation quantity
+    # マニュアル操作量
     manual_pitch = np.array(read_log_data.values[:,374])
     manual_thrust = np.array(read_log_data.values[:,377])
     manual_tilt = np.array(read_log_data.values[:,389])
 
-    # Time
+    # 時間
     time = np.array(read_log_data.values[:,392])
 
-    # Get data size (rows)
+    # データサイズの取得（列方向）
     data_size = len(read_log_data)
 
     #---------------------------
-    # Calculate datum
+    # 計算の必要がある値
     #---------------------------
 
-    # Rotor thrust
-    Tm_up = THRUST_EF*0.5*GRA*(9.5636* 10**(-3)*main_up_pwm - 12.1379)
-    Tm_down = THRUST_EF*0.5*GRA*(9.5636* 10**(-3)*main_low_pwm - 12.1379)
-    Ts_r = GRA*(1.5701* 10**(-6) *(sub_right_pwm)**2 - 3.3963*10**(-3)*sub_right_pwm + 1.9386)
-    Ts_l = GRA*(1.5701* 10**(-6) *(sub_left_pwm)**2 - 3.3963*10**(-3)*sub_left_pwm + 1.9386)
-    Tf_up = GRA*(1.5701* 10**(-6) *(sub_front_up_pwm)**2 - 3.3963*10**(-3)*sub_front_up_pwm + 1.9386)
-    Tf_down = GRA*(1.5701* 10**(-6) *(sub_front_low_pwm)**2 - 3.3963*10**(-3)*sub_front_low_pwm + 1.9386)
+    # ロータ推力
+    Tm_up = THRUST_EF*0.5*GRA*(9.5636* 10**(-3)*m_up_pwm - 12.1379)
+    Tm_down = THRUST_EF*0.5*GRA*(9.5636* 10**(-3)*m_down_pwm - 12.1379)
+    Ts_r = GRA*(1.5701* 10**(-6) *(s_r_pwm)**2 - 3.3963*10**(-3)*s_r_pwm + 1.9386)
+    Ts_l = GRA*(1.5701* 10**(-6) *(s_l_pwm)**2 - 3.3963*10**(-3)*s_l_pwm + 1.9386)
+    Tf_up = GRA*(1.5701* 10**(-6) *(f_up_pwm)**2 - 3.3963*10**(-3)*f_up_pwm + 1.9386)
+    Tf_down = GRA*(1.5701* 10**(-6) *(f_down_pwm)**2 - 3.3963*10**(-3)*f_down_pwm + 1.9386)
 
-    # Thrust limmiter
+    # ロータ推力に制限をかける
     Tm_up[Tm_up < 0] = 0
     Tm_down[Tm_down < 0] = 0
     Ts_r[Ts_r > SUB_THRUST_MAX] = SUB_THRUST_MAX
@@ -315,83 +309,85 @@ for file_number in range(FILE_NUM):
     Tf_up[Tf_up > SUB_THRUST_MAX] = SUB_THRUST_MAX
     Tf_down[Tf_down > SUB_THRUST_MAX] = SUB_THRUST_MAX
 
-    # Elevon sterring angle
-    delta_e_right = ((delta_e_right_command*400 + 1500)/8 - 1500/8)*pi/180
-    delta_e_left = ((delta_e_left_command*400 + 1500)/8 - 1500/8)*pi/180
+    # エレボン舵角
+    delta_e_r = ((delta_e_r_command*400 + 1500)/8 - 1500/8)*pi/180
+    delta_e_l = ((delta_e_l_command*400 + 1500)/8 - 1500/8)*pi/180
 
-    # Elevon -> elevator & aileron
-    elevator = (delta_e_left - delta_e_right)/2
-    aileron = (delta_e_left + delta_e_right)/2
+    # エレベータ舵角，エルロン舵角に分ける
+    elevator = (delta_e_l - delta_e_r)/2
+    aileron = (delta_e_l + delta_e_r)/2
 
-    # Velocity
-    pixhawk_groundspeed = []
-    body_frame_velocity = []
-    body_frame_wind_velocity = []
-    body_frame_airspeed = []
+    # 速度
+    Vg_pixhawk = []
+    Vi = []
+    Vi_wind = []
+    Va = []
 
-    # Calculate velocity
-    pixhawk_groundspeed = np.sqrt(
-        dx_position**2 \
-        + dy_position**2 \
-        + dz_position**2
+    # 機体速度（対地）の計算
+    Vg_pixhawk = np.sqrt(
+        d_position_x**2 \
+        + d_position_y**2 \
+        + d_position_z**2
     )
 
-    # Convert NED frame to body frame
+    # 機体速度と風速を慣性座標系へ変換
     for i in range(data_size):
-        body_frame_velocity.append(
-            matex.ned2bc(phi[i],theta[i],psi[i],dx_position[i],dy_position[i],dz_position[i])
+        Vi.append(
+            matex.ned2bc(phi[i],theta[i],psi[i],d_position_x[i],d_position_y[i],d_position_z[i])
         )
-        body_frame_wind_velocity.append(
+        Vi_wind.append(
             matex.ned2bc(phi[i],theta[i],0,V_W,0,0)
         )
 
-    # List to ndarray
-    body_frame_velocity = np.array(body_frame_velocity)
-    body_frame_wind_velocity = np.array(body_frame_wind_velocity)
+    # リストからnumpy配列に変換
+    Vi = np.array(Vi)
+    Vi_wind = np.array(Vi_wind)
 
-    # Convert pixhawk position to center
-    body_frame_velocity[:,2] = body_frame_velocity[:,2] + d_theta*LEN_P
+    # Pixhawk位置から重心位置の速度に変換
+    Vi[:,2] = Vi[:,2] + d_theta*LEN_P
 
-    # Calculate airspeed
-    body_frame_airspeed = body_frame_velocity - body_frame_wind_velocity
-    body_frame_airspeed_mag = np.sqrt(
-        body_frame_airspeed[:,0]**2
-        + body_frame_airspeed[:,1]**2
-        + body_frame_airspeed[:,2]**2
+    # 対気速度を計算
+    Va = Vi - Vi_wind
+    Va_mag = np.sqrt(
+        Va[:,0]**2
+        + Va[:,1]**2
+        + Va[:,2]**2
     )
 
-    # Calculate angle of attack, rad
-    alpha = np.arctan2(body_frame_airspeed[:,2],body_frame_airspeed[:,0])
+    # 迎え角を計算[rad]
+    alpha = np.arctan2(Va[:,2],Va[:,0])
 
-    # Calculate time difference
+    # 時間偏差を計算
+    # サイズがひとつ小さくなるので，最後の値をそのまま一番うしろに付け足す
     time_diff = np.diff(time)
-    time_diff = np.append(time_diff, time_diff[data_size-2]) # Append the last value
+    time_diff = np.append(time_diff, time_diff[data_size-2])
 
-    # Acceleration
-    body_frame_acceleration_list = []
+    # 加速度
+    d_Va_list = []
     dd_phi = []
     dd_theta = []
     dd_psi = []
 
-    # Calculate acceleration
-    body_frame_acceleration_list = np.array(
-    	matex.central_diff(body_frame_velocity[:,0],time)
-    ) # x axis
-    body_frame_acceleration_list = np.append(
-        body_frame_acceleration_list,
-        matex.central_diff(body_frame_velocity[:,1],time)
-    ) # y axis
-    body_frame_acceleration_list = np.append(
-        body_frame_acceleration_list,
-        matex.central_diff(body_frame_velocity[:,2],time)
-    ) # z axis
-    body_frame_acceleration =  np.reshape(body_frame_acceleration_list,(data_size,3),order='F') # Unit
+    # 加速度を計算
+    # 各軸ごとに計算してまとめ，最後にそれぞれを分割している
+    d_Va_list = np.array(
+    	matex.central_diff(Vi[:,0],time)
+    ) # x軸
+    d_Va_list = np.append(
+        d_Va_list,
+        matex.central_diff(Vi[:,1],time)
+    ) # y軸
+    d_Va_list = np.append(
+        d_Va_list,
+        matex.central_diff(Vi[:,2],time)
+    ) # z軸
+    d_Va =  np.reshape(d_Va_list,(data_size,3),order='F') # Unit
 
     dd_phi = matex.central_diff(d_phi,time)
     dd_theta = matex.central_diff(d_theta,time)
     dd_psi = matex.central_diff(d_psi,time)
 
-    # Tilt
+    # どちらにティルトしているか
     tilt_switch = np.diff(manual_tilt)
     tilt_switch[np.isnan(tilt_switch)] = 0 # Nan -> 0
 
@@ -406,10 +402,13 @@ for file_number in range(FILE_NUM):
             tilt_switch[i] = tilt_switch[i-1]
             continue
 
-    tilt_switch = np.append(tilt_switch,tilt_switch[data_size-2]) # Append the last value
+    tilt_switch = np.append(tilt_switch,tilt_switch[data_size-2])
 
+    # ティルト角
     tilt = []
 
+    # ティルト角を計算
+    # ０度〜設定したティルト角の上限値に制限する
     for i in range(np.size(tilt_switch)):
         if tilt_switch[i] == 1:
             tilt = np.append(tilt,tilt[i-1] + (90/4.0)*(pi/180)*time_diff[i])
@@ -424,35 +423,37 @@ for file_number in range(FILE_NUM):
         elif tilt_switch[i] == 0:
             tilt = np.append(tilt,0)
 
-    # Caliculate L and D
-    body_translation_x = MASS * (body_frame_acceleration[:,0] + d_theta*body_frame_velocity[:,2]) \
+    # 空力の計算
+    F_x = MASS * (d_Va[:,0] + d_theta*Vi[:,2]) \
                         + MASS * GRA * np.sin(theta)
-    body_translation_z = MASS * (body_frame_acceleration[:,2] - d_theta*body_frame_velocity[:,0]) \
+    F_z = MASS * (d_Va[:,2] - d_theta*Vi[:,0]) \
                         - MASS * GRA * np.cos(theta)
-    rotor_translation_x = (Tm_up + Tm_down) * np.sin(tilt)
-    rotor_translation_z = - (Tm_up + Tm_down) * np.cos(tilt) \
+    T_x = (Tm_up + Tm_down) * np.sin(tilt)
+    T_z = - (Tm_up + Tm_down) * np.cos(tilt) \
                           - (Ts_r + Ts_l + Tf_up + Tf_down)
-    translation_x = body_translation_x - rotor_translation_x
-    translation_z = body_translation_z - rotor_translation_z
-    lift_force = translation_x * np.sin(alpha) - translation_z * np.cos(alpha)
-    drag_force = - translation_x * np.cos(alpha) - translation_z * np.sin(alpha)
+    A_x = F_x - T_x
+    A_z = F_z - T_z
 
-    # Caliculate moment
-    M = I_YY * dd_theta # Moment of all-axis
+    # 揚力と抗力（実験値）
+    L = A_x * np.sin(alpha) - A_z * np.cos(alpha)
+    D = - A_x * np.cos(alpha) - A_z * np.sin(alpha)
+
+    # 空力モーメントを計算
+    M = I_YY * dd_theta # 全軸モーメント
     tau = LEN_F*(Tf_up + Tf_down) \
         - LEN_M*(Tm_up + Tm_down)*np.cos(tilt) \
-        - LEN_S_X*(Ts_l + Ts_r) # Moment of rotor thrust
-    Ma = M - tau # Moment of translate motion
+        - LEN_S_X*(Ts_l + Ts_r) # ロータ推力によるモーメント
+    Ma = M - tau
 
     #---------------------------
-    # Concatenate data
+    # データを一つにまとめる
     #---------------------------
 
-    # First format log data init
+    # 最初のデータのためのイニット
     if file_number == 0:
         format_log_data = pd.DataFrame()
 
-    # Concatenate log data
+    # 同定に使うデータをまとめる
     format_log_data = pd.concat([format_log_data, pd.DataFrame({
         'phi' : phi,
         'theta' : theta,
@@ -463,38 +464,111 @@ for file_number in range(FILE_NUM):
         'dd_phi' : dd_phi,
         'dd_theta' : dd_theta,
         'dd_psi' : dd_psi,
+        'position_x' : position_x,
+        'position_y' : position_y,
+        'position_z' : position_z,
+        'U' : Va[:,0],
+        'V' : Va[:,1],
+        'W' : Va[:,2],
+        'Va' : Va_mag,
+        'Tm_up' : Tm_up,
+        'Tm_down' : Tm_down,
+        'Ts_r' : Ts_r,
+        'Ts_l' : Ts_l,
+        'Tf_up' : Tf_up,
+        'Tf_down' : Tf_down,
         'alpha' : alpha,
-        'Va' : body_frame_airspeed_mag,
         'delta_e' : elevator,
-        'L' : lift_force
+        'delta_a' : aileron,
+        'F_x' : F_x,
+        'T_x' : T_x,
+        'F_z' : F_z,
+        'T_z' : T_z,
+        'L' : L,
+        'D' : D,
+        'M' : M,
+        'tau' : tau,
+        'Ma' : Ma,
     })])
 
 #---------------------------
-# Extract data
+# 整理されたデータから値を取り出す
 #---------------------------
-data_size = len(format_log_data)
-d_theta = np.array(format_log_data.values[:,4])
-alpha = np.array(format_log_data.values[:,9])
-Va = np.array(format_log_data.values[:,10])
-delta_e = np.array(format_log_data.values[:,11])
-L = np.array(format_log_data.values[:,12])
 
+data_size = len(format_log_data)
+d_theta = np.array(format_log_data['d_theta'])
+alpha = np.array(format_log_data['alpha'])
+Va = np.array(format_log_data['Va'])
+delta_e = np.array(format_log_data['delta_e'])
+L = np.array(format_log_data['L'])
+D = np.array(format_log_data['D'])
+
+#---------------------------
+# システム同定（最小二乗法を用いる）
+#---------------------------
+
+#---------------------------
+# 揚力
+#---------------------------
+
+# 既知パラメータ
 CL_0 = 0.0634
 CL_alpha = 2.68
 
+# n*1 揚力から計算された値のリスト
 yL = (L/((1/2)*RHO*(Va**2)*S)) - CL_0 - CL_alpha*alpha
+
+# n*3 リグレッサー（独立変数）や実験データのリスト
 xL = np.zeros((data_size,3))
 xL[:,0] = (MAC*d_theta)/(2*Va)
 xL[:,1] = delta_e
 xL[:,2] = 1/((1/2)*RHO*Va*S)
 
+# 擬似逆行列を用いた最小二乗解の計算
 theta_hat = np.dot((np.linalg.pinv(xL)),yL)
 
+# 同定された未知パラメータの取り出し
 CL_q = theta_hat[0]
 CL_delta_e = theta_hat[1]
 k_L = theta_hat[2]
 
+#---------------------------
+# 抗力
+#---------------------------
+
+# 既知パラメータ
+# CD_0 = 0.07887
+#
+# # n*1 抗力から計算された値のリスト
+# yD = (D/(1/2)*RHO*Va**2*S) - CD_0
+#
+# # n*3 リグレッサー（独立変数）や実験データのリスト
+# xL = np.zeros((data_size,3))
+# xL[:,0] = (MAC*d_theta)/(2*Va)
+# xL[:,1] = delta_e
+# xL[:,2] = 1/((1/2)*RHO*Va*S)
+#
+# # 擬似逆行列を用いた最小二乗解の計算
+# theta_hat = np.dot((np.linalg.pinv(xL)),yL)
+#
+# # 同定された未知パラメータの取り出し
+# CL_q = theta_hat[0]
+# CL_delta_e = theta_hat[1]
+# k_L = theta_hat[2]
+
+#---------------------------
+# モーメント
+#---------------------------
+
+#---------------------------
+# 同定結果を用いて計算
+#---------------------------
+
 lift_calc = (1/2)*RHO*S*(Va**2)*(CL_0 + CL_alpha*alpha + CL_q*(MAC/(2*Va))*d_theta + CL_delta_e*delta_e) + k_L*Va
+
+#---------------------------
+# 結果のプロット
+#---------------------------
 
 plt.plot(L)
 plt.plot(lift_calc)
