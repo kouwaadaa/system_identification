@@ -80,7 +80,7 @@ def both_side_diff(x):
     size = np.size(x) # Get array size.
     diff_x = np.insert(x, [0,0], [0,0]) # Insert first two [0,0].
     diff_x = np.delete(diff_x,[size,size+1]) # Delete last two.
-    diff = diff_x - x # Calculate differences.
+    diff = x - diff_x # Calculate differences.
     diff = np.delete(diff, [0,1]) # Delete first two.
 
     return diff

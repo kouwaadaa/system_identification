@@ -246,7 +246,6 @@ for file_number in range(FILE_NUM):
     #---------------------------
     # Assign log data
     #---------------------------
-
     # Angle
     phi = np.array(read_log_data.values[:,0])
     theta = np.array(read_log_data.values[:,1])
@@ -361,11 +360,6 @@ for file_number in range(FILE_NUM):
         + body_frame_airspeed[:,2]**2
     )
 
-    # Plot
-    # plt.plot(time,body_frame_airspeed_mag)
-    # plt.plot(time,measurement_airspeed)
-    # plt.show()
-
     # Calculate angle of attack, rad
     alpha = np.arctan2(body_frame_airspeed[:,2],body_frame_airspeed[:,0])
 
@@ -418,12 +412,12 @@ for file_number in range(FILE_NUM):
 
     for i in range(np.size(tilt_switch)):
         if tilt_switch[i] == 1:
-            tilt = np.append(tilt,tilt[i-1] + (90/4.0)*time_diff[i])
+            tilt = np.append(tilt,tilt[i-1] + (90/4.0)*(pi/180)*time_diff[i])
             if tilt[i] >= GAMMA:
                 tilt[i] = GAMMA
                 continue
         elif tilt_switch[i] == -1:
-            tilt = np.append(tilt,tilt[i-1] - (90/4.0)*time_diff[i])
+            tilt = np.append(tilt,tilt[i-1] - (90/4.0)*(pi/180)*time_diff[i])
             if tilt[i] < 0.0:
                 tilt[i] = 0
                 continue
@@ -500,13 +494,7 @@ CL_q = theta_hat[0]
 CL_delta_e = theta_hat[1]
 k_L = theta_hat[2]
 
-lift_calc = (1/2)*RHO*S*(Va**2)*( \
-                CL_0 \
-                + CL_alpha*alpha \
-                + CL_q*(MAC/(2*Va))*d_theta \
-                + CL_delta_e*delta_e \
-                + k_L*Va \
-                )
+lift_calc = (1/2)*RHO*S*(Va**2)*(CL_0 + CL_alpha*alpha + CL_q*(MAC/(2*Va))*d_theta + CL_delta_e*delta_e) + k_L*Va
 
 plt.plot(L)
 plt.plot(lift_calc)
