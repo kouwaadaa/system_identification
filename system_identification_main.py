@@ -333,10 +333,10 @@ for file_number in range(FILE_NUM):
     # 機体速度と風速を慣性座標系へ変換
     for i in range(data_size):
         Vi.append(
-            matex.ned2bc(phi[i],theta[i],psi[i],d_position_x[i],d_position_y[i],d_position_z[i])
+            matex.bc2ic(phi[i],theta[i],psi[i],d_position_x[i],d_position_y[i],d_position_z[i])
         )
         Vi_wind.append(
-            matex.ned2bc(phi[i],theta[i],0,V_W,0,0)
+            matex.bc2ic(phi[i],theta[i],0,V_W,0,0)
         )
 
     # リストからnumpy配列に変換
@@ -507,6 +507,9 @@ Ma = np.array(format_log_data['Ma'])
 #---------------------------
 # システム同定（最小二乗法を用いる）
 #---------------------------
+T_CONST = input('時定数: ') # 時定数
+T_CONST = float(T_CONST)
+T_DIFF = 0.02 # 時間偏差
 
 #---------------------------
 # 揚力
@@ -524,6 +527,11 @@ xL = np.zeros((data_size,3))
 xL[:,0] = (MAC*d_theta)/(2*Va)
 xL[:,1] = delta_e
 xL[:,2] = 1/((1/2)*RHO*Va*S)
+
+# ３次ローパスフィルタをかける
+for i in range(3):
+    yL = matex.lp_filter(T_CONST,T_DIFF,data_size,yL)
+    xL = matex.lp_filter(T_CONST,T_DIFF,data_size,xL)
 
 # 擬似逆行列を用いた最小二乗解の計算
 L_theta_hat = np.dot((np.linalg.pinv(xL)),yL)
@@ -554,6 +562,11 @@ xD = np.zeros((data_size,2))
 xD[:,0] = CL**2
 xD[:,1] = 1/((1/2)*RHO*Va*S)
 
+# ３次ローパスフィルタをかける
+for i in range(3):
+    yD = matex.lp_filter(T_CONST,T_DIFF,data_size,yD)
+    xD = matex.lp_filter(T_CONST,T_DIFF,data_size,xD)
+
 # 擬似逆行列を用いた最小二乗解の計算
 D_theta_hat = np.dot((np.linalg.pinv(xD)),yD)
 
@@ -578,6 +591,11 @@ xm[:,1] = alpha
 xm[:,2] = (MAC/(2*Va))*d_theta
 xm[:,3] = delta_e
 xm[:,4] = 1/((1/2)*RHO*Va*S*MAC)
+
+# ３次ローパスフィルタをかける
+for i in range(3):
+    ym = matex.lp_filter(T_CONST,T_DIFF,data_size,ym)
+    xm = matex.lp_filter(T_CONST,T_DIFF,data_size,xm)
 
 # 擬似逆行列を用いた最小二乗解の計算
 m_theta_hat = np.dot((np.linalg.pinv(xm)),ym)
@@ -604,8 +622,11 @@ D_calc = (1/2)*RHO*S*(Va**2)*CD + k_D*Va
 Ma_calc = (1/2)*RHO*S*(Va**2)*MAC*Cm + k_m*Va
 
 #---------------------------
-# 結果のプロット
+# 結果
 #---------------------------
+print(L_theta_hat)
+print(D_theta_hat)
+print(m_theta_hat)
 
 plt.subplot(3,1,1)
 plt.plot(L)
