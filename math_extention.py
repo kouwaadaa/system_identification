@@ -7,29 +7,29 @@
 import numpy as np
 
 
-def ned2bc(phi, theta, psi, x, y, z):
+def bc2ic(phi, theta, psi, x, y, z):
     '''
-    Convert Body Coordinate System to North East Down System.
+    機体座標系から慣性座標系へ変換する関数.
 
     Parameters
     ----------
     phi : float64
-        Roll angle.
+        ロール角.
     theta : float64
-        Pitch angle.
+        ピッチ角.
     psi : float64
-        Yaw angle.
+        ヨー角.
     x : float64
-        Body Coordinate System x.
+        機体座標 x.
     y : float64
-        Body Coordinate System y.
+        機体座標 y.
     z : float64
-        Body Coordinate System z.
+        機体座標 z.
 
     Returns
     -------
-    ned : array-like
-        North East Down System [x, y, z]
+    ic : array-like
+        変換後の慣性座標 [x, y, z]
     '''
 
     sin_phi = np.sin(phi)
@@ -44,15 +44,16 @@ def ned2bc(phi, theta, psi, x, y, z):
         [sin_phi*sin_theta*cos_psi-cos_phi*sin_psi, sin_phi*sin_theta*sin_psi+cos_phi*cos_psi, sin_phi*cos_theta],
         [cos_phi*sin_theta*cos_psi+sin_phi*sin_psi, cos_phi*sin_theta*sin_psi-sin_phi*cos_psi, cos_phi*cos_theta]]
     )
-    ned = np.array([x, y, z])
-    bc = np.dot(euler,ned.transpose())
+    bc = np.array([x, y, z])
+    ic = np.dot(euler,bc.transpose())
 
-    return bc
+    return ic
 
 
 def both_side_diff(x):
     '''
-    Calculate differences.
+    与えられたリストの中央差分リストを生成して返す関数.
+    差分を取るため，要素数は元より２つ少なくなる．
 
     Parameters
     ----------
@@ -61,12 +62,12 @@ def both_side_diff(x):
     Returns
     -------
     diff : array-like
-        Result.
+        計算結果.
 
     Raises
     ------
     ValueError
-        if x contains only 2 or less numbers, cannot calculate and raise error.
+        要素数が２個かそれ以下のリストが与えられるとエラーが起きる．
 
     Examples
     --------
@@ -76,19 +77,19 @@ def both_side_diff(x):
     [3,3,4]
     '''
 
-    x = np.array(x) # Convert ndarray style.
-    size = np.size(x) # Get array size.
-    diff_x = np.insert(x, [0,0], [0,0]) # Insert first two [0,0].
-    diff_x = np.delete(diff_x,[size,size+1]) # Delete last two.
-    diff = x - diff_x # Calculate differences.
-    diff = np.delete(diff, [0,1]) # Delete first two.
+    x = np.array(x)
+    size = np.size(x)
+    diff_x = np.insert(x, [0,0], [0,0]) # はじめの２つの要素を０にする．
+    diff_x = np.delete(diff_x,[size,size+1]) # 最後の２つの要素を削除する．
+    diff = x - diff_x
+    diff = np.delete(diff, [0,1]) # はじめの２つの要素を削除する．
 
     return diff
 
 
 def central_diff(y, dx):
     '''
-    Calculate with central differences.
+    中央差分法による微分を行なう関数．
 
     Parameters
     ----------
@@ -98,11 +99,62 @@ def central_diff(y, dx):
     Returns
     -------
     dydx: array-like
-        Result.
+        計算結果.
     '''
 
     dydx = both_side_diff(y) / both_side_diff(dx)
-    dydx = np.insert(dydx,0,0) # First facotor is 0.
-    dydx = np.append(dydx,dydx[-1]) # Copy the last factor.
+    dydx = np.insert(dydx,0,0) # はじめの要素は０にする．
+    dydx = np.append(dydx,dydx[-1]) # 最後の要素を一番うしろに追加する．
 
     return dydx
+
+
+def lp_filter(t_const, t_diff, data_size, x):
+    '''
+    一次遅れ要素を用いたローパスフィルタをかける関数．
+
+    Parameters
+    ----------
+    t_const: float64
+        時定数．
+    t_diff: float64
+        サンプリング間隔．時間偏差．
+    data_size: int
+        フィルタ処理したいリストのサイズ．
+    x: array-like
+        フィルタ処理したいリスト．
+    n: int
+        フィルタの次数．デフォルトは１次．
+
+    Returns
+    -------
+    lp_x: array-like
+        フィルタ処理後のリスト．
+
+    Raises
+    ------
+    Array-size Error.
+        ３次元以上の配列を入力すると起こるエラー．
+    '''
+
+    k = t_diff / t_const
+    lp_x = np.zeros_like(x)
+
+    # １次元配列の場合
+    if x.ndim == 1:
+        lp_x[0] = x[0]
+
+        for i in range(data_size-1):
+            lp_x[i+1] = k*x[i+1] + (1-k)*lp_x[i]
+
+    # ２次元配列の場合
+    elif x.ndim == 2:
+        lp_x[0,:] = x[0,:]
+
+        for i in range(data_size-1):
+            lp_x[i+1,:] = k*x[i+1,:] + (1-k)*lp_x[i,:]
+
+    else:
+        raise Exception('Array-size Error.')
+
+    return lp_x
