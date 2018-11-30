@@ -507,7 +507,8 @@ Ma = np.array(format_log_data['Ma'])
 #---------------------------
 # システム同定（最小二乗法を用いる）
 #---------------------------
-T_CONST = input('時定数: ') # 時定数
+
+T_CONST = input('時定数の値を入力してください: ')
 T_CONST = float(T_CONST)
 T_DIFF = 0.02 # 時間偏差
 
@@ -530,8 +531,8 @@ xL[:,2] = 1/((1/2)*RHO*Va*S)
 
 # ３次ローパスフィルタをかける
 for i in range(3):
-    yL = matex.lp_filter(T_CONST,T_DIFF,data_size,yL)
-    xL = matex.lp_filter(T_CONST,T_DIFF,data_size,xL)
+    yL_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,yL)
+    xL_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,xL)
 
 # 擬似逆行列を用いた最小二乗解の計算
 L_theta_hat = np.dot((np.linalg.pinv(xL)),yL)
@@ -564,8 +565,8 @@ xD[:,1] = 1/((1/2)*RHO*Va*S)
 
 # ３次ローパスフィルタをかける
 for i in range(3):
-    yD = matex.lp_filter(T_CONST,T_DIFF,data_size,yD)
-    xD = matex.lp_filter(T_CONST,T_DIFF,data_size,xD)
+    yD_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,yD)
+    xD_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,xD)
 
 # 擬似逆行列を用いた最小二乗解の計算
 D_theta_hat = np.dot((np.linalg.pinv(xD)),yD)
@@ -594,8 +595,8 @@ xm[:,4] = 1/((1/2)*RHO*Va*S*MAC)
 
 # ３次ローパスフィルタをかける
 for i in range(3):
-    ym = matex.lp_filter(T_CONST,T_DIFF,data_size,ym)
-    xm = matex.lp_filter(T_CONST,T_DIFF,data_size,xm)
+    ym_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,ym)
+    xm_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,xm)
 
 # 擬似逆行列を用いた最小二乗解の計算
 m_theta_hat = np.dot((np.linalg.pinv(xm)),ym)
@@ -628,6 +629,12 @@ print(L_theta_hat)
 print(D_theta_hat)
 print(m_theta_hat)
 
+#---------------------------
+plt.figure(1)
+
+# 余白を設定
+plt.subplots_adjust(wspace=0.4, hspace=0.6)
+
 plt.subplot(3,1,1)
 plt.plot(L)
 plt.plot(L_calc)
@@ -649,5 +656,32 @@ plt.grid()
 plt.xlabel('データ番号')
 plt.ylabel('モーメント')
 
+#---------------------------
+plt.figure(2)
 
+# 余白を設定
+plt.subplots_adjust(wspace=0.4, hspace=0.6)
+
+plt.subplot(3,1,1)
+plt.plot(yL, 'blue')
+plt.plot(yL_filt, 'red')
+plt.grid()
+plt.xlabel('データ番号')
+plt.ylabel('揚力')
+
+plt.subplot(3,1,2)
+plt.plot(yD, 'blue')
+plt.plot(yD_filt, 'red')
+plt.grid()
+plt.xlabel('データ番号')
+plt.ylabel('抗力')
+
+plt.subplot(3,1,3)
+plt.plot(ym, 'blue')
+plt.plot(ym_filt, 'red')
+plt.grid()
+plt.xlabel('データ番号')
+plt.ylabel('モーメント')
+
+#---------------------------
 plt.show()
