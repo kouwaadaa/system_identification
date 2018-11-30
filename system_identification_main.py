@@ -502,6 +502,7 @@ Va = np.array(format_log_data['Va'])
 delta_e = np.array(format_log_data['delta_e'])
 L = np.array(format_log_data['L'])
 D = np.array(format_log_data['D'])
+Ma = np.array(format_log_data['Ma'])
 
 #---------------------------
 # システム同定（最小二乗法を用いる）
@@ -525,54 +526,107 @@ xL[:,1] = delta_e
 xL[:,2] = 1/((1/2)*RHO*Va*S)
 
 # 擬似逆行列を用いた最小二乗解の計算
-theta_hat = np.dot((np.linalg.pinv(xL)),yL)
+L_theta_hat = np.dot((np.linalg.pinv(xL)),yL)
 
 # 同定された未知パラメータの取り出し
-CL_q = theta_hat[0]
-CL_delta_e = theta_hat[1]
-k_L = theta_hat[2]
+CL_q = L_theta_hat[0]
+CL_delta_e = L_theta_hat[1]
+k_L = L_theta_hat[2]
+
+# 同定結果から得られたCLを計算
+CL = CL_0 \
+    + CL_alpha*alpha \
+    + CL_q*(MAC/(2*Va))*d_theta \
+    + CL_delta_e*delta_e
 
 #---------------------------
 # 抗力
 #---------------------------
 
 # 既知パラメータ
-# CD_0 = 0.07887
-#
-# # n*1 抗力から計算された値のリスト
-# yD = (D/(1/2)*RHO*Va**2*S) - CD_0
-#
-# # n*3 リグレッサー（独立変数）や実験データのリスト
-# xL = np.zeros((data_size,3))
-# xL[:,0] = (MAC*d_theta)/(2*Va)
-# xL[:,1] = delta_e
-# xL[:,2] = 1/((1/2)*RHO*Va*S)
-#
-# # 擬似逆行列を用いた最小二乗解の計算
-# theta_hat = np.dot((np.linalg.pinv(xL)),yL)
-#
-# # 同定された未知パラメータの取り出し
-# CL_q = theta_hat[0]
-# CL_delta_e = theta_hat[1]
-# k_L = theta_hat[2]
+CD_0 = 0.07887
+
+# n*1 抗力から計算された値のリスト
+yD = (D/((1/2)*RHO*(Va**2)*S)) - CD_0
+
+# n*2 リグレッサー（独立変数）や実験データのリスト
+xD = np.zeros((data_size,2))
+xD[:,0] = CL**2
+xD[:,1] = 1/((1/2)*RHO*Va*S)
+
+# 擬似逆行列を用いた最小二乗解の計算
+D_theta_hat = np.dot((np.linalg.pinv(xD)),yD)
+
+# 同定された未知パラメータの取り出し
+kappa = D_theta_hat[0]
+k_D = D_theta_hat[1]
+
+# 同定結果から得られたCDを計算
+CD = CD_0 + kappa*(CL**2)
 
 #---------------------------
 # モーメント
 #---------------------------
 
+# n*1 空力モーメントから計算された値のリスト
+ym = Ma/((1/2)*RHO*(Va**2)*S*MAC)
+
+# n*5 リグレッサー（独立変数）や実験データのリスト
+xm = np.zeros((data_size,5))
+xm[:,0] = 1
+xm[:,1] = alpha
+xm[:,2] = (MAC/(2*Va))*d_theta
+xm[:,3] = delta_e
+xm[:,4] = 1/((1/2)*RHO*Va*S*MAC)
+
+# 擬似逆行列を用いた最小二乗解の計算
+m_theta_hat = np.dot((np.linalg.pinv(xm)),ym)
+
+# 同定された未知パラメータの取り出し
+Cm_0 = m_theta_hat[0]
+Cm_alpha = m_theta_hat[1]
+Cm_q = m_theta_hat[2]
+Cm_delta_e = m_theta_hat[3]
+k_m = m_theta_hat[4]
+
+# 同定結果から得られたCDを計算
+Cm = Cm_0 \
+    + Cm_alpha*alpha \
+    + Cm_q*(MAC/(2*Va))*d_theta \
+    + Cm_delta_e*delta_e
+
 #---------------------------
 # 同定結果を用いて計算
 #---------------------------
 
-lift_calc = (1/2)*RHO*S*(Va**2)*(CL_0 + CL_alpha*alpha + CL_q*(MAC/(2*Va))*d_theta + CL_delta_e*delta_e) + k_L*Va
+L_calc = (1/2)*RHO*S*(Va**2)*CL + k_L*Va
+D_calc = (1/2)*RHO*S*(Va**2)*CD + k_D*Va
+Ma_calc = (1/2)*RHO*S*(Va**2)*MAC*Cm + k_m*Va
 
 #---------------------------
 # 結果のプロット
 #---------------------------
 
+plt.subplot(3,1,1)
 plt.plot(L)
-plt.plot(lift_calc)
+plt.plot(L_calc)
 plt.grid()
 plt.xlabel('データ番号')
 plt.ylabel('揚力')
+
+plt.subplot(3,1,2)
+plt.plot(D)
+plt.plot(D_calc)
+plt.grid()
+plt.xlabel('データ番号')
+plt.ylabel('抗力')
+
+plt.subplot(3,1,3)
+plt.plot(Ma)
+plt.plot(Ma_calc)
+plt.grid()
+plt.xlabel('データ番号')
+plt.ylabel('モーメント')
+
+
 plt.show()
