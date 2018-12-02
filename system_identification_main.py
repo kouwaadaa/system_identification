@@ -535,7 +535,8 @@ for i in range(3):
     xL_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,xL)
 
 # 擬似逆行列を用いた最小二乗解の計算
-L_theta_hat = np.dot((np.linalg.pinv(xL)),yL)
+# L_theta_hat = np.dot((np.linalg.pinv(xL)),yL)
+L_theta_hat = np.dot((np.linalg.pinv(xL_filt)),yL_filt)
 
 # 同定された未知パラメータの取り出し
 CL_q = L_theta_hat[0]
@@ -569,7 +570,8 @@ for i in range(3):
     xD_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,xD)
 
 # 擬似逆行列を用いた最小二乗解の計算
-D_theta_hat = np.dot((np.linalg.pinv(xD)),yD)
+# D_theta_hat = np.dot((np.linalg.pinv(xD)),yD)
+D_theta_hat = np.dot((np.linalg.pinv(xD_filt)),yD_filt)
 
 # 同定された未知パラメータの取り出し
 kappa = D_theta_hat[0]
@@ -599,7 +601,8 @@ for i in range(3):
     xm_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,xm)
 
 # 擬似逆行列を用いた最小二乗解の計算
-m_theta_hat = np.dot((np.linalg.pinv(xm)),ym)
+# m_theta_hat = np.dot((np.linalg.pinv(xm)),ym)
+m_theta_hat = np.dot((np.linalg.pinv(xm_filt)),ym_filt)
 
 # 同定された未知パラメータの取り出し
 Cm_0 = m_theta_hat[0]
@@ -628,6 +631,7 @@ Ma_calc = (1/2)*RHO*S*(Va**2)*MAC*Cm + k_m*Va
 print(L_theta_hat)
 print(D_theta_hat)
 print(m_theta_hat)
+print(np.mean(CL))
 
 #---------------------------
 plt.figure(1)
@@ -635,26 +639,26 @@ plt.figure(1)
 # 余白を設定
 plt.subplots_adjust(wspace=0.4, hspace=0.6)
 
-plt.subplot(3,1,1)
-plt.plot(L)
-plt.plot(L_calc)
-plt.grid()
-plt.xlabel('データ番号')
-plt.ylabel('揚力')
+# plt.subplot(3,1,1)
+# plt.plot(L)
+# plt.plot(L_calc)
+# plt.grid()
+# plt.xlabel('データ番号')
+# plt.ylabel('揚力')
 
-plt.subplot(3,1,2)
+# plt.subplot(3,1,2)
 plt.plot(D)
 plt.plot(D_calc)
 plt.grid()
 plt.xlabel('データ番号')
 plt.ylabel('抗力')
-
-plt.subplot(3,1,3)
-plt.plot(Ma)
-plt.plot(Ma_calc)
-plt.grid()
-plt.xlabel('データ番号')
-plt.ylabel('モーメント')
+#
+# plt.subplot(3,1,3)
+# plt.plot(Ma)
+# plt.plot(Ma_calc)
+# plt.grid()
+# plt.xlabel('データ番号')
+# plt.ylabel('モーメント')
 
 #---------------------------
 plt.figure(2)
@@ -663,25 +667,40 @@ plt.figure(2)
 plt.subplots_adjust(wspace=0.4, hspace=0.6)
 
 plt.subplot(3,1,1)
-plt.plot(yL, 'blue')
-plt.plot(yL_filt, 'red')
+plt.plot(yD)
+plt.plot(yD_filt)
 plt.grid()
 plt.xlabel('データ番号')
-plt.ylabel('揚力')
+plt.ylabel('yD')
 
 plt.subplot(3,1,2)
-plt.plot(yD, 'blue')
-plt.plot(yD_filt, 'red')
+plt.plot(xD[:,0])
+plt.plot(xD_filt[:,0])
 plt.grid()
 plt.xlabel('データ番号')
-plt.ylabel('抗力')
+plt.ylabel('xD[0] CL^2')
 
 plt.subplot(3,1,3)
-plt.plot(ym, 'blue')
-plt.plot(ym_filt, 'red')
+plt.plot(xD[:,1])
+plt.plot(xD_filt[:,1])
 plt.grid()
 plt.xlabel('データ番号')
-plt.ylabel('モーメント')
+plt.ylabel('xD[1] 2/ρVS')
+
+
+# plt.subplot(3,1,2)
+# plt.plot(yD, '#0074bf')
+# plt.plot(yD_filt, '#c93a40')
+# plt.grid()
+# plt.xlabel('データ番号')
+# plt.ylabel('抗力')
+#
+# plt.subplot(3,1,3)
+# plt.plot(ym, '#0074bf')
+# plt.plot(ym_filt, '#c93a40')
+# plt.grid()
+# plt.xlabel('データ番号')
+# plt.ylabel('モーメント')
 
 #---------------------------
 plt.show()
