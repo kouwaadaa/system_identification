@@ -24,7 +24,7 @@ get_ipython().run_line_magic('matplotlib', 'qt')
 # 日本語フォントの設定
 # 使用できるフォントを確認したいときは，次の行のコメントアウトを外して実行
 # print([f.name for f in matplotlib.font_manager.fontManager.ttflist])
-plt.rc('font', **{'family':'YuGothic'})
+plt.rc('font', **{'family':'Gen Shin Gothic'})
 plt.rcParams['font.size'] = 20
 plt.rcParams['xtick.labelsize'] = 15
 plt.rcParams['ytick.labelsize'] = 15 # default: 12
@@ -489,6 +489,7 @@ for file_number in range(FILE_NUM):
         'M' : M,
         'tau' : tau,
         'Ma' : Ma,
+        'pitot_Va' : measurement_airspeed,
     })])
 
 #---------------------------
@@ -503,6 +504,11 @@ delta_e = np.array(format_log_data['delta_e'])
 L = np.array(format_log_data['L'])
 D = np.array(format_log_data['D'])
 Ma = np.array(format_log_data['Ma'])
+pitot_Va = np.array(format_log_data['pitot_Va'])
+
+lift_calc = np.zeros((data_size,2))
+drag_calc = np.zeros((data_size,2))
+moment_calc = np.zeros((data_size,2))
 
 #---------------------------
 # システム同定（最小二乗法を用いる）
@@ -647,12 +653,12 @@ plt.subplots_adjust(wspace=0.4, hspace=0.6)
 # plt.ylabel('揚力')
 
 # plt.subplot(3,1,2)
-plt.plot(D)
-plt.plot(D_calc)
+plt.plot(d_theta)
+plt.plot(d_theta_filt)
 plt.grid()
 plt.xlabel('データ番号')
-plt.ylabel('抗力')
-#
+plt.ylabel('対気速度')
+
 # plt.subplot(3,1,3)
 # plt.plot(Ma)
 # plt.plot(Ma_calc)
@@ -661,32 +667,16 @@ plt.ylabel('抗力')
 # plt.ylabel('モーメント')
 
 #---------------------------
-plt.figure(2)
+# plt.figure(2)
+#
+# # 余白を設定
+# plt.subplots_adjust(wspace=0.4, hspace=0.6)
 
-# 余白を設定
-plt.subplots_adjust(wspace=0.4, hspace=0.6)
-
-plt.subplot(3,1,1)
-plt.plot(yD)
-plt.plot(yD_filt)
-plt.grid()
-plt.xlabel('データ番号')
-plt.ylabel('yD')
-
-plt.subplot(3,1,2)
-plt.plot(xD[:,0])
-plt.plot(xD_filt[:,0])
-plt.grid()
-plt.xlabel('データ番号')
-plt.ylabel('xD[0] CL^2')
-
-plt.subplot(3,1,3)
-plt.plot(xD[:,1])
-plt.plot(xD_filt[:,1])
-plt.grid()
-plt.xlabel('データ番号')
-plt.ylabel('xD[1] 2/ρVS')
-
+# plt.plot(yD)
+# plt.plot(yD_filt)
+# plt.grid()
+# plt.xlabel('データ番号')
+# plt.ylabel('yD')
 
 # plt.subplot(3,1,2)
 # plt.plot(yD, '#0074bf')
