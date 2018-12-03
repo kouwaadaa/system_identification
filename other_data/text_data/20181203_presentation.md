@@ -13,6 +13,7 @@
   に対して，
   $\tilde{y}[t]=G_f(s) y[t]$
   とする
+
 - $\tilde{y}[t]=\dfrac{\Delta t}{\tau_f}y[t]+(1-\dfrac{\Delta t}{\tau_f})y[t-\Delta t]$
 
 
