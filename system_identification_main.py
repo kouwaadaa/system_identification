@@ -489,6 +489,7 @@ for file_number in range(FILE_NUM):
         'M' : M,
         'tau' : tau,
         'Ma' : Ma,
+        'pitot_Va' : measurement_airspeed,
     })])
 
 #---------------------------
@@ -503,136 +504,132 @@ delta_e = np.array(format_log_data['delta_e'])
 L = np.array(format_log_data['L'])
 D = np.array(format_log_data['D'])
 Ma = np.array(format_log_data['Ma'])
+pitot_Va = np.array(format_log_data['pitot_Va'])
 
 lift_calc = np.zeros((data_size,2))
 drag_calc = np.zeros((data_size,2))
 moment_calc = np.zeros((data_size,2))
 
-for iter in range(2):
-    #---------------------------
-    # システム同定（最小二乗法を用いる）
-    #---------------------------
+#---------------------------
+# システム同定（最小二乗法を用いる）
+#---------------------------
 
-    T_CONST = input('時定数の値を入力してください: ')
-    T_CONST = float(T_CONST)
-    T_DIFF = 0.02 # 時間偏差
+T_CONST = input('時定数の値を入力してください: ')
+T_CONST = float(T_CONST)
+T_DIFF = 0.02 # 時間偏差
 
-    #---------------------------
-    # 揚力
-    #---------------------------
+#---------------------------
+# 揚力
+#---------------------------
 
-    # 既知パラメータ
-    CL_0 = 0.0634
-    CL_alpha = 2.68
+# 既知パラメータ
+CL_0 = 0.0634
+CL_alpha = 2.68
 
-    # n*1 揚力から計算された値のリスト
-    yL = (L/((1/2)*RHO*(Va**2)*S)) - CL_0 - CL_alpha*alpha
+# n*1 揚力から計算された値のリスト
+yL = (L/((1/2)*RHO*(Va**2)*S)) - CL_0 - CL_alpha*alpha
 
-    # n*3 リグレッサー（独立変数）や実験データのリスト
-    xL = np.zeros((data_size,3))
-    xL[:,0] = (MAC*d_theta)/(2*Va)
-    xL[:,1] = delta_e
-    xL[:,2] = 1/((1/2)*RHO*Va*S)
+# n*3 リグレッサー（独立変数）や実験データのリスト
+xL = np.zeros((data_size,3))
+xL[:,0] = (MAC*d_theta)/(2*Va)
+xL[:,1] = delta_e
+xL[:,2] = 1/((1/2)*RHO*Va*S)
 
-    # ３次ローパスフィルタをかける
-    for i in range(3):
-        yL_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,yL)
-        xL_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,xL)
+# ３次ローパスフィルタをかける
+for i in range(3):
+    yL_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,yL)
+    xL_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,xL)
 
-    # 擬似逆行列を用いた最小二乗解の計算
-    # L_theta_hat = np.dot((np.linalg.pinv(xL)),yL)
-    L_theta_hat = np.dot((np.linalg.pinv(xL_filt)),yL_filt)
+# 擬似逆行列を用いた最小二乗解の計算
+# L_theta_hat = np.dot((np.linalg.pinv(xL)),yL)
+L_theta_hat = np.dot((np.linalg.pinv(xL_filt)),yL_filt)
 
-    # 同定された未知パラメータの取り出し
-    CL_q = L_theta_hat[0]
-    CL_delta_e = L_theta_hat[1]
-    k_L = L_theta_hat[2]
+# 同定された未知パラメータの取り出し
+CL_q = L_theta_hat[0]
+CL_delta_e = L_theta_hat[1]
+k_L = L_theta_hat[2]
 
-    # 同定結果から得られたCLを計算
-    CL = CL_0 \
-        + CL_alpha*alpha \
-        + CL_q*(MAC/(2*Va))*d_theta \
-        + CL_delta_e*delta_e
+# 同定結果から得られたCLを計算
+CL = CL_0 \
+    + CL_alpha*alpha \
+    + CL_q*(MAC/(2*Va))*d_theta \
+    + CL_delta_e*delta_e
 
-    #---------------------------
-    # 抗力
-    #---------------------------
+#---------------------------
+# 抗力
+#---------------------------
 
-    # 既知パラメータ
-    CD_0 = 0.07887
+# 既知パラメータ
+CD_0 = 0.07887
 
-    # n*1 抗力から計算された値のリスト
-    yD = (D/((1/2)*RHO*(Va**2)*S)) - CD_0
+# n*1 抗力から計算された値のリスト
+yD = (D/((1/2)*RHO*(Va**2)*S)) - CD_0
 
-    # n*2 リグレッサー（独立変数）や実験データのリスト
-    xD = np.zeros((data_size,2))
-    xD[:,0] = CL**2
-    xD[:,1] = 1/((1/2)*RHO*Va*S)
+# n*2 リグレッサー（独立変数）や実験データのリスト
+xD = np.zeros((data_size,2))
+xD[:,0] = CL**2
+xD[:,1] = 1/((1/2)*RHO*Va*S)
 
-    # ３次ローパスフィルタをかける
-    for i in range(3):
-        yD_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,yD)
-        xD_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,xD)
+# ３次ローパスフィルタをかける
+for i in range(3):
+    yD_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,yD)
+    xD_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,xD)
 
-    # 擬似逆行列を用いた最小二乗解の計算
-    # D_theta_hat = np.dot((np.linalg.pinv(xD)),yD)
-    D_theta_hat = np.dot((np.linalg.pinv(xD_filt)),yD_filt)
+# 擬似逆行列を用いた最小二乗解の計算
+# D_theta_hat = np.dot((np.linalg.pinv(xD)),yD)
+D_theta_hat = np.dot((np.linalg.pinv(xD_filt)),yD_filt)
 
-    # 同定された未知パラメータの取り出し
-    kappa = D_theta_hat[0]
-    k_D = D_theta_hat[1]
+# 同定された未知パラメータの取り出し
+kappa = D_theta_hat[0]
+k_D = D_theta_hat[1]
 
-    # 同定結果から得られたCDを計算
-    CD = CD_0 + kappa*(CL**2)
+# 同定結果から得られたCDを計算
+CD = CD_0 + kappa*(CL**2)
 
-    #---------------------------
-    # モーメント
-    #---------------------------
+#---------------------------
+# モーメント
+#---------------------------
 
-    # n*1 空力モーメントから計算された値のリスト
-    ym = Ma/((1/2)*RHO*(Va**2)*S*MAC)
+# n*1 空力モーメントから計算された値のリスト
+ym = Ma/((1/2)*RHO*(Va**2)*S*MAC)
 
-    # n*5 リグレッサー（独立変数）や実験データのリスト
-    xm = np.zeros((data_size,5))
-    xm[:,0] = 1
-    xm[:,1] = alpha
-    xm[:,2] = (MAC/(2*Va))*d_theta
-    xm[:,3] = delta_e
-    xm[:,4] = 1/((1/2)*RHO*Va*S*MAC)
+# n*5 リグレッサー（独立変数）や実験データのリスト
+xm = np.zeros((data_size,5))
+xm[:,0] = 1
+xm[:,1] = alpha
+xm[:,2] = (MAC/(2*Va))*d_theta
+xm[:,3] = delta_e
+xm[:,4] = 1/((1/2)*RHO*Va*S*MAC)
 
-    # ３次ローパスフィルタをかける
-    for i in range(3):
-        ym_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,ym)
-        xm_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,xm)
+# ３次ローパスフィルタをかける
+for i in range(3):
+    ym_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,ym)
+    xm_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,xm)
 
-    # 擬似逆行列を用いた最小二乗解の計算
-    # m_theta_hat = np.dot((np.linalg.pinv(xm)),ym)
-    m_theta_hat = np.dot((np.linalg.pinv(xm_filt)),ym_filt)
+# 擬似逆行列を用いた最小二乗解の計算
+# m_theta_hat = np.dot((np.linalg.pinv(xm)),ym)
+m_theta_hat = np.dot((np.linalg.pinv(xm_filt)),ym_filt)
 
-    # 同定された未知パラメータの取り出し
-    Cm_0 = m_theta_hat[0]
-    Cm_alpha = m_theta_hat[1]
-    Cm_q = m_theta_hat[2]
-    Cm_delta_e = m_theta_hat[3]
-    k_m = m_theta_hat[4]
+# 同定された未知パラメータの取り出し
+Cm_0 = m_theta_hat[0]
+Cm_alpha = m_theta_hat[1]
+Cm_q = m_theta_hat[2]
+Cm_delta_e = m_theta_hat[3]
+k_m = m_theta_hat[4]
 
-    # 同定結果から得られたCDを計算
-    Cm = Cm_0 \
-        + Cm_alpha*alpha \
-        + Cm_q*(MAC/(2*Va))*d_theta \
-        + Cm_delta_e*delta_e
+# 同定結果から得られたCDを計算
+Cm = Cm_0 \
+    + Cm_alpha*alpha \
+    + Cm_q*(MAC/(2*Va))*d_theta \
+    + Cm_delta_e*delta_e
 
-    #---------------------------
-    # 同定結果を用いて計算
-    #---------------------------
+#---------------------------
+# 同定結果を用いて計算
+#---------------------------
 
-    L_calc = (1/2)*RHO*S*(Va**2)*CL + k_L*Va
-    D_calc = (1/2)*RHO*S*(Va**2)*CD + k_D*Va
-    Ma_calc = (1/2)*RHO*S*(Va**2)*MAC*Cm + k_m*Va
-
-    lift_calc[:,iter] = L_calc
-    drag_calc[:,iter] = D_calc
-    moment_calc[:,iter] = Ma_calc
+L_calc = (1/2)*RHO*S*(Va**2)*CL + k_L*Va
+D_calc = (1/2)*RHO*S*(Va**2)*CD + k_D*Va
+Ma_calc = (1/2)*RHO*S*(Va**2)*MAC*Cm + k_m*Va
 
 #---------------------------
 # 結果
@@ -656,13 +653,12 @@ plt.subplots_adjust(wspace=0.4, hspace=0.6)
 # plt.ylabel('揚力')
 
 # plt.subplot(3,1,2)
-plt.plot(D, 'b')
-plt.plot(drag_calc[:,0], 'r')
-plt.plot(drag_calc[:,1], 'g')
+plt.plot(d_theta)
+plt.plot(d_theta_filt)
 plt.grid()
 plt.xlabel('データ番号')
-plt.ylabel('抗力')
-#
+plt.ylabel('対気速度')
+
 # plt.subplot(3,1,3)
 # plt.plot(Ma)
 # plt.plot(Ma_calc)
@@ -671,16 +667,16 @@ plt.ylabel('抗力')
 # plt.ylabel('モーメント')
 
 #---------------------------
-plt.figure(2)
+# plt.figure(2)
+#
+# # 余白を設定
+# plt.subplots_adjust(wspace=0.4, hspace=0.6)
 
-# 余白を設定
-plt.subplots_adjust(wspace=0.4, hspace=0.6)
-
-plt.plot(yD)
-plt.plot(yD_filt)
-plt.grid()
-plt.xlabel('データ番号')
-plt.ylabel('yD')
+# plt.plot(yD)
+# plt.plot(yD_filt)
+# plt.grid()
+# plt.xlabel('データ番号')
+# plt.ylabel('yD')
 
 # plt.subplot(3,1,2)
 # plt.plot(yD, '#0074bf')
