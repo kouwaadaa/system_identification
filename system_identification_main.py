@@ -24,7 +24,8 @@ get_ipython().run_line_magic('matplotlib', 'qt')
 # 日本語フォントの設定
 # 使用できるフォントを確認したいときは，次の行のコメントアウトを外して実行
 # print([f.name for f in matplotlib.font_manager.fontManager.ttflist])
-plt.rc('font', **{'family':'Gen Shin Gothic'})
+# plt.rc('font', **{'family':'Gen Shin Gothic'})
+plt.rc('font', **{'family':'YuGothic'})
 plt.rcParams['font.size'] = 20
 plt.rcParams['xtick.labelsize'] = 15
 plt.rcParams['ytick.labelsize'] = 15 # default: 12
@@ -624,7 +625,7 @@ Cm = Cm_0 \
     + Cm_delta_e*delta_e
 
 #---------------------------
-# 同定結果を用いて計算
+# 同定結果を用いて空力を再現
 #---------------------------
 
 L_calc = (1/2)*RHO*S*(Va**2)*CL + k_L*Va
@@ -632,32 +633,51 @@ D_calc = (1/2)*RHO*S*(Va**2)*CD + k_D*Va
 Ma_calc = (1/2)*RHO*S*(Va**2)*MAC*Cm + k_m*Va
 
 #---------------------------
+# フーリエ変換
+#---------------------------
+
+for i in range(3):
+    d_theta_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,d_theta)
+
+# 高速フーリエ変換（FFT）
+F_d_theta = np.fft.fft(d_theta_filt)
+
+# FFTの複素数結果を絶対変換
+F_d_theta_abs = np.abs(F_d_theta)
+
+# 振れ幅をもとの信号に揃える
+F_d_theta_abs = F_d_theta_abs / data_size * 2 # 交流成分
+F_d_theta_abs[0] = F_d_theta_abs[0] / 2 # 直流成分
+
+# 周波数軸のデータ作成
+fq = np.linspace(0, 1.0/T_DIFF, data_size) # 周波数軸　linspace(開始,終了,分割数)
+
+#---------------------------
 # 結果
 #---------------------------
+
 print(L_theta_hat)
 print(D_theta_hat)
 print(m_theta_hat)
 print(np.mean(CL))
 
 #---------------------------
-plt.figure(1)
-
+plt.figure()
 # 余白を設定
 plt.subplots_adjust(wspace=0.4, hspace=0.6)
 
-# plt.subplot(3,1,1)
-# plt.plot(L)
-# plt.plot(L_calc)
-# plt.grid()
-# plt.xlabel('データ番号')
-# plt.ylabel('揚力')
+plt.plot(fq, F_d_theta_abs)
+plt.xlabel('周波数[Hz]')
+plt.ylabel('d_theta 振幅')
 
-# plt.subplot(3,1,2)
-plt.plot(d_theta)
+#---------------------------
+plt.figure()
+# 余白を設定
+plt.subplots_adjust(wspace=0.4, hspace=0.6)
+
 plt.plot(d_theta_filt)
-plt.grid()
-plt.xlabel('データ番号')
-plt.ylabel('対気速度')
+plt.xlabel('データ番号[]')
+plt.ylabel('d_theta[rad]')
 
 # plt.subplot(3,1,3)
 # plt.plot(Ma)
