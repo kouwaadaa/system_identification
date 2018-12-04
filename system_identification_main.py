@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+fq# -*- coding: utf-8 -*-
 
 #---------------------------
 # モジュールのインポートなど
@@ -6,6 +6,8 @@
 
 import numpy as np
 from numpy import pi
+from scipy import signal
+
 import pandas as pd
 
 import matplotlib.pyplot as plt
@@ -515,8 +517,9 @@ moment_calc = np.zeros((data_size,2))
 # システム同定（最小二乗法を用いる）
 #---------------------------
 
-T_CONST = input('時定数の値を入力してください: ')
-T_CONST = float(T_CONST)
+# T_CONST = input('時定数の値を入力してください: ')
+# T_CONST = float(T_CONST)
+T_CONST = 0.03
 T_DIFF = 0.02 # 時間偏差
 
 #---------------------------
@@ -636,48 +639,57 @@ Ma_calc = (1/2)*RHO*S*(Va**2)*MAC*Cm + k_m*Va
 # フーリエ変換
 #---------------------------
 
-for i in range(3):
-    d_theta_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,d_theta)
-
-# 高速フーリエ変換（FFT）
-F_d_theta = np.fft.fft(d_theta_filt)
-
-# FFTの複素数結果を絶対変換
-F_d_theta_abs = np.abs(F_d_theta)
-
-# 振れ幅をもとの信号に揃える
-F_d_theta_abs = F_d_theta_abs / data_size * 2 # 交流成分
-F_d_theta_abs[0] = F_d_theta_abs[0] / 2 # 直流成分
-
 # 周波数軸のデータ作成
 fq = np.linspace(0, 1.0/T_DIFF, data_size) # 周波数軸　linspace(開始,終了,分割数)
+
+# FFT
+F1_amp = matex.fft_set_amp(d_theta,T_DIFF,data_size)
 
 #---------------------------
 # 結果
 #---------------------------
 
-print(L_theta_hat)
-print(D_theta_hat)
-print(m_theta_hat)
-print(np.mean(CL))
+# print(L_theta_hat)
+# print(D_theta_hat)
+# print(m_theta_hat)
+# print(np.mean(CL))
 
 #---------------------------
 plt.figure()
+
 # 余白を設定
 plt.subplots_adjust(wspace=0.4, hspace=0.6)
 
-plt.plot(fq, F_d_theta_abs)
-plt.xlabel('周波数[Hz]')
-plt.ylabel('d_theta 振幅')
+# FFTデータからピークを自動検出
+maximal_idx = signal.argrelmax(F1, order=1)[0] # ピーク（極大値）のインデックス取得
 
-#---------------------------
-plt.figure()
-# 余白を設定
-plt.subplots_adjust(wspace=0.4, hspace=0.6)
+# ピーク検出感度調整もどき、後半側（ナイキスト超）と閾値より小さい振幅ピークを除外
+peak_cut = 0.05 # ピーク閾値
+maximal_idx = maximal_idx[(F1[maximal_idx] > peak_cut) & (maximal_idx <= data_size/2)]
 
-plt.plot(d_theta_filt)
+plt.subplot(211)
+plt.plot(d_theta)
 plt.xlabel('データ番号[]')
 plt.ylabel('d_theta[rad]')
+
+plt.subplot(212)
+plt.plot(fq, F1)
+plt.xlabel('周波数[Hz]')
+plt.ylabel('振幅')
+
+# peakを赤点で表示
+plt.plot(fq[maximal_idx], F1[maximal_idx],'ro')
+
+# グラフにピークの周波数をテキストで表示
+for i in range(len(maximal_idx)):
+    plt.annotate('{0:.3f}(Hz)'.format(np.round(fq[maximal_idx[i]],decimals=3)),
+                 xy=(fq[maximal_idx[i]], F1[maximal_idx[i]]),
+                 xytext=(10, 20),
+                 textcoords='offset points',
+                 arrowprops=dict(arrowstyle="->",connectionstyle="arc3,rad=.2")
+                )
+
+print('peak', fq[maximal_idx])
 
 # plt.subplot(3,1,3)
 # plt.plot(Ma)

@@ -158,3 +158,35 @@ def lp_filter(t_const, t_diff, data_size, x):
         raise Exception('Array-size Error.')
 
     return lp_x
+
+
+def fft_set_amp(nparray,dt,N):
+    '''
+    N個の時系列データを高速フーリエ変換し，振幅を元のスケールに揃えた状態で返す関数．
+
+    Parameters
+    ----------
+    nparray: array-like
+        元のデータ．ndarray型の一次元配列のみ対応．
+    dt: float
+        サンプリング間隔．
+    N: int
+        データ数
+
+    Returns
+    -------
+    fft_nparray: array-like
+        処理後の配列．
+    '''
+
+    # 高速フーリエ変換（FFT）
+    fft = np.fft.fft(nparray)
+
+    # FFTの複素数結果を絶対変換
+    fft_abs = np.abs(fft)
+
+    # 振幅を元のスケールに揃える
+    fft_nparray = fft_abs / N * 2 # 交流成分
+    fft_nparray[0] = fft_nparray[0] / 2 # 直流成分
+
+    return fft_nparray
