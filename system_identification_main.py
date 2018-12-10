@@ -346,7 +346,7 @@ for file_number in range(FILE_NUM):
     Vi = np.array(Vi)
     Vi_wind = np.array(Vi_wind)
 
-    # Pixhawk位置から重心位置の速度に変換
+    # センサー位置の補正
     Vi[:,2] = Vi[:,2] + d_theta*LEN_P
 
     # 対気速度を計算
@@ -643,7 +643,7 @@ Ma_calc = (1/2)*RHO*S*(Va**2)*MAC*Cm + k_m*Va
 fq = np.linspace(0, 1.0/T_DIFF, data_size) # 周波数軸　linspace(開始,終了,分割数)
 
 # FFT
-F1_amp = matex.fft_set_amp(d_theta,T_DIFF,data_size)
+F1 = matex.fft_set_amp(d_theta,T_DIFF,data_size)
 
 #---------------------------
 # 結果
