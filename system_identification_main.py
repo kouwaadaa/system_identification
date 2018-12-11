@@ -346,7 +346,7 @@ for file_number in range(FILE_NUM):
     Vi = np.array(Vi)
     Vi_wind = np.array(Vi_wind)
 
-    # Pixhawk位置から重心位置の速度に変換
+    # センサー位置の補正
     Vi[:,2] = Vi[:,2] + d_theta*LEN_P
 
     # 対気速度を計算
