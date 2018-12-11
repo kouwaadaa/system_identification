@@ -643,7 +643,7 @@ Ma_calc = (1/2)*RHO*S*(Va**2)*MAC*Cm + k_m*Va
 fq = np.linspace(0, 1.0/T_DIFF, data_size) # 周波数軸　linspace(開始,終了,分割数)
 
 # FFT
-F1_amp = matex.fft_set_amp(d_theta,T_DIFF,data_size)
+F1 = matex.fft_set_amp(d_theta,T_DIFF,data_size)
 
 #---------------------------
 # 結果
