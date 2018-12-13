@@ -100,7 +100,7 @@ for file_number in range(FILE_NUM):
             '17.52 <= Time_Conv <= 19.14'
         )
 
-        # Aファイルに依存する値（風速，推力効率，ティルト角）
+        # ファイルに依存する値（風速，推力効率，ティルト角）
         V_W = -4.03
         THRUST_EF = 40/48
         GAMMA = 0
