@@ -669,25 +669,25 @@ maximal_idx = maximal_idx[(F1[maximal_idx] > peak_cut) & (maximal_idx <= data_si
 
 plt.subplot(211)
 plt.plot(d_theta)
-plt.xlabel('データ番号[]')
-plt.ylabel('d_theta[rad]')
+plt.xlabel('data number []')
+plt.ylabel('d_theta [rad]')
 
 plt.subplot(212)
 plt.plot(fq, F1)
-plt.xlabel('周波数[Hz]')
-plt.ylabel('振幅')
+plt.xlabel('frequency [Hz]')
+plt.ylabel('amplitude')
 
-# peakを赤点で表示
-plt.plot(fq[maximal_idx], F1[maximal_idx],'ro')
-
-# グラフにピークの周波数をテキストで表示
-for i in range(len(maximal_idx)):
-    plt.annotate('{0:.3f}(Hz)'.format(np.round(fq[maximal_idx[i]],decimals=3)),
-                 xy=(fq[maximal_idx[i]], F1[maximal_idx[i]]),
-                 xytext=(10, 20),
-                 textcoords='offset points',
-                 arrowprops=dict(arrowstyle="->",connectionstyle="arc3,rad=.2")
-                )
+## peakを赤点で表示
+#plt.plot(fq[maximal_idx], F1[maximal_idx],'ro')
+#
+## グラフにピークの周波数をテキストで表示
+#for i in range(len(maximal_idx)):
+#    plt.annotate('{0:.3f}(Hz)'.format(np.round(fq[maximal_idx[i]],decimals=3)),
+#                 xy=(fq[maximal_idx[i]], F1[maximal_idx[i]]),
+#                 xytext=(10, 20),
+#                 textcoords='offset points',
+#                 arrowprops=dict(arrowstyle="->",connectionstyle="arc3,rad=.2")
+#                )
 
 print('peak', fq[maximal_idx])
 
