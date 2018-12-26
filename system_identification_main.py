@@ -17,6 +17,7 @@ import matplotlib.pyplot as plt
 from IPython import get_ipython
 
 import math_extention as matex
+import sys_id_calc
 
 #---------------------------
 # matplotlibの諸設定
@@ -450,7 +451,7 @@ for file_number in range(FILE_NUM):
     M = I_YY * dd_theta # 全軸モーメント
     tau = LEN_F*(Tf_up + Tf_down) \
         - LEN_M*(Tm_up + Tm_down)*np.cos(tilt) \
-        - LEN_S_X*(Tr_l + Tr_r) # ロータ推力によるモーメント
+        - LEN_R_X*(Tr_l + Tr_r) # ロータ推力によるモーメント
     Ma = M - tau
 
     #---------------------------
@@ -500,155 +501,163 @@ for file_number in range(FILE_NUM):
         'pitot_Va' : measurement_airspeed,
     })])
 
+result = sys_id_calc.sys_id(format_log_data)
+
+print(result[:,1])
+
 #---------------------------
 # 整理されたデータから値を取り出す
 #---------------------------
+#
+# data_size = len(format_log_data)
+# d_theta = np.array(format_log_data['d_theta'])
+# alpha = np.array(format_log_data['alpha'])
+# Va = np.array(format_log_data['Va'])
+# delta_e = np.array(format_log_data['delta_e'])
+# L = np.array(format_log_data['L'])
+# D = np.array(format_log_data['D'])
+# Ma = np.array(format_log_data['Ma'])
+# pitot_Va = np.array(format_log_data['pitot_Va'])
+#
+# lift_calc = np.zeros((data_size,2))
+# drag_calc = np.zeros((data_size,2))
+# moment_calc = np.zeros((data_size,2))
+#
+# #---------------------------
+# # システム同定（最小二乗法を用いる）
+# #---------------------------
+#
+# # T_CONST = input('時定数の値を入力してください: ')
+# # T_CONST = float(T_CONST)
+# T_CONST = 0.03
+# T_DIFF = 0.02 # 時間偏差
+#
+# #---------------------------
+# # 揚力
+# #---------------------------
+#
+# # 既知パラメータ
+# CL_0 = 0.0634
+# CL_alpha = 2.68
+#
+# # n*1 揚力から計算された値のリスト
+# yL = (L/((1/2)*RHO*(Va**2)*S)) - CL_0 - CL_alpha*alpha
+#
+# # n*3 リグレッサー（独立変数）や実験データのリスト
+# xL = np.zeros((data_size,3))
+# xL[:,0] = (MAC*d_theta)/(2*Va)
+# xL[:,1] = delta_e
+# xL[:,2] = 1/((1/2)*RHO*Va*S)
+#
+# # ３次ローパスフィルタをかける
+# for i in range(3):
+#     yL_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,yL)
+#     xL_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,xL)
+#
+# # 擬似逆行列を用いた最小二乗解の計算
+# # L_theta_hat = np.dot((np.linalg.pinv(xL)),yL)
+# L_theta_hat = np.dot((np.linalg.pinv(xL_filt)),yL_filt)
+#
+# # 同定された未知パラメータの取り出し
+# CL_q = L_theta_hat[0]
+# CL_delta_e = L_theta_hat[1]
+# k_L = L_theta_hat[2]
+#
+# # 同定結果から得られたCLを計算
+# CL = CL_0 \
+#     + CL_alpha*alpha \
+#     + CL_q*(MAC/(2*Va))*d_theta \
+#     + CL_delta_e*delta_e
+#
+# #---------------------------
+# # 抗力
+# #---------------------------
+#
+# # 既知パラメータ
+# CD_0 = 0.07887
+#
+# # n*1 抗力から計算された値のリスト
+# yD = (D/((1/2)*RHO*(Va**2)*S)) - CD_0
+#
+# # n*2 リグレッサー（独立変数）や実験データのリスト
+# xD = np.zeros((data_size,2))
+# xD[:,0] = CL**2
+# xD[:,1] = 1/((1/2)*RHO*Va*S)
+#
+# # ３次ローパスフィルタをかける
+# for i in range(3):
+#     yD_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,yD)
+#     xD_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,xD)
+#
+# # 擬似逆行列を用いた最小二乗解の計算
+# # D_theta_hat = np.dot((np.linalg.pinv(xD)),yD)
+# D_theta_hat = np.dot((np.linalg.pinv(xD_filt)),yD_filt)
+#
+# # 同定された未知パラメータの取り出し
+# kappa = D_theta_hat[0]
+# k_D = D_theta_hat[1]
+#
+# # 同定結果から得られたCDを計算
+# CD = CD_0 + kappa*(CL**2)
+#
+# #---------------------------
+# # モーメント
+# #---------------------------
+#
+# # n*1 空力モーメントから計算された値のリスト
+# ym = Ma/((1/2)*RHO*(Va**2)*S*MAC)
+#
+# # n*5 リグレッサー（独立変数）や実験データのリスト
+# xm = np.zeros((data_size,5))
+# xm[:,0] = 1
+# xm[:,1] = alpha
+# xm[:,2] = (MAC/(2*Va))*d_theta
+# xm[:,3] = delta_e
+# xm[:,4] = 1/((1/2)*RHO*Va*S*MAC)
+#
+# # ３次ローパスフィルタをかける
+# for i in range(3):
+#     ym_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,ym)
+#     xm_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,xm)
+#
+# # 擬似逆行列を用いた最小二乗解の計算
+# # m_theta_hat = np.dot((np.linalg.pinv(xm)),ym)
+# m_theta_hat = np.dot((np.linalg.pinv(xm_filt)),ym_filt)
+#
+# # 同定された未知パラメータの取り出し
+# Cm_0 = m_theta_hat[0]
+# Cm_alpha = m_theta_hat[1]
+# Cm_q = m_theta_hat[2]
+# Cm_delta_e = m_theta_hat[3]
+# k_m = m_theta_hat[4]
+#
+# # 同定結果から得られたCDを計算
+# Cm = Cm_0 \
+#     + Cm_alpha*alpha \
+#     + Cm_q*(MAC/(2*Va))*d_theta \
+#     + Cm_delta_e*delta_e
+#
+# #---------------------------
+# # 同定結果を用いて空力を再現
+# #---------------------------
+#
+# L_calc = (1/2)*RHO*S*(Va**2)*CL + k_L*Va
+# D_calc = (1/2)*RHO*S*(Va**2)*CD + k_D*Va
+# Ma_calc = (1/2)*RHO*S*(Va**2)*MAC*Cm + k_m*Va
 
-data_size = len(format_log_data)
-d_theta = np.array(format_log_data['d_theta'])
-alpha = np.array(format_log_data['alpha'])
-Va = np.array(format_log_data['Va'])
-delta_e = np.array(format_log_data['delta_e'])
-L = np.array(format_log_data['L'])
-D = np.array(format_log_data['D'])
-Ma = np.array(format_log_data['Ma'])
-pitot_Va = np.array(format_log_data['pitot_Va'])
 
-lift_calc = np.zeros((data_size,2))
-drag_calc = np.zeros((data_size,2))
-moment_calc = np.zeros((data_size,2))
+print(Cm_0)
 
-#---------------------------
-# システム同定（最小二乗法を用いる）
-#---------------------------
-
-# T_CONST = input('時定数の値を入力してください: ')
-# T_CONST = float(T_CONST)
-T_CONST = 0.03
-T_DIFF = 0.02 # 時間偏差
-
-#---------------------------
-# 揚力
-#---------------------------
-
-# 既知パラメータ
-CL_0 = 0.0634
-CL_alpha = 2.68
-
-# n*1 揚力から計算された値のリスト
-yL = (L/((1/2)*RHO*(Va**2)*S)) - CL_0 - CL_alpha*alpha
-
-# n*3 リグレッサー（独立変数）や実験データのリスト
-xL = np.zeros((data_size,3))
-xL[:,0] = (MAC*d_theta)/(2*Va)
-xL[:,1] = delta_e
-xL[:,2] = 1/((1/2)*RHO*Va*S)
-
-# ３次ローパスフィルタをかける
-for i in range(3):
-    yL_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,yL)
-    xL_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,xL)
-
-# 擬似逆行列を用いた最小二乗解の計算
-# L_theta_hat = np.dot((np.linalg.pinv(xL)),yL)
-L_theta_hat = np.dot((np.linalg.pinv(xL_filt)),yL_filt)
-
-# 同定された未知パラメータの取り出し
-CL_q = L_theta_hat[0]
-CL_delta_e = L_theta_hat[1]
-k_L = L_theta_hat[2]
-
-# 同定結果から得られたCLを計算
-CL = CL_0 \
-    + CL_alpha*alpha \
-    + CL_q*(MAC/(2*Va))*d_theta \
-    + CL_delta_e*delta_e
-
-#---------------------------
-# 抗力
-#---------------------------
-
-# 既知パラメータ
-CD_0 = 0.07887
-
-# n*1 抗力から計算された値のリスト
-yD = (D/((1/2)*RHO*(Va**2)*S)) - CD_0
-
-# n*2 リグレッサー（独立変数）や実験データのリスト
-xD = np.zeros((data_size,2))
-xD[:,0] = CL**2
-xD[:,1] = 1/((1/2)*RHO*Va*S)
-
-# ３次ローパスフィルタをかける
-for i in range(3):
-    yD_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,yD)
-    xD_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,xD)
-
-# 擬似逆行列を用いた最小二乗解の計算
-# D_theta_hat = np.dot((np.linalg.pinv(xD)),yD)
-D_theta_hat = np.dot((np.linalg.pinv(xD_filt)),yD_filt)
-
-# 同定された未知パラメータの取り出し
-kappa = D_theta_hat[0]
-k_D = D_theta_hat[1]
-
-# 同定結果から得られたCDを計算
-CD = CD_0 + kappa*(CL**2)
-
-#---------------------------
-# モーメント
-#---------------------------
-
-# n*1 空力モーメントから計算された値のリスト
-ym = Ma/((1/2)*RHO*(Va**2)*S*MAC)
-
-# n*5 リグレッサー（独立変数）や実験データのリスト
-xm = np.zeros((data_size,5))
-xm[:,0] = 1
-xm[:,1] = alpha
-xm[:,2] = (MAC/(2*Va))*d_theta
-xm[:,3] = delta_e
-xm[:,4] = 1/((1/2)*RHO*Va*S*MAC)
-
-# ３次ローパスフィルタをかける
-for i in range(3):
-    ym_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,ym)
-    xm_filt = matex.lp_filter(T_CONST,T_DIFF,data_size,xm)
-
-# 擬似逆行列を用いた最小二乗解の計算
-# m_theta_hat = np.dot((np.linalg.pinv(xm)),ym)
-m_theta_hat = np.dot((np.linalg.pinv(xm_filt)),ym_filt)
-
-# 同定された未知パラメータの取り出し
-Cm_0 = m_theta_hat[0]
-Cm_alpha = m_theta_hat[1]
-Cm_q = m_theta_hat[2]
-Cm_delta_e = m_theta_hat[3]
-k_m = m_theta_hat[4]
-
-# 同定結果から得られたCDを計算
-Cm = Cm_0 \
-    + Cm_alpha*alpha \
-    + Cm_q*(MAC/(2*Va))*d_theta \
-    + Cm_delta_e*delta_e
-
-#---------------------------
-# 同定結果を用いて空力を再現
-#---------------------------
-
-L_calc = (1/2)*RHO*S*(Va**2)*CL + k_L*Va
-D_calc = (1/2)*RHO*S*(Va**2)*CD + k_D*Va
-Ma_calc = (1/2)*RHO*S*(Va**2)*MAC*Cm + k_m*Va
 
 #---------------------------
 # フーリエ変換
 #---------------------------
 
-# 周波数軸のデータ作成
-fq = np.linspace(0, 1.0/T_DIFF, data_size) # 周波数軸　linspace(開始,終了,分割数)
-
-# FFT
-F1 = matex.fft_set_amp(d_theta,T_DIFF,data_size)
+# # 周波数軸のデータ作成
+# fq = np.linspace(0, 1.0/T_DIFF, data_size) # 周波数軸　linspace(開始,終了,分割数)
+#
+# # FFT
+# F1 = matex.fft_set_amp(d_theta,T_DIFF,data_size)
 
 #---------------------------
 # 結果
@@ -660,41 +669,41 @@ F1 = matex.fft_set_amp(d_theta,T_DIFF,data_size)
 # print(np.mean(CL))
 
 #---------------------------
-plt.figure()
-
-# 余白を設定
-plt.subplots_adjust(wspace=0.4, hspace=0.6)
-
-# FFTデータからピークを自動検出
-maximal_idx = signal.argrelmax(F1, order=1)[0] # ピーク（極大値）のインデックス取得
-
-# ピーク検出感度調整もどき、後半側（ナイキスト超）と閾値より小さい振幅ピークを除外
-peak_cut = 0.05 # ピーク閾値
-maximal_idx = maximal_idx[(F1[maximal_idx] > peak_cut) & (maximal_idx <= data_size/2)]
-
-plt.subplot(211)
-plt.plot(d_theta)
-plt.xlabel('data number []')
-plt.ylabel('d_theta [rad]')
-
-plt.subplot(212)
-plt.plot(fq, F1)
-plt.xlabel('frequency [Hz]')
-plt.ylabel('amplitude')
-
-## peakを赤点で表示
-#plt.plot(fq[maximal_idx], F1[maximal_idx],'ro')
+# plt.figure()
 #
-## グラフにピークの周波数をテキストで表示
-#for i in range(len(maximal_idx)):
-#    plt.annotate('{0:.3f}(Hz)'.format(np.round(fq[maximal_idx[i]],decimals=3)),
-#                 xy=(fq[maximal_idx[i]], F1[maximal_idx[i]]),
-#                 xytext=(10, 20),
-#                 textcoords='offset points',
-#                 arrowprops=dict(arrowstyle="->",connectionstyle="arc3,rad=.2")
-#                )
-
-print('peak', fq[maximal_idx])
+# # 余白を設定
+# plt.subplots_adjust(wspace=0.4, hspace=0.6)
+#
+# # FFTデータからピークを自動検出
+# maximal_idx = signal.argrelmax(F1, order=1)[0] # ピーク（極大値）のインデックス取得
+#
+# # ピーク検出感度調整もどき、後半側（ナイキスト超）と閾値より小さい振幅ピークを除外
+# peak_cut = 0.05 # ピーク閾値
+# maximal_idx = maximal_idx[(F1[maximal_idx] > peak_cut) & (maximal_idx <= data_size/2)]
+#
+# plt.subplot(211)
+# plt.plot(d_theta)
+# plt.xlabel('data number []')
+# plt.ylabel('d_theta [rad]')
+#
+# plt.subplot(212)
+# plt.plot(fq, F1)
+# plt.xlabel('frequency [Hz]')
+# plt.ylabel('amplitude')
+#
+# ## peakを赤点で表示
+# #plt.plot(fq[maximal_idx], F1[maximal_idx],'ro')
+# #
+# ## グラフにピークの周波数をテキストで表示
+# #for i in range(len(maximal_idx)):
+# #    plt.annotate('{0:.3f}(Hz)'.format(np.round(fq[maximal_idx[i]],decimals=3)),
+# #                 xy=(fq[maximal_idx[i]], F1[maximal_idx[i]]),
+# #                 xytext=(10, 20),
+# #                 textcoords='offset points',
+# #                 arrowprops=dict(arrowstyle="->",connectionstyle="arc3,rad=.2")
+# #                )
+#
+# print('peak', fq[maximal_idx])
 
 # plt.subplot(3,1,3)
 # plt.plot(Ma)
