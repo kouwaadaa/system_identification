@@ -39,24 +39,26 @@ plt.rcParams["figure.figsize"] = [20, 12]
 
 #---------------------------
 # 機体データ（定数）
+#  - 新座標系のもとでの値．
 #---------------------------
 
-# 慣性モーメント [kg/m^2]
+# 慣性モーメント [kg・m^2]
 I = np.array(
     [[ 0.2484,-0.0037,-0.0078],
      [-0.0037, 0.1668, 0.0005],
      [-0.0078, 0.0005, 0.3804]]
 )
-I_XX = I[0,0] # X軸
-I_YY = I[1,1] # Y軸
-I_ZZ = I[2,2] # Z軸
+I_XX = I[0,0]
+I_YY = I[1,1]
+I_ZZ = I[2,2]
 
 # 各距離 [m]
+# to main, rear, front, pixhawk
 # 重心からの距離 -> 新座標系からの距離に修正が必要
 LEN_M = 0.042 # 重心〜メインロータ
 LEN_F = 0.496 # 重心〜サブロータ前
-LEN_S_X = 0.232 # 重心〜サブロータ横，X軸方向
-LEN_S_Y = 0.503 # 重心〜サブロータ横，Y軸方向
+LEN_R_X = 0.232 # 重心〜サブロータ横，X軸方向
+LEN_R_Y = 0.503 # 重心〜サブロータ横，Y軸方向
 LEN_P = 0.353 # 重心〜Pixhawk
 MAC = 0.43081 # 平均空力翼弦
 
@@ -275,8 +277,8 @@ for file_number in range(FILE_NUM):
     # ロータ指令値
     m_up_pwm = np.array(read_log_data.values[:,116]) # T1
     m_down_pwm = np.array(read_log_data.values[:,117]) # T2
-    s_r_pwm = np.array(read_log_data.values[:,118]) # T3
-    s_l_pwm = np.array(read_log_data.values[:,119]) # T4
+    r_r_pwm = np.array(read_log_data.values[:,118]) # T3
+    r_l_pwm = np.array(read_log_data.values[:,119]) # T4
     f_up_pwm = np.array(read_log_data.values[:,120]) # T5
     f_down_pwm = np.array(read_log_data.values[:,121]) # T6
 
@@ -302,16 +304,16 @@ for file_number in range(FILE_NUM):
     # ロータ推力
     Tm_up = THRUST_EF*0.5*GRA*(9.5636* 10**(-3)*m_up_pwm - 12.1379)
     Tm_down = THRUST_EF*0.5*GRA*(9.5636* 10**(-3)*m_down_pwm - 12.1379)
-    Ts_r = GRA*(1.5701* 10**(-6) *(s_r_pwm)**2 - 3.3963*10**(-3)*s_r_pwm + 1.9386)
-    Ts_l = GRA*(1.5701* 10**(-6) *(s_l_pwm)**2 - 3.3963*10**(-3)*s_l_pwm + 1.9386)
+    Tr_r = GRA*(1.5701* 10**(-6) *(r_r_pwm)**2 - 3.3963*10**(-3)*r_r_pwm + 1.9386)
+    Tr_l = GRA*(1.5701* 10**(-6) *(r_l_pwm)**2 - 3.3963*10**(-3)*r_l_pwm + 1.9386)
     Tf_up = GRA*(1.5701* 10**(-6) *(f_up_pwm)**2 - 3.3963*10**(-3)*f_up_pwm + 1.9386)
     Tf_down = GRA*(1.5701* 10**(-6) *(f_down_pwm)**2 - 3.3963*10**(-3)*f_down_pwm + 1.9386)
 
     # ロータ推力に制限をかける
     Tm_up[Tm_up < 0] = 0
     Tm_down[Tm_down < 0] = 0
-    Ts_r[Ts_r > SUB_THRUST_MAX] = SUB_THRUST_MAX
-    Ts_l[Ts_l > SUB_THRUST_MAX] = SUB_THRUST_MAX
+    Tr_r[Tr_r > SUB_THRUST_MAX] = SUB_THRUST_MAX
+    Tr_l[Tr_l > SUB_THRUST_MAX] = SUB_THRUST_MAX
     Tf_up[Tf_up > SUB_THRUST_MAX] = SUB_THRUST_MAX
     Tf_down[Tf_down > SUB_THRUST_MAX] = SUB_THRUST_MAX
 
@@ -436,7 +438,7 @@ for file_number in range(FILE_NUM):
                         - MASS * GRA * np.cos(theta)
     T_x = (Tm_up + Tm_down) * np.sin(tilt)
     T_z = - (Tm_up + Tm_down) * np.cos(tilt) \
-                          - (Ts_r + Ts_l + Tf_up + Tf_down)
+                          - (Tr_r + Tr_l + Tf_up + Tf_down)
     A_x = F_x - T_x
     A_z = F_z - T_z
 
@@ -448,7 +450,7 @@ for file_number in range(FILE_NUM):
     M = I_YY * dd_theta # 全軸モーメント
     tau = LEN_F*(Tf_up + Tf_down) \
         - LEN_M*(Tm_up + Tm_down)*np.cos(tilt) \
-        - LEN_S_X*(Ts_l + Ts_r) # ロータ推力によるモーメント
+        - LEN_S_X*(Tr_l + Tr_r) # ロータ推力によるモーメント
     Ma = M - tau
 
     #---------------------------
@@ -479,8 +481,8 @@ for file_number in range(FILE_NUM):
         'Va' : Va_mag,
         'Tm_up' : Tm_up,
         'Tm_down' : Tm_down,
-        'Ts_r' : Ts_r,
-        'Ts_l' : Ts_l,
+        'Tr_r' : Tr_r,
+        'Tr_l' : Tr_l,
         'Tf_up' : Tf_up,
         'Tf_down' : Tf_down,
         'alpha' : alpha,
