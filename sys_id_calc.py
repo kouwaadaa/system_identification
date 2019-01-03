@@ -8,10 +8,7 @@
 
 import numpy as np
 from numpy import pi
-from scipy import signal
-
 import pandas as pd
-
 import math_extention as matex
 
 #---------------------------
@@ -80,18 +77,10 @@ def sys_id(format_log_data):
     L = np.array(format_log_data['L'])
     D = np.array(format_log_data['D'])
     Ma = np.array(format_log_data['Ma'])
-    pitot_Va = np.array(format_log_data['pitot_Va'])
-
-    lift_calc = np.zeros((data_size,2))
-    drag_calc = np.zeros((data_size,2))
-    moment_calc = np.zeros((data_size,2))
 
     #---------------------------
     # システム同定（最小二乗法を用いる）
     #---------------------------
-
-    # T_CONST = input('時定数の値を入力してください: ')
-    # T_CONST = float(T_CONST)
     T_CONST = 0.03
     T_DIFF = 0.02 # 時間偏差
 
@@ -208,9 +197,9 @@ def sys_id(format_log_data):
     D_calc = (1/2)*RHO*S*(Va**2)*CD + k_D*Va
     Ma_calc = (1/2)*RHO*S*(Va**2)*MAC*Cm + k_m*Va
 
-    result = np.zeros((data_size,3))
-    result[:,1] = L_theta_hat[0]
-    result[:,2] = L_theta_hat[1]
-    result[:,3] = L_theta_hat[2]
 
-    return(result)
+    CL_params = np.array([CL_0,CL_alpha,CL_q,CL_delta_e,k_L])
+    CD_params = np.array([CD_0,kappa,k_D])
+    Cm_params = np.array([Cm_0,Cm_alpha,Cm_q,Cm_delta_e,k_m])
+
+    return(CL_params,CD_params,Cm_params)
