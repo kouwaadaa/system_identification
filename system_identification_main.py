@@ -464,14 +464,25 @@ for file_number in range(FILE_NUM):
         'tau' : tau,
         'Ma' : Ma,
         'pitot_Va' : measurement_airspeed,
-    })])
+        })
+    ])
 
 #---------------------------
 # パラメータ同定の結果を計算し，取得
 #---------------------------
 
 sys_id_result = sys_id_calc.sys_id_LS(format_log_data)
-print(sys_id_result)
+
+#---------------------------
+# 同定結果の値もデータ群に格納する
+#---------------------------
+
+format_log_data['CL'] = sys_id_result[3][:,0]
+format_log_data['CD'] = sys_id_result[3][:,1]
+format_log_data['Cm'] = sys_id_result[3][:,2]
+format_log_data['L_calc'] = sys_id_result[3][:,3]
+format_log_data['D_calc'] = sys_id_result[3][:,4]
+format_log_data['Ma_calc'] = sys_id_result[3][:,5]
 
 #---------------------------
 # フーリエ変換

@@ -40,9 +40,7 @@ def linearlize(format_log_data):
     data_size = len(format_log_data)
     d_theta = np.array(format_log_data['d_theta'])
     alpha = np.array(format_log_data['alpha'])
-    Va = np.array(format_log_data['Va'])
+    u = np.array(format_log_data['u'])
+    v = np.array(format_log_data['v'])
+    w = np.array(format_log_data['w'])
     delta_e = np.array(format_log_data['delta_e'])
-    L = np.array(format_log_data['L'])
-    D = np.array(format_log_data['D'])
-    Ma = np.array(format_log_data['Ma'])
-    

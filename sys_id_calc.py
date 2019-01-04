@@ -176,4 +176,4 @@ def sys_id_LS(format_log_data):
     Cm_params = np.array([Cm_0,Cm_alpha,Cm_q,Cm_delta_e,k_m])
     result = np.array([CL,CD,Cm,L_calc,D_calc,Ma_calc])
 
-    return(CL_params,CD_params,Cm_params,result)
+    return[CL_params,CD_params,Cm_params,result.T]
