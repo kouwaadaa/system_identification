@@ -46,3 +46,24 @@ def linearlize(format_log_data):
     v = np.array(format_log_data['v'])
     w = np.array(format_log_data['w'])
     delta_e = np.array(format_log_data['delta_e'])
+    CL_0 = np.array(format_log_data['CL_0'])
+    CL_alpha = np.array(format_log_data['CL_alpha'])
+    CL_q = np.array(format_log_data['CL_q'])
+    CL_delta_e = np.array(format_log_data['CL_delta_e'])
+    k_L = np.array(format_log_data['k_L'])
+    CD_0 = np.array(format_log_data['CD_0'])
+    kappa = np.array(format_log_data['kappa'])
+    k_D = np.array(format_log_data['k_D'])
+    Cm_0 = np.array(format_log_data['Cm_0'])
+    Cm_alpha = np.array(format_log_data['Cm_alpha'])
+    Cm_q = np.array(format_log_data['Cm_q'])
+    Cm_delta_e = np.array(format_log_data['Cm_delta_e'])
+    k_m = np.array(format_log_data['k_m'])
+    CL = np.array(format_log_data['CL'])
+    CD = np.array(format_log_data['CD'])
+    Cm = np.array(format_log_data['Cm'])
+
+    #---------------------------
+    # 状態方程式 dx = Ax + Bu の，AとBを計算する．
+    #---------------------------
+    
