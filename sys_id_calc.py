@@ -51,18 +51,23 @@ SUB_THRUST_MAX = 9.0
 # システム同定に関する関数．
 #---------------------------
 
-def sys_id(format_log_data):
+def sys_id_LS(format_log_data):
     '''
-    整理されたデータをもとに，システム同定を行なう関数.
+    整理されたデータをもとに，
+    最小二乗法を用いてシステム同定を行なう関数.
 
     Parameters
     ----------
     format_log_data: pandas.DataFrame
+        ピッチ角速度, 迎角, 対気速度, エレベータ舵角, 揚力, 抗力, ピッチモーメント
+        のそれぞれの実験データを含むデータ群．
 
     Returns
     -------
-    result : array-like
-        同定結果のパラメータのリスト．
+    CL_params : array-like
+    CD_params : array-like
+    Cm_params : array-like
+        CL, CD, Cmのパラメータ同定結果のリスト．
     '''
 
     #---------------------------
@@ -197,9 +202,13 @@ def sys_id(format_log_data):
     D_calc = (1/2)*RHO*S*(Va**2)*CD + k_D*Va
     Ma_calc = (1/2)*RHO*S*(Va**2)*MAC*Cm + k_m*Va
 
+    #---------------------------
+    # 結果をリストにまとめて返す
+    #---------------------------
 
     CL_params = np.array([CL_0,CL_alpha,CL_q,CL_delta_e,k_L])
     CD_params = np.array([CD_0,kappa,k_D])
     Cm_params = np.array([Cm_0,Cm_alpha,Cm_q,Cm_delta_e,k_m])
+    result = np.array([CL,CD,Cm,L_calc,D_calc,Ma_calc])
 
-    return(CL_params,CD_params,Cm_params)
+    return(CL_params,CD_params,Cm_params,result)

@@ -501,7 +501,12 @@ for file_number in range(FILE_NUM):
         'pitot_Va' : measurement_airspeed,
     })])
 
-result = sys_id_calc.sys_id(format_log_data)
+#---------------------------
+# パラメータ同定の結果を計算し，取得
+#---------------------------
+
+sys_id_result = sys_id_calc.sys_id_LS(format_log_data)
+
 
 #---------------------------
 # フーリエ変換
