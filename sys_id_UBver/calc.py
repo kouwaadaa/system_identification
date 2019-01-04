@@ -171,9 +171,26 @@ def sys_id_LS(format_log_data):
     # 結果をリストにまとめて返す
     #---------------------------
 
-    CL_params = np.array([CL_0,CL_alpha,CL_q,CL_delta_e,k_L])
-    CD_params = np.array([CD_0,kappa,k_D])
-    Cm_params = np.array([Cm_0,Cm_alpha,Cm_q,Cm_delta_e,k_m])
+    CL_params = np.zeros((data_size,5))
+    CD_params = np.zeros((data_size,3))
+    Cm_params = np.zeros((data_size,5))
+
+    CL_params[:,0] = CL_0
+    CL_params[:,1] = CL_alpha
+    CL_params[:,2] = CL_q
+    CL_params[:,3] = CL_delta_e
+    CL_params[:,4] = k_L
+
+    CD_params[:,0] = CD_0
+    CD_params[:,1] = kappa
+    CD_params[:,2] = k_D
+
+    Cm_params[:,0] = Cm_0
+    Cm_params[:,1] = Cm_alpha
+    Cm_params[:,2] = Cm_q
+    Cm_params[:,3] = Cm_delta_e
+    Cm_params[:,4] = k_m
+
     result = np.array([CL,CD,Cm,L_calc,D_calc,Ma_calc])
 
     return[CL_params,CD_params,Cm_params,result.T]

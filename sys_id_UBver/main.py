@@ -473,6 +473,20 @@ sys_id_result = calc.sys_id_LS(format_log_data)
 # 同定結果の値もデータ群に格納する
 #---------------------------
 
+format_log_data['CL_0'] = sys_id_result[0][:,0]
+format_log_data['CL_alpha'] = sys_id_result[0][:,1]
+format_log_data['CL_q'] = sys_id_result[0][:,2]
+format_log_data['CL_delta_e'] = sys_id_result[0][:,3]
+format_log_data['k_L'] = sys_id_result[0][:,4]
+format_log_data['CD_0'] = sys_id_result[1][:,0]
+format_log_data['kappa'] = sys_id_result[1][:,1]
+format_log_data['k_D'] = sys_id_result[1][:,2]
+format_log_data['Cm_0'] = sys_id_result[2][:,0]
+format_log_data['Cm_alpha'] = sys_id_result[2][:,1]
+format_log_data['Cm_q'] = sys_id_result[2][:,2]
+format_log_data['Cm_delta_e'] = sys_id_result[2][:,3]
+format_log_data['k_m'] = sys_id_result[2][:,4]
+
 format_log_data['CL'] = sys_id_result[3][:,0]
 format_log_data['CD'] = sys_id_result[3][:,1]
 format_log_data['Cm'] = sys_id_result[3][:,2]
