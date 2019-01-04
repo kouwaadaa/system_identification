@@ -6,6 +6,7 @@
 # モジュールのインポートなど
 #---------------------------
 
+import const
 import numpy as np
 from numpy import pi
 from scipy import signal
@@ -37,42 +38,6 @@ plt.rcParams['ytick.labelsize'] = 15 # default: 12
 
 # プロットデータのサイズ設定
 plt.rcParams["figure.figsize"] = [20, 12]
-
-#---------------------------
-# 機体データ（定数）
-#  - 新座標系のもとでの値．
-#---------------------------
-
-# 慣性モーメント [kg・m^2]
-I = np.array(
-    [[ 0.2484,-0.0037,-0.0078],
-     [-0.0037, 0.1668, 0.0005],
-     [-0.0078, 0.0005, 0.3804]]
-)
-I_XX = I[0,0]
-I_YY = I[1,1]
-I_ZZ = I[2,2]
-
-# 各距離 [m]
-# to main, rear, front, pixhawk
-# 重心からの距離 -> 新座標系からの距離に修正が必要
-LEN_M = 0.042 # 重心〜メインロータ
-LEN_F = 0.496 # 重心〜サブロータ前
-LEN_R_X = 0.232 # 重心〜サブロータ横，X軸方向
-LEN_R_Y = 0.503 # 重心〜サブロータ横，Y軸方向
-LEN_P = 0.353 # 重心〜Pixhawk
-MAC = 0.43081 # 平均空力翼弦
-
-# 面積
-S = 0.2087*2 + 0.1202 # 主翼2枚 + 機体
-
-# 物理量
-MASS = 5.7376 # Airframe weight
-GRA = 9.80665 # Gravity acceleration
-RHO = 1.205 # Air density
-
-# サブロータ推力の上限
-SUB_THRUST_MAX = 9.0
 
 #---------------------------
 # ログデータの読み込み
@@ -303,20 +268,20 @@ for file_number in range(FILE_NUM):
     #---------------------------
 
     # ロータ推力
-    Tm_up = THRUST_EF*0.5*GRA*(9.5636* 10**(-3)*m_up_pwm - 12.1379)
-    Tm_down = THRUST_EF*0.5*GRA*(9.5636* 10**(-3)*m_down_pwm - 12.1379)
-    Tr_r = GRA*(1.5701* 10**(-6) *(r_r_pwm)**2 - 3.3963*10**(-3)*r_r_pwm + 1.9386)
-    Tr_l = GRA*(1.5701* 10**(-6) *(r_l_pwm)**2 - 3.3963*10**(-3)*r_l_pwm + 1.9386)
-    Tf_up = GRA*(1.5701* 10**(-6) *(f_up_pwm)**2 - 3.3963*10**(-3)*f_up_pwm + 1.9386)
-    Tf_down = GRA*(1.5701* 10**(-6) *(f_down_pwm)**2 - 3.3963*10**(-3)*f_down_pwm + 1.9386)
+    Tm_up = THRUST_EF*0.5*const.GRA*(9.5636* 10**(-3)*m_up_pwm - 12.1379)
+    Tm_down = THRUST_EF*0.5*const.GRA*(9.5636* 10**(-3)*m_down_pwm - 12.1379)
+    Tr_r = const.GRA*(1.5701* 10**(-6) *(r_r_pwm)**2 - 3.3963*10**(-3)*r_r_pwm + 1.9386)
+    Tr_l = const.GRA*(1.5701* 10**(-6) *(r_l_pwm)**2 - 3.3963*10**(-3)*r_l_pwm + 1.9386)
+    Tf_up = const.GRA*(1.5701* 10**(-6) *(f_up_pwm)**2 - 3.3963*10**(-3)*f_up_pwm + 1.9386)
+    Tf_down = const.GRA*(1.5701* 10**(-6) *(f_down_pwm)**2 - 3.3963*10**(-3)*f_down_pwm + 1.9386)
 
     # ロータ推力に制限をかける
     Tm_up[Tm_up < 0] = 0
     Tm_down[Tm_down < 0] = 0
-    Tr_r[Tr_r > SUB_THRUST_MAX] = SUB_THRUST_MAX
-    Tr_l[Tr_l > SUB_THRUST_MAX] = SUB_THRUST_MAX
-    Tf_up[Tf_up > SUB_THRUST_MAX] = SUB_THRUST_MAX
-    Tf_down[Tf_down > SUB_THRUST_MAX] = SUB_THRUST_MAX
+    Tr_r[Tr_r > const.SUB_THRUST_MAX] = const.SUB_THRUST_MAX
+    Tr_l[Tr_l > const.SUB_THRUST_MAX] = const.SUB_THRUST_MAX
+    Tf_up[Tf_up > const.SUB_THRUST_MAX] = const.SUB_THRUST_MAX
+    Tf_down[Tf_down > const.SUB_THRUST_MAX] = const.SUB_THRUST_MAX
 
     # エレボン舵角
     delta_e_r = ((delta_e_r_command*400 + 1500)/8 - 1500/8)*pi/180
@@ -353,7 +318,7 @@ for file_number in range(FILE_NUM):
     Vi_wind = np.array(Vi_wind)
 
     # センサー位置の補正
-    Vi[:,2] = Vi[:,2] + d_theta*LEN_P
+    Vi[:,2] = Vi[:,2] + d_theta*const.LEN_P
 
     # 対気速度を計算
     Va = Vi - Vi_wind
@@ -433,10 +398,10 @@ for file_number in range(FILE_NUM):
             tilt = np.append(tilt,0)
 
     # 空力の計算
-    F_x = MASS * (d_Va[:,0] + d_theta*Vi[:,2]) \
-                        + MASS * GRA * np.sin(theta)
-    F_z = MASS * (d_Va[:,2] - d_theta*Vi[:,0]) \
-                        - MASS * GRA * np.cos(theta)
+    F_x = const.MASS * (d_Va[:,0] + d_theta*Vi[:,2]) \
+                        + const.MASS * const.GRA * np.sin(theta)
+    F_z = const.MASS * (d_Va[:,2] - d_theta*Vi[:,0]) \
+                        - const.MASS * const.GRA * np.cos(theta)
     T_x = (Tm_up + Tm_down) * np.sin(tilt)
     T_z = - (Tm_up + Tm_down) * np.cos(tilt) \
                           - (Tr_r + Tr_l + Tf_up + Tf_down)
@@ -448,10 +413,10 @@ for file_number in range(FILE_NUM):
     D = - A_x * np.cos(alpha) - A_z * np.sin(alpha)
 
     # 空力モーメントを計算
-    M = I_YY * dd_theta # 全軸モーメント
-    tau = LEN_F*(Tf_up + Tf_down) \
-        - LEN_M*(Tm_up + Tm_down)*np.cos(tilt) \
-        - LEN_R_X*(Tr_l + Tr_r) # ロータ推力によるモーメント
+    M = const.I_YY * dd_theta # 全軸モーメント
+    tau = const.LEN_F*(Tf_up + Tf_down) \
+        - const.LEN_M*(Tm_up + Tm_down)*np.cos(tilt) \
+        - const.LEN_R_X*(Tr_l + Tr_r) # ロータ推力によるモーメント
     Ma = M - tau
 
     #---------------------------
@@ -506,7 +471,7 @@ for file_number in range(FILE_NUM):
 #---------------------------
 
 sys_id_result = sys_id_calc.sys_id_LS(format_log_data)
-
+print(sys_id_result)
 
 #---------------------------
 # フーリエ変換

@@ -35,14 +35,16 @@ plt.rcParams["figure.figsize"] = [20, 12]
 #---------------------------
 # テスト空間
 #---------------------------
-read_log_data = pd.read_csv(
-    filepath_or_buffer='./log_data/Book3.csv',
-    encoding='ASCII',
-    sep=',',
-    header=None
-)
 
-df = read_log_data[read_log_data.duplicated(subset=390)]
+
+# read_log_data = pd.read_csv(
+#     filepath_or_buffer='./log_data/Book3.csv',
+#     encoding='ASCII',
+#     sep=',',
+#     header=None
+# )
+#
+# df = read_log_data[read_log_data.duplicated(subset=390)]
 
 # # 重複データの削除
 # read_log_data = read_log_data.drop_duplicates(subset=390)

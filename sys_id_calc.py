@@ -6,46 +6,11 @@
 # モジュールのインポートなど
 #---------------------------
 
+import const
 import numpy as np
 from numpy import pi
 import pandas as pd
 import math_extention as matex
-
-#---------------------------
-# 機体データ（定数）
-#  - 新座標系のもとでの値．
-#---------------------------
-
-# 慣性モーメント [kg・m^2]
-I = np.array(
-    [[ 0.2484,-0.0037,-0.0078],
-     [-0.0037, 0.1668, 0.0005],
-     [-0.0078, 0.0005, 0.3804]]
-)
-I_XX = I[0,0]
-I_YY = I[1,1]
-I_ZZ = I[2,2]
-
-# 各距離 [m]
-# to main, rear, front, pixhawk
-# 重心からの距離 -> 新座標系からの距離に修正が必要
-LEN_M = 0.042 # 重心〜メインロータ
-LEN_F = 0.496 # 重心〜サブロータ前
-LEN_R_X = 0.232 # 重心〜サブロータ横，X軸方向
-LEN_R_Y = 0.503 # 重心〜サブロータ横，Y軸方向
-LEN_P = 0.353 # 重心〜Pixhawk
-MAC = 0.43081 # 平均空力翼弦
-
-# 面積
-S = 0.2087*2 + 0.1202 # 主翼2枚 + 機体
-
-# 物理量
-MASS = 5.7376 # Airframe weight
-GRA = 9.80665 # Gravity acceleration
-RHO = 1.205 # Air density
-
-# サブロータ推力の上限
-SUB_THRUST_MAX = 9.0
 
 #---------------------------
 # システム同定に関する関数．
@@ -98,13 +63,13 @@ def sys_id_LS(format_log_data):
     CL_alpha = 2.68
 
     # n*1 揚力から計算された値のリスト
-    yL = (L/((1/2)*RHO*(Va**2)*S)) - CL_0 - CL_alpha*alpha
+    yL = (L/((1/2)*const.RHO*(Va**2)*const.S)) - CL_0 - CL_alpha*alpha
 
     # n*3 リグレッサー（独立変数）や実験データのリスト
     xL = np.zeros((data_size,3))
-    xL[:,0] = (MAC*d_theta)/(2*Va)
+    xL[:,0] = (const.MAC*d_theta)/(2*Va)
     xL[:,1] = delta_e
-    xL[:,2] = 1/((1/2)*RHO*Va*S)
+    xL[:,2] = 1/((1/2)*const.RHO*Va*const.S)
 
     # ３次ローパスフィルタをかける
     for i in range(3):
@@ -123,7 +88,7 @@ def sys_id_LS(format_log_data):
     # 同定結果から得られたCLを計算
     CL = CL_0 \
         + CL_alpha*alpha \
-        + CL_q*(MAC/(2*Va))*d_theta \
+        + CL_q*(const.MAC/(2*Va))*d_theta \
         + CL_delta_e*delta_e
 
     #---------------------------
@@ -134,12 +99,12 @@ def sys_id_LS(format_log_data):
     CD_0 = 0.07887
 
     # n*1 抗力から計算された値のリスト
-    yD = (D/((1/2)*RHO*(Va**2)*S)) - CD_0
+    yD = (D/((1/2)*const.RHO*(Va**2)*const.S)) - CD_0
 
     # n*2 リグレッサー（独立変数）や実験データのリスト
     xD = np.zeros((data_size,2))
     xD[:,0] = CL**2
-    xD[:,1] = 1/((1/2)*RHO*Va*S)
+    xD[:,1] = 1/((1/2)*const.RHO*Va*const.S)
 
     # ３次ローパスフィルタをかける
     for i in range(3):
@@ -162,15 +127,15 @@ def sys_id_LS(format_log_data):
     #---------------------------
 
     # n*1 空力モーメントから計算された値のリスト
-    ym = Ma/((1/2)*RHO*(Va**2)*S*MAC)
+    ym = Ma/((1/2)*const.RHO*(Va**2)*const.S*const.MAC)
 
     # n*5 リグレッサー（独立変数）や実験データのリスト
     xm = np.zeros((data_size,5))
     xm[:,0] = 1
     xm[:,1] = alpha
-    xm[:,2] = (MAC/(2*Va))*d_theta
+    xm[:,2] = (const.MAC/(2*Va))*d_theta
     xm[:,3] = delta_e
-    xm[:,4] = 1/((1/2)*RHO*Va*S*MAC)
+    xm[:,4] = 1/((1/2)*const.RHO*Va*const.S*const.MAC)
 
     # ３次ローパスフィルタをかける
     for i in range(3):
@@ -191,16 +156,16 @@ def sys_id_LS(format_log_data):
     # 同定結果から得られたCDを計算
     Cm = Cm_0 \
         + Cm_alpha*alpha \
-        + Cm_q*(MAC/(2*Va))*d_theta \
+        + Cm_q*(const.MAC/(2*Va))*d_theta \
         + Cm_delta_e*delta_e
 
     #---------------------------
     # 同定結果を用いて空力を再現
     #---------------------------
 
-    L_calc = (1/2)*RHO*S*(Va**2)*CL + k_L*Va
-    D_calc = (1/2)*RHO*S*(Va**2)*CD + k_D*Va
-    Ma_calc = (1/2)*RHO*S*(Va**2)*MAC*Cm + k_m*Va
+    L_calc = (1/2)*const.RHO*const.S*(Va**2)*CL + k_L*Va
+    D_calc = (1/2)*const.RHO*const.S*(Va**2)*CD + k_D*Va
+    Ma_calc = (1/2)*const.RHO*const.S*(Va**2)*const.MAC*Cm + k_m*Va
 
     #---------------------------
     # 結果をリストにまとめて返す
