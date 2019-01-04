@@ -328,19 +328,16 @@ for file_number in range(FILE_NUM):
         + Va[:,2]**2
     )
 
-    # 迎え角を計算[rad]
+    # 迎角を計算[rad]
     alpha = np.arctan2(Va[:,2],Va[:,0])
+
+    # 迎角の一階時間微分を計算[rad]
+    d_alpha = matex.central_diff(alpha, time)
 
     # 時間偏差を計算
     # サイズがひとつ小さくなるので，最後の値をそのまま一番うしろに付け足す
     time_diff = np.diff(time)
     time_diff = np.append(time_diff, time_diff[data_size-2])
-
-    # 加速度
-    d_Va_list = []
-    dd_phi = []
-    dd_theta = []
-    dd_psi = []
 
     # 加速度を計算
     # 各軸ごとに計算してまとめ，最後にそれぞれを分割している
@@ -452,6 +449,7 @@ for file_number in range(FILE_NUM):
         'Tf_up' : Tf_up,
         'Tf_down' : Tf_down,
         'alpha' : alpha,
+        'd_alpha' : d_alpha,
         'delta_e' : elevator,
         'delta_a' : aileron,
         'F_x' : F_x,

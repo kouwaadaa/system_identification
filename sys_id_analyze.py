@@ -24,7 +24,7 @@ def linearlize(format_log_data):
     Parameters
     ----------
     format_log_data: pandas.DataFrame
-        ピッチ角速度, 迎角, 対気速度, エレベータ舵角, 揚力, 抗力, ピッチモーメント
+        ピッチ角速度, 迎角, 迎角時間微分，対気速度, エレベータ舵角, 揚力, 抗力, ピッチモーメント
         のそれぞれの実験データを含むデータ群．
 
     Returns
@@ -40,7 +40,9 @@ def linearlize(format_log_data):
     data_size = len(format_log_data)
     d_theta = np.array(format_log_data['d_theta'])
     alpha = np.array(format_log_data['alpha'])
+    d_alpha = np.array(format_log_data['d_alpha'])
     u = np.array(format_log_data['u'])
     v = np.array(format_log_data['v'])
     w = np.array(format_log_data['w'])
     delta_e = np.array(format_log_data['delta_e'])
+    
