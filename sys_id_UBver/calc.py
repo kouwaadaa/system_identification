@@ -6,10 +6,10 @@
 # モジュールのインポートなど
 #---------------------------
 
-import const
 import numpy as np
-from numpy import pi
 import pandas as pd
+
+import const
 import math_extention as matex
 
 #---------------------------

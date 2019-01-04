@@ -6,10 +6,11 @@
 # モジュールのインポートなど
 #---------------------------
 
-import const
 import numpy as np
 from numpy import pi
 import pandas as pd
+
+import const
 import math_extention as matex
 
 #---------------------------
@@ -45,4 +46,3 @@ def linearlize(format_log_data):
     v = np.array(format_log_data['v'])
     w = np.array(format_log_data['w'])
     delta_e = np.array(format_log_data['delta_e'])
-    

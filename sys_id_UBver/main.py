@@ -6,19 +6,17 @@
 # モジュールのインポートなど
 #---------------------------
 
-import const
 import numpy as np
 from numpy import pi
-from scipy import signal
-
 import pandas as pd
-
 import matplotlib.pyplot as plt
 # import matplotlib.font_manager
 from IPython import get_ipython
+# from scipy import signal
 
+import const
 import math_extention as matex
-import sys_id_calc
+import calc
 
 #---------------------------
 # matplotlibの諸設定
@@ -53,7 +51,7 @@ for file_number in range(FILE_NUM):
 
     if file_number == 0:
         read_log_data = pd.read_csv(
-            filepath_or_buffer='./log_data/Book3.csv',
+            filepath_or_buffer='../log_data/Book3.csv',
             encoding='ASCII',
             sep=',',
             header=None
@@ -78,7 +76,7 @@ for file_number in range(FILE_NUM):
 
     elif file_number == 1:
         read_log_data = pd.read_csv(
-            filepath_or_buffer='./log_data/Book4.csv',
+            filepath_or_buffer='../log_data/Book4.csv',
             encoding='ASCII',
             sep=',',
             header=None
@@ -104,7 +102,7 @@ for file_number in range(FILE_NUM):
 
     elif file_number == 2:
         read_log_data = pd.read_csv(
-            filepath_or_buffer='./log_data/Book5.csv',
+            filepath_or_buffer='../log_data/Book5.csv',
             encoding='ASCII',
             sep=',',
             header=None
@@ -131,7 +129,7 @@ for file_number in range(FILE_NUM):
 
     elif file_number == 3:
         read_log_data = pd.read_csv(
-            filepath_or_buffer='./log_data/Book8.csv',
+            filepath_or_buffer='../log_data/Book8.csv',
             encoding='ASCII',
             sep=',',
             header=None
@@ -159,7 +157,7 @@ for file_number in range(FILE_NUM):
 
     elif file_number == 4:
         read_log_data = pd.read_csv(
-            filepath_or_buffer='./log_data/Book9.csv',
+            filepath_or_buffer='../log_data/Book9.csv',
             encoding='ASCII',
             sep=',',
             header=None
@@ -187,7 +185,7 @@ for file_number in range(FILE_NUM):
 
     elif file_number == 5:
         read_log_data = pd.read_csv(
-            filepath_or_buffer='./log_data/Book11.csv',
+            filepath_or_buffer='../log_data/Book11.csv',
             encoding='ASCII',
             sep=',',
             header=None
@@ -469,7 +467,7 @@ for file_number in range(FILE_NUM):
 # パラメータ同定の結果を計算し，取得
 #---------------------------
 
-sys_id_result = sys_id_calc.sys_id_LS(format_log_data)
+sys_id_result = calc.sys_id_LS(format_log_data)
 
 #---------------------------
 # 同定結果の値もデータ群に格納する
