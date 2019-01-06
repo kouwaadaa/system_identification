@@ -14,9 +14,10 @@ import math_extention as matex
 
 #---------------------------
 # システム同定に関する関数．
+# 未知パラメータとして，d_alphaも追加している．
 #---------------------------
 
-def sys_id_LS(format_log_data):
+def sys_id_LS_ex(format_log_data):
     '''
     整理されたデータをもとに，
     最小二乗法を用いてシステム同定を行なう関数.
@@ -33,8 +34,8 @@ def sys_id_LS(format_log_data):
     CD_params : array-like
     Cm_params : array-like
         CL, CD, Cmのパラメータ同定結果のリスト．
-        result: array-like
-            CL，CD，Cm，揚力，抗力，ピッチモーメントのリスト．
+    result: array-like
+        CL，CD，Cm，揚力，抗力，ピッチモーメントのリスト．
     '''
 
     #---------------------------
@@ -44,6 +45,7 @@ def sys_id_LS(format_log_data):
     data_size = len(format_log_data)
     d_theta = np.array(format_log_data['d_theta'])
     alpha = np.array(format_log_data['alpha'])
+    d_alpha = np.array(format_log_data['d_alpha'])
     Va = np.array(format_log_data['Va'])
     delta_e = np.array(format_log_data['delta_e'])
     L = np.array(format_log_data['L'])
@@ -68,10 +70,11 @@ def sys_id_LS(format_log_data):
     yL = (L/((1/2)*const.RHO*(Va**2)*const.S)) - CL_0 - CL_alpha*alpha
 
     # n*3 リグレッサー（独立変数）や実験データのリスト
-    xL = np.zeros((data_size,3))
-    xL[:,0] = (const.MAC*d_theta)/(2*Va)
-    xL[:,1] = delta_e
-    xL[:,2] = 1/((1/2)*const.RHO*Va*const.S)
+    xL = np.zeros((data_size,4))
+    xL[:,0] = d_alpha
+    xL[:,1] = (const.MAC*d_theta)/(2*Va)
+    xL[:,2] = delta_e
+    xL[:,3] = 1/((1/2)*const.RHO*Va*const.S)
 
     # ３次ローパスフィルタをかける
     for i in range(3):
@@ -83,13 +86,15 @@ def sys_id_LS(format_log_data):
     L_theta_hat = np.dot((np.linalg.pinv(xL_filt)),yL_filt)
 
     # 同定された未知パラメータの取り出し
-    CL_q = L_theta_hat[0]
-    CL_delta_e = L_theta_hat[1]
-    k_L = L_theta_hat[2]
+    CL_d_alpha = L_theta_hat[0]
+    CL_q = L_theta_hat[1]
+    CL_delta_e = L_theta_hat[2]
+    k_L = L_theta_hat[3]
 
     # 同定結果から得られたCLを計算
     CL = CL_0 \
         + CL_alpha*alpha \
+        + CL_d_alpha*d_alpha \
         + CL_q*(const.MAC/(2*Va))*d_theta \
         + CL_delta_e*delta_e
 
@@ -132,12 +137,13 @@ def sys_id_LS(format_log_data):
     ym = Ma/((1/2)*const.RHO*(Va**2)*const.S*const.MAC)
 
     # n*5 リグレッサー（独立変数）や実験データのリスト
-    xm = np.zeros((data_size,5))
+    xm = np.zeros((data_size,6))
     xm[:,0] = 1
     xm[:,1] = alpha
-    xm[:,2] = (const.MAC/(2*Va))*d_theta
-    xm[:,3] = delta_e
-    xm[:,4] = 1/((1/2)*const.RHO*Va*const.S*const.MAC)
+    xm[:,2] = d_alpha
+    xm[:,3] = (const.MAC/(2*Va))*d_theta
+    xm[:,4] = delta_e
+    xm[:,5] = 1/((1/2)*const.RHO*Va*const.S*const.MAC)
 
     # ３次ローパスフィルタをかける
     for i in range(3):
@@ -151,13 +157,15 @@ def sys_id_LS(format_log_data):
     # 同定された未知パラメータの取り出し
     Cm_0 = m_theta_hat[0]
     Cm_alpha = m_theta_hat[1]
-    Cm_q = m_theta_hat[2]
-    Cm_delta_e = m_theta_hat[3]
-    k_m = m_theta_hat[4]
+    Cm_d_alpha = m_theta_hat[2]
+    Cm_q = m_theta_hat[3]
+    Cm_delta_e = m_theta_hat[4]
+    k_m = m_theta_hat[5]
 
     # 同定結果から得られたCDを計算
     Cm = Cm_0 \
         + Cm_alpha*alpha \
+        + Cm_d_alpha*d_alpha \
         + Cm_q*(const.MAC/(2*Va))*d_theta \
         + Cm_delta_e*delta_e
 
@@ -173,15 +181,16 @@ def sys_id_LS(format_log_data):
     # 結果をリストにまとめて返す
     #---------------------------
 
-    CL_params = np.zeros((data_size,5))
+    CL_params = np.zeros((data_size,6))
     CD_params = np.zeros((data_size,3))
-    Cm_params = np.zeros((data_size,5))
+    Cm_params = np.zeros((data_size,6))
 
     CL_params[:,0] = CL_0
     CL_params[:,1] = CL_alpha
-    CL_params[:,2] = CL_q
-    CL_params[:,3] = CL_delta_e
-    CL_params[:,4] = k_L
+    CL_params[:,2] = CL_d_alpha
+    CL_params[:,3] = CL_q
+    CL_params[:,4] = CL_delta_e
+    CL_params[:,5] = k_L
 
     CD_params[:,0] = CD_0
     CD_params[:,1] = kappa
@@ -189,10 +198,11 @@ def sys_id_LS(format_log_data):
 
     Cm_params[:,0] = Cm_0
     Cm_params[:,1] = Cm_alpha
-    Cm_params[:,2] = Cm_q
-    Cm_params[:,3] = Cm_delta_e
-    Cm_params[:,4] = k_m
+    Cm_params[:,2] = Cm_d_alpha
+    Cm_params[:,3] = Cm_q
+    Cm_params[:,4] = Cm_delta_e
+    Cm_params[:,5] = k_m
 
     result = np.array([CL,CD,Cm,L_calc,D_calc,Ma_calc])
 
-    return[CL_params,CD_params,Cm_params,result.T]
+    return [CL_params,CD_params,Cm_params,result.T]

@@ -17,6 +17,8 @@ from IPython import get_ipython
 import const
 import math_extention as matex
 import calc
+import calc_ex
+import analyze
 
 #---------------------------
 # matplotlibの諸設定
@@ -409,10 +411,17 @@ for file_number in range(FILE_NUM):
 
     # 空力モーメントを計算
     M = const.I_YY * dd_theta # 全軸モーメント
-    tau = const.LEN_F*(Tf_up + Tf_down) \
+    Mt = const.LEN_F*(Tf_up + Tf_down) \
         - const.LEN_M*(Tm_up + Tm_down)*np.cos(tilt) \
         - const.LEN_R_X*(Tr_l + Tr_r) # ロータ推力によるモーメント
-    Ma = M - tau
+
+    # 重力によるモーメント
+    Lg = const.R_G_Z*const.MASS*const.GRA*np.cos(theta)*np.sin(phi)
+    Mg = - const.R_G_Z*const.MASS*const.GRA*np.sin(theta) \
+         - const.R_G_X*const.MASS*const.GRA*np.cos(theta)*np.cos(phi)
+    Ng = const.R_G_X*const.MASS*const.GRA*np.cos(theta)*np.sin(phi)
+
+    Ma = M - Mt - Mg
 
     #---------------------------
     # データを一つにまとめる
@@ -450,6 +459,7 @@ for file_number in range(FILE_NUM):
         'd_alpha' : d_alpha,
         'delta_e' : elevator,
         'delta_a' : aileron,
+        'tilt' : tilt,
         'F_x' : F_x,
         'T_x' : T_x,
         'F_z' : F_z,
@@ -457,7 +467,8 @@ for file_number in range(FILE_NUM):
         'L' : L,
         'D' : D,
         'M' : M,
-        'tau' : tau,
+        'Mt' : Mt,
+        'Mg' : Mg,
         'Ma' : Ma,
         'pitot_Va' : measurement_airspeed,
         })
@@ -467,32 +478,67 @@ for file_number in range(FILE_NUM):
 # パラメータ同定の結果を計算し，取得
 #---------------------------
 
-sys_id_result = calc.sys_id_LS(format_log_data)
+# sys_id_result = calc.sys_id_LS(format_log_data)
+sys_id_result = calc_ex.sys_id_LS_ex(format_log_data)
 
 #---------------------------
 # 同定結果の値もデータ群に格納する
 #---------------------------
 
-format_log_data['CL_0'] = sys_id_result[0][:,0]
-format_log_data['CL_alpha'] = sys_id_result[0][:,1]
-format_log_data['CL_q'] = sys_id_result[0][:,2]
-format_log_data['CL_delta_e'] = sys_id_result[0][:,3]
-format_log_data['k_L'] = sys_id_result[0][:,4]
-format_log_data['CD_0'] = sys_id_result[1][:,0]
-format_log_data['kappa'] = sys_id_result[1][:,1]
-format_log_data['k_D'] = sys_id_result[1][:,2]
-format_log_data['Cm_0'] = sys_id_result[2][:,0]
-format_log_data['Cm_alpha'] = sys_id_result[2][:,1]
-format_log_data['Cm_q'] = sys_id_result[2][:,2]
-format_log_data['Cm_delta_e'] = sys_id_result[2][:,3]
-format_log_data['k_m'] = sys_id_result[2][:,4]
+# d_alphaを含まない場合
+if sys_id_result[0].shape[1] == 5:
+    format_log_data['CL_0'] = sys_id_result[0][:,0]
+    format_log_data['CL_alpha'] = sys_id_result[0][:,1]
+    format_log_data['CL_q'] = sys_id_result[0][:,2]
+    format_log_data['CL_delta_e'] = sys_id_result[0][:,3]
+    format_log_data['k_L'] = sys_id_result[0][:,4]
 
-format_log_data['CL'] = sys_id_result[3][:,0]
-format_log_data['CD'] = sys_id_result[3][:,1]
-format_log_data['Cm'] = sys_id_result[3][:,2]
-format_log_data['L_calc'] = sys_id_result[3][:,3]
-format_log_data['D_calc'] = sys_id_result[3][:,4]
-format_log_data['Ma_calc'] = sys_id_result[3][:,5]
+    format_log_data['CD_0'] = sys_id_result[1][:,0]
+    format_log_data['kappa'] = sys_id_result[1][:,1]
+    format_log_data['k_D'] = sys_id_result[1][:,2]
+
+    format_log_data['Cm_0'] = sys_id_result[2][:,0]
+    format_log_data['Cm_alpha'] = sys_id_result[2][:,1]
+    format_log_data['Cm_q'] = sys_id_result[2][:,2]
+    format_log_data['Cm_delta_e'] = sys_id_result[2][:,3]
+    format_log_data['k_m'] = sys_id_result[2][:,4]
+
+    format_log_data['CL'] = sys_id_result[3][:,0]
+    format_log_data['CD'] = sys_id_result[3][:,1]
+    format_log_data['Cm'] = sys_id_result[3][:,2]
+    format_log_data['L_calc'] = sys_id_result[3][:,3]
+    format_log_data['D_calc'] = sys_id_result[3][:,4]
+    format_log_data['Ma_calc'] = sys_id_result[3][:,5]
+
+# d_alphaを含む場合
+elif sys_id_result[0].shape[1] == 6:
+    format_log_data['CL_0'] = sys_id_result[0][:,0]
+    format_log_data['CL_alpha'] = sys_id_result[0][:,1]
+    format_log_data['CL_d_alpha'] = sys_id_result[0][:,2]
+    format_log_data['CL_q'] = sys_id_result[0][:,3]
+    format_log_data['CL_delta_e'] = sys_id_result[0][:,4]
+    format_log_data['k_L'] = sys_id_result[0][:,5]
+
+    format_log_data['CD_0'] = sys_id_result[1][:,0]
+    format_log_data['kappa'] = sys_id_result[1][:,1]
+    format_log_data['k_D'] = sys_id_result[1][:,2]
+
+    format_log_data['Cm_0'] = sys_id_result[2][:,0]
+    format_log_data['Cm_alpha'] = sys_id_result[2][:,1]
+    format_log_data['Cm_d_alpha'] = sys_id_result[2][:,2]
+    format_log_data['Cm_q'] = sys_id_result[2][:,3]
+    format_log_data['Cm_delta_e'] = sys_id_result[2][:,4]
+    format_log_data['k_m'] = sys_id_result[2][:,5]
+
+    format_log_data['CL'] = sys_id_result[3][:,0]
+    format_log_data['CD'] = sys_id_result[3][:,1]
+    format_log_data['Cm'] = sys_id_result[3][:,2]
+    format_log_data['L_calc'] = sys_id_result[3][:,3]
+    format_log_data['D_calc'] = sys_id_result[3][:,4]
+    format_log_data['Ma_calc'] = sys_id_result[3][:,5]
+
+# 機体の状態方程式から解析を行なう
+analyze.linearlize(format_log_data)
 
 #---------------------------
 # フーリエ変換
