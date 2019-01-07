@@ -475,6 +475,11 @@ for file_number in range(FILE_NUM):
     ])
 
 #---------------------------
+# 最終的なデータサイズを計算する
+#---------------------------
+data_size = len(format_log_data)
+
+#---------------------------
 # パラメータ同定の結果を計算し，取得
 #---------------------------
 
@@ -539,6 +544,21 @@ elif sys_id_result[0].shape[1] == 6:
 
 # 機体の状態方程式から解析を行なう
 anly_result = analyze.linearlize(format_log_data)
+
+xxx = np.arange(data_size)
+yyy = anly_result[0][:,0]
+
+fig = plt.figure()
+
+ax = fig.add_subplot(1,1,1)
+
+ax.scatter(xxx,yyy)
+
+ax.set_title('固有値散布図')
+ax.set_xlabel('data number[]')
+ax.set_ylabel('固有値')
+
+fig.show()
 
 #---------------------------
 # フーリエ変換
