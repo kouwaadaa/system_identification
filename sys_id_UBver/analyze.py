@@ -231,4 +231,4 @@ def linearlize(format_log_data):
     lambda_A,v_A = LA.eig(A)
     lambda_B,v_B = LA.eig(B)
 
-    return[lambda_A,v_A]
+    return[lambda_A,v_A,A,B,Z_d_alpha]

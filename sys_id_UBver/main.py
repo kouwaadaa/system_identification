@@ -30,8 +30,8 @@ get_ipython().run_line_magic('matplotlib', 'qt')
 # 日本語フォントの設定
 # 使用できるフォントを確認したいときは，次の行のコメントアウトを外して実行
 # print([f.name for f in matplotlib.font_manager.fontManager.ttflist])
-# plt.rc('font', **{'family':'Gen Shin Gothic'})
-plt.rc('font', **{'family':'YuGothic'})
+plt.rc('font', **{'family':'Gen Shin Gothic'})
+# plt.rc('font', **{'family':'YuGothic'})
 plt.rcParams['font.size'] = 20
 plt.rcParams['xtick.labelsize'] = 15
 plt.rcParams['ytick.labelsize'] = 15 # default: 12
@@ -545,18 +545,29 @@ elif sys_id_result[0].shape[1] == 6:
 # 機体の状態方程式から解析を行なう
 anly_result = analyze.linearlize(format_log_data)
 
+# print(anly_result[1][0,2])
+
 xxx = np.arange(data_size)
 yyy = anly_result[0][:,0]
 
+Va = np.array(format_log_data['Va'])
+alpha = np.array(format_log_data['alpha'])
+d_alpha = np.array(format_log_data['d_alpha'])
+
+
 fig = plt.figure()
 
-ax = fig.add_subplot(1,1,1)
+ax = fig.add_subplot(2,1,1)
 
 ax.scatter(xxx,yyy)
 
 ax.set_title('固有値散布図')
 ax.set_xlabel('data number[]')
 ax.set_ylabel('固有値')
+
+ax = fig.add_subplot(2,1,2)
+
+ax.plot(xxx,d_alpha)
 
 fig.show()
 
