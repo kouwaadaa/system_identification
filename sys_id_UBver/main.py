@@ -538,7 +538,7 @@ elif sys_id_result[0].shape[1] == 6:
     format_log_data['Ma_calc'] = sys_id_result[3][:,5]
 
 # 機体の状態方程式から解析を行なう
-analyze.linearlize(format_log_data)
+anly_result = analyze.linearlize(format_log_data)
 
 #---------------------------
 # フーリエ変換

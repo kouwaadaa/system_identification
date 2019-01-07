@@ -181,55 +181,54 @@ def linearlize(format_log_data):
     M_Tf_prime = const.LEN_F - (1/Z_d_alpha)
 
     # 状態方程式 dx = Ax + Bu
-    A = np.zeros((4,4))
-    B = np.zeros((4,4))
+    A = np.zeros((data_size,4,4))
+    B = np.zeros((data_size,4,4))
 
     # A,Bそれぞれの要素を代入
     # A
-    A[0,0] = X_u
-    A[0,1] = X_alpha
-    A[0,2] = X_q
-    A[0,3] = - const.GRA*np.cos(theta[0])
+    A[:,0,0] = X_u
+    A[:,0,1] = X_alpha
+    A[:,0,2] = X_q
+    A[:,0,3] = - const.GRA*np.cos(theta[0])
 
-    A[1,0] = Z_u_bar
-    A[1,1] = Z_alpha_bar
-    A[1,2] = Z_q_bar
-    A[1,3] = - const.GRA*np.sin(theta[0])/Z_d_alpha
+    A[:,1,0] = Z_u_bar
+    A[:,1,1] = Z_alpha_bar
+    A[:,1,2] = Z_q_bar
+    A[:,1,3] = - const.GRA*np.sin(theta[0])/Z_d_alpha
 
-    A[2,0] = M_u_prime
-    A[2,1] = M_alpha_prime
-    A[2,2] = M_q_prime
-    A[2,3] = M_theta_prime
+    A[:,2,0] = M_u_prime
+    A[:,2,1] = M_alpha_prime
+    A[:,2,2] = M_q_prime
+    A[:,2,3] = M_theta_prime
 
-    A[3,0] = 0
-    A[3,1] = 0
-    A[3,2] = 1
-    A[3,3] = 0
+    A[:,3,0] = 0
+    A[:,3,1] = 0
+    A[:,3,2] = 1
+    A[:,3,3] = 0
 
     # B
-    B[0,0] = X_delta_e
-    B[0,1] = np.sin(tilt)/const.MASS
-    B[0,2] = 0
-    B[0,3] = 0
+    B[:,0,0] = X_delta_e
+    B[:,0,1] = np.sin(tilt)/const.MASS
+    B[:,0,2] = 0
+    B[:,0,3] = 0
 
-    B[1,0] = Z_delta_e_bar
-    B[1,1] = - np.cos(tilt)/(const.MASS*Z_d_alpha)
-    B[1,2] = - 1/(const.MASS*Z_d_alpha)
-    B[1,3] = - 1/(const.MASS*Z_d_alpha)
+    B[:,1,0] = Z_delta_e_bar
+    B[:,1,1] = - np.cos(tilt)/(const.MASS*Z_d_alpha)
+    B[:,1,2] = - 1/(const.MASS*Z_d_alpha)
+    B[:,1,3] = - 1/(const.MASS*Z_d_alpha)
 
-    B[2,0] = M_delta_e_prime
-    B[2,1] = - (const.LEN_M + 1/(const.MASS*Z_d_alpha))*np.cos(tilt)
-    B[2,2] = - (const.LEN_R_X + 1/(const.MASS*Z_d_alpha))
-    B[2,3] = const.LEN_F - 1/(const.MASS*Z_d_alpha)
+    B[:,2,0] = M_delta_e_prime
+    B[:,2,1] = - (const.LEN_M + 1/(const.MASS*Z_d_alpha))*np.cos(tilt)
+    B[:,2,2] = - (const.LEN_R_X + 1/(const.MASS*Z_d_alpha))
+    B[:,2,3] = const.LEN_F - 1/(const.MASS*Z_d_alpha)
 
-    B[3,0] = 0
-    B[3,1] = 0
-    B[3,2] = 0
-    B[3,3] = 0
+    B[:,3,0] = 0
+    B[:,3,1] = 0
+    B[:,3,2] = 0
+    B[:,3,3] = 0
 
     # 固有値，固有ベクトルを計算する
     lambda_A,v_A = LA.eig(A)
     lambda_B,v_B = LA.eig(B)
 
-    print(lambda_A)
-    print(lambda_B)
+    return[lambda_A,v_A]
