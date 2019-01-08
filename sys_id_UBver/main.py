@@ -18,6 +18,7 @@ import const
 import math_extention as matex
 import calc
 import calc_ex
+import calc_ex_max
 import analyze
 
 #---------------------------
@@ -30,8 +31,13 @@ get_ipython().run_line_magic('matplotlib', 'qt')
 # 日本語フォントの設定
 # 使用できるフォントを確認したいときは，次の行のコメントアウトを外して実行
 # print([f.name for f in matplotlib.font_manager.fontManager.ttflist])
-plt.rc('font', **{'family':'Gen Shin Gothic'})
-# plt.rc('font', **{'family':'YuGothic'})
+
+# for NotePC
+# plt.rc('font', **{'family':'Gen Shin Gothic'})
+
+# for DeskPC
+plt.rc('font', **{'family':'YuGothic'})
+
 plt.rcParams['font.size'] = 20
 plt.rcParams['xtick.labelsize'] = 15
 plt.rcParams['ytick.labelsize'] = 15 # default: 12
@@ -43,8 +49,10 @@ plt.rcParams["figure.figsize"] = [20, 12]
 # ログデータの読み込み
 #---------------------------
 
-# 読み込むファイル数
-FILE_NUM = 6
+FILE_NUM = 6 # 読み込むファイル数
+borderline_data_num = np.zeros(FILE_NUM-1) # 読み込むファイルごとの境目
+
+# ファイルを一つずつ読み込む
 for file_number in range(FILE_NUM):
 
     #---------------------------
@@ -262,6 +270,12 @@ for file_number in range(FILE_NUM):
 
     # データサイズの取得（列方向）
     data_size = len(read_log_data)
+
+    #
+    if(file_number == 0):
+        borderline_data_num[file_number] = data_size
+    elif(0 < file_number < FILE_NUM-1):
+        borderline_data_num[file_number] = data_size + borderline_data_num[file_number-1]
 
     #---------------------------
     # 計算の必要がある値
@@ -485,6 +499,7 @@ data_size = len(format_log_data)
 
 # sys_id_result = calc.sys_id_LS(format_log_data)
 sys_id_result = calc_ex.sys_id_LS_ex(format_log_data)
+# sys_id_result = calc_ex_max.sys_id_LS_ex_max(format_log_data)
 
 #---------------------------
 # 同定結果の値もデータ群に格納する
@@ -553,23 +568,24 @@ yyy = anly_result[0][:,0]
 Va = np.array(format_log_data['Va'])
 alpha = np.array(format_log_data['alpha'])
 d_alpha = np.array(format_log_data['d_alpha'])
+CL = np.array(format_log_data['CL'])
+CD = np.array(format_log_data['CD'])
 
+plt.subplot(111)
+plt.scatter(xxx,yyy)
 
-fig = plt.figure()
+for j in range(FILE_NUM-1):
+    plt.axvline(x=borderline_data_num[j], color="r") # 実験データの境目で線を引く
 
-ax = fig.add_subplot(2,1,1)
+plt.title('固有値散布図')
+plt.xlabel('data number[]')
+plt.ylabel('固有値')
 
-ax.scatter(xxx,yyy)
+# ax = fig.add_subplot(2,1,2)
+#
+# ax.plot(xxx,d_alpha)
 
-ax.set_title('固有値散布図')
-ax.set_xlabel('data number[]')
-ax.set_ylabel('固有値')
-
-ax = fig.add_subplot(2,1,2)
-
-ax.plot(xxx,d_alpha)
-
-fig.show()
+plt.show()
 
 #---------------------------
 # フーリエ変換
@@ -661,4 +677,4 @@ fig.show()
 # plt.ylabel('モーメント')
 
 #---------------------------
-plt.show()
+# plt.show()

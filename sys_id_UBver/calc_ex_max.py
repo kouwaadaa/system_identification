@@ -63,14 +63,16 @@ def sys_id_LS_ex_max(format_log_data):
     #---------------------------
 
     # n*1 揚力から計算された値のリスト
-    yL = (L/((1/2)*const.RHO*(Va**2)*const.S)) - CL_0 - CL_alpha*alpha
+    yL = (L/((1/2)*const.RHO*(Va**2)*const.S))
 
-    # n*3 リグレッサー（独立変数）や実験データのリスト
+    # n*6 リグレッサー（独立変数）や実験データのリスト
     xL = np.zeros((data_size,6))
-    xL[:,0] = d_alpha
-    xL[:,1] = (const.MAC*d_theta)/(2*Va)
-    xL[:,2] = delta_e
-    xL[:,3] = 1/((1/2)*const.RHO*Va*const.S)
+    xL[:,0] = 1
+    xL[:,1] = alpha
+    xL[:,2] = d_alpha
+    xL[:,3] = (const.MAC*d_theta)/(2*Va)
+    xL[:,4] = delta_e
+    xL[:,5] = 1/((1/2)*const.RHO*Va*const.S)
 
     # ３次ローパスフィルタをかける
     for i in range(3):
@@ -82,10 +84,12 @@ def sys_id_LS_ex_max(format_log_data):
     L_theta_hat = np.dot((np.linalg.pinv(xL_filt)),yL_filt)
 
     # 同定された未知パラメータの取り出し
-    CL_d_alpha = L_theta_hat[0]
-    CL_q = L_theta_hat[1]
-    CL_delta_e = L_theta_hat[2]
-    k_L = L_theta_hat[3]
+    CL_0 = L_theta_hat[0]
+    CL_alpha = L_theta_hat[1]
+    CL_d_alpha = L_theta_hat[2]
+    CL_q = L_theta_hat[3]
+    CL_delta_e = L_theta_hat[4]
+    k_L = L_theta_hat[5]
 
     # 同定結果から得られたCLを計算
     CL = CL_0 \
@@ -98,16 +102,14 @@ def sys_id_LS_ex_max(format_log_data):
     # 抗力
     #---------------------------
 
-    # 既知パラメータ
-    CD_0 = 0.07887
-
     # n*1 抗力から計算された値のリスト
-    yD = (D/((1/2)*const.RHO*(Va**2)*const.S)) - CD_0
+    yD = (D/((1/2)*const.RHO*(Va**2)*const.S))
 
-    # n*2 リグレッサー（独立変数）や実験データのリスト
-    xD = np.zeros((data_size,2))
-    xD[:,0] = CL**2
-    xD[:,1] = 1/((1/2)*const.RHO*Va*const.S)
+    # n*3 リグレッサー（独立変数）や実験データのリスト
+    xD = np.zeros((data_size,3))
+    xD[:,0] = 1
+    xD[:,1] = CL**2
+    xD[:,2] = 1/((1/2)*const.RHO*Va*const.S)
 
     # ３次ローパスフィルタをかける
     for i in range(3):
@@ -119,8 +121,9 @@ def sys_id_LS_ex_max(format_log_data):
     D_theta_hat = np.dot((np.linalg.pinv(xD_filt)),yD_filt)
 
     # 同定された未知パラメータの取り出し
-    kappa = D_theta_hat[0]
-    k_D = D_theta_hat[1]
+    CD_0 = D_theta_hat[0]
+    kappa = D_theta_hat[1]
+    k_D = D_theta_hat[2]
 
     # 同定結果から得られたCDを計算
     CD = CD_0 + kappa*(CL**2)
