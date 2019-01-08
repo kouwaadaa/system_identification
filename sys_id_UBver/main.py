@@ -498,8 +498,8 @@ data_size = len(format_log_data)
 #---------------------------
 
 # sys_id_result = calc.sys_id_LS(format_log_data)
-sys_id_result = calc_ex.sys_id_LS_ex(format_log_data)
-# sys_id_result = calc_ex_max.sys_id_LS_ex_max(format_log_data)
+# sys_id_result = calc_ex.sys_id_LS_ex(format_log_data)
+sys_id_result = calc_ex_max.sys_id_LS_ex_max(format_log_data)
 
 #---------------------------
 # 同定結果の値もデータ群に格納する
@@ -560,22 +560,24 @@ elif sys_id_result[0].shape[1] == 6:
 # 機体の状態方程式から解析を行なう
 anly_result = analyze.linearlize(format_log_data)
 
-# print(anly_result[1][0,2])
+# 固有値の絶対値をとる．
+lambda_A_abs = np.abs(anly_result[0])
 
 xxx = np.arange(data_size)
-yyy = anly_result[0][:,0]
-
-Va = np.array(format_log_data['Va'])
-alpha = np.array(format_log_data['alpha'])
-d_alpha = np.array(format_log_data['d_alpha'])
-CL = np.array(format_log_data['CL'])
-CD = np.array(format_log_data['CD'])
+y = lambda_A_abs[:,0]
+yy = lambda_A_abs[:,1]
+yyy = lambda_A_abs[:,2]
+yyyy = lambda_A_abs[:,3]
 
 plt.subplot(111)
+plt.scatter(xxx,y)
+plt.scatter(xxx,yy)
 plt.scatter(xxx,yyy)
+plt.scatter(xxx,yyyy)
+
 
 for j in range(FILE_NUM-1):
-    plt.axvline(x=borderline_data_num[j], color="r") # 実験データの境目で線を引く
+    plt.axvline(x=borderline_data_num[j], color="black") # 実験データの境目で線を引く
 
 plt.title('固有値散布図')
 plt.xlabel('data number[]')
