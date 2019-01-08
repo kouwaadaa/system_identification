@@ -33,10 +33,10 @@ get_ipython().run_line_magic('matplotlib', 'qt')
 # print([f.name for f in matplotlib.font_manager.fontManager.ttflist])
 
 # for NotePC
-# plt.rc('font', **{'family':'Gen Shin Gothic'})
+plt.rc('font', **{'family':'Gen Shin Gothic'})
 
 # for DeskPC
-plt.rc('font', **{'family':'YuGothic'})
+# plt.rc('font', **{'family':'YuGothic'})
 
 plt.rcParams['font.size'] = 20
 plt.rcParams['xtick.labelsize'] = 15
@@ -489,12 +489,7 @@ for file_number in range(FILE_NUM):
     ])
 
 #---------------------------
-# 最終的なデータサイズを計算する
-#---------------------------
-data_size = len(format_log_data)
-
-#---------------------------
-# パラメータ同定の結果を計算し，取得
+# パラメータ推定の結果を計算し，取得
 #---------------------------
 
 # sys_id_result = calc.sys_id_LS(format_log_data)
@@ -502,7 +497,7 @@ data_size = len(format_log_data)
 sys_id_result = calc_ex_max.sys_id_LS_ex_max(format_log_data)
 
 #---------------------------
-# 同定結果の値もデータ群に格納する
+# 推定結果の値もデータ群に格納する
 #---------------------------
 
 # d_alphaを含まない場合
@@ -557,80 +552,94 @@ elif sys_id_result[0].shape[1] == 6:
     format_log_data['D_calc'] = sys_id_result[3][:,4]
     format_log_data['Ma_calc'] = sys_id_result[3][:,5]
 
-# 機体の状態方程式から解析を行なう
+#---------------------------
+# 機体の状態方程式から固有振動数を解析する
+#---------------------------
+
 anly_result = analyze.linearlize(format_log_data)
 
-# 固有値の絶対値をとる．
-lambda_A_abs = np.abs(anly_result[0])
-
-xxx = np.arange(data_size)
-y = lambda_A_abs[:,0]
-yy = lambda_A_abs[:,1]
-yyy = lambda_A_abs[:,2]
-yyyy = lambda_A_abs[:,3]
-
-plt.subplot(111)
-plt.scatter(xxx,y)
-plt.scatter(xxx,yy)
-plt.scatter(xxx,yyy)
-plt.scatter(xxx,yyyy)
+#---------------------------
+# データの取り出し
+#---------------------------
+data_size = len(format_log_data) # 合計のデータサイズを取得
+d_theta = np.array(format_log_data['d_theta'])
+alpha = np.array(format_log_data['alpha'])
+d_alpha = np.array(format_log_data['d_alpha'])
+Va = np.array(format_log_data['Va'])
+delta_e = np.array(format_log_data['delta_e'])
+L = np.array(format_log_data['L'])
+D = np.array(format_log_data['D'])
+Ma = np.array(format_log_data['Ma'])
 
 
-for j in range(FILE_NUM-1):
-    plt.axvline(x=borderline_data_num[j], color="black") # 実験データの境目で線を引く
-
-plt.title('固有値散布図')
-plt.xlabel('data number[]')
-plt.ylabel('固有値')
-
-# ax = fig.add_subplot(2,1,2)
+# # 固有値の絶対値をとる．
+# lambda_A_abs = np.abs(anly_result[0])
 #
-# ax.plot(xxx,d_alpha)
+# xxx = np.arange(data_size)
+# y = lambda_A_abs[:,0]
+# yy = lambda_A_abs[:,1]
+# yyy = lambda_A_abs[:,2]
+# yyyy = lambda_A_abs[:,3]
 
-plt.show()
+plt.figure()
+
+# 余白を設定
+plt.subplots_adjust(wspace=0.4, hspace=0.6)
+
+# plt.subplot(111)
+# plt.scatter(xxx,y)
+# plt.scatter(xxx,yy)
+# plt.scatter(xxx,yyy)
+# plt.scatter(xxx,yyyy)
+#
+#
+# for j in range(FILE_NUM-1):
+#     plt.axvline(x=borderline_data_num[j], color="black") # 実験データの境目で線を引く
+#
+# plt.title('固有値散布図')
+# plt.xlabel('データ番号')
+# plt.ylabel('固有値')
+#
+# # ax = fig.add_subplot(2,1,2)
+# #
+# # ax.plot(xxx,d_alpha)
+#
+# plt.show()
 
 #---------------------------
 # フーリエ変換
 #---------------------------
 
-# # 周波数軸のデータ作成
-# fq = np.linspace(0, 1.0/T_DIFF, data_size) # 周波数軸　linspace(開始,終了,分割数)
-#
-# # FFT
-# F1 = matex.fft_set_amp(d_theta,T_DIFF,data_size)
+# 周波数軸のデータ作成
+fq = np.linspace(0, 1.0/0.02, data_size) # 周波数軸　linspace(開始,終了,分割数)
+
+# FFT
+
+F1 = matex.fft_set_amp(d_theta,0.02,data_size)
 
 #---------------------------
 # 結果
 #---------------------------
 
-# print(L_theta_hat)
-# print(D_theta_hat)
-# print(m_theta_hat)
-# print(np.mean(CL))
-
-#---------------------------
 # plt.figure()
-#
-# # 余白を設定
-# plt.subplots_adjust(wspace=0.4, hspace=0.6)
-#
+
 # # FFTデータからピークを自動検出
 # maximal_idx = signal.argrelmax(F1, order=1)[0] # ピーク（極大値）のインデックス取得
 #
 # # ピーク検出感度調整もどき、後半側（ナイキスト超）と閾値より小さい振幅ピークを除外
 # peak_cut = 0.05 # ピーク閾値
 # maximal_idx = maximal_idx[(F1[maximal_idx] > peak_cut) & (maximal_idx <= data_size/2)]
-#
-# plt.subplot(211)
+
+# plt.subplot(121)
 # plt.plot(d_theta)
 # plt.xlabel('data number []')
-# plt.ylabel('d_theta [rad]')
-#
-# plt.subplot(212)
-# plt.plot(fq, F1)
-# plt.xlabel('frequency [Hz]')
-# plt.ylabel('amplitude')
-#
+# plt.ylabel('q [rad]')
+
+plt.subplot(111)
+plt.plot(fq, F1)
+plt.xlabel('frequency [Hz]')
+plt.ylabel('amplitude')
+
 # ## peakを赤点で表示
 # #plt.plot(fq[maximal_idx], F1[maximal_idx],'ro')
 # #
@@ -645,7 +654,7 @@ plt.show()
 #
 # print('peak', fq[maximal_idx])
 
-# plt.subplot(3,1,3)
+# plt.subplot(1,1,1)
 # plt.plot(Ma)
 # plt.plot(Ma_calc)
 # plt.grid()
@@ -679,4 +688,4 @@ plt.show()
 # plt.ylabel('モーメント')
 
 #---------------------------
-# plt.show()
+plt.show()
