@@ -485,6 +485,17 @@ for file_number in range(FILE_NUM):
         'Mg' : Mg,
         'Ma' : Ma,
         'pitot_Va' : measurement_airspeed,
+        'manual_T1' : m_up_pwm,
+        'manual_T2' : m_down_pwm,
+        'manual_T3' : r_r_pwm,
+        'manual_T4' : r_l_pwm,
+        'manual_T5' : f_up_pwm,
+        'manual_T6' : f_down_pwm,
+        'manual_elevon_r' : delta_e_r_command,
+        'manual_elevon_l' : delta_e_l_command,
+        'manual_pitch' : manual_pitch,
+        'manual_thrust' : manual_thrust,
+        'manual_tilt' : manual_tilt,
         })
     ])
 
@@ -572,6 +583,19 @@ D = np.array(format_log_data['D'])
 Ma = np.array(format_log_data['Ma'])
 
 
+manual_T1 = np.array(format_log_data['manual_T1'])
+manual_T2 = np.array(format_log_data['manual_T2'])
+manual_T3 = np.array(format_log_data['manual_T3'])
+manual_T4 = np.array(format_log_data['manual_T4'])
+manual_T5 = np.array(format_log_data['manual_T5'])
+manual_T6 = np.array(format_log_data['manual_T6'])
+manual_elevon_r = np.array(format_log_data['manual_elevon_r'])
+manual_elevon_l = np.array(format_log_data['manual_elevon_l'])
+manual_pitch = np.array(format_log_data['manual_pitch'])
+manual_thrust = np.array(format_log_data['manual_thrust'])
+manual_tilt = np.array(format_log_data['manual_tilt'])
+
+
 # # 固有値の絶対値をとる．
 # lambda_A_abs = np.abs(anly_result[0])
 #
@@ -611,11 +635,22 @@ plt.subplots_adjust(wspace=0.4, hspace=0.6)
 #---------------------------
 
 # 周波数軸のデータ作成
-fq = np.linspace(0, 1.0/0.02, data_size) # 周波数軸　linspace(開始,終了,分割数)
+fq = np.fft.fftfreq(data_size,d=0.02)
 
 # FFT
+F_d_theta = matex.fft_set_amp(d_theta,0.02,data_size)
 
-F1 = matex.fft_set_amp(d_theta,0.02,data_size)
+F_manual_T1 = matex.fft_set_amp(manual_T1,0.02,data_size)
+F_manual_T2 = matex.fft_set_amp(manual_T2,0.02,data_size)
+F_manual_T3 = matex.fft_set_amp(manual_T3,0.02,data_size)
+F_manual_T4 = matex.fft_set_amp(manual_T4,0.02,data_size)
+F_manual_T5 = matex.fft_set_amp(manual_T5,0.02,data_size)
+F_manual_T6 = matex.fft_set_amp(manual_T6,0.02,data_size)
+F_manual_elevon_r = matex.fft_set_amp(manual_elevon_r,0.02,data_size)
+F_manual_elevon_l = matex.fft_set_amp(manual_elevon_l,0.02,data_size)
+F_manual_pitch = matex.fft_set_amp(manual_pitch,0.02,data_size)
+F_manual_thrust = matex.fft_set_amp(manual_thrust,0.02,data_size)
+F_manual_tilt = matex.fft_set_amp(manual_tilt,0.02,data_size)
 
 #---------------------------
 # 結果
@@ -635,10 +670,59 @@ F1 = matex.fft_set_amp(d_theta,0.02,data_size)
 # plt.xlabel('data number []')
 # plt.ylabel('q [rad]')
 
-plt.subplot(111)
-plt.plot(fq, F1)
-plt.xlabel('frequency [Hz]')
-plt.ylabel('amplitude')
+# window = np.hamming(data_size)
+# F_manual_T3_window = window * F_manual_T3
+#
+# plt.subplot(111)
+# plt.plot(fq[1:int(data_size/2)], F_manual_T3_window[1:int(data_size/2)])
+# plt.xlabel('frequency [Hz]')
+# plt.ylabel('amplitude')
+#
+# plt.subplot(232)
+# plt.plot(fq[:int(data_size/2)+1], F_manual_T2[:int(data_size/2)+1])
+# plt.xlabel('frequency [Hz]')
+# plt.ylabel('amplitude')
+#
+# plt.subplot(233)
+# plt.plot(fq[:int(data_size/2)+1], F_manual_T3[:int(data_size/2)+1])
+# plt.xlabel('frequency [Hz]')
+# plt.ylabel('amplitude')
+#
+# plt.subplot(234)
+# plt.plot(fq[:int(data_size/2)+1], F_manual_T4[:int(data_size/2)+1])
+# plt.xlabel('frequency [Hz]')
+# plt.ylabel('amplitude')
+#
+# plt.subplot(235)
+# plt.plot(fq[:int(data_size/2)+1], F_manual_T5[:int(data_size/2)+1])
+# plt.xlabel('frequency [Hz]')
+# plt.ylabel('amplitude')
+#
+# plt.subplot(236)
+# plt.plot(fq[:int(data_size/2)+1], F_manual_T6[:int(data_size/2)+1])
+# plt.xlabel('frequency [Hz]')
+# plt.ylabel('amplitude')
+
+# plt.subplot(211)
+# plt.plot(fq[:int(data_size/2)+1], F_manual_elevon_r[:int(data_size/2)+1])
+# plt.xlabel('frequency [Hz]')
+# plt.ylabel('amplitude')
+#
+# plt.subplot(212)
+# plt.plot(fq[:int(data_size/2)+1], F_manual_elevon_l[:int(data_size/2)+1])
+# plt.xlabel('frequency [Hz]')
+# plt.ylabel('amplitude')
+
+# plt.subplot(211)
+# plt.plot(fq[:int(data_size/2)+1], F_manual_pitch[:int(data_size/2)+1])
+# plt.xlabel('frequency [Hz]')
+# plt.ylabel('amplitude')
+#
+# plt.subplot(212)
+# plt.plot(fq[:int(data_size/2)+1], F_manual_tilt[:int(data_size/2)+1])
+# plt.xlabel('frequency [Hz]')
+# plt.ylabel('amplitude')
+
 
 # ## peakを赤点で表示
 # #plt.plot(fq[maximal_idx], F1[maximal_idx],'ro')
