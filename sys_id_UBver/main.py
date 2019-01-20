@@ -19,6 +19,7 @@ import math_extention as matex
 import calc
 import calc_ex
 import calc_ex_max
+import calc_kawano
 import analyze
 
 #---------------------------
@@ -503,9 +504,10 @@ for file_number in range(FILE_NUM):
 # パラメータ推定の結果を計算し，取得
 #---------------------------
 
-# sys_id_result = calc.sys_id_LS(format_log_data)
+sys_id_result = calc.sys_id_LS(format_log_data)
 # sys_id_result = calc_ex.sys_id_LS_ex(format_log_data)
-sys_id_result = calc_ex_max.sys_id_LS_ex_max(format_log_data)
+# sys_id_result = calc_ex_max.sys_id_LS_ex_max(format_log_data)
+# sys_id_result = calc_kawano.sys_id_LS_kawano(format_log_data)
 
 #---------------------------
 # 推定結果の値もデータ群に格納する
@@ -567,21 +569,24 @@ elif sys_id_result[0].shape[1] == 6:
 # 機体の状態方程式から固有振動数を解析する
 #---------------------------
 
-anly_result = analyze.linearlize(format_log_data)
+# anly_result = analyze.linearlize(format_log_data)
 
 #---------------------------
 # データの取り出し
 #---------------------------
 data_size = len(format_log_data) # 合計のデータサイズを取得
+theta = np.array(format_log_data['theta'])
 d_theta = np.array(format_log_data['d_theta'])
 alpha = np.array(format_log_data['alpha'])
-d_alpha = np.array(format_log_data['d_alpha'])
 Va = np.array(format_log_data['Va'])
+pitot_Va = np.array(format_log_data['pitot_Va'])
 delta_e = np.array(format_log_data['delta_e'])
 L = np.array(format_log_data['L'])
 D = np.array(format_log_data['D'])
 Ma = np.array(format_log_data['Ma'])
 
+
+CD = np.array(format_log_data['CD'])
 
 manual_T1 = np.array(format_log_data['manual_T1'])
 manual_T2 = np.array(format_log_data['manual_T2'])
@@ -596,6 +601,9 @@ manual_thrust = np.array(format_log_data['manual_thrust'])
 manual_tilt = np.array(format_log_data['manual_tilt'])
 
 
+# window = np.hamming(data_size)
+# manual_T3 = window * manual_T3
+
 # # 固有値の絶対値をとる．
 # lambda_A_abs = np.abs(anly_result[0])
 #
@@ -604,11 +612,6 @@ manual_tilt = np.array(format_log_data['manual_tilt'])
 # yy = lambda_A_abs[:,1]
 # yyy = lambda_A_abs[:,2]
 # yyyy = lambda_A_abs[:,3]
-
-plt.figure()
-
-# 余白を設定
-plt.subplots_adjust(wspace=0.4, hspace=0.6)
 
 # plt.subplot(111)
 # plt.scatter(xxx,y)
@@ -628,7 +631,6 @@ plt.subplots_adjust(wspace=0.4, hspace=0.6)
 # #
 # # ax.plot(xxx,d_alpha)
 #
-# plt.show()
 
 #---------------------------
 # フーリエ変換
@@ -652,124 +654,40 @@ F_manual_pitch = matex.fft_set_amp(manual_pitch,0.02,data_size)
 F_manual_thrust = matex.fft_set_amp(manual_thrust,0.02,data_size)
 F_manual_tilt = matex.fft_set_amp(manual_tilt,0.02,data_size)
 
+# ３次ローパスフィルタをかける
+for i in range(3):
+    theta_filt = matex.lp_filter(0.03,0.02,data_size,theta)
+
 #---------------------------
 # 結果
 #---------------------------
 
-# plt.figure()
-
-# # FFTデータからピークを自動検出
-# maximal_idx = signal.argrelmax(F1, order=1)[0] # ピーク（極大値）のインデックス取得
+## ピッチ角，角速度，迎角をプロット
+# fig1 = plt.figure()
 #
-# # ピーク検出感度調整もどき、後半側（ナイキスト超）と閾値より小さい振幅ピークを除外
-# peak_cut = 0.05 # ピーク閾値
-# maximal_idx = maximal_idx[(F1[maximal_idx] > peak_cut) & (maximal_idx <= data_size/2)]
-
-# plt.subplot(121)
-# plt.plot(d_theta)
-# plt.xlabel('data number []')
-# plt.ylabel('q [rad]')
-
-# window = np.hamming(data_size)
-# F_manual_T3_window = window * F_manual_T3
+# ax1 = fig1.add_subplot(311)
+# ax2 = fig1.add_subplot(312)
+# ax3 = fig1.add_subplot(313)
 #
+# ax1.plot(theta)
+# ax2.plot(d_theta)
+# ax3.plot(alpha)
+#
+# ax1.set_title("Pitch")
+# ax2.set_title("Pitch Rate")
+# ax3.set_title("Angle of attack")
+#
+# ax1.set_ylabel("[rad]")
+# ax2.set_ylabel("[rad]")
+# ax3.set_ylabel("[rad]")
+#
+# fig1.tight_layout()
+
+
 # plt.subplot(111)
-# plt.plot(fq[1:int(data_size/2)], F_manual_T3_window[1:int(data_size/2)])
+# plt.plot(fq[1:int(data_size/2)], F_manual_T3[1:int(data_size/2)])
 # plt.xlabel('frequency [Hz]')
 # plt.ylabel('amplitude')
-#
-# plt.subplot(232)
-# plt.plot(fq[:int(data_size/2)+1], F_manual_T2[:int(data_size/2)+1])
-# plt.xlabel('frequency [Hz]')
-# plt.ylabel('amplitude')
-#
-# plt.subplot(233)
-# plt.plot(fq[:int(data_size/2)+1], F_manual_T3[:int(data_size/2)+1])
-# plt.xlabel('frequency [Hz]')
-# plt.ylabel('amplitude')
-#
-# plt.subplot(234)
-# plt.plot(fq[:int(data_size/2)+1], F_manual_T4[:int(data_size/2)+1])
-# plt.xlabel('frequency [Hz]')
-# plt.ylabel('amplitude')
-#
-# plt.subplot(235)
-# plt.plot(fq[:int(data_size/2)+1], F_manual_T5[:int(data_size/2)+1])
-# plt.xlabel('frequency [Hz]')
-# plt.ylabel('amplitude')
-#
-# plt.subplot(236)
-# plt.plot(fq[:int(data_size/2)+1], F_manual_T6[:int(data_size/2)+1])
-# plt.xlabel('frequency [Hz]')
-# plt.ylabel('amplitude')
-
-# plt.subplot(211)
-# plt.plot(fq[:int(data_size/2)+1], F_manual_elevon_r[:int(data_size/2)+1])
-# plt.xlabel('frequency [Hz]')
-# plt.ylabel('amplitude')
-#
-# plt.subplot(212)
-# plt.plot(fq[:int(data_size/2)+1], F_manual_elevon_l[:int(data_size/2)+1])
-# plt.xlabel('frequency [Hz]')
-# plt.ylabel('amplitude')
-
-# plt.subplot(211)
-# plt.plot(fq[:int(data_size/2)+1], F_manual_pitch[:int(data_size/2)+1])
-# plt.xlabel('frequency [Hz]')
-# plt.ylabel('amplitude')
-#
-# plt.subplot(212)
-# plt.plot(fq[:int(data_size/2)+1], F_manual_tilt[:int(data_size/2)+1])
-# plt.xlabel('frequency [Hz]')
-# plt.ylabel('amplitude')
-
-
-# ## peakを赤点で表示
-# #plt.plot(fq[maximal_idx], F1[maximal_idx],'ro')
-# #
-# ## グラフにピークの周波数をテキストで表示
-# #for i in range(len(maximal_idx)):
-# #    plt.annotate('{0:.3f}(Hz)'.format(np.round(fq[maximal_idx[i]],decimals=3)),
-# #                 xy=(fq[maximal_idx[i]], F1[maximal_idx[i]]),
-# #                 xytext=(10, 20),
-# #                 textcoords='offset points',
-# #                 arrowprops=dict(arrowstyle="->",connectionstyle="arc3,rad=.2")
-# #                )
-#
-# print('peak', fq[maximal_idx])
-
-# plt.subplot(1,1,1)
-# plt.plot(Ma)
-# plt.plot(Ma_calc)
-# plt.grid()
-# plt.xlabel('データ番号')
-# plt.ylabel('モーメント')
 
 #---------------------------
-# plt.figure(2)
-#
-# # 余白を設定
-# plt.subplots_adjust(wspace=0.4, hspace=0.6)
-
-# plt.plot(yD)
-# plt.plot(yD_filt)
-# plt.grid()
-# plt.xlabel('データ番号')
-# plt.ylabel('yD')
-
-# plt.subplot(3,1,2)
-# plt.plot(yD, '#0074bf')
-# plt.plot(yD_filt, '#c93a40')
-# plt.grid()
-# plt.xlabel('データ番号')
-# plt.ylabel('抗力')
-#
-# plt.subplot(3,1,3)
-# plt.plot(ym, '#0074bf')
-# plt.plot(ym_filt, '#c93a40')
-# plt.grid()
-# plt.xlabel('データ番号')
-# plt.ylabel('モーメント')
-
-#---------------------------
-plt.show()
+# plt.show()
