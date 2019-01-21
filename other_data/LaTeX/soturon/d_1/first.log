@@ -1,16 +1,20 @@
-This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  21 JAN 2019 10:31
+This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  21 JAN 2019 10:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**main.tex
-(./main.tex
+**first.tex
+(./first.tex
 pLaTeX2e <2018-04-01u02>+1 (based on LaTeX2e <2018-04-01> patch level 2)
 Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
-(./thesis.cls
+(../thesis.cls
+
+LaTeX Warning: You have requested document class `../thesis',
+               but the document class provides `thesis'.
+
 Document Class: thesis 2014/04/25 kawata
 
-./thesis.cls:337: LaTeX Error: Font family `JY1+mc' unknown.
+../thesis.cls:337: LaTeX Error: Font family `JY1+mc' unknown.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -23,7 +27,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./thesis.cls:338: LaTeX Error: Font family `JY1+gt' unknown.
+../thesis.cls:338: LaTeX Error: Font family `JY1+gt' unknown.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -36,7 +40,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./thesis.cls:339: LaTeX Error: Font family `JT1+mc' unknown.
+../thesis.cls:339: LaTeX Error: Font family `JT1+mc' unknown.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -49,7 +53,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./thesis.cls:340: LaTeX Error: Font family `JT1+gt' unknown.
+../thesis.cls:340: LaTeX Error: Font family `JT1+gt' unknown.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -62,7 +66,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./thesis.cls:345: LaTeX Error: Font family `JY1+mc' unknown.
+../thesis.cls:345: LaTeX Error: Font family `JY1+mc' unknown.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -75,7 +79,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./thesis.cls:346: LaTeX Error: Font family `JY1+mc' unknown.
+../thesis.cls:346: LaTeX Error: Font family `JY1+mc' unknown.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -88,7 +92,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./thesis.cls:347: LaTeX Error: Font family `JY1+mc' unknown.
+../thesis.cls:347: LaTeX Error: Font family `JY1+mc' unknown.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -101,7 +105,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./thesis.cls:348: LaTeX Error: Font family `JY1+gt' unknown.
+../thesis.cls:348: LaTeX Error: Font family `JY1+gt' unknown.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -114,7 +118,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./thesis.cls:349: LaTeX Error: Font family `JY1+gt' unknown.
+../thesis.cls:349: LaTeX Error: Font family `JY1+gt' unknown.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -127,7 +131,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./thesis.cls:350: LaTeX Error: Font family `JY1+mc' unknown.
+../thesis.cls:350: LaTeX Error: Font family `JY1+mc' unknown.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -140,7 +144,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./thesis.cls:351: LaTeX Error: Font family `JY1+mc' unknown.
+../thesis.cls:351: LaTeX Error: Font family `JY1+mc' unknown.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -153,7 +157,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./thesis.cls:352: LaTeX Error: Font family `JT1+mc' unknown.
+../thesis.cls:352: LaTeX Error: Font family `JT1+mc' unknown.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -166,7 +170,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./thesis.cls:353: LaTeX Error: Font family `JT1+mc' unknown.
+../thesis.cls:353: LaTeX Error: Font family `JT1+mc' unknown.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -179,7 +183,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./thesis.cls:354: LaTeX Error: Font family `JT1+mc' unknown.
+../thesis.cls:354: LaTeX Error: Font family `JT1+mc' unknown.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -192,7 +196,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./thesis.cls:355: LaTeX Error: Font family `JT1+gt' unknown.
+../thesis.cls:355: LaTeX Error: Font family `JT1+gt' unknown.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -205,7 +209,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./thesis.cls:356: LaTeX Error: Font family `JT1+gt' unknown.
+../thesis.cls:356: LaTeX Error: Font family `JT1+gt' unknown.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -218,7 +222,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./thesis.cls:357: LaTeX Error: Font family `JT1+mc' unknown.
+../thesis.cls:357: LaTeX Error: Font family `JT1+mc' unknown.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -231,7 +235,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./thesis.cls:358: LaTeX Error: Font family `JT1+mc' unknown.
+../thesis.cls:358: LaTeX Error: Font family `JT1+mc' unknown.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -247,7 +251,7 @@ LaTeX Info: Redefining \rmfamily on input line 359.
 LaTeX Info: Redefining \sffamily on input line 362.
 LaTeX Info: Redefining \ttfamily on input line 365.
 
-./thesis.cls:428: LaTeX Error: Encoding scheme `JY1' unknown.
+../thesis.cls:428: LaTeX Error: Encoding scheme `JY1' unknown.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -260,7 +264,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./thesis.cls:429: LaTeX Error: Unknown symbol font `mincho'.
+../thesis.cls:429: LaTeX Error: Unknown symbol font `mincho'.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -273,7 +277,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./thesis.cls:430: LaTeX Error: Encoding scheme `JY1' unknown.
+../thesis.cls:430: LaTeX Error: Encoding scheme `JY1' unknown.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -285,7 +289,7 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-./thesis.cls:431: Missing number, treated as zero.
+../thesis.cls:431: Missing number, treated as zero.
 <to be read again> 
                    \symmincho 
 l.431     \jfam\symmincho
@@ -295,7 +299,7 @@ A number should have been here; I inserted `0'.
 look up `weird error' in the index to The TeXbook.)
 
 
-./thesis.cls:432: LaTeX Error: Encoding scheme `JY1' unknown.
+../thesis.cls:432: LaTeX Error: Encoding scheme `JY1' unknown.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -334,11 +338,7 @@ LaTeX Info: Redefining \TeX on input line 1812.
 LaTeX Info: Redefining \LaTeX on input line 1838.
 LaTeX Info: Redefining \LaTeXe on input line 1863.
 \heisei=\count92
-)
-\@input{begin.aux}
-\openout2 = `begin.aux'.
-
-(./begin.tex (/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/graphicx.sty
+) (../begin.tex (/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
  (/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
@@ -379,8 +379,8 @@ Package: tascmac 2018/03/09 v2.0h ascmac package (community edition)
 \shaderule=\dimen129
 ))
 LaTeX Info: Redefining \cite on input line 9.
- (./main.aux (./a_cover/cover.aux) (./b_abstract_jp/abstract_jp.aux) (./c_preface/preface.aux) (./d_1/first.aux) (./d_2/second.aux) (./d_3/third.aux) (./d_4/fourth.aux) (./d_5/fifth.aux) (./e_thanks/thanks.aux) (./f_references/references.aux))
-\openout1 = `main.aux'.
+ (./first.aux)
+\openout1 = `first.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
 LaTeX Font Info:    ... okay on input line 27.
@@ -399,154 +399,26 @@ LaTeX Font Info:    ... okay on input line 27.
 LaTeX Font Info:    Checking defaults for JT2/mc/m/n on input line 27.
 LaTeX Font Info:    ... okay on input line 27.
 )
-\openout2 = `a_cover/cover.aux'.
-
- (./a_cover/cover.tex
-LaTeX Font Info:    Font shape `JT2/mc/m/n' will be
-(Font)              scaled to size 23.94002pt on input line 10.
-LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
-(Font)              scaled to size 23.94002pt on input line 10.
-LaTeX Font Info:    Font shape `JT2/mc/m/n' will be
-(Font)              scaled to size 16.62714pt on input line 14.
-LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
-(Font)              scaled to size 16.62714pt on input line 14.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <17.28> on input line 20.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 20.
-) [1
-
-
-
-
-]
-\openout2 = `b_abstract_jp/abstract_jp.aux'.
-
- (./b_abstract_jp/abstract_jp.tex
-LaTeX Font Info:    Font shape `JT2/mc/m/n' will be
-(Font)              scaled to size 13.85594pt on input line 9.
-LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
-(Font)              scaled to size 13.85594pt on input line 9.
-LaTeX Font Info:    Font shape `JT2/mc/bx/n' in size <14.4> not available
-(Font)              Font shape `JT2/gt/m/n' tried instead on input line 12.
-LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
-(Font)              scaled to size 13.85594pt on input line 12.
-LaTeX Font Info:    Font shape `JY2/mc/bx/n' in size <14.4> not available
-(Font)              Font shape `JY2/gt/m/n' tried instead on input line 12.
-LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
-(Font)              scaled to size 13.85594pt on input line 12.
-) [2
-
-
-]
-LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
-(Font)              scaled to size 23.94002pt on input line 18.
-LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
-(Font)              scaled to size 23.94002pt on input line 18.
- (./main.toc
-LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
-(Font)              scaled to size 9.6222pt on input line 1.
-LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
-(Font)              scaled to size 9.6222pt on input line 1.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 3.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 3.
-)
-\tf@toc=\write3
-\openout3 = `main.toc'.
-
- [1
-
-
-]
-\openout2 = `c_preface/preface.aux'.
-
- (./c_preface/preface.tex
 第1章
-) [1
+LaTeX Font Info:    Font shape `JT2/mc/m/n' will be
+(Font)              scaled to size 13.85594pt on input line 8.
+LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
+(Font)              scaled to size 13.85594pt on input line 8.
+LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
+(Font)              scaled to size 13.85594pt on input line 8.
+LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
+(Font)              scaled to size 13.85594pt on input line 8.
+(../end.tex [1
 
 
-]
-\openout2 = `d_1/first.aux'.
-
- (./d_1/first.tex
-第2章
-) [2
-
-
-
-]
-\openout2 = `d_2/second.aux'.
-
- (./d_2/second.tex
-第3章
-) [3
-
-
-
-]
-\openout2 = `d_3/third.aux'.
-
- (./d_3/third.tex
-第4章
-) [4
-
-
-
-]
-\openout2 = `d_4/fourth.aux'.
-
- (./d_4/fourth.tex
-第5章
-) [5
-
-
-
-]
-\openout2 = `d_5/fifth.aux'.
-
- (./d_5/fifth.tex
-第6章
-) [6
-
-
-
-]
-\openout2 = `e_thanks/thanks.aux'.
-
- (./e_thanks/thanks.tex) [7
-
-
-
-]
-\openout2 = `f_references/references.aux'.
-
- (./f_references/references.tex
-
-LaTeX Font Warning: Font shape `JT2/mc/m/it' undefined
-(Font)              using `JT2/mc/m/n' instead on input line 12.
-
-
-LaTeX Font Warning: Font shape `JY2/mc/m/it' undefined
-(Font)              using `JY2/mc/m/n' instead on input line 12.
-
-) [8
-
-
-
-] (./main.aux (./a_cover/cover.aux) (./b_abstract_jp/abstract_jp.aux) (./c_preface/preface.aux) (./d_1/first.aux) (./d_2/second.aux) (./d_3/third.aux) (./d_4/fourth.aux) (./d_5/fifth.aux) (./e_thanks/thanks.aux) (./f_references/references.aux))
-
-LaTeX Font Warning: Some font shapes were not available, defaults substituted.
-
- ) 
+] (./first.aux) ) ) 
 Here is how much of TeX's memory you used:
- 966 strings out of 493270
- 11477 string characters out of 6145017
- 80892 words of memory out of 5000000
- 4870 multiletter control sequences out of 15000+600000
- 12393 words of font info for 59 fonts, out of 8000000 for 9000
+ 834 strings out of 493270
+ 9525 string characters out of 6145017
+ 75900 words of memory out of 5000000
+ 4823 multiletter control sequences out of 15000+600000
+ 8142 words of font info for 42 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
- 29i,4n,23p,1357b,182s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,4n,21p,241b,168s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (11 pages, 8532 bytes).
+Output written on first.dvi (1 page, 540 bytes).
