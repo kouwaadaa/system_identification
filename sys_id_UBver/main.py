@@ -24,7 +24,7 @@ import analyze
 #---------------------------
 # matplotlibの諸設定
 #---------------------------
-
+5
 # プロットデータを新しいウィンドウで表示する
 get_ipython().run_line_magic('matplotlib', 'qt')
 
