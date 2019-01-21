@@ -183,10 +183,6 @@ def fft_set_amp(nparray,dt,N):
     fft = np.fft.fft(nparray)
 
     # FFTの複素数結果を絶対変換
-    fft_abs = np.abs(fft)
+    fft_amp = np.abs(fft/(N/2))
 
-    # 振幅を元のスケールに揃える
-    fft_nparray = fft_abs / N * 2 # 交流成分
-    fft_nparray[0] = fft_nparray[0] / 2 # 直流成分
-
-    return fft_nparray
+    return fft_amp

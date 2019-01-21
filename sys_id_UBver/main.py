@@ -19,6 +19,7 @@ import math_extention as matex
 import calc
 import calc_ex
 import calc_ex_max
+import calc_kawano
 import analyze
 
 #---------------------------
@@ -33,10 +34,10 @@ get_ipython().run_line_magic('matplotlib', 'qt')
 # print([f.name for f in matplotlib.font_manager.fontManager.ttflist])
 
 # for NotePC
-# plt.rc('font', **{'family':'Gen Shin Gothic'})
+plt.rc('font', **{'family':'Gen Shin Gothic'})
 
 # for DeskPC
-plt.rc('font', **{'family':'YuGothic'})
+# plt.rc('font', **{'family':'YuGothic'})
 
 plt.rcParams['font.size'] = 20
 plt.rcParams['xtick.labelsize'] = 15
@@ -485,24 +486,31 @@ for file_number in range(FILE_NUM):
         'Mg' : Mg,
         'Ma' : Ma,
         'pitot_Va' : measurement_airspeed,
+        'manual_T1' : m_up_pwm,
+        'manual_T2' : m_down_pwm,
+        'manual_T3' : r_r_pwm,
+        'manual_T4' : r_l_pwm,
+        'manual_T5' : f_up_pwm,
+        'manual_T6' : f_down_pwm,
+        'manual_elevon_r' : delta_e_r_command,
+        'manual_elevon_l' : delta_e_l_command,
+        'manual_pitch' : manual_pitch,
+        'manual_thrust' : manual_thrust,
+        'manual_tilt' : manual_tilt,
         })
     ])
 
 #---------------------------
-# 最終的なデータサイズを計算する
-#---------------------------
-data_size = len(format_log_data)
-
-#---------------------------
-# パラメータ同定の結果を計算し，取得
+# パラメータ推定の結果を計算し，取得
 #---------------------------
 
-# sys_id_result = calc.sys_id_LS(format_log_data)
+sys_id_result = calc.sys_id_LS(format_log_data)
 # sys_id_result = calc_ex.sys_id_LS_ex(format_log_data)
-sys_id_result = calc_ex_max.sys_id_LS_ex_max(format_log_data)
+# sys_id_result = calc_ex_max.sys_id_LS_ex_max(format_log_data)
+# sys_id_result = calc_kawano.sys_id_LS_kawano(format_log_data)
 
 #---------------------------
-# 同定結果の値もデータ群に格納する
+# 推定結果の値もデータ群に格納する
 #---------------------------
 
 # d_alphaを含まない場合
@@ -557,126 +565,129 @@ elif sys_id_result[0].shape[1] == 6:
     format_log_data['D_calc'] = sys_id_result[3][:,4]
     format_log_data['Ma_calc'] = sys_id_result[3][:,5]
 
-# 機体の状態方程式から解析を行なう
-anly_result = analyze.linearlize(format_log_data)
+#---------------------------
+# 機体の状態方程式から固有振動数を解析する
+#---------------------------
 
-# 固有値の絶対値をとる．
-lambda_A_abs = np.abs(anly_result[0])
+# anly_result = analyze.linearlize(format_log_data)
 
-xxx = np.arange(data_size)
-y = lambda_A_abs[:,0]
-yy = lambda_A_abs[:,1]
-yyy = lambda_A_abs[:,2]
-yyyy = lambda_A_abs[:,3]
+#---------------------------
+# データの取り出し
+#---------------------------
+data_size = len(format_log_data) # 合計のデータサイズを取得
+theta = np.array(format_log_data['theta'])
+d_theta = np.array(format_log_data['d_theta'])
+alpha = np.array(format_log_data['alpha'])
+Va = np.array(format_log_data['Va'])
+pitot_Va = np.array(format_log_data['pitot_Va'])
+delta_e = np.array(format_log_data['delta_e'])
+L = np.array(format_log_data['L'])
+D = np.array(format_log_data['D'])
+Ma = np.array(format_log_data['Ma'])
 
-plt.subplot(111)
-plt.scatter(xxx,y)
-plt.scatter(xxx,yy)
-plt.scatter(xxx,yyy)
-plt.scatter(xxx,yyyy)
+
+CD = np.array(format_log_data['CD'])
+
+manual_T1 = np.array(format_log_data['manual_T1'])
+manual_T2 = np.array(format_log_data['manual_T2'])
+manual_T3 = np.array(format_log_data['manual_T3'])
+manual_T4 = np.array(format_log_data['manual_T4'])
+manual_T5 = np.array(format_log_data['manual_T5'])
+manual_T6 = np.array(format_log_data['manual_T6'])
+manual_elevon_r = np.array(format_log_data['manual_elevon_r'])
+manual_elevon_l = np.array(format_log_data['manual_elevon_l'])
+manual_pitch = np.array(format_log_data['manual_pitch'])
+manual_thrust = np.array(format_log_data['manual_thrust'])
+manual_tilt = np.array(format_log_data['manual_tilt'])
 
 
-for j in range(FILE_NUM-1):
-    plt.axvline(x=borderline_data_num[j], color="black") # 実験データの境目で線を引く
+# window = np.hamming(data_size)
+# manual_T3 = window * manual_T3
 
-plt.title('固有値散布図')
-plt.xlabel('data number[]')
-plt.ylabel('固有値')
-
-# ax = fig.add_subplot(2,1,2)
+# # 固有値の絶対値をとる．
+# lambda_A_abs = np.abs(anly_result[0])
 #
-# ax.plot(xxx,d_alpha)
+# xxx = np.arange(data_size)
+# y = lambda_A_abs[:,0]
+# yy = lambda_A_abs[:,1]
+# yyy = lambda_A_abs[:,2]
+# yyyy = lambda_A_abs[:,3]
 
-plt.show()
+# plt.subplot(111)
+# plt.scatter(xxx,y)
+# plt.scatter(xxx,yy)
+# plt.scatter(xxx,yyy)
+# plt.scatter(xxx,yyyy)
+#
+#
+# for j in range(FILE_NUM-1):
+#     plt.axvline(x=borderline_data_num[j], color="black") # 実験データの境目で線を引く
+#
+# plt.title('固有値散布図')
+# plt.xlabel('データ番号')
+# plt.ylabel('固有値')
+#
+# # ax = fig.add_subplot(2,1,2)
+# #
+# # ax.plot(xxx,d_alpha)
+#
 
 #---------------------------
 # フーリエ変換
 #---------------------------
 
-# # 周波数軸のデータ作成
-# fq = np.linspace(0, 1.0/T_DIFF, data_size) # 周波数軸　linspace(開始,終了,分割数)
-#
-# # FFT
-# F1 = matex.fft_set_amp(d_theta,T_DIFF,data_size)
+# 周波数軸のデータ作成
+fq = np.fft.fftfreq(data_size,d=0.02)
+
+# FFT
+F_d_theta = matex.fft_set_amp(d_theta,0.02,data_size)
+
+F_manual_T1 = matex.fft_set_amp(manual_T1,0.02,data_size)
+F_manual_T2 = matex.fft_set_amp(manual_T2,0.02,data_size)
+F_manual_T3 = matex.fft_set_amp(manual_T3,0.02,data_size)
+F_manual_T4 = matex.fft_set_amp(manual_T4,0.02,data_size)
+F_manual_T5 = matex.fft_set_amp(manual_T5,0.02,data_size)
+F_manual_T6 = matex.fft_set_amp(manual_T6,0.02,data_size)
+F_manual_elevon_r = matex.fft_set_amp(manual_elevon_r,0.02,data_size)
+F_manual_elevon_l = matex.fft_set_amp(manual_elevon_l,0.02,data_size)
+F_manual_pitch = matex.fft_set_amp(manual_pitch,0.02,data_size)
+F_manual_thrust = matex.fft_set_amp(manual_thrust,0.02,data_size)
+F_manual_tilt = matex.fft_set_amp(manual_tilt,0.02,data_size)
+
+# ３次ローパスフィルタをかける
+for i in range(3):
+    theta_filt = matex.lp_filter(0.03,0.02,data_size,theta)
 
 #---------------------------
 # 結果
 #---------------------------
 
-# print(L_theta_hat)
-# print(D_theta_hat)
-# print(m_theta_hat)
-# print(np.mean(CL))
+## ピッチ角，角速度，迎角をプロット
+# fig1 = plt.figure()
+#
+# ax1 = fig1.add_subplot(311)
+# ax2 = fig1.add_subplot(312)
+# ax3 = fig1.add_subplot(313)
+#
+# ax1.plot(theta)
+# ax2.plot(d_theta)
+# ax3.plot(alpha)
+#
+# ax1.set_title("Pitch")
+# ax2.set_title("Pitch Rate")
+# ax3.set_title("Angle of attack")
+#
+# ax1.set_ylabel("[rad]")
+# ax2.set_ylabel("[rad]")
+# ax3.set_ylabel("[rad]")
+#
+# fig1.tight_layout()
 
-#---------------------------
-# plt.figure()
-#
-# # 余白を設定
-# plt.subplots_adjust(wspace=0.4, hspace=0.6)
-#
-# # FFTデータからピークを自動検出
-# maximal_idx = signal.argrelmax(F1, order=1)[0] # ピーク（極大値）のインデックス取得
-#
-# # ピーク検出感度調整もどき、後半側（ナイキスト超）と閾値より小さい振幅ピークを除外
-# peak_cut = 0.05 # ピーク閾値
-# maximal_idx = maximal_idx[(F1[maximal_idx] > peak_cut) & (maximal_idx <= data_size/2)]
-#
-# plt.subplot(211)
-# plt.plot(d_theta)
-# plt.xlabel('data number []')
-# plt.ylabel('d_theta [rad]')
-#
-# plt.subplot(212)
-# plt.plot(fq, F1)
+
+# plt.subplot(111)
+# plt.plot(fq[1:int(data_size/2)], F_manual_T3[1:int(data_size/2)])
 # plt.xlabel('frequency [Hz]')
 # plt.ylabel('amplitude')
-#
-# ## peakを赤点で表示
-# #plt.plot(fq[maximal_idx], F1[maximal_idx],'ro')
-# #
-# ## グラフにピークの周波数をテキストで表示
-# #for i in range(len(maximal_idx)):
-# #    plt.annotate('{0:.3f}(Hz)'.format(np.round(fq[maximal_idx[i]],decimals=3)),
-# #                 xy=(fq[maximal_idx[i]], F1[maximal_idx[i]]),
-# #                 xytext=(10, 20),
-# #                 textcoords='offset points',
-# #                 arrowprops=dict(arrowstyle="->",connectionstyle="arc3,rad=.2")
-# #                )
-#
-# print('peak', fq[maximal_idx])
-
-# plt.subplot(3,1,3)
-# plt.plot(Ma)
-# plt.plot(Ma_calc)
-# plt.grid()
-# plt.xlabel('データ番号')
-# plt.ylabel('モーメント')
-
-#---------------------------
-# plt.figure(2)
-#
-# # 余白を設定
-# plt.subplots_adjust(wspace=0.4, hspace=0.6)
-
-# plt.plot(yD)
-# plt.plot(yD_filt)
-# plt.grid()
-# plt.xlabel('データ番号')
-# plt.ylabel('yD')
-
-# plt.subplot(3,1,2)
-# plt.plot(yD, '#0074bf')
-# plt.plot(yD_filt, '#c93a40')
-# plt.grid()
-# plt.xlabel('データ番号')
-# plt.ylabel('抗力')
-#
-# plt.subplot(3,1,3)
-# plt.plot(ym, '#0074bf')
-# plt.plot(ym_filt, '#c93a40')
-# plt.grid()
-# plt.xlabel('データ番号')
-# plt.ylabel('モーメント')
 
 #---------------------------
 # plt.show()
