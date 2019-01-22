@@ -65,15 +65,46 @@ for file_number in range(FILE_NUM):
             filepath_or_buffer='../log_data/Book3.csv',
             encoding='ASCII',
             sep=',',
-            header=None
+            header=0,
+            usecols=['ATT_Roll',
+                     'ATT_Pitch',
+                     'ATT_Yaw',
+                     'ATT_RollRate',
+                     'ATT_PitchRate',
+                     'ATT_YawRate',
+                     'LPOS_X',
+                     'LPOS_Y',
+                     'LPOS_Z',
+                     'LPOS_VX',
+                     'LPOS_VY',
+                     'LPOS_VZ',
+                     'GPS_Alt',
+                     'OUT0_Out0',
+                     'OUT0_Out1',
+                     'OUT0_Out2',
+                     'OUT0_Out3',
+                     'OUT0_Out4',
+                     'OUT0_Out5',
+                     'OUT1_Out0',
+                     'OUT1_Out1',
+                     'AIRS_TrueSpeed',
+                     'MAN_pitch',
+                     'MAN_thrust',
+                     'VTOL_Tilt',
+                     'TIME_StartTime'
+                     ]
         )
 
-        # 重複データの削除
-        read_log_data = read_log_data.drop_duplicates(subset=390)
+        # 空白行を削除
+        read_log_data = read_log_data.dropna(how='all')
+        read_log_data = read_log_data.reset_index(drop=True)
 
         # 時間データを[秒]に変換
-        read_log_data['Time_ST'] = read_log_data.at[0,390]
-        read_log_data['Time_Conv'] = (read_log_data[390] - read_log_data['Time_ST'])/1000000
+        read_log_data['Time_ST'] = read_log_data.at[0,'TIME_StartTime']
+        read_log_data['Time_Conv'] = (read_log_data['TIME_StartTime'] - read_log_data['Time_ST'])/1000000
+
+        # 重複データの削除
+        read_log_data = read_log_data.drop_duplicates(subset='TIME_StartTime')
 
         # 実験時間のみ切り取り
         read_log_data = read_log_data.query(
@@ -90,15 +121,46 @@ for file_number in range(FILE_NUM):
             filepath_or_buffer='../log_data/Book4.csv',
             encoding='ASCII',
             sep=',',
-            header=None
+            header=0,
+            usecols=['ATT_Roll',
+                     'ATT_Pitch',
+                     'ATT_Yaw',
+                     'ATT_RollRate',
+                     'ATT_PitchRate',
+                     'ATT_YawRate',
+                     'LPOS_X',
+                     'LPOS_Y',
+                     'LPOS_Z',
+                     'LPOS_VX',
+                     'LPOS_VY',
+                     'LPOS_VZ',
+                     'GPS_Alt',
+                     'OUT0_Out0',
+                     'OUT0_Out1',
+                     'OUT0_Out2',
+                     'OUT0_Out3',
+                     'OUT0_Out4',
+                     'OUT0_Out5',
+                     'OUT1_Out0',
+                     'OUT1_Out1',
+                     'AIRS_TrueSpeed',
+                     'MAN_pitch',
+                     'MAN_thrust',
+                     'VTOL_Tilt',
+                     'TIME_StartTime'
+                     ]
         )
 
-        # 重複データの削除
-        read_log_data = read_log_data.drop_duplicates(subset=390)
+        # 空白行を削除
+        read_log_data = read_log_data.dropna(how='all')
+        read_log_data = read_log_data.reset_index(drop=True)
 
         # 時間データを[秒]に変換
-        read_log_data['Time_ST'] = read_log_data.at[0,390]
-        read_log_data['Time_Conv'] = (read_log_data[390] - read_log_data['Time_ST'])/1000000
+        read_log_data['Time_ST'] = read_log_data.at[0,'TIME_StartTime']
+        read_log_data['Time_Conv'] = (read_log_data['TIME_StartTime'] - read_log_data['Time_ST'])/1000000
+
+        # 重複データの削除
+        read_log_data = read_log_data.drop_duplicates(subset='TIME_StartTime')
 
         # 実験時間のみ切り取り
         read_log_data = read_log_data.query(
@@ -116,15 +178,46 @@ for file_number in range(FILE_NUM):
             filepath_or_buffer='../log_data/Book5.csv',
             encoding='ASCII',
             sep=',',
-            header=None
+            header=0,
+            usecols=['ATT_Roll',
+                     'ATT_Pitch',
+                     'ATT_Yaw',
+                     'ATT_RollRate',
+                     'ATT_PitchRate',
+                     'ATT_YawRate',
+                     'LPOS_X',
+                     'LPOS_Y',
+                     'LPOS_Z',
+                     'LPOS_VX',
+                     'LPOS_VY',
+                     'LPOS_VZ',
+                     'GPS_Alt',
+                     'OUT0_Out0',
+                     'OUT0_Out1',
+                     'OUT0_Out2',
+                     'OUT0_Out3',
+                     'OUT0_Out4',
+                     'OUT0_Out5',
+                     'OUT1_Out0',
+                     'OUT1_Out1',
+                     'AIRS_TrueSpeed',
+                     'MAN_pitch',
+                     'MAN_thrust',
+                     'VTOL_Tilt',
+                     'TIME_StartTime'
+                     ]
         )
 
-        # 重複データの削除
-        read_log_data = read_log_data.drop_duplicates(subset=390)
+        # 空白行を削除
+        read_log_data = read_log_data.dropna(how='all')
+        read_log_data = read_log_data.reset_index(drop=True)
 
         # 時間データを[秒]に変換
-        read_log_data['Time_ST'] = read_log_data.at[0,390]
-        read_log_data['Time_Conv'] = (read_log_data[390] - read_log_data['Time_ST'])/1000000
+        read_log_data['Time_ST'] = read_log_data.at[0,'TIME_StartTime']
+        read_log_data['Time_Conv'] = (read_log_data['TIME_StartTime'] - read_log_data['Time_ST'])/1000000
+
+        # 重複データの削除
+        read_log_data = read_log_data.drop_duplicates(subset='TIME_StartTime')
 
         # 実験時間のみ切り取り
         read_log_data = read_log_data.query(
@@ -143,15 +236,46 @@ for file_number in range(FILE_NUM):
             filepath_or_buffer='../log_data/Book8.csv',
             encoding='ASCII',
             sep=',',
-            header=None
+            header=0,
+            usecols=['ATT_Roll',
+                     'ATT_Pitch',
+                     'ATT_Yaw',
+                     'ATT_RollRate',
+                     'ATT_PitchRate',
+                     'ATT_YawRate',
+                     'LPOS_X',
+                     'LPOS_Y',
+                     'LPOS_Z',
+                     'LPOS_VX',
+                     'LPOS_VY',
+                     'LPOS_VZ',
+                     'GPS_Alt',
+                     'OUT0_Out0',
+                     'OUT0_Out1',
+                     'OUT0_Out2',
+                     'OUT0_Out3',
+                     'OUT0_Out4',
+                     'OUT0_Out5',
+                     'OUT1_Out0',
+                     'OUT1_Out1',
+                     'AIRS_TrueSpeed',
+                     'MAN_pitch',
+                     'MAN_thrust',
+                     'VTOL_Tilt',
+                     'TIME_StartTime'
+                     ]
         )
 
-        # 重複データの削除
-        read_log_data = read_log_data.drop_duplicates(subset=390)
+        # 空白行を削除
+        read_log_data = read_log_data.dropna(how='all')
+        read_log_data = read_log_data.reset_index(drop=True)
 
         # 時間データを[秒]に変換
-        read_log_data['Time_ST'] = read_log_data.at[0,390]
-        read_log_data['Time_Conv'] = (read_log_data[390] - read_log_data['Time_ST'])/1000000
+        read_log_data['Time_ST'] = read_log_data.at[0,'TIME_StartTime']
+        read_log_data['Time_Conv'] = (read_log_data['TIME_StartTime'] - read_log_data['Time_ST'])/1000000
+
+        # 重複データの削除
+        read_log_data = read_log_data.drop_duplicates(subset='TIME_StartTime')
 
         # 実験時間のみ切り取り
         read_log_data = read_log_data.query(
@@ -171,15 +295,46 @@ for file_number in range(FILE_NUM):
             filepath_or_buffer='../log_data/Book9.csv',
             encoding='ASCII',
             sep=',',
-            header=None
+            header=0,
+            usecols=['ATT_Roll',
+                     'ATT_Pitch',
+                     'ATT_Yaw',
+                     'ATT_RollRate',
+                     'ATT_PitchRate',
+                     'ATT_YawRate',
+                     'LPOS_X',
+                     'LPOS_Y',
+                     'LPOS_Z',
+                     'LPOS_VX',
+                     'LPOS_VY',
+                     'LPOS_VZ',
+                     'GPS_Alt',
+                     'OUT0_Out0',
+                     'OUT0_Out1',
+                     'OUT0_Out2',
+                     'OUT0_Out3',
+                     'OUT0_Out4',
+                     'OUT0_Out5',
+                     'OUT1_Out0',
+                     'OUT1_Out1',
+                     'AIRS_TrueSpeed',
+                     'MAN_pitch',
+                     'MAN_thrust',
+                     'VTOL_Tilt',
+                     'TIME_StartTime'
+                     ]
         )
 
-        # 重複データの削除
-        read_log_data = read_log_data.drop_duplicates(subset=390)
+        # 空白行を削除
+        read_log_data = read_log_data.dropna(how='all')
+        read_log_data = read_log_data.reset_index(drop=True)
 
         # 時間データを[秒]に変換
-        read_log_data['Time_ST'] = read_log_data.at[0,390]
-        read_log_data['Time_Conv'] = (read_log_data[390] - read_log_data['Time_ST'])/1000000
+        read_log_data['Time_ST'] = read_log_data.at[0,'TIME_StartTime']
+        read_log_data['Time_Conv'] = (read_log_data['TIME_StartTime'] - read_log_data['Time_ST'])/1000000
+
+        # 重複データの削除
+        read_log_data = read_log_data.drop_duplicates(subset='TIME_StartTime')
 
         # 実験時間のみ切り取り
         read_log_data = read_log_data.query(
@@ -199,15 +354,46 @@ for file_number in range(FILE_NUM):
             filepath_or_buffer='../log_data/Book11.csv',
             encoding='ASCII',
             sep=',',
-            header=None
+            header=0,
+            usecols=['ATT_Roll',
+                     'ATT_Pitch',
+                     'ATT_Yaw',
+                     'ATT_RollRate',
+                     'ATT_PitchRate',
+                     'ATT_YawRate',
+                     'LPOS_X',
+                     'LPOS_Y',
+                     'LPOS_Z',
+                     'LPOS_VX',
+                     'LPOS_VY',
+                     'LPOS_VZ',
+                     'GPS_Alt',
+                     'OUT0_Out0',
+                     'OUT0_Out1',
+                     'OUT0_Out2',
+                     'OUT0_Out3',
+                     'OUT0_Out4',
+                     'OUT0_Out5',
+                     'OUT1_Out0',
+                     'OUT1_Out1',
+                     'AIRS_TrueSpeed',
+                     'MAN_pitch',
+                     'MAN_thrust',
+                     'VTOL_Tilt',
+                     'TIME_StartTime'
+                     ]
         )
 
-        # 重複データの削除
-        read_log_data = read_log_data.drop_duplicates(subset=390)
+        # 空白行を削除
+        read_log_data = read_log_data.dropna(how='all')
+        read_log_data = read_log_data.reset_index(drop=True)
 
         # 時間データを[秒]に変換
-        read_log_data['Time_ST'] = read_log_data.at[0,390]
-        read_log_data['Time_Conv'] = (read_log_data[390] - read_log_data['Time_ST'])/1000000
+        read_log_data['Time_ST'] = read_log_data.at[0,'TIME_StartTime']
+        read_log_data['Time_Conv'] = (read_log_data['TIME_StartTime'] - read_log_data['Time_ST'])/1000000
+
+        # 重複データの削除
+        read_log_data = read_log_data.drop_duplicates(subset='TIME_StartTime')
 
         # 実験時間のみ切り取り
         read_log_data = read_log_data.query(
@@ -223,51 +409,52 @@ for file_number in range(FILE_NUM):
     #---------------------------
     # 各データを取り出す
     #---------------------------
+
     # 角度
-    phi = np.array(read_log_data.values[:,0])
-    theta = np.array(read_log_data.values[:,1])
-    psi = np.array(read_log_data.values[:,2])
+    phi = np.array(read_log_data['ATT_Roll'])
+    theta = np.array(read_log_data['ATT_Pitch'])
+    psi = np.array(read_log_data['ATT_Yaw'])
 
     # 角速度
-    d_phi = np.array(read_log_data.values[:,3])
-    d_theta = np.array(read_log_data.values[:,4])
-    d_psi = np.array(read_log_data.values[:,5])
+    d_phi = np.array(read_log_data['ATT_RollRate'])
+    d_theta = np.array(read_log_data['ATT_PitchRate'])
+    d_psi = np.array(read_log_data['ATT_YawRate'])
 
     # 位置
-    position_x = np.array(read_log_data.values[:,53])
-    position_y = np.array(read_log_data.values[:,54])
-    position_z = np.array(read_log_data.values[:,55])
+    position_x = np.array(read_log_data['LPOS_X'])
+    position_y = np.array(read_log_data['LPOS_Y'])
+    position_z = np.array(read_log_data['LPOS_Z'])
 
     # 速度
-    d_position_x = np.array(read_log_data.values[:,58])
-    d_position_y = np.array(read_log_data.values[:,59])
-    d_position_z = np.array(read_log_data.values[:,60])
+    d_position_x = np.array(read_log_data['LPOS_VX'])
+    d_position_y = np.array(read_log_data['LPOS_VY'])
+    d_position_z = np.array(read_log_data['LPOS_VZ'])
 
     # GPS高度
-    gps_altitude = np.array(read_log_data.values[:,79])
+    gps_altitude = np.array(read_log_data['GPS_Alt'])
 
     # ピトー管から得た対気速度
-    measurement_airspeed = np.array(read_log_data.values[:,133])
+    measurement_airspeed = np.array(read_log_data['AIRS_TrueSpeed'])
 
     # ロータ指令値
-    m_up_pwm = np.array(read_log_data.values[:,116]) # T1
-    m_down_pwm = np.array(read_log_data.values[:,117]) # T2
-    r_r_pwm = np.array(read_log_data.values[:,118]) # T3
-    r_l_pwm = np.array(read_log_data.values[:,119]) # T4
-    f_up_pwm = np.array(read_log_data.values[:,120]) # T5
-    f_down_pwm = np.array(read_log_data.values[:,121]) # T6
+    m_up_pwm = np.array(read_log_data['OUT0_Out0']) # T1
+    m_down_pwm = np.array(read_log_data['OUT0_Out1']) # T2
+    r_r_pwm = np.array(read_log_data['OUT0_Out2']) # T3
+    r_l_pwm = np.array(read_log_data['OUT0_Out3']) # T4
+    f_up_pwm = np.array(read_log_data['OUT0_Out4']) # T5
+    f_down_pwm = np.array(read_log_data['OUT0_Out5']) # T6
 
     # エレボン指令値(command 0 ~ 1)
-    delta_e_r_command = np.array(read_log_data.values[:,124])
-    delta_e_l_command = np.array(read_log_data.values[:,125])
+    delta_e_r_command = np.array(read_log_data['OUT1_Out0'])
+    delta_e_l_command = np.array(read_log_data['OUT1_Out1'])
 
     # マニュアル操作量
-    manual_pitch = np.array(read_log_data.values[:,374])
-    manual_thrust = np.array(read_log_data.values[:,377])
-    manual_tilt = np.array(read_log_data.values[:,389])
+    manual_pitch = np.array(read_log_data['MAN_pitch'])
+    manual_thrust = np.array(read_log_data['MAN_thrust'])
+    manual_tilt = np.array(read_log_data['VTOL_Tilt'])
 
     # 時間
-    time = np.array(read_log_data.values[:,392])
+    time = np.array(read_log_data['Time_Conv'])
 
     # データサイズの取得（列方向）
     data_size = len(read_log_data)
