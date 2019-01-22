@@ -1,0 +1,390 @@
+This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2019.1.21)  23 JAN 2019 01:21
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**title.tex
+(./title.tex
+pLaTeX2e <2018-04-01u02>+1 (based on LaTeX2e <2018-04-01> patch level 2)
+Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
+
+./title.tex:19: LaTeX Error: Environment titlepage undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.19 \begin{titlepage}
+                      
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./title.tex:21: LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.21 \hdate{2018年度}
+                       
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 21--21
+[] 
+ []
+
+./title.tex:21: Undefined control sequence.
+\hdate ...counter {page}{0}\begin {center}{\LARGE 
+                                                  #1\\}\vskip 20pt {\Huge ...
+l.21 \hdate{2018年度}
+                       
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (20.00006pt too wide) in paragraph at lines 21--21
+ \OT1/cmr/m/n/10 2018 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 21--21
+ \JY2/mc/m/n/10 年 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 21--21
+ \JY2/mc/m/n/10 度 
+ []
+
+./title.tex:21: Undefined control sequence.
+\hdate ...{center}{\LARGE #1\\}\vskip 20pt {\Huge 
+                                                  卒 業 論 文}\end {cent...
+l.21 \hdate{2018年度}
+                       
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 21--21
+ []\JY2/mc/m/n/10 卒 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 21--21
+ \JY2/mc/m/n/10 業 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 21--21
+ \JY2/mc/m/n/10 論 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 21--21
+ \JY2/mc/m/n/10 文 
+ []
+
+./title.tex:22: Undefined control sequence.
+\htitle #1-> \begin {center} \vskip 16pt {\LARGE 
+                                                 #1}\\ \setlength {\unitleng...
+l.22 ...における\\低速飛行特性の解析}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 22--22
+ \JY2/mc/m/n/10 テ 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 22--22
+ \JY2/mc/m/n/10 ィ 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 22--22
+ \JY2/mc/m/n/10 ル 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 22--22
+ \JY2/mc/m/n/10 ト 
+ []
+
+
+Overfull \hbox (18.74438pt too wide) in paragraph at lines 22--22
+ \JY2/mc/m/n/10 ロ ー 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 22--22
+ \JY2/mc/m/n/10 タ 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 22--22
+ \JY2/mc/m/n/10 型 
+ []
+
+
+Overfull \hbox (21.38892pt too wide) in paragraph at lines 22--22
+ \OT1/cmr/m/n/10 UAV 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 22--22
+ \JY2/mc/m/n/10 に 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 22--22
+ \JY2/mc/m/n/10 お 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 22--22
+ \JY2/mc/m/n/10 け 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 22--22
+ \JY2/mc/m/n/10 る 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 22--22
+ []\JY2/mc/m/n/10 低 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 22--22
+ \JY2/mc/m/n/10 速 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 22--22
+ \JY2/mc/m/n/10 飛 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 22--22
+ \JY2/mc/m/n/10 行 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 22--22
+ \JY2/mc/m/n/10 特 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 22--22
+ \JY2/mc/m/n/10 性 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 22--22
+ \JY2/mc/m/n/10 の 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 22--22
+ \JY2/mc/m/n/10 解 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 22--22
+ \JY2/mc/m/n/10 析 
+ []
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 24--25
+[] 
+ []
+
+./title.tex:26: Undefined control sequence.
+l.26 \Large
+           
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 27--27
+ \JY2/mc/m/n/10 神 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 27--27
+ \JY2/mc/m/n/10 戸 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 27--27
+ \JY2/mc/m/n/10 大 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 27--27
+ \JY2/mc/m/n/10 学 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 27--27
+ \JY2/mc/m/n/10 工 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 27--27
+ \JY2/mc/m/n/10 学 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 27--27
+ \JY2/mc/m/n/10 部 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 27--27
+ \JY2/mc/m/n/10 情 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 27--27
+ \JY2/mc/m/n/10 報 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 27--27
+ \JY2/mc/m/n/10 知 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 27--27
+ \JY2/mc/m/n/10 能 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 27--27
+ \JY2/mc/m/n/10 工 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 27--27
+ \JY2/mc/m/n/10 学 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 27--27
+ \JY2/mc/m/n/10 科 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 29--29
+ []\JY2/mc/m/n/10 弓 
+ []
+
+
+Overfull \hbox (21.4666pt too wide) in paragraph at lines 29--29
+ \JY2/mc/m/n/10 場 洋 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 29--29
+ \JY2/mc/m/n/10 輝 
+ []
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 31.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 31.
+./title.tex:31: Undefined control sequence.
+<argument> 指導教員~~~~{\Large 
+                                   玉置~久~~教授，浦久保~孝光~~...
+l.31 ...~~教授，浦久保~孝光~~准教授}}
+                                                \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (206.53275pt too wide) in paragraph at lines 31--31
+ [][]$[]$[] 
+ []
+
+
+Overfull \hbox (20.00006pt too wide) in paragraph at lines 36--37
+ []\OT1/cmr/m/n/10 2019 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 36--37
+ \JY2/mc/m/n/10 年 
+ []
+
+
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 36--37
+ \OT1/cmr/m/n/10 2 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 36--37
+ \JY2/mc/m/n/10 月 
+ []
+
+
+Overfull \hbox (10.00003pt too wide) in paragraph at lines 36--37
+ \OT1/cmr/m/n/10 13 
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 36--37
+ \JY2/mc/m/n/10 日 
+ []
+
+
+./title.tex:38: LaTeX Error: \begin{document} ended by \end{titlepage}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.38 \end{titlepage}
+                    
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+)
+! Emergency stop.
+<*> title.tex
+             
+*** (job aborted, no legal \end found)
+
+ 
+Here is how much of TeX's memory you used:
+ 11 strings out of 493270
+ 94 string characters out of 6145018
+ 63578 words of memory out of 5000000
+ 4052 multiletter control sequences out of 15000+600000
+ 6281 words of font info for 32 fonts, out of 8000000 for 9000
+ 929 hyphenation exceptions out of 8191
+ 19i,3n,13p,115b,119s stack positions out of 5000i,500n,10000p,200000b,80000s
+No pages of output.

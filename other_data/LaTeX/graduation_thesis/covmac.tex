@@ -1,0 +1,82 @@
+\setlength{\oddsidemargin}{1.5cm}
+%\setlength{\evensidemargin}{1.0cm}
+\setlength{\topmargin}{1.0cm}%{2.0cm}
+\setlength{\textwidth}{14.0cm}
+\setlength{\textheight}{21.0cm}
+
+%%以下のどちらかを選ぶ。
+%\newcommand{\hdate}[1]{\setcounter{page}{0}\begin{center}{\LARGE
+%#1\\}\vskip 20pt {\Huge 修 士 論 文}\end{center}\vskip 36pt}
+\newcommand{\hdate}[1]{\setcounter{page}{0}\begin{center}{\LARGE
+#1\\}\vskip 20pt {\Huge 卒 業 論 文}\end{center}\vskip 36pt}
+
+\newcommand{\htitle}[1]{
+	\begin{center}
+		{\LARGE 題目\\}
+		\vskip 30pt
+		{\LARGE #1\\}
+		\setlength{\unitlength}{1mm}
+		\vskip -20pt
+		\begin{picture}(120,10)(0,0)
+			\put(0,0){\thicklines\line(1,0){120}}
+		\end{picture}
+	\end{center}
+	\vskip 40pt
+}
+%%以下のどちらかを選ぶ。
+
+%% M2の人はこちら
+%\newcommand{\hname}[5]{
+%    \large
+% \begin{center}
+%			{\LARGE #1}
+%	 \end{center}
+%\Large{
+%\begin{center}
+%	\begin{tabular}{clc}
+%			\hspace*{1cm}& & \hspace*{6cm} \\
+%			 & & \\
+%			 & & \\
+%			指導教員 & &{\LARGE #2}\\
+%			\hline
+%		 & & \\
+%			審査教員 & 主査 & {\LARGE #3}\\
+%			\hline
+%			& & \\
+%		&	副査 & {\LARGE #4}\hskip 15pt\\
+%			\cline{2-3}
+%		&	副査 & {\LARGE #5}\hskip 15pt\\
+%			\cline{2-3}
+%	     & & \\
+%    \end{tabular}
+%\end{center}
+%	\vskip 30pt
+%	\begin{center}
+%        \LARGE 提出期日~~20XX年2月YY日\\
+%		\LARGE 神戸大学大学院工学研究科\\情 報 知 能 学 専 攻
+%	\end{center}
+%}
+%%B4の人はこちら
+\newcommand{\hname}[2]{
+	\Large
+	\hskip 16pt
+	\begin{tabular}{rc}
+			\hspace*{1cm}&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  \\
+		  提出者 &{\LARGE #1}\\
+			\cline{2-2}
+			 & \\
+			 & \\
+			 & \\
+		指導教員 &{\LARGE #2}\\
+			\cline{2-2}
+	\end{tabular}
+	\vskip 50pt 
+	\begin{center}
+        \LARGE 提出期日~~20XX年2月YY日\\
+     	\vskip 30pt 
+		\LARGE 神戸大学工学部\\情 報 知 能 工 学 科
+	\end{center}
+}
+
+\pagestyle{empty}
