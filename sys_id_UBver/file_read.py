@@ -195,7 +195,7 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
             matex.bc2ic(phi[i],theta[i],psi[i],d_position_x[i],d_position_y[i],d_position_z[i])
         )
         Vi_wind.append(
-            matex.bc2ic(phi[i],theta[i],0,V_W,0,0)
+            matex.bc2ic(phi[i],theta[i],psi[i],V_W,0,0)
         )
 
     # リストからnumpy配列に変換
@@ -309,6 +309,12 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
     Ma = M - Mt - Mg
 
     #---------------------------
+    # kawano
+    #---------------------------
+
+    CD_kawano = D / ((1/2)*const.RHO*(Va_mag)**2*const.S)
+
+    #---------------------------
     # データを一つにまとめる
     #---------------------------
 
@@ -329,6 +335,7 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
         'v' : Va[:,1],
         'w' : Va[:,2],
         'Va' : Va_mag,
+        'pitot_Va' : measurement_airspeed,
         'Tm_up' : Tm_up,
         'Tm_down' : Tm_down,
         'Tr_r' : Tr_r,
@@ -350,7 +357,7 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
         'Mt' : Mt,
         'Mg' : Mg,
         'Ma' : Ma,
-        'pitot_Va' : measurement_airspeed
+        'CD_kawano' : CD_kawano,
         })
     ])
 

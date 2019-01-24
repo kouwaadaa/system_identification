@@ -106,10 +106,10 @@ def sys_id_LS_ex_max(format_log_data):
     yD = (D/((1/2)*const.RHO*(Va**2)*const.S))
 
     # n*3 リグレッサー（独立変数）や実験データのリスト
-    xD = np.zeros((data_size,3))
+    xD = np.zeros((data_size,2))
     xD[:,0] = 1
     xD[:,1] = CL**2
-    xD[:,2] = 1/((1/2)*const.RHO*Va*const.S)
+    # xD[:,2] = 1/((1/2)*const.RHO*Va*const.S)
 
     # ３次ローパスフィルタをかける
     for i in range(3):
@@ -123,7 +123,7 @@ def sys_id_LS_ex_max(format_log_data):
     # 同定された未知パラメータの取り出し
     CD_0 = D_theta_hat[0]
     kappa = D_theta_hat[1]
-    k_D = D_theta_hat[2]
+    # k_D = D_theta_hat[2]
 
     # 同定結果から得られたCDを計算
     CD = CD_0 + kappa*(CL**2)
@@ -173,7 +173,8 @@ def sys_id_LS_ex_max(format_log_data):
     #---------------------------
 
     L_calc = (1/2)*const.RHO*const.S*(Va**2)*CL + k_L*Va
-    D_calc = (1/2)*const.RHO*const.S*(Va**2)*CD + k_D*Va
+    # D_calc = (1/2)*const.RHO*const.S*(Va**2)*CD + k_D*Va
+    D_calc = (1/2)*const.RHO*const.S*(Va**2)*CD
     Ma_calc = (1/2)*const.RHO*const.S*(Va**2)*const.MAC*Cm + k_m*Va
 
     #---------------------------
@@ -193,7 +194,7 @@ def sys_id_LS_ex_max(format_log_data):
 
     CD_params[:,0] = CD_0
     CD_params[:,1] = kappa
-    CD_params[:,2] = k_D
+    # CD_params[:,2] = k_D
 
     Cm_params[:,0] = Cm_0
     Cm_params[:,1] = Cm_alpha

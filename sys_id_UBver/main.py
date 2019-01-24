@@ -34,8 +34,8 @@ get_ipython().run_line_magic('matplotlib', 'qt')
 # 使用できるフォントを確認したいときは，次の行のコメントアウトを外して実行
 # print([f.name for f in matplotlib.font_manager.fontManager.ttflist])
 
-# for NotePC
-plt.rc('font', **{'family':'Gen Shin Gothic'})
+# # for NotePC
+# plt.rc('font', **{'family':'Gen Shin Gothic'})
 
 # for DeskPC
 # plt.rc('font', **{'family':'YuGothic'})
@@ -161,9 +161,11 @@ data_size = len(format_log_data) # 合計のデータサイズを取得
 # 結果をプロット
 #---------------------------
 
-format_log_data[['L','L_calc']].plot()
+format_log_data.plot.line(x='Va', y=['D','D_calc'], style=['o','o'])
 
-format_log_data.plot.line(x='Va', y=['Ma','Ma_calc'], style=['o','o'])
+format_log_data.plot.line(x='alpha', y=['CL','CD','Cm'], style=['o','o','o'])
+
+
 
 # window = np.hamming(data_size)
 # manual_T3 = window * manual_T3
