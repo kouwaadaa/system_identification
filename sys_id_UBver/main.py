@@ -38,7 +38,7 @@ get_ipython().run_line_magic('matplotlib', 'qt')
 # plt.rc('font', **{'family':'Gen Shin Gothic'})
 
 # for DeskPC
-# plt.rc('font', **{'family':'YuGothic'})
+plt.rc('font', **{'family':'YuGothic'})
 
 plt.rcParams['font.size'] = 20
 plt.rcParams['xtick.labelsize'] = 15
@@ -79,9 +79,9 @@ format_log_data = file_read.file_read('../log_data/Book11.csv',26.43,29.83,-1.46
 # パラメータ推定の結果を計算し，取得
 #---------------------------
 
-sys_id_result = calc.sys_id_LS(format_log_data)
+# sys_id_result = calc.sys_id_LS(format_log_data)
 # sys_id_result = calc_ex.sys_id_LS_ex(format_log_data)
-# sys_id_result = calc_ex_max.sys_id_LS_ex_max(format_log_data)
+sys_id_result = calc_ex_max.sys_id_LS_ex_max(format_log_data)
 # sys_id_result = calc_kawano.sys_id_LS_kawano(format_log_data)
 
 #---------------------------
@@ -161,10 +161,10 @@ data_size = len(format_log_data) # 合計のデータサイズを取得
 # 結果をプロット
 #---------------------------
 
-format_log_data.plot.line(x='Va', y=['D','D_calc'], style=['o','o'])
-
+format_log_data.plot.line(y=['L','L_calc'])
+format_log_data.plot.line(y=['D','D_calc'])
+format_log_data.plot.line(y=['Ma','Ma_calc'])
 format_log_data.plot.line(x='alpha', y=['CL','CD','Cm'], style=['o','o','o'])
-
 
 
 # window = np.hamming(data_size)

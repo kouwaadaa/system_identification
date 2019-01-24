@@ -12,6 +12,7 @@ import pandas as pd
 
 import const
 import math_extention as matex
+import fourier_filter as ffilt
 
 
 def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log_data):
@@ -173,14 +174,12 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
     delta_e_l = ((delta_e_l_command*400 + 1500)/8 - 1500/8)*pi/180
 
     # エレベータ舵角，エルロン舵角に分ける
-    elevator = (delta_e_l - delta_e_r)/2
-    aileron = (delta_e_l + delta_e_r)/2
+    delta_e = (delta_e_l - delta_e_r)/2
+    delta_a = (delta_e_l + delta_e_r)/2
 
     # 速度
-    Vg_pixhawk = []
     Vi = []
     Vi_wind = []
-    Va = []
 
     # 機体速度（対地）の計算
     Vg_pixhawk = np.sqrt(
@@ -309,6 +308,18 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
     Ma = M - Mt - Mg
 
     #---------------------------
+    # データのフィルタリング処理
+    #---------------------------
+
+    alpha = ffilt.fourier_filter(alpha,0.02,data_size,10)
+    d_theta = ffilt.fourier_filter(d_theta,0.02,data_size,10)
+    delta_e = ffilt.fourier_filter(delta_e,0.02,data_size,10)
+    Va_mag = ffilt.fourier_filter(Va_mag,0.02,data_size,10)
+    L = ffilt.fourier_filter(L,0.02,data_size,10)
+    D = ffilt.fourier_filter(D,0.02,data_size,10)
+    Ma = ffilt.fourier_filter(Ma,0.02,data_size,10)
+
+    #---------------------------
     # kawano
     #---------------------------
 
@@ -344,8 +355,8 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
         'Tf_down' : Tf_down,
         'alpha' : alpha,
         'd_alpha' : d_alpha,
-        'delta_e' : elevator,
-        'delta_a' : aileron,
+        'delta_e' : delta_e,
+        'delta_a' : delta_a,
         'tilt' : tilt,
         'F_x' : F_x,
         'T_x' : T_x,
