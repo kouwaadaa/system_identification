@@ -12,7 +12,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 # import matplotlib.font_manager
 from IPython import get_ipython
-# from scipy import signal
 
 import const
 import math_extention as matex
