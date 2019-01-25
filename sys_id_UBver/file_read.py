@@ -214,6 +214,7 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
 
     # 迎角を計算[rad]
     alpha = np.arctan2(Va[:,2],Va[:,0])
+    alpha_deg = alpha*(180/pi)
 
     # 迎角の一階時間微分を計算[rad]
     d_alpha = matex.central_diff(alpha, time)
@@ -323,7 +324,9 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
     # kawano
     #---------------------------
 
+    CL_kawano = L / ((1/2)*const.RHO*(Va_mag)**2*const.S)
     CD_kawano = D / ((1/2)*const.RHO*(Va_mag)**2*const.S)
+    Cm_kawano = Ma / ((1/2)*const.RHO*(Va_mag)**2*const.S)
 
     #---------------------------
     # データを一つにまとめる
@@ -354,6 +357,7 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
         'Tf_up' : Tf_up,
         'Tf_down' : Tf_down,
         'alpha' : alpha,
+        'alpha_deg' : alpha_deg,
         'd_alpha' : d_alpha,
         'delta_e' : delta_e,
         'delta_a' : delta_a,
@@ -368,7 +372,9 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
         'Mt' : Mt,
         'Mg' : Mg,
         'Ma' : Ma,
+        'CL_kawano' : CL_kawano,
         'CD_kawano' : CD_kawano,
+        'Cm_kawano' : Cm_kawano,
         })
     ])
 

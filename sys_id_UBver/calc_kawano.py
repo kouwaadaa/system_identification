@@ -68,10 +68,10 @@ def sys_id_LS_kawano(format_log_data):
     yL = (L/((1/2)*const.RHO*(Va**2)*const.S)) - CL_0 - CL_alpha*alpha
 
     # n*3 リグレッサー（独立変数）や実験データのリスト
-    xL = np.zeros((data_size,3))
+    xL = np.zeros((data_size,2))
     xL[:,0] = (const.MAC*d_theta)/(2*Va)
     xL[:,1] = delta_e
-    xL[:,2] = 1/((1/2)*const.RHO*Va*const.S)
+    # xL[:,2] = 1/((1/2)*const.RHO*Va*const.S)
 
     # ３次ローパスフィルタをかける
     for i in range(3):
@@ -85,7 +85,7 @@ def sys_id_LS_kawano(format_log_data):
     # 同定された未知パラメータの取り出し
     CL_q = L_theta_hat[0]
     CL_delta_e = L_theta_hat[1]
-    k_L = L_theta_hat[2]
+    # k_L = L_theta_hat[2]
 
     # 同定結果から得られたCLを計算
     CL = CL_0 \
@@ -132,12 +132,12 @@ def sys_id_LS_kawano(format_log_data):
     ym = Ma/((1/2)*const.RHO*(Va**2)*const.S*const.MAC)
 
     # n*5 リグレッサー（独立変数）や実験データのリスト
-    xm = np.zeros((data_size,5))
+    xm = np.zeros((data_size,4))
     xm[:,0] = 1
     xm[:,1] = alpha
     xm[:,2] = (const.MAC/(2*Va))*d_theta
     xm[:,3] = delta_e
-    xm[:,4] = 1/((1/2)*const.RHO*Va*const.S*const.MAC)
+    # xm[:,4] = 1/((1/2)*const.RHO*Va*const.S*const.MAC)
 
     # ３次ローパスフィルタをかける
     for i in range(3):
@@ -153,7 +153,7 @@ def sys_id_LS_kawano(format_log_data):
     Cm_alpha = m_theta_hat[1]
     Cm_q = m_theta_hat[2]
     Cm_delta_e = m_theta_hat[3]
-    k_m = m_theta_hat[4]
+    # k_m = m_theta_hat[4]
 
     # 同定結果から得られたCDを計算
     Cm = Cm_0 \
@@ -165,9 +165,9 @@ def sys_id_LS_kawano(format_log_data):
     # 同定結果を用いて空力を再現
     #---------------------------
 
-    L_calc = (1/2)*const.RHO*const.S*(Va**2)*CL + k_L*Va
+    L_calc = (1/2)*const.RHO*const.S*(Va**2)*CL
     D_calc = (1/2)*const.RHO*const.S*(Va**2)*CD
-    Ma_calc = (1/2)*const.RHO*const.S*(Va**2)*const.MAC*Cm + k_m*Va
+    Ma_calc = (1/2)*const.RHO*const.S*(Va**2)*const.MAC*Cm
 
     #---------------------------
     # 結果をリストにまとめて返す
@@ -181,7 +181,7 @@ def sys_id_LS_kawano(format_log_data):
     CL_params[:,1] = CL_alpha
     CL_params[:,2] = CL_q
     CL_params[:,3] = CL_delta_e
-    CL_params[:,4] = k_L
+    # CL_params[:,4] = k_L
 
     CD_params[:,0] = CD_0
     CD_params[:,1] = kappa
@@ -191,7 +191,7 @@ def sys_id_LS_kawano(format_log_data):
     Cm_params[:,1] = Cm_alpha
     Cm_params[:,2] = Cm_q
     Cm_params[:,3] = Cm_delta_e
-    Cm_params[:,4] = k_m
+    # Cm_params[:,4] = k_m
 
     result = np.array([CL,CD,Cm,L_calc,D_calc,Ma_calc])
 
