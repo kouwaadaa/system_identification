@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 # author: ub
-# 2018/12/14 Fri. 新座標系．
 
-#---------------------------
-# モジュールのインポートなど
-#---------------------------
+'''
+周波数特性の解析に関する関数．
+'''
 
 import numpy as np
 import numpy.linalg as LA
@@ -14,9 +13,6 @@ import pandas as pd
 import const
 import math_extention as matex
 
-#---------------------------
-# 周波数特性を調べる
-#---------------------------
 
 def linearlize(format_log_data):
     '''

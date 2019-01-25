@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 # author: ub
-# 2018/12/14 Fri. 新座標系．
 
-#---------------------------
-# モジュールのインポートなど
-#---------------------------
+'''
+周波数領域に関する関数．
+'''
 
 import numpy as np
 import pandas as pd
@@ -12,9 +11,6 @@ import pandas as pd
 import const
 import math_extention as matex
 
-#---------------------------
-# 周波数領域でのフィルタリング処理
-#---------------------------
 
 def fourier_filter(data, dt, N, fc):
     '''

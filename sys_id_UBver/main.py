@@ -16,10 +16,7 @@ from IPython import get_ipython
 import const
 import math_extention as matex
 import file_read
-import calc
-import calc_ex
-import calc_ex_max
-import calc_kawano
+import sys_id
 import analyze
 
 #---------------------------
@@ -52,143 +49,91 @@ plt.rcParams["figure.figsize"] = [20, 12]
 
 init_df = pd.DataFrame()
 
-format_log_data = file_read.file_read('../log_data/Book3.csv',17.52,19.14,-4.03,40/48,0,init_df)
+format_df = file_read.file_read('../log_data/Book3.csv',17.52,19.14,-4.03,40/48,0,init_df)
 #
-format_log_data = file_read.file_read('../log_data/Book4.csv',11.97,13.30,-5.05,40/45,0,format_log_data)
-format_log_data = file_read.file_read('../log_data/Book4.csv',18.66,21.08,-5.05,40/45,0,format_log_data)
+format_df = file_read.file_read('../log_data/Book4.csv',11.97,13.30,-5.05,40/45,0,format_df)
+format_df = file_read.file_read('../log_data/Book4.csv',18.66,21.08,-5.05,40/45,0,format_df)
 
-format_log_data = file_read.file_read('../log_data/Book5.csv',12.45,13.66,-4.80,40/48,0,format_log_data)
-format_log_data = file_read.file_read('../log_data/Book5.csv',16.07,17.03,-4.80,40/48,0,format_log_data)
-format_log_data = file_read.file_read('../log_data/Book5.csv',18.95,22.88,-4.80,40/48,0,format_log_data)
+format_df = file_read.file_read('../log_data/Book5.csv',12.45,13.66,-4.80,40/48,0,format_df)
+format_df = file_read.file_read('../log_data/Book5.csv',16.07,17.03,-4.80,40/48,0,format_df)
+format_df = file_read.file_read('../log_data/Book5.csv',18.95,22.88,-4.80,40/48,0,format_df)
 
-format_log_data = file_read.file_read('../log_data/Book8.csv',15.41,20.10,-2.00,40/47,0,format_log_data)
-format_log_data = file_read.file_read('../log_data/Book8.csv',21.46,23.07,-2.00,40/47,0,format_log_data)
-format_log_data = file_read.file_read('../log_data/Book8.csv',23.44,24.64,-2.00,40/47,0,format_log_data)
-format_log_data = file_read.file_read('../log_data/Book8.csv',25.28,27.38,-2.00,40/47,0,format_log_data)
+format_df = file_read.file_read('../log_data/Book8.csv',15.41,20.10,-2.00,40/47,0,format_df)
+format_df = file_read.file_read('../log_data/Book8.csv',21.46,23.07,-2.00,40/47,0,format_df)
+format_df = file_read.file_read('../log_data/Book8.csv',23.44,24.64,-2.00,40/47,0,format_df)
+format_df = file_read.file_read('../log_data/Book8.csv',25.28,27.38,-2.00,40/47,0,format_df)
 
-format_log_data = file_read.file_read('../log_data/Book9.csv',20.73,30.28,-2.647,40/48,0,format_log_data)
-format_log_data = file_read.file_read('../log_data/Book9.csv',98.05,104.1,-2.647,40/48,0,format_log_data)
-format_log_data = file_read.file_read('../log_data/Book9.csv',104.9,107.1,-2.647,40/48,0,format_log_data)
-format_log_data = file_read.file_read('../log_data/Book9.csv',107.7,109.7,-2.647,40/48,0,format_log_data)
+format_df = file_read.file_read('../log_data/Book9.csv',20.73,30.28,-2.647,40/48,0,format_df)
+format_df = file_read.file_read('../log_data/Book9.csv',98.05,104.1,-2.647,40/48,0,format_df)
+format_df = file_read.file_read('../log_data/Book9.csv',104.9,107.1,-2.647,40/48,0,format_df)
+format_df = file_read.file_read('../log_data/Book9.csv',107.7,109.7,-2.647,40/48,0,format_df)
 
-format_log_data = file_read.file_read('../log_data/Book11.csv',19.86,25.27,-1.467,40/48,0,format_log_data)
-format_log_data = file_read.file_read('../log_data/Book11.csv',26.43,29.83,-1.467,40/48,0,format_log_data)
+format_df = file_read.file_read('../log_data/Book11.csv',19.86,25.27,-1.467,40/48,0,format_df)
+format_df = file_read.file_read('../log_data/Book11.csv',26.43,29.83,-1.467,40/48,0,format_df)
 
 #---------------------------
 # パラメータ推定の結果を計算し，取得
 #---------------------------
 
-sys_id_result = calc.sys_id_LS(format_log_data)
-# sys_id_result = calc_ex.sys_id_LS_ex(format_log_data)
-# sys_id_result = calc_ex_max.sys_id_LS_ex_max(format_log_data)
-# sys_id_result = calc_kawano.sys_id_LS_kawano(format_log_data)
+# format_df = sys_id.sys_id_LS(format_df)
+# format_df = sys_id.sys_id_LS_ex(format_df)
+# format_df = sys_id.sys_id_LS_max(format_df)
+format_df = sys_id.sys_id_LS_max_non_kv(format_df)
 
 #---------------------------
-# 推定結果の値もデータ群に格納する
+# データの整理
 #---------------------------
-
-# d_alphaを含まない場合
-if sys_id_result[0].shape[1] == 5:
-    format_log_data['CL_0'] = sys_id_result[0][:,0]
-    format_log_data['CL_alpha'] = sys_id_result[0][:,1]
-    format_log_data['CL_q'] = sys_id_result[0][:,2]
-    format_log_data['CL_delta_e'] = sys_id_result[0][:,3]
-    format_log_data['k_L'] = sys_id_result[0][:,4]
-
-    format_log_data['CD_0'] = sys_id_result[1][:,0]
-    format_log_data['kappa'] = sys_id_result[1][:,1]
-    format_log_data['k_D'] = sys_id_result[1][:,2]
-
-    format_log_data['Cm_0'] = sys_id_result[2][:,0]
-    format_log_data['Cm_alpha'] = sys_id_result[2][:,1]
-    format_log_data['Cm_q'] = sys_id_result[2][:,2]
-    format_log_data['Cm_delta_e'] = sys_id_result[2][:,3]
-    format_log_data['k_m'] = sys_id_result[2][:,4]
-
-    format_log_data['CL'] = sys_id_result[3][:,0]
-    format_log_data['CD'] = sys_id_result[3][:,1]
-    format_log_data['Cm'] = sys_id_result[3][:,2]
-    format_log_data['L_calc'] = sys_id_result[3][:,3]
-    format_log_data['D_calc'] = sys_id_result[3][:,4]
-    format_log_data['Ma_calc'] = sys_id_result[3][:,5]
-
-# d_alphaを含む場合
-elif sys_id_result[0].shape[1] == 6:
-    format_log_data['CL_0'] = sys_id_result[0][:,0]
-    format_log_data['CL_alpha'] = sys_id_result[0][:,1]
-    format_log_data['CL_d_alpha'] = sys_id_result[0][:,2]
-    format_log_data['CL_q'] = sys_id_result[0][:,3]
-    format_log_data['CL_delta_e'] = sys_id_result[0][:,4]
-    format_log_data['k_L'] = sys_id_result[0][:,5]
-
-    format_log_data['CD_0'] = sys_id_result[1][:,0]
-    format_log_data['kappa'] = sys_id_result[1][:,1]
-    format_log_data['k_D'] = sys_id_result[1][:,2]
-
-    format_log_data['Cm_0'] = sys_id_result[2][:,0]
-    format_log_data['Cm_alpha'] = sys_id_result[2][:,1]
-    format_log_data['Cm_d_alpha'] = sys_id_result[2][:,2]
-    format_log_data['Cm_q'] = sys_id_result[2][:,3]
-    format_log_data['Cm_delta_e'] = sys_id_result[2][:,4]
-    format_log_data['k_m'] = sys_id_result[2][:,5]
-
-    format_log_data['CL'] = sys_id_result[3][:,0]
-    format_log_data['CD'] = sys_id_result[3][:,1]
-    format_log_data['Cm'] = sys_id_result[3][:,2]
-    format_log_data['L_calc'] = sys_id_result[3][:,3]
-    format_log_data['D_calc'] = sys_id_result[3][:,4]
-    format_log_data['Ma_calc'] = sys_id_result[3][:,5]
 
 # indexの振り直し
 # ここで新たに"index"という列が生成されるが，
 # これを残しておけばログデータごとのプロットがしやすい．
-format_log_data = format_log_data.reset_index()
+format_df = format_df.reset_index()
 
 #---------------------------
 # 機体の状態方程式から固有振動数を解析する
 #---------------------------
 
-# anly_result = analyze.linearlize(format_log_data)
+# anly_result = analyze.linearlize(format_df)
 
 #---------------------------
 # データの取り出し
 #---------------------------
 
-data_size = len(format_log_data) # 合計のデータサイズを取得
+data_size = len(format_df) # 合計のデータサイズを取得
 
 #---------------------------
 # 結果をプロット
 #---------------------------
 
-# format_log_data[['L_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
-# format_log_data[['D_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
-# format_log_data[['M','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
+# format_df[['L_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
+# format_df[['D_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
+# format_df[['M','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 
-# format_log_data[['L','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
-# format_log_data[['L','L_filt']].plot.line()
+# format_df[['L','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
+# format_df[['L','L_filt']].plot.line()
 
-# format_log_data[['D_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
-# format_log_data[['M','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
+# format_df[['D_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
+# format_df[['M','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 
-# format_log_data[['L','L_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o','o'])
-# format_log_data[['D','D_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o','o'])
-# format_log_data[['Ma','Ma_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o','o'])
+# format_df[['L','L_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o','o'])
+# format_df[['D','D_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o','o'])
+# format_df[['Ma','Ma_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o','o'])
 
 # fq = np.fft.fftfreq(data_size,d=0.02)
-# format_log_data['fq'] = fq
-# format_log_data[['alpha_fft','fq']].plot.line(x='fq')
+# format_df['fq'] = fq
+# format_df[['alpha_fft','fq']].plot.line(x='fq')
 
-format_log_data[['CL_kawano','Va']].plot.line(x='Va', style=['o'])
-format_log_data[['CD_kawano','Va']].plot.line(x='Va', style=['o'])
-format_log_data[['Cm_kawano','Va']].plot.line(x='Va', style=['o'])
+format_df[['CL','Va']].plot.line(x='Va', style='o')
+format_df[['CD','Va']].plot.line(x='Va', style='o')
+format_df[['Cm','Va']].plot.line(x='Va', style='o')
 
-# format_log_data[['L_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
-# format_log_data[['D_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
-# format_log_data[['Ma_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
-#
-# format_log_data[['CL','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
-# format_log_data[['CD','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
-# format_log_data[['Cm','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
+# format_df[['L_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
+# format_df[['D_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
+# format_df[['Ma_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
+
+# format_df[['CL','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
+# format_df[['CD','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
+# format_df[['Cm','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 
 
 # window = np.hamming(data_size)
@@ -220,29 +165,3 @@ format_log_data[['Cm_kawano','Va']].plot.line(x='Va', style=['o'])
 # # ax = fig.add_subplot(2,1,2)
 # #
 # # ax.plot(xxx,d_alpha)
-#
-
-#---------------------------
-# フーリエ変換
-#---------------------------
-
-# # 周波数軸のデータ作成
-# fq = np.fft.fftfreq(data_size,d=0.02)
-# # FFT
-# F_d_theta = matex.fft_set_amp(d_theta,0.02,data_size)
-#
-# F_manual_T1 = matex.fft_set_amp(manual_T1,0.02,data_size)
-# F_manual_T2 = matex.fft_set_amp(manual_T2,0.02,data_size)
-# F_manual_T3 = matex.fft_set_amp(manual_T3,0.02,data_size)
-# F_manual_T4 = matex.fft_set_amp(manual_T4,0.02,data_size)
-# F_manual_T5 = matex.fft_set_amp(manual_T5,0.02,data_size)
-# F_manual_T6 = matex.fft_set_amp(manual_T6,0.02,data_size)
-# F_manual_elevon_r = matex.fft_set_amp(manual_elevon_r,0.02,data_size)
-# F_manual_elevon_l = matex.fft_set_amp(manual_elevon_l,0.02,data_size)
-# F_manual_pitch = matex.fft_set_amp(manual_pitch,0.02,data_size)
-# F_manual_thrust = matex.fft_set_amp(manual_thrust,0.02,data_size)
-# F_manual_tilt = matex.fft_set_amp(manual_tilt,0.02,data_size)
-#
-# # ３次ローパスフィルタをかける
-# for i in range(3):
-#     theta_filt = matex.lp_filter(0.03,0.02,data_size,theta)
