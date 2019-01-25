@@ -174,6 +174,7 @@ def sys_id_LS_ex_max(format_log_data):
 
     L_calc = (1/2)*const.RHO*const.S*(Va**2)*CL + k_L*Va
     D_calc = (1/2)*const.RHO*const.S*(Va**2)*CD + k_D*Va
+    # D_calc = (1/2)*const.RHO*const.S*(Va**2)*CD
     Ma_calc = (1/2)*const.RHO*const.S*(Va**2)*const.MAC*Cm + k_m*Va
 
     #---------------------------
@@ -193,7 +194,7 @@ def sys_id_LS_ex_max(format_log_data):
 
     CD_params[:,0] = CD_0
     CD_params[:,1] = kappa
-    CD_params[:,2] = k_D
+    # CD_params[:,2] = k_D
 
     Cm_params[:,0] = Cm_0
     Cm_params[:,1] = Cm_alpha

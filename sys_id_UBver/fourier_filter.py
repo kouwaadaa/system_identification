@@ -1,0 +1,52 @@
+# -*- coding: utf-8 -*-
+# author: ub
+# 2018/12/14 Fri. 新座標系．
+
+#---------------------------
+# モジュールのインポートなど
+#---------------------------
+
+import numpy as np
+import pandas as pd
+
+import const
+import math_extention as matex
+
+#---------------------------
+# 周波数領域でのフィルタリング処理
+#---------------------------
+
+def fourier_filter(data, dt, N, fc):
+    '''
+    フーリエ変換を用いて，時系列データを周波数領域でフィルタリング処理する．
+
+    Parameters
+    ----------
+    data : array-like
+        処理を施したいファイル．
+    dt : float64
+        サンプリング間隔[s]
+    N : int
+        分割数（データサイズ）
+    fc : float64
+        カットオフ周波数[Hz]
+
+    Returns
+    -------
+    filt_data : array-like
+        フィルタリング後のデータ．
+    '''
+
+    # 周波数軸 (開始，終了，分割数)
+    fq_axis = np.linspace(0, 1.0/dt, N)
+
+    # FFT
+    fft = np.fft.fft(data)
+
+    # フィルタリング
+    fft[(fq_axis > fc)] = 0
+
+    # IFFT 実部だけ取り出す．
+    filt_data = (np.fft.ifft(fft)).real
+
+    return filt_data
