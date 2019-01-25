@@ -53,7 +53,7 @@ plt.rcParams["figure.figsize"] = [20, 12]
 init_df = pd.DataFrame()
 
 format_log_data = file_read.file_read('../log_data/Book3.csv',17.52,19.14,-4.03,40/48,0,init_df)
-
+#
 format_log_data = file_read.file_read('../log_data/Book4.csv',11.97,13.30,-5.05,40/45,0,format_log_data)
 format_log_data = file_read.file_read('../log_data/Book4.csv',18.66,21.08,-5.05,40/45,0,format_log_data)
 
@@ -78,10 +78,10 @@ format_log_data = file_read.file_read('../log_data/Book11.csv',26.43,29.83,-1.46
 # パラメータ推定の結果を計算し，取得
 #---------------------------
 
-# sys_id_result = calc.sys_id_LS(format_log_data)
+sys_id_result = calc.sys_id_LS(format_log_data)
 # sys_id_result = calc_ex.sys_id_LS_ex(format_log_data)
 # sys_id_result = calc_ex_max.sys_id_LS_ex_max(format_log_data)
-sys_id_result = calc_kawano.sys_id_LS_kawano(format_log_data)
+# sys_id_result = calc_kawano.sys_id_LS_kawano(format_log_data)
 
 #---------------------------
 # 推定結果の値もデータ群に格納する
@@ -93,17 +93,17 @@ if sys_id_result[0].shape[1] == 5:
     format_log_data['CL_alpha'] = sys_id_result[0][:,1]
     format_log_data['CL_q'] = sys_id_result[0][:,2]
     format_log_data['CL_delta_e'] = sys_id_result[0][:,3]
-    # format_log_data['k_L'] = sys_id_result[0][:,4]
+    format_log_data['k_L'] = sys_id_result[0][:,4]
 
     format_log_data['CD_0'] = sys_id_result[1][:,0]
     format_log_data['kappa'] = sys_id_result[1][:,1]
-    # format_log_data['k_D'] = sys_id_result[1][:,2]
+    format_log_data['k_D'] = sys_id_result[1][:,2]
 
     format_log_data['Cm_0'] = sys_id_result[2][:,0]
     format_log_data['Cm_alpha'] = sys_id_result[2][:,1]
     format_log_data['Cm_q'] = sys_id_result[2][:,2]
     format_log_data['Cm_delta_e'] = sys_id_result[2][:,3]
-    # format_log_data['k_m'] = sys_id_result[2][:,4]
+    format_log_data['k_m'] = sys_id_result[2][:,4]
 
     format_log_data['CL'] = sys_id_result[3][:,0]
     format_log_data['CD'] = sys_id_result[3][:,1]
@@ -160,14 +160,35 @@ data_size = len(format_log_data) # 合計のデータサイズを取得
 # 結果をプロット
 #---------------------------
 
-# format_log_data.plot.line(x='alpha_deg', y=['D','D_calc'], style=['o','o'])
-# format_log_data.plot.line(x='alpha_deg', y=['CL','CD','Cm'], style=['o','o','o'])
+# format_log_data[['L_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
+# format_log_data[['D_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
+# format_log_data[['M','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 
-format_log_data[['L','D','Ma','alpha_deg']].plot.line(x='alpha_deg', subplots=True, layout=(3, 1), style=['o','o','o'])
-format_log_data[['CL_kawano','CD_kawano','Cm_kawano','alpha_deg']].plot.line(x='alpha_deg', subplots=True, layout=(3, 1), style=['o','o','o'])
+# format_log_data[['L','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
+# format_log_data[['L','L_filt']].plot.line()
+
+# format_log_data[['D_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
+# format_log_data[['M','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
+
+# format_log_data[['L','L_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o','o'])
+# format_log_data[['D','D_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o','o'])
+# format_log_data[['Ma','Ma_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o','o'])
+
+# fq = np.fft.fftfreq(data_size,d=0.02)
+# format_log_data['fq'] = fq
+# format_log_data[['alpha_fft','fq']].plot.line(x='fq')
+
+format_log_data[['CL_kawano','Va']].plot.line(x='Va', style=['o'])
+format_log_data[['CD_kawano','Va']].plot.line(x='Va', style=['o'])
+format_log_data[['Cm_kawano','Va']].plot.line(x='Va', style=['o'])
+
+# format_log_data[['L_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
+# format_log_data[['D_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
+# format_log_data[['Ma_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 #
-# format_log_data[['L_calc','D_calc','Ma_calc','alpha_deg']].plot.line(x='alpha_deg', subplots=True, layout=(3, 1), style=['o','o','o'])
-# format_log_data[['CL','CD','Cm','alpha_deg']].plot.line(x='alpha_deg', subplots=True, layout=(3, 1), style=['o','o','o'])
+# format_log_data[['CL','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
+# format_log_data[['CD','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
+# format_log_data[['Cm','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 
 
 # window = np.hamming(data_size)
@@ -207,7 +228,6 @@ format_log_data[['CL_kawano','CD_kawano','Cm_kawano','alpha_deg']].plot.line(x='
 
 # # 周波数軸のデータ作成
 # fq = np.fft.fftfreq(data_size,d=0.02)
-#
 # # FFT
 # F_d_theta = matex.fft_set_amp(d_theta,0.02,data_size)
 #

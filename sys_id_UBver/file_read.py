@@ -194,7 +194,7 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
             matex.bc2ic(phi[i],theta[i],psi[i],d_position_x[i],d_position_y[i],d_position_z[i])
         )
         Vi_wind.append(
-            matex.bc2ic(phi[i],theta[i],psi[i],V_W,0,0)
+            matex.bc2ic(phi[i],theta[i],0,V_W,0,0) # 風に対してヨー角はずれていないと仮定
         )
 
     # リストからnumpy配列に変換
@@ -291,6 +291,10 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
     A_z = F_z - T_z
 
     # 揚力と抗力（実験値）
+    L_total = F_x * np.sin(alpha) - F_z * np.cos(alpha)
+    D_total = - F_x * np.cos(alpha) - F_z * np.sin(alpha)
+
+    # 揚力と抗力（実験値）
     L = A_x * np.sin(alpha) - A_z * np.cos(alpha)
     D = - A_x * np.cos(alpha) - A_z * np.sin(alpha)
 
@@ -316,9 +320,12 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
     d_theta = ffilt.fourier_filter(d_theta,0.02,data_size,10)
     delta_e = ffilt.fourier_filter(delta_e,0.02,data_size,10)
     Va_mag = ffilt.fourier_filter(Va_mag,0.02,data_size,10)
-    L = ffilt.fourier_filter(L,0.02,data_size,10)
-    D = ffilt.fourier_filter(D,0.02,data_size,10)
-    Ma = ffilt.fourier_filter(Ma,0.02,data_size,10)
+    L_filt = ffilt.fourier_filter(L,0.02,data_size,10)
+    D_filt = ffilt.fourier_filter(D,0.02,data_size,10)
+    Ma_filt = ffilt.fourier_filter(Ma,0.02,data_size,10)
+
+    # FFT
+    alpha_fft = matex.fft_set_amp(alpha,0.02,data_size)
 
     #---------------------------
     # kawano
@@ -369,6 +376,8 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
         'L' : L,
         'D' : D,
         'M' : M,
+        'L_total' : L_total,
+        'D_total' : D_total,
         'Mt' : Mt,
         'Mg' : Mg,
         'Ma' : Ma,
