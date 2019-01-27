@@ -322,9 +322,6 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
     # L = ffilt.fourier_filter(L,0.02,data_size,10)
     # D = ffilt.fourier_filter(D,0.02,data_size,10)
     # Ma = ffilt.fourier_filter(Ma,0.02,data_size,10)
-    #
-    # # FFT
-    # alpha_fft = matex.fft_set_amp(alpha,0.02,data_size)
 
     #---------------------------
     # kawano
