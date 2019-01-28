@@ -315,13 +315,13 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
     # データのフィルタリング処理
     #---------------------------
 
-    # alpha = ffilt.fourier_filter(alpha,0.02,data_size,10)
-    # d_theta = ffilt.fourier_filter(d_theta,0.02,data_size,10)
-    # delta_e = ffilt.fourier_filter(delta_e,0.02,data_size,10)
-    # Va_mag = ffilt.fourier_filter(Va_mag,0.02,data_size,10)
-    # L = ffilt.fourier_filter(L,0.02,data_size,10)
-    # D = ffilt.fourier_filter(D,0.02,data_size,10)
-    # Ma = ffilt.fourier_filter(Ma,0.02,data_size,10)
+    alpha = ffilt.fourier_filter(alpha,0.02,data_size,5)
+    d_theta = ffilt.fourier_filter(d_theta,0.02,data_size,5)
+    delta_e = ffilt.fourier_filter(delta_e,0.02,data_size,5)
+    Va_mag = ffilt.fourier_filter(Va_mag,0.02,data_size,5)
+    L = ffilt.fourier_filter(L,0.02,data_size,5)
+    D = ffilt.fourier_filter(D,0.02,data_size,5)
+    Ma = ffilt.fourier_filter(Ma,0.02,data_size,5)
 
     #---------------------------
     # kawano

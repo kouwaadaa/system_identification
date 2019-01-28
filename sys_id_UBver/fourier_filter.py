@@ -33,14 +33,15 @@ def fourier_filter(data, dt, N, fc):
         フィルタリング後のデータ．
     '''
 
-    # 周波数軸 (開始，終了，分割数)
-    fq_axis = np.linspace(0, 1.0/dt, N)
+    # 周波数
+    fq = np.fft.fftfreq(N, dt)
 
     # FFT
     fft = np.fft.fft(data)
 
-    # フィルタリング
-    fft[(fq_axis > fc)] = 0
+    # フィルタリング，エイリアシングした部分は残す．
+    fft[(fq >= fc)] = 0
+    fft[(fq <= -fc)] = 0
 
     # IFFT 実部だけ取り出す．
     filt_data = (np.fft.ifft(fft)).real
