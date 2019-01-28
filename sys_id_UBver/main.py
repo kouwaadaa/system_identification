@@ -51,12 +51,12 @@ format_df = pd.DataFrame()
 
 format_df = file_read.file_read('../log_data/Book3.csv',17.52,19.14,-4.03,40/48,0,format_df)
 
-# format_df = file_read.file_read('../log_data/Book4.csv',11.97,13.30,-5.05,40/45,0,format_df)
-# format_df = file_read.file_read('../log_data/Book4.csv',18.66,21.08,-5.05,40/45,0,format_df)
-#
-# format_df = file_read.file_read('../log_data/Book5.csv',12.45,13.66,-4.80,40/48,0,format_df)
-# format_df = file_read.file_read('../log_data/Book5.csv',16.07,17.03,-4.80,40/48,0,format_df)
-# format_df = file_read.file_read('../log_data/Book5.csv',18.95,22.88,-4.80,40/48,0,format_df)
+format_df = file_read.file_read('../log_data/Book4.csv',11.97,13.30,-5.05,40/45,0,format_df)
+format_df = file_read.file_read('../log_data/Book4.csv',18.66,21.08,-5.05,40/45,0,format_df)
+
+format_df = file_read.file_read('../log_data/Book5.csv',12.45,13.66,-4.80,40/48,0,format_df)
+format_df = file_read.file_read('../log_data/Book5.csv',16.07,17.03,-4.80,40/48,0,format_df)
+format_df = file_read.file_read('../log_data/Book5.csv',18.95,22.88,-4.80,40/48,0,format_df)
 
 format_df = file_read.file_read('../log_data/Book8.csv',15.41,20.10,-2.00,40/47,0,format_df)
 format_df = file_read.file_read('../log_data/Book8.csv',21.46,23.07,-2.00,40/47,0,format_df)
@@ -118,7 +118,7 @@ data_size = len(format_df) # 合計のデータサイズを取得
 # format_df[['D_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['M','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 
-# format_df[['L','L_calc']].plot.line()
+format_df[['d_theta']].plot.line()
 # format_df[['D','D_calc']].plot.line()
 # format_df[['Ma','Ma_calc']].plot.line()
 
@@ -130,11 +130,11 @@ data_size = len(format_df) # 合計のデータサイズを取得
 # fq = np.fft.fftfreq(data_size,d=0.02)
 # format_df['fq'] = fq
 # format_df[['alpha_fft','fq']].plot.line(x='fq')
-
-format_df[['CL','CL_kawano','Va']].plot.line(x='Va', style='o')
-format_df[['CD','CD_kawano','Va']].plot.line(x='Va', style='o')
-format_df[['Cm','Cm_kawano','Va']].plot.line(x='Va', style='o')
 #
+# format_df[['CL','CL_kawano','Va']].plot.line(x='Va', style='o')
+# format_df[['CD','CD_kawano','Va']].plot.line(x='Va', style='o')
+# format_df[['Cm','Cm_kawano','Va']].plot.line(x='Va', style='o')
+# #
 # format_df[['L_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['D_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['Ma_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
