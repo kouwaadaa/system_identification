@@ -86,8 +86,9 @@ format_df = format_df.reset_index()
 
 # format_df = sys_id.sys_id_LS(format_df)
 # format_df = sys_id.sys_id_LS_ex(format_df)
-format_df = sys_id.sys_id_LS_max(format_df)
-# format_df = sys_id.sys_id_LS_max_non_kv(format_df)
+# format_df = sys_id.sys_id_LS_max(format_df)
+format_df = sys_id.sys_id_LS_max_non_kv(format_df)
+# format_df = sys_id.sys_id_LS_max_ub(format_df)
 
 #---------------------------
 # 機体の状態方程式から固有振動数を解析する
@@ -131,9 +132,9 @@ data_size = len(format_df) # 合計のデータサイズを取得
 # format_df['fq'] = fq
 # format_df[['alpha_fft','fq']].plot.line(x='fq')
 
-format_df[['CL','CL_kawano','Va']].plot.line(x='Va', style='o')
-format_df[['CD','CD_kawano','Va']].plot.line(x='Va', style='o')
-format_df[['Cm','Cm_kawano','Va']].plot.line(x='Va', style='o')
+format_df[['CL_kawano','CL','Va']].plot.line(x='Va', style='o')
+format_df[['CD_kawano','CD','Va']].plot.line(x='Va', style='o')
+format_df[['Cm_kawano','Cm','Va']].plot.line(x='Va', style='o')
 #
 # format_df[['L_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['D_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
