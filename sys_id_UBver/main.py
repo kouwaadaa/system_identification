@@ -84,17 +84,18 @@ format_df = format_df.reset_index()
 # パラメータ推定の結果を計算し，取得
 #---------------------------
 
-# format_df = sys_id.sys_id_LS(format_df)
-# format_df = sys_id.sys_id_LS_ex(format_df)
-# format_df = sys_id.sys_id_LS_max(format_df)
-format_df = sys_id.sys_id_LS_max_non_kv(format_df)
-# format_df = sys_id.sys_id_LS_max_ub(format_df)
+# format_df1 = sys_id.sys_id_LS(format_df)
+# format_df2 = sys_id.sys_id_LS_ex(format_df)
+format_df3 = sys_id.sys_id_LS_max(format_df)
+format_df4 = sys_id.sys_id_LS_max_non_kv(format_df)
+format_df5 = sys_id.sys_id_LS_max_ub(format_df)
+format_df6 = sys_id.sys_id_LS_non_d_alpha_ub(format_df)
 
 #---------------------------
 # 機体の状態方程式から固有振動数を解析する
 #---------------------------
 
-# anly_result = analyze.linearlize(format_df)
+# anly_result = analyze.linearlize(format_df5)
 
 #---------------------------
 # データの取り出し
@@ -132,10 +133,19 @@ data_size = len(format_df) # 合計のデータサイズを取得
 # format_df['fq'] = fq
 # format_df[['alpha_fft','fq']].plot.line(x='fq')
 
-format_df[['CL_kawano','CL','Va']].plot.line(x='Va', style='o')
-format_df[['CD_kawano','CD','Va']].plot.line(x='Va', style='o')
-format_df[['Cm_kawano','Cm','Va']].plot.line(x='Va', style='o')
-#
+# format_df6[['CL_log','CL','Va']].plot.line(x='Va', style='o')
+format_df6[['CD_log','CD','Va']].plot.line(x='Va', style='o')
+# format_df6[['Cm_log','Cm','Va']].plot.line(x='Va', style='o')
+
+# format_df5[['CL_log','CL','Va']].plot.line(x='Va', style='o')
+format_df5[['CD_log','CD','Va']].plot.line(x='Va', style='o')
+# format_df5[['Cm_log','Cm','Va']].plot.line(x='Va', style='o')
+
+# format_df4[['CL_log','CL','Va']].plot.line(x='Va', style='o')
+format_df4[['CD_log','CD','Va']].plot.line(x='Va', style='o')
+# format_df4[['Cm_log','Cm','Va']].plot.line(x='Va', style='o')
+
+
 # format_df[['L_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['D_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['Ma_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])

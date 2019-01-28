@@ -327,9 +327,9 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
     # kawano
     #---------------------------
 
-    CL_kawano = L / ((1/2)*const.RHO*(Va_mag)**2*const.S)
-    CD_kawano = D / ((1/2)*const.RHO*(Va_mag)**2*const.S)
-    Cm_kawano = Ma / ((1/2)*const.RHO*(Va_mag)**2*const.S)
+    CL_log = L / ((1/2)*const.RHO*(Va_mag)**2*const.S)
+    CD_log = D / ((1/2)*const.RHO*(Va_mag)**2*const.S)
+    Cm_log = Ma / ((1/2)*const.RHO*(Va_mag)**2*const.S*const.MAC)
 
     #---------------------------
     # データを一つにまとめる
@@ -377,9 +377,9 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
         'Mt' : Mt,
         'Mg' : Mg,
         'Ma' : Ma,
-        'CL_kawano' : CL_kawano,
-        'CD_kawano' : CD_kawano,
-        'Cm_kawano' : Cm_kawano,
+        'CL_log' : CL_log,
+        'CD_log' : CD_log,
+        'Cm_log' : Cm_log,
         'Time_DIFF' : time_diff,
         })
     ])
