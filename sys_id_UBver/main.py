@@ -145,8 +145,6 @@ format_df5[['CD_log','CD','Va']].plot.line(x='Va', style='o')
 format_df4[['CD_log','CD','Va']].plot.line(x='Va', style='o')
 # format_df4[['Cm_log','Cm','Va']].plot.line(x='Va', style='o')
 
-
->>>>>>> 7e8812d0aa9fd9230e598a147a3fb3a36023c0d1
 # format_df[['L_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['D_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['Ma_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
