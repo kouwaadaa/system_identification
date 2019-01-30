@@ -107,6 +107,13 @@ data_size = len(format_df) # 合計のデータサイズを取得
 # 結果をプロット
 #---------------------------
 
+CL_log = np.array(format_df5['CL_log'])
+CL = np.array(format_df5['CL'])
+
+CL_RMSE = np.sqrt(((CL-CL_log)**2).mean())
+
+# df5_V_filter = format_df6.query('4.5 <= Va <= 5.5')
+
 # format_df[['L_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['D_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['M','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
@@ -140,17 +147,17 @@ data_size = len(format_df) # 合計のデータサイズを取得
 # format_df['fq'] = fq
 # format_df[['alpha_fft','fq']].plot.line(x='fq')
 
-# format_df6[['CL_log','CL','Va']].plot.line(x='Va', style='o', title='CL (- alpha dot)')
-# format_df6[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD (- alpha dot)')
-# format_df6[['Cm_log','Cm','Va']].plot.line(x='Va', style='o', title='Cm (- alpha dot)')
+# format_df6[['CL_log','CL','alpha_deg']].plot.line(x='alpha_deg', style='o', title='CL alpha dot x')
+# format_df6[['CD_log','CD','alpha_deg']].plot.line(x='alpha_deg', style='o', title='CD alpha dot x')
+# format_df6[['Cm_log','Cm','alpha_deg']].plot.line(x='alpha_deg', style='o', title='Cm alpha dot x')
 
-# format_df5[['CL_log','CL','Va']].plot.line(x='Va', style='o', title='CL (+ alpha dot)')
-# format_df5[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD (+ alpha dot)')
-# format_df5[['Cm_log','Cm','Va']].plot.line(x='Va', style='o', title='Cm (+ alpha dot)')
+# format_df5[['CL_log','CL','alpha_deg']].plot.line(x='alpha_deg', style=['o','p'], title='CL')
+# format_df5[['CD_log','CD','alpha_deg']].plot.line(x='alpha_deg', style=['o','p'], title='CD')
+# format_df5[['Cm_log','Cm','alpha_deg']].plot.line(x='alpha_deg', style=['o','p'], title='Cm')
 
-# format_df4[['CL_log','CL','Va']].plot.line(x='Va', style='o', title='CL (- kv)')
-# format_df4[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD (- kv)')
-# format_df4[['Cm_log','Cm','Va']].plot.line(x='Va', style='o', title='Cm (- kv)')
+# format_df4[['CL_log','CL','alpha_deg']].plot.line(x='alpha_deg', style='o', title='CL kv x')
+# format_df4[['CD_log','CD','alpha_deg']].plot.line(x='alpha_deg', style='o', title='CD kv x')
+# format_df4[['Cm_log','Cm','alpha_deg']].plot.line(x='alpha_deg', style='o', title='Cm kv x')
 
 # format_df[['L_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['D_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
@@ -159,6 +166,8 @@ data_size = len(format_df) # 合計のデータサイズを取得
 # format_df[['CL_kawano','Va']].plot.line(x='Va', style=['o'])
 # format_df[['CD_kawano','Va']].plot.line(x='Va', style=['o'])
 # format_df[['Cm_kawano','Va']].plot.line(x='Va', style=['o'])
+
+# format_df5.to_csv('../output_data/df_out.csv')
 
 # window = np.hamming(data_size)
 # manual_T3 = window * manual_T3
