@@ -31,10 +31,10 @@ get_ipython().run_line_magic('matplotlib', 'qt')
 # print([f.name for f in matplotlib.font_manager.fontManager.ttflist])
 
 # # for NotePC
-plt.rc('font', **{'family':'Gen Shin Gothic'})
+# plt.rc('font', **{'family':'Gen Shin Gothic'})
 
 # # for DeskPC
-# plt.rc('font', **{'family':'YuGothic'})
+plt.rc('font', **{'family':'YuGothic'})
 
 plt.rcParams['font.size'] = 20
 plt.rcParams['xtick.labelsize'] = 15
@@ -68,8 +68,8 @@ format_df = file_read.file_read('../log_data/Book9.csv',98.05,104.1,-2.647,40/48
 format_df = file_read.file_read('../log_data/Book9.csv',104.9,107.1,-2.647,40/48,0,format_df)
 format_df = file_read.file_read('../log_data/Book9.csv',107.7,109.7,-2.647,40/48,0,format_df)
 
-# format_df = file_read.file_read('../log_data/Book11.csv',19.86,25.27,-1.467,40/48,0,format_df)
-# format_df = file_read.file_read('../log_data/Book11.csv',26.43,29.83,-1.467,40/48,0,format_df)
+format_df = file_read.file_read('../log_data/Book11.csv',19.86,25.27,-1.467,40/48,0,format_df)
+format_df = file_read.file_read('../log_data/Book11.csv',26.43,29.83,-1.467,40/48,0,format_df)
 
 #---------------------------
 # データの整理
@@ -95,7 +95,7 @@ format_df6 = sys_id.sys_id_LS_non_d_alpha_ub(format_df)
 # 機体の状態方程式から固有振動数を解析する
 #---------------------------
 
-# anly_result = analyze.linearlize(format_df5)
+anly_result = analyze.linearlize(format_df5)
 
 #---------------------------
 # データの取り出し
@@ -120,33 +120,38 @@ data_size = len(format_df) # 合計のデータサイズを取得
 # format_df[['D_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['M','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 
-format_df[['d_theta']].plot.line()
 # format_df[['D','D_calc']].plot.line()
 # format_df[['Ma','Ma_calc']].plot.line()
 
 
-# format_df[['L','L_calc','alpha_deg']].plot.line(x='alpha_deg', style='o')
-# format_df[['D','D_calc','alpha_deg']].plot.line(x='alpha_deg', style='o')
-# format_df[['Ma','Ma_calc','alpha_deg']].plot.line(x='alpha_deg', style='o')
+# format_df4[['L','L_calc']].plot.line()
+# format_df4[['D','D_calc']].plot.line()
+# format_df4[['Ma','Ma_calc']].plot.line()
+#
+# format_df5[['L','L_calc']].plot.line()
+# format_df5[['D','D_calc']].plot.line()
+# format_df5[['Ma','Ma_calc']].plot.line()
+#
+# format_df6[['L','L_calc']].plot.line()
+# format_df6[['D','D_calc']].plot.line()
+# format_df6[['Ma','Ma_calc']].plot.line()
 
 # fq = np.fft.fftfreq(data_size,d=0.02)
 # format_df['fq'] = fq
 # format_df[['alpha_fft','fq']].plot.line(x='fq')
 
-# format_df6[['CL_log','CL','Va']].plot.line(x='Va', style='o')
-format_df6[['CD_log','CD','Va']].plot.line(x='Va', style='o')
-# format_df6[['Cm_log','Cm','Va']].plot.line(x='Va', style='o')
+# format_df6[['CL_log','CL','Va']].plot.line(x='Va', style='o', title='CL (- alpha dot)')
+# format_df6[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD (- alpha dot)')
+# format_df6[['Cm_log','Cm','Va']].plot.line(x='Va', style='o', title='Cm (- alpha dot)')
 
-# format_df5[['CL_log','CL','Va']].plot.line(x='Va', style='o')
-format_df5[['CD_log','CD','Va']].plot.line(x='Va', style='o')
-# format_df5[['Cm_log','Cm','Va']].plot.line(x='Va', style='o')
+# format_df5[['CL_log','CL','Va']].plot.line(x='Va', style='o', title='CL (+ alpha dot)')
+# format_df5[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD (+ alpha dot)')
+# format_df5[['Cm_log','Cm','Va']].plot.line(x='Va', style='o', title='Cm (+ alpha dot)')
 
-# format_df4[['CL_log','CL','Va']].plot.line(x='Va', style='o')
-format_df4[['CD_log','CD','Va']].plot.line(x='Va', style='o')
-# format_df4[['Cm_log','Cm','Va']].plot.line(x='Va', style='o')
+# format_df4[['CL_log','CL','Va']].plot.line(x='Va', style='o', title='CL (- kv)')
+# format_df4[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD (- kv)')
+# format_df4[['Cm_log','Cm','Va']].plot.line(x='Va', style='o', title='Cm (- kv)')
 
-
->>>>>>> 7e8812d0aa9fd9230e598a147a3fb3a36023c0d1
 # format_df[['L_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['D_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['Ma_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
@@ -158,28 +163,29 @@ format_df4[['CD_log','CD','Va']].plot.line(x='Va', style='o')
 # window = np.hamming(data_size)
 # manual_T3 = window * manual_T3
 
-# # 固有値の絶対値をとる．
-# lambda_A_abs = np.abs(anly_result[0])
-#
-# xxx = np.arange(data_size)
-# y = lambda_A_abs[:,0]
-# yy = lambda_A_abs[:,1]
-# yyy = lambda_A_abs[:,2]
-# yyyy = lambda_A_abs[:,3]
+# 固有値の絶対値をとる．
+lambda_A_abs = np.abs(anly_result[0])
 
-# plt.subplot(111)
-# plt.scatter(xxx,y)
-# plt.scatter(xxx,yy)
-# plt.scatter(xxx,yyy)
-# plt.scatter(xxx,yyyy)
+xxx = np.arange(data_size)
+y = lambda_A_abs[:,0]
+yy = lambda_A_abs[:,1]
+yyy = lambda_A_abs[:,2]
+yyyy = lambda_A_abs[:,3]
+
+plt.subplot(111)
+plt.scatter(xxx,y)
+plt.scatter(xxx,yy)
+plt.scatter(xxx,yyy)
+plt.scatter(xxx,yyyy)
 #
 #
 # for j in range(FILE_NUM-1):
 #     plt.axvline(x=borderline_data_num[j], color="black") # 実験データの境目で線を引く
 #
-# plt.title('固有値散布図')
-# plt.xlabel('データ番号')
-# plt.ylabel('固有値')
+plt.title('固有値散布図')
+plt.xlabel('データ番号')
+plt.ylabel('固有値')
+plt.show()
 #
 # # ax = fig.add_subplot(2,1,2)
 # #

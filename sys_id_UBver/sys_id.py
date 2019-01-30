@@ -720,6 +720,7 @@ def sys_id_LS_max_ub(format_df):
     format_df_return['CL_d_alpha'] = CL_d_alpha
     format_df_return['CL_q'] = CL_q
     format_df_return['CL_delta_e'] = CL_delta_e
+    format_df_return['k_L'] = k_L
 
     format_df_return['CD_0'] = CD_0
     format_df_return['kappa'] = kappa
@@ -730,6 +731,7 @@ def sys_id_LS_max_ub(format_df):
     format_df_return['Cm_d_alpha'] = Cm_d_alpha
     format_df_return['Cm_q'] = Cm_q
     format_df_return['Cm_delta_e'] = Cm_delta_e
+    format_df_return['k_m'] = k_m
 
     format_df_return['CL'] = CL
     format_df_return['CD'] = CD
