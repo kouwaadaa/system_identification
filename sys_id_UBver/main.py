@@ -52,7 +52,7 @@ format_df = pd.DataFrame()
 
 format_df = file_read.file_read('../log_data/Book3.csv',17.52,19.14,-4.03,40/48,0,format_df)
 
-format_df = file_read.file_read('../log_data/Book4.csv',11.97,13.30,-5.05,40/45,0,format_df)
+# format_df = file_read.file_read('../log_data/Book4.csv',11.97,13.30,-5.05,40/45,0,format_df)
 format_df = file_read.file_read('../log_data/Book4.csv',18.66,21.08,-5.05,40/45,0,format_df)
 
 format_df = file_read.file_read('../log_data/Book5.csv',12.45,13.66,-4.80,40/48,0,format_df)
@@ -70,7 +70,7 @@ format_df = file_read.file_read('../log_data/Book9.csv',104.9,107.1,-2.647,40/48
 format_df = file_read.file_read('../log_data/Book9.csv',107.7,109.7,-2.647,40/48,0,format_df)
 
 format_df = file_read.file_read('../log_data/Book11.csv',19.86,25.27,-1.467,40/48,0,format_df)
-format_df = file_read.file_read('../log_data/Book11.csv',26.43,29.83,-1.467,40/48,0,format_df)
+# format_df = file_read.file_read('../log_data/Book11.csv',26.43,29.83,-1.467,40/48,0,format_df)
 
 #---------------------------
 # データの整理
@@ -87,7 +87,6 @@ format_df = format_df.reset_index()
 
 # format_df1 = sys_id.sys_id_LS(format_df)
 # format_df2 = sys_id.sys_id_LS_ex(format_df)
-# format_df3 = sys_id.sys_id_LS_max(format_df)
 format_df4 = sys_id.sys_id_LS_max_non_kv(format_df)
 format_df5 = sys_id.sys_id_LS_max_ub(format_df)
 format_df6 = sys_id.sys_id_LS_non_d_alpha_ub(format_df)
@@ -130,8 +129,8 @@ format_df6 = statistics.calc_RMSE(format_df6)
 # format_df[['D','D_calc']].plot.line()
 # format_df[['Ma','Ma_calc']].plot.line()
 
-
-# format_df4[['L','L_calc']].plot.line()
+# format_df[['theta']].plot.line()
+# format_df[['d_theta']].plot.line()
 # format_df4[['D','D_calc']].plot.line()
 # format_df4[['Ma','Ma_calc']].plot.line()
 #
@@ -147,17 +146,17 @@ format_df6 = statistics.calc_RMSE(format_df6)
 # format_df['fq'] = fq
 # format_df[['alpha_fft','fq']].plot.line(x='fq')
 
-# format_df6[['CL_log','CL','alpha_deg']].plot.line(x='alpha_deg', style='o', title='CL alpha dot x')
-# format_df6[['CD_log','CD','alpha_deg']].plot.line(x='alpha_deg', style='o', title='CD alpha dot x')
-# format_df6[['Cm_log','Cm','alpha_deg']].plot.line(x='alpha_deg', style='o', title='Cm alpha dot x')
+# format_df6[['CL_log','CL','Va']].plot.line(x='Va', style='o', title='CL alpha dot x')
+# format_df6[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD alpha dot x')
+# format_df6[['Cm_log','Cm','Va']].plot.line(x='Va', style='o', title='Cm alpha dot x')
 
-# format_df5[['CL_log','CL','alpha_deg']].plot.line(x='alpha_deg', style=['o','p'], title='CL')
-# format_df5[['CD_log','CD','alpha_deg']].plot.line(x='alpha_deg', style=['o','p'], title='CD')
-# format_df5[['Cm_log','Cm','alpha_deg']].plot.line(x='alpha_deg', style=['o','p'], title='Cm')
+format_df5[['CL_log','CL','Va']].plot.line(x='Va', style=['o','p'], title='CL')
+format_df5[['CD_log','CD','Va']].plot.line(x='Va', style=['o','p'], title='CD')
+format_df5[['Cm_log','Cm','Va']].plot.line(x='Va', style=['o','p'], title='Cm')
 
-# format_df4[['CL_log','CL','alpha_deg']].plot.line(x='alpha_deg', style='o', title='CL kv x')
-# format_df4[['CD_log','CD','alpha_deg']].plot.line(x='alpha_deg', style='o', title='CD kv x')
-# format_df4[['Cm_log','Cm','alpha_deg']].plot.line(x='alpha_deg', style='o', title='Cm kv x')
+# format_df4[['CL_log','CL','Va']].plot.line(x='Va', style='o', title='CL kv x')
+# format_df4[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD kv x')
+# format_df4[['Cm_log','Cm','Va']].plot.line(x='Va', style='o', title='Cm kv x')
 
 # format_df[['L_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['D_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
