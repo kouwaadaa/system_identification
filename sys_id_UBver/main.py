@@ -18,6 +18,7 @@ import math_extention as matex
 import file_read
 import sys_id
 import analyze
+import statistics
 
 #---------------------------
 # matplotlibの諸設定
@@ -86,7 +87,7 @@ format_df = format_df.reset_index()
 
 # format_df1 = sys_id.sys_id_LS(format_df)
 # format_df2 = sys_id.sys_id_LS_ex(format_df)
-format_df3 = sys_id.sys_id_LS_max(format_df)
+# format_df3 = sys_id.sys_id_LS_max(format_df)
 format_df4 = sys_id.sys_id_LS_max_non_kv(format_df)
 format_df5 = sys_id.sys_id_LS_max_ub(format_df)
 format_df6 = sys_id.sys_id_LS_non_d_alpha_ub(format_df)
@@ -107,10 +108,9 @@ data_size = len(format_df) # 合計のデータサイズを取得
 # 結果をプロット
 #---------------------------
 
-CL_log = np.array(format_df5['CL_log'])
-CL = np.array(format_df5['CL'])
-
-CL_RMSE = np.sqrt(((CL-CL_log)**2).mean())
+format_df4 = statistics.calc_RMSE(format_df4)
+format_df5 = statistics.calc_RMSE(format_df5)
+format_df6 = statistics.calc_RMSE(format_df6)
 
 # df5_V_filter = format_df6.query('4.5 <= Va <= 5.5')
 
@@ -172,30 +172,30 @@ CL_RMSE = np.sqrt(((CL-CL_log)**2).mean())
 # window = np.hamming(data_size)
 # manual_T3 = window * manual_T3
 
-# 固有値の絶対値をとる．
-lambda_A_abs = np.abs(anly_result[0])
-
-xxx = np.arange(data_size)
-y = lambda_A_abs[:,0]
-yy = lambda_A_abs[:,1]
-yyy = lambda_A_abs[:,2]
-yyyy = lambda_A_abs[:,3]
-
-plt.subplot(111)
-plt.scatter(xxx,y)
-plt.scatter(xxx,yy)
-plt.scatter(xxx,yyy)
-plt.scatter(xxx,yyyy)
+# # 固有値の絶対値をとる．
+# lambda_A_abs = np.abs(anly_result[0])
 #
+# xxx = np.arange(data_size)
+# y = lambda_A_abs[:,0]
+# yy = lambda_A_abs[:,1]
+# yyy = lambda_A_abs[:,2]
+# yyyy = lambda_A_abs[:,3]
 #
-# for j in range(FILE_NUM-1):
-#     plt.axvline(x=borderline_data_num[j], color="black") # 実験データの境目で線を引く
-#
-plt.title('固有値散布図')
-plt.xlabel('データ番号')
-plt.ylabel('固有値')
-plt.show()
-#
+# plt.subplot(111)
+# plt.scatter(xxx,y)
+# plt.scatter(xxx,yy)
+# plt.scatter(xxx,yyy)
+# plt.scatter(xxx,yyyy)
+# #
+# #
+# # for j in range(FILE_NUM-1):
+# #     plt.axvline(x=borderline_data_num[j], color="black") # 実験データの境目で線を引く
+# #
+# plt.title('固有値散布図')
+# plt.xlabel('データ番号')
+# plt.ylabel('固有値')
+# plt.show()
+# #
 # # ax = fig.add_subplot(2,1,2)
 # #
 # # ax.plot(xxx,d_alpha)
