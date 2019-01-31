@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2019.1.21)  28 JAN 2019 12:02
+This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  31 JAN 2019 16:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -121,7 +121,15 @@ File: dvipdfmx.def 2017/06/24 v5.0g Graphics/color driver for dvipdfmx
 ))
 \Gin@req@height=\dimen122
 \Gin@req@width=\dimen123
-) (./here.sty) (/usr/local/texlive/2018/texmf-dist/tex/latex/fancybox/fancybox.sty
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: dvipdfmx.def on input line 147.
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
+)) (./here.sty) (/usr/local/texlive/2018/texmf-dist/tex/latex/fancybox/fancybox.sty
 Package: fancybox 2010/05/15 1.4
 
 Style option: `fancybox' v1.4 <2010/05/15> (tvz)
@@ -203,22 +211,22 @@ LaTeX Warning: Unused global option(s):
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for JY2/mc/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for JT2/mc/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for JY2/mc/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for JT2/mc/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
  (./1_title/title.tex
 LaTeX Font Info:    Font shape `JT2/mc/m/n' will be
 (Font)              scaled to size 19.95642pt on input line 21.
@@ -237,30 +245,30 @@ LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
 ])
 File: z_figure_files/author.pdf Graphic file (type pdf)
 <z_figure_files/author.pdf>
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 43.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 44.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 43.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 44.
  (./a_abstract/abstract_ja.tex [1]
 LaTeX Font Info:    Font shape `JT2/mc/bx/n' in size <20.74> not available
-(Font)              Font shape `JT2/gt/m/n' tried instead on input line 5.
+(Font)              Font shape `JT2/gt/m/n' tried instead on input line 8.
 LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
-(Font)              scaled to size 19.95642pt on input line 5.
+(Font)              scaled to size 19.95642pt on input line 8.
 LaTeX Font Info:    Font shape `JY2/mc/bx/n' in size <20.74> not available
-(Font)              Font shape `JY2/gt/m/n' tried instead on input line 5.
+(Font)              Font shape `JY2/gt/m/n' tried instead on input line 8.
 LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
-(Font)              scaled to size 19.95642pt on input line 5.
+(Font)              scaled to size 19.95642pt on input line 8.
  [0])
 LaTeX Font Info:    Font shape `JT2/mc/bx/n' in size <24.88> not available
-(Font)              Font shape `JT2/gt/m/n' tried instead on input line 55.
+(Font)              Font shape `JT2/gt/m/n' tried instead on input line 56.
 LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
-(Font)              scaled to size 23.94002pt on input line 55.
+(Font)              scaled to size 23.94002pt on input line 56.
 LaTeX Font Info:    Font shape `JY2/mc/bx/n' in size <24.88> not available
-(Font)              Font shape `JY2/gt/m/n' tried instead on input line 55.
+(Font)              Font shape `JY2/gt/m/n' tried instead on input line 56.
 LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
-(Font)              scaled to size 23.94002pt on input line 55.
+(Font)              scaled to size 23.94002pt on input line 56.
  (./main.toc
 LaTeX Font Info:    Font shape `JT2/mc/bx/n' in size <12> not available
 (Font)              Font shape `JT2/gt/m/n' tried instead on input line 1.
@@ -284,51 +292,60 @@ LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
 第 2 章
 (./c_chapter2/2.tex
 LaTeX Font Info:    Font shape `JT2/mc/bx/n' in size <17.28> not available
-(Font)              Font shape `JT2/gt/m/n' tried instead on input line 4.
+(Font)              Font shape `JT2/gt/m/n' tried instead on input line 5.
 LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
-(Font)              scaled to size 16.62714pt on input line 4.
+(Font)              scaled to size 16.62714pt on input line 5.
 LaTeX Font Info:    Font shape `JY2/mc/bx/n' in size <17.28> not available
-(Font)              Font shape `JY2/gt/m/n' tried instead on input line 4.
+(Font)              Font shape `JY2/gt/m/n' tried instead on input line 5.
 LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
-(Font)              scaled to size 16.62714pt on input line 4.
+(Font)              scaled to size 16.62714pt on input line 5.
 
 
-LaTeX Warning: File `vtol23K_2.JPG' not found on input line 17.
-
-runsystem(cd '' && ebb 'vtol23K_2.JPG')...disabled (restricted).
+LaTeX Warning: File `vtol23K_2.pdf' not found on input line 18.
 
 
-./c_chapter2/2.tex:17: LaTeX Error: File `vtol23K_2.xbb' not found.
+./c_chapter2/2.tex:18: LaTeX Error: File `vtol23K_2.pdf' not found.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.17 ...graphics[clip,width=10.0cm]{vtol23K_2.JPG}
+l.18 ...graphics[clip,width=10.0cm]{vtol23K_2.pdf}
                                                   
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
+runsystem(cd '' && ebb 'vtol23K_2.pdf')...disabled (restricted).
 
-./c_chapter2/2.tex:17: LaTeX Error: Cannot determine size of graphic in vtol23K_2.xbb (no BoundingBox).
+
+./c_chapter2/2.tex:18: LaTeX Error: File `vtol23K_2.bb' not found.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.17 ...graphics[clip,width=10.0cm]{vtol23K_2.JPG}
+l.18 ...graphics[clip,width=10.0cm]{vtol23K_2.pdf}
                                                   
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-File: vtol23K_2.JPG Graphic file (type bmp)
-<vtol23K_2.JPG>
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+./c_chapter2/2.tex:18: LaTeX Error: Cannot determine size of graphic in vtol23K_2.bb (no BoundingBox).
 
-) [3
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.18 ...graphics[clip,width=10.0cm]{vtol23K_2.pdf}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
-] [4]
+File: vtol23K_2.pdf Graphic file (type pdf)
+<vtol23K_2.pdf>
+[3
+
+]) [4]
 第 3 章
 (./d_chapter3/3.tex) [5
 
@@ -350,12 +367,12 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 ]) (./j_appendix/appendix.tex) [11] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 1682 strings out of 493270
- 20531 string characters out of 6145018
- 90607 words of memory out of 5000000
- 5590 multiletter control sequences out of 15000+600000
+ 1799 strings out of 493270
+ 22244 string characters out of 6145017
+ 91539 words of memory out of 5000000
+ 5700 multiletter control sequences out of 15000+600000
  14377 words of font info for 66 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
  27i,5n,33p,907b,465s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (16 pages, 17632 bytes).
+Output written on main.dvi (16 pages, 20108 bytes).
