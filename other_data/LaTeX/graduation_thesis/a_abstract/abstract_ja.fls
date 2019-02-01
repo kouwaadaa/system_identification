@@ -1,8 +1,0 @@
-PWD /Users/hiroki/Dev/uav/python/other_data/LaTeX/graduation_thesis/abstract
-INPUT /usr/local/texlive/2018/texmf.cnf
-INPUT /usr/local/texlive/2018/texmf-dist/web2c/texmf.cnf
-INPUT /usr/local/texlive/2018/texmf.cnf
-INPUT /usr/local/texlive/2018/texmf-var/web2c/euptex/uplatex.fmt
-INPUT abstract_ja.tex
-OUTPUT abstract_ja.log
-OUTPUT abstract_ja.dvi
