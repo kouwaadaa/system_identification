@@ -5,6 +5,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%
 \section{座標系の導入}
+\label{sec:axis}
 %%%%%%%%%%%%%%%%%%%%%%
 
 \ref{}に示すように，機体に固定した回転座標系$a^{(B)}-x_B,y_B,z_B$(機体座標系)を導入する．また，機体の姿勢を定義するため，\ref{}に示すように，地球に固定した$a^{(E)}-x_E,y_E,z_E$(地球固定座標系)を導入する．
@@ -107,11 +108,13 @@
     r
   \end{array}
   \right]
+  \label{eq:euler}
 \end{equation}
 となり，これはオイラー角のキネマティクス方程式とよばれる．ここで，$\dot{\phi},\dot{\theta},\dot{\psi}$はそれぞれ姿勢角の時間微分であり，$p,q,r$はそれぞれ機体座標系における角速度の$x,y,z$成分である．
 
 %%%%%%%%%%%%%%%%%%%%%%
 \section{非線形モデル}
+\label{sec:nonlin_model}
 %%%%%%%%%%%%%%%%%%%%%%
 
 並進運動と回転運動について，それぞれ運動方程式を記述する．その後，回転翼機モードでの低速飛行における縦運動の運動方程式についてまとめ，機体の非線形モデルとして設定する．
@@ -149,17 +152,17 @@
     F_z
   \end{array}
   \right]
-  \label{mot_eq}
+  \label{eq:mot_eq}
 \end{equation}
 where
 \begin{equation*}
-  \mbox{\boldmath $V$} =
+  \mbox{\boldmath $V_g$} =
   \left[
   \begin{array}{c}
     u \quad v \quad w
   \end{array}
   \right]^{\mathrm{T}} :
-  \mbox{機体の速度}
+  \mbox{機体の対地速度}
 \end{equation*}
 \begin{equation*}
   \mbox{\boldmath $F$} =
@@ -170,7 +173,7 @@ where
   \right]^{\mathrm{T}} :
   \mbox{機体に働く力}
 \end{equation*}
-となる．式(\ref{mot_eq})の右辺第2項の力は，重力，空気力，ロータ推力に分けて
+となる．式(\ref{eq:mot_eq})の右辺第2項の力は，重力，空気力，ロータ推力に分けて
 \begin{equation}
     \mbox{\boldmath $F$} = \mbox{\boldmath $F_g$} + \mbox{\boldmath $F_a$} + \mbox{\boldmath $F_t$}
 \end{equation}
@@ -220,6 +223,7 @@ where
     \cos\phi\cos\theta
   \end{array}
   \right]
+  \label{eq:F_g}
 \end{equation}
 である．またロータ推力について，$y$軸方向の力$Y_t=0$であるから，ティルト角を$\gamma$，メインロータ推力を$T_m$，右左サブロータ推力を$T_r$，機首サブロータ推力を$T_f$とすれば次のようになる．
 \begin{equation}
@@ -252,6 +256,7 @@ where
       T_r + T_f
     \end{array}
   \right]
+  \label{eq:F_t}
 \end{equation}
 
 空気力項については，\ref{}で詳しく述べる．
@@ -308,6 +313,8 @@ where
   \end{array}
   \right]
 \end{equation}
+ただし，回転翼機モードにおいて，慣性モーメント$I_{xz}$は，値が微小である場合か，機体軸として慣性主軸を選んだ場合を考え0とする．
+
 このとき，機体の回転運動方程式は
 \begin{equation}
 I\left[
@@ -339,7 +346,7 @@ I\left[
     N
   \end{array}
   \right]
-  \label{roll_eq}
+  \label{eq:roll_eq}
 \end{equation}
 where
 \begin{equation*}
@@ -351,7 +358,7 @@ where
   \right]^{\mathrm{T}} :
   \mbox{各機体軸まわりのモーメント}
 \end{equation*}
-となる．式(\ref{roll_eq})の右辺第2項のモーメントは，重力，空気力，ロータ推力それぞれによるモーメントに分けて
+となる．式(\ref{eq:roll_eq})の右辺第2項のモーメントは，重力，空気力，ロータ推力それぞれによるモーメントに分けて
 \begin{equation}
     \mbox{\boldmath $M$} = \mbox{\boldmath $M_g$} + \mbox{\boldmath $M_a$} + \mbox{\boldmath $M_t$}
 \end{equation}
@@ -413,6 +420,7 @@ where
     \end{array}
     \right]
   \end{split}
+  \label{eq:M_g}
 \end{equation}
 である．また，ロータ推力によるモーメントは，\ref{}によるとまだ未解明な点も多いため，本研究で扱う縦運動に関係するピッチングモーメント$M_t$のみ記載することにする．機体軸原点から各ロータまでの距離を\ref{}のように定めると
 \begin{equation}
@@ -421,12 +429,226 @@ where
 
 空気力項については，\ref{}で詳しく述べる．
 
+\subsection{縦運動の非線形モデル}
+
+ここでは，Fig. \ref{fig:}に示すような縦運動を考える．そこで横・方向系の運動状態変数と入力変数を，$v=p=r=\delta_a=\phi=0$とすれば，縦運動における低速飛行の非線形モデルは式(\ref{eq:mot_eq}), 式(\ref{eq:F_g})および式(\ref{eq:roll_eq}), 式(\ref{eq:M_g})より，次のようになる．
+\begin{align}
+  \dot{u} &= -qw - g\sin\theta +\dfrac{1}{m}(X_a + X_t) \\
+  \dot{w} &= qu + g\cos\theta +\dfrac{1}{m}(Z_a + Z_t) \\
+  \dot{q} &= \dfrac{1}{I_{yy}}\left\{-mg(R_{G_z}\sin\theta+R_{G_x}\cos\theta\cos\phi) + M_a + M_t\right\}
+\end{align}
+
+加えて，式(\ref{eq:euler})より
+\begin{equation}
+  \dot{\theta} = q\cos\phi - r\sin\phi = q
+\end{equation}
+である．
+
 %%%%%%%%%%%%%%%%%%%%%%
 \section{空気力モデル}
+\label{sec:airf_model}
 %%%%%%%%%%%%%%%%%%%%%%
 
+本研究では，風が吹いている環境での回転翼機モードにおける低速飛行を想定する．そこで，まず機体の対気速度の設定を述べ，その後空気力モデルについてまとめ，\ref{sec:nonlin_model}節の空気力項について詳しく述べる．
 
+\subsection{一定風下での対気速度}
+
+機体の対気速度$\mbox{\boldmath $V_a$}$，対地速度$\mbox{\boldmath $V_g$}$，風速$\mbox{\boldmath $V_w$}$の関係をFig. \ref{fig:vel_air}に示す．
+
+\begin{figure}[H]
+\centering
+\includegraphics[clip,width=10.0cm]{}
+\caption{The wind triangle}
+\label{fig:vel_air}
+\end{figure}
+
+$\mbox{\boldmath $V_a$}$は，$\mbox{\boldmath $V_g$},\mbox{\boldmath $V_w$}$を用いて次のように表される．
+\begin{equation}
+  \mbox{\boldmath $V_a$} = \mbox{\boldmath $V_g$} - \mbox{\boldmath $V_w$}
+\end{equation}
+したがって，機体座標系における対気速度は
+\begin{equation}
+  \mbox{\boldmath $V_a$} \triangleq
+  \left[
+    \begin{array}{ccc}
+      u_a \\
+      v_a \\
+      w_a
+    \end{array}
+  \right] =
+  \left[
+    \begin{array}{ccc}
+      u \\
+      v \\
+      w \\
+    \end{array}
+  \right] -
+  \left[
+    \begin{array}{ccc}
+      u_w \\
+      v_w \\
+      w_w
+    \end{array}
+  \right]
+\end{equation}
+となる．よって，対気速度\mbox{\boldmath $V_a$}の大きさを$V_a$とすると次のようになる．
+\begin{equation}
+  V_a = \sqrt{{u_a}^2+{v_a}^2+{w_a}^2}
+\end{equation}
+また，$\alpha$は迎角であり
+\begin{equation}
+  \alpha = \tan^{-1}\left(\dfrac{w_a}{u_a}\right)
+\end{equation}
+で計算される．
+
+\subsection{対気速度により発生する空気力}
+
+ここで，Fig. \ref{fig:}の場合を想定する．まず，エレベータ舵角$\delta_e$とエルロン舵角$\delta_a$は，左右エレボン舵角$\delta_{e_l}, \delta_{e_r}$を用いて次のように表される．
+\begin{equation}
+  \left[
+    \begin{array}{ccc}
+      \delta_e \\
+      \delta_a
+    \end{array}
+  \right] =
+  \left[
+    \begin{array}{ccc}
+      1 & 1 \\
+      -1 & 1
+    \end{array}
+  \right]
+  \left[
+    \begin{array}{ccc}
+      \delta_{e_r} \\
+      \delta_{e_l}
+    \end{array}
+  \right]
+\end{equation}
+
+対気速度$V_a$により発生する，速度と垂直方向に働く揚力$L$，水平方向に働く抗力$D$，およびピッチモーメント$M_a$は一般に
+\begin{align}
+  L &= \dfrac{1}{2}\rho V_a^2 S \underbrace{\left[ C_{L_0}
+  +C_{L_\alpha}\alpha+C_{L_q}\dfrac{\bar{c}}{2V_a}q+C_{L_{\delta_e}}\delta_e \right]}_{C_L} \\
+  D &= \dfrac{1}{2}\rho V_a^2 S \underbrace{\left[ C_{D_0}+\kappa {C_L}^2 \right]}_{C_D} \\
+  M_a &= \dfrac{1}{2}\rho V_a^2 S \bar{c} \underbrace{\left[ C_{m_0}
+  +C_{m_\alpha}\alpha+C_{m_q}\dfrac{\bar{c}}{2V_a}q+C_{m_{\delta_e}}\delta_e \right]}_{C_m}
+\end{align}
+と表される．ただし，$\rho$は大気密度，$S$は全機面積，$\bar{c}$は平均空力翼弦であり，$C_L,C_D$はそれぞれ揚力係数，抗力係数である．例えば$C_{L_\alpha}$は，迎角$\alpha$が増加したときにどれくらい$C_L$が増えるかを表したもので，このような空力係数は安定微係数とよばれる．
+
+以上は一般的な空気力モデルであるが，ロータの吸い込みによって発生する，対気速度に比例する抗力\cite{}と同様に対気速度に比例した揚力が発生するとして，本研究ではモデル式を次のように変更している\cite{}．
+\begin{align}
+  L &= \dfrac{1}{2}\rho {V_a}^2 S C_L + k_L V_a \\
+  D &= \dfrac{1}{2}\rho {V_a}^2 S C_D + k_D V_a \\
+  M_a &= \dfrac{1}{2}\rho {V_a}^2 S \bar{c} C_m + k_m V_a
+\end{align}
+
+また安定微係数について，影響が小さいとして省略されていた項を考慮し
+\begin{align}
+  C_L &= C_{L_0}+C_{L_\alpha}\alpha+C_{L_{\dot{\alpha}}}\dfrac{\bar{c}}{2V_a}\dot{\alpha}+C_{L_q}\dfrac{\bar{c}}{2V_a}q+C_{L_{\delta_e}}\delta_e \\
+  C_m &= C_{m_0}+C_{m_\alpha}\alpha+C_{m_{\dot{\alpha}}}\dfrac{\bar{c}}{2V_a}\dot{\alpha}+C_{m_q}\dfrac{\bar{c}}{2V_a}q+C_{m_{\delta_e}}\delta_e
+\end{align}
+とした．最後に，\ref{sec:nonlin_model}節の空気力項について
+\begin{equation}
+  \left[
+  \begin{array}{ccc}
+    X_a \\
+    Z_a
+  \end{array}
+  \right] =
+  \left[
+  \begin{array}{ccc}
+    \sin\alpha & -\cos\alpha \\
+    -\cos\alpha & -\sin\alpha
+  \end{array}
+  \right]
+  \left[
+  \begin{array}{ccc}
+    L \\
+    D \\
+  \end{array}
+  \right]
+\end{equation}
+と書ける．$Y_a$は揚力や抗力と同様に
+\begin{equation}
+  Y_a = \dfrac{1}{2}\rho {V_a}^2 S C_Y + k_Y V_a
+\end{equation}
+と仮定する．
 
 %%%%%%%%%%%%%%%%%%%%
-\section{線形モデル}
+\section{縦運動の線形モデル}
 %%%%%%%%%%%%%%%%%%%%
+本節では，縦運動を解析的に検討するために，機体の運動を定常状態からの微小擾乱運動と仮定して近似を行なう．これにより，\ref{sec:nonlin_model}節の非線形モデルを線形化し，機体の低速飛行時の状態方程式を導出する．
+
+\subsection{定常状態}
+
+まず，回転翼機モードにおける定常状態の定義について述べる．定常状態での状態変数を，添字0を付けて表し，以下を仮定する．
+	\begin{itemize}
+	\item[(1)]機体加速度は$\dot{u_0} = 0$，$\dot{w_0} = 0$である．
+	\item[(2)]角速度は$q_0 = 0$である．
+  \item[(3)]$w_0$および$\alpha_0$は微小である．
+	\end{itemize}
+
+釣り合い条件として，運動方程式の加速度，モーメント，および外力の総和が0であるから
+\begin{equation}
+  \left\{
+  \begin{align}
+    X_{a0} &+ X_{t0} - mg\sin\theta_0 = 0 \\
+    Z_{a0} &+ Z_{t0} + mg\cos\theta_0 = 0 \\
+    M_{a0} &+ M_{t0} - mg(R_{G_z}\sin\theta_0 + R_{G_x}\cos\theta_0) = 0
+  \end{align}
+  \right
+  \label{eq:balance}
+\end{equation}
+
+以下では，この定常状態からの微小変化を考える．また，定常状態が乱れたときの状態変数の変化を$\Delta$を付して書き
+\begin{equation}
+  \left\{
+  \begin{align}
+    u &= u_0 + \Delta u \\
+    w &= w_0 + \Delta w \\
+    V &= V_0 + \Delta V
+  \end{align}
+  \right
+\end{equation}
+\begin{equation}
+  \left\{
+  \begin{align}
+    \alpha = \alpha_0 + \Delta \alpha = \tan^{-1}\left(\dfrac{w_0+\Delta w}{u_0+\Delta u}\right), \\
+    \therefore \alpha_0 \fallingdotseq \tan^{-1}\left(\dfrac{w_0}{u_0}\right),\quad
+    \Delta \alpha \fallingdotseq \dfrac{\Delta w}{u_0}
+  \end{align}
+  \right
+\end{equation}
+\begin{equation}
+  \left\{
+  \begin{align}
+    q &\fallingdotseq \Delta q \\
+    \theta &= \theta_0 + \Delta \theta,\quad \\
+    &\therefore \sin\theta \fallingdotseq \sin\theta_0+\Delta\theta \cos\theta_0,\quad
+    \cos\theta \fallingdotseq \cos\theta_0 - \Delta\theta \sin\theta_0
+  \end{align}
+  \right
+\end{equation}
+\begin{equation}
+  \left\{
+  \begin{align}
+    X_a &= X_{a0} + \Delta X_a,\quad
+    X_t = X_{t0} + \Delta X_t \\
+    Z_a &= Z_{a0} + \Delta Z_a,\quad
+    Z_t = Z_{t0} + \Delta Z_t \\
+    M_a &= M_{a0} + \Delta M_a,\quad
+    M_t = M_{t0} + \Delta M_t \\
+  \end{align}
+  \right
+\end{equation}
+\begin{equation}
+  \delta_e = \delta_{e0} + \Delta \delta_e
+\end{equation}
+と近似する．これらを式(\ref{eq:})〜式(\ref{eq:})に代入する．その後，式(\ref{eq:balance})を用いて変形し，速度と加速度の変化分が積で現れる項は微小であるとして無視すれば
+\begin{align}
+  \Delta \dot{u} &= -qw_0 - g\Delta \theta \cos\theta_0 +\dfrac{1}{m}(\Delta X_a + \Delta X_t) \\
+  \Delta \dot{w} &= qu_0 - g\Delta \theta \sin \theta_0 +\dfrac{1}{m}(\Delta Z_a + \Delta Z_t) \\
+  \Delta \dot{q} &= \dfrac{1}{I_{yy}}\left\{mg\Delta \theta(R_{G_x}\sin\theta_0 - R_{G_z}\cos\theta_0) + \Delta M_a + \Delta M_t\right\}
+\end{align}
+
+\subsection{}

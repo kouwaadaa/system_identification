@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  4 FEB 2019 17:33
+This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  5 FEB 2019 00:10
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -364,72 +364,225 @@ File: vtol23K_2.pdf Graphic file (type pdf)
 第 3 章
 (./d_chapter3/3.tex
 
-LaTeX Warning: Reference `' on page 5 undefined on input line 10.
+LaTeX Warning: Reference `' on page 5 undefined on input line 11.
 
 
-LaTeX Warning: Reference `' on page 5 undefined on input line 10.
+LaTeX Warning: Reference `' on page 5 undefined on input line 11.
 
 LaTeX Font Info:    Font shape `JT2/mc/m/n' will be
-(Font)              scaled to size 13.85594pt on input line 14.
+(Font)              scaled to size 13.85594pt on input line 15.
 LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
-(Font)              scaled to size 13.85594pt on input line 14.
+(Font)              scaled to size 13.85594pt on input line 15.
 LaTeX Font Info:    Font shape `JT2/mc/bx/n' in size <14.4> not available
-(Font)              Font shape `JT2/gt/m/n' tried instead on input line 14.
+(Font)              Font shape `JT2/gt/m/n' tried instead on input line 15.
 LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
-(Font)              scaled to size 13.85594pt on input line 14.
+(Font)              scaled to size 13.85594pt on input line 15.
 LaTeX Font Info:    Font shape `JY2/mc/bx/n' in size <14.4> not available
-(Font)              Font shape `JY2/gt/m/n' tried instead on input line 14.
+(Font)              Font shape `JY2/gt/m/n' tried instead on input line 15.
 LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
-(Font)              scaled to size 13.85594pt on input line 14.
+(Font)              scaled to size 13.85594pt on input line 15.
 [5
 
 ] [6]
 
-LaTeX Warning: Reference `' on page 7 undefined on input line 257.
+LaTeX Warning: Reference `' on page 7 undefined on input line 262.
 
-
-Overfull \hbox (2.02875pt too wide) detected at line 378
+[7]
+Overfull \hbox (2.02875pt too wide) detected at line 385
 []
  []
 
-[7]
 
-LaTeX Warning: Reference `' on page 8 undefined on input line 417.
-
-
-LaTeX Warning: Reference `' on page 8 undefined on input line 417.
+LaTeX Warning: Reference `' on page 8 undefined on input line 425.
 
 
-LaTeX Warning: Reference `' on page 8 undefined on input line 422.
+LaTeX Warning: Reference `' on page 8 undefined on input line 425.
 
-) [8]
+
+LaTeX Warning: Reference `' on page 8 undefined on input line 430.
+
+
+LaTeX Warning: Reference `fig:' on page 8 undefined on input line 434.
+
+[8]
+
+./d_chapter3/3.tex:460: LaTeX Error: File `' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.460 \includegraphics[clip,width=10.0cm]{}
+                                           
+I could not locate the file with any of these extensions:
+.pdf,.PDF,.ai,.AI,.png,.PNG,.jpg,.JPG,.jpeg,.JPEG,.jp2,.JP2,.jpf,.JPF,.bmp,.BMP,.ps,.PS,.eps,.EPS,.mps,.MPS,.pz,.eps.Z,.ps.Z,.ps.gz,.eps.gz
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: Reference `fig:' on page 9 undefined on input line 506.
+
+[9] [10]
+
+./d_chapter3/3.tex:598: Package amsmath Error: Erroneous nesting of equation structures;
+(amsmath)                trying to recover with `aligned'.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.598   \end{align}
+                   
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+./d_chapter3/3.tex:600: Missing delimiter (. inserted).
+<to be read again> 
+                   \gdef 
+l.600   \label
+              {eq:balance}
+I was expecting to see something like `(' or `\{' or
+`\}' here. If you typed, e.g., `{' instead of `\{', you
+should probably delete the `{' by typing `1' now, so that
+braces don't get unbalanced. Otherwise just proceed.
+Acceptable delimiters are characters whose \delcode is
+nonnegative, or you can use `\delimiter <delimiter code>'.
+
+
+./d_chapter3/3.tex:610: Package amsmath Error: Erroneous nesting of equation structures;
+(amsmath)                trying to recover with `aligned'.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.610   \end{align}
+                   
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+./d_chapter3/3.tex:612: Missing delimiter (. inserted).
+<to be read again> 
+                   \gdef 
+l.612 \end{equation}
+                    
+I was expecting to see something like `(' or `\{' or
+`\}' here. If you typed, e.g., `{' instead of `\{', you
+should probably delete the `{' by typing `1' now, so that
+braces don't get unbalanced. Otherwise just proceed.
+Acceptable delimiters are characters whose \delcode is
+nonnegative, or you can use `\delimiter <delimiter code>'.
+
+
+./d_chapter3/3.tex:619: Package amsmath Error: Erroneous nesting of equation structures;
+(amsmath)                trying to recover with `aligned'.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.619   \end{align}
+                   
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+./d_chapter3/3.tex:621: Missing delimiter (. inserted).
+<to be read again> 
+                   \gdef 
+l.621 \end{equation}
+                    
+I was expecting to see something like `(' or `\{' or
+`\}' here. If you typed, e.g., `{' instead of `\{', you
+should probably delete the `{' by typing `1' now, so that
+braces don't get unbalanced. Otherwise just proceed.
+Acceptable delimiters are characters whose \delcode is
+nonnegative, or you can use `\delimiter <delimiter code>'.
+
+[11]
+
+./d_chapter3/3.tex:629: Package amsmath Error: Erroneous nesting of equation structures;
+(amsmath)                trying to recover with `aligned'.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.629   \end{align}
+                   
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+./d_chapter3/3.tex:631: Missing delimiter (. inserted).
+<to be read again> 
+                   \gdef 
+l.631 \end{equation}
+                    
+I was expecting to see something like `(' or `\{' or
+`\}' here. If you typed, e.g., `{' instead of `\{', you
+should probably delete the `{' by typing `1' now, so that
+braces don't get unbalanced. Otherwise just proceed.
+Acceptable delimiters are characters whose \delcode is
+nonnegative, or you can use `\delimiter <delimiter code>'.
+
+
+./d_chapter3/3.tex:641: Package amsmath Error: Erroneous nesting of equation structures;
+(amsmath)                trying to recover with `aligned'.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.641   \end{align}
+                   
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+./d_chapter3/3.tex:643: Missing delimiter (. inserted).
+<to be read again> 
+                   \gdef 
+l.643 \end{equation}
+                    
+I was expecting to see something like `(' or `\{' or
+`\}' here. If you typed, e.g., `{' instead of `\{', you
+should probably delete the `{' by typing `1' now, so that
+braces don't get unbalanced. Otherwise just proceed.
+Acceptable delimiters are characters whose \delcode is
+nonnegative, or you can use `\delimiter <delimiter code>'.
+
+
+LaTeX Warning: Reference `eq:' on page 12 undefined on input line 647.
+
+
+LaTeX Warning: Reference `eq:' on page 12 undefined on input line 647.
+
+) [12]
 第 4 章
-(./e_chapter4/4.tex) [9
+(./e_chapter4/4.tex) [13
 
 ]
 第 5 章
-(./f_chapter5/5.tex) [10
+(./f_chapter5/5.tex) [14
 
 ]
 第 6 章
-(./g_conclusion/conclusion.tex) [11
+(./g_conclusion/conclusion.tex) [15
 
-] (./h_acknowledgements/acknowledgements.tex [12
+] (./h_acknowledgements/acknowledgements.tex [16
 
-]) (./i_references/references.tex [13
+]) (./i_references/references.tex [17
 
-]) (./j_appendix/appendix.tex) [14] (./main.aux)
+]) (./j_appendix/appendix.tex) [18] (./main.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 2114 strings out of 493270
- 25794 string characters out of 6145017
+ 2149 strings out of 493270
+ 26004 string characters out of 6145017
  100487 words of memory out of 5000000
- 5990 multiletter control sequences out of 15000+600000
+ 6001 multiletter control sequences out of 15000+600000
  20069 words of font info for 90 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 27i,15n,33p,907b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,19n,33p,907b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (19 pages, 34888 bytes).
+Output written on main.dvi (23 pages, 50472 bytes).
