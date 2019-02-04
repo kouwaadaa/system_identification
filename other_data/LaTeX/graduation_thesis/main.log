@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2019.1.21)  1 FEB 2019 23:41
+This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  4 FEB 2019 17:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -201,7 +201,15 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
 \mathdisplay@stack=\toks24
 LaTeX Info: Redefining \[ on input line 2817.
 LaTeX Info: Redefining \] on input line 2818.
-) (./mediabb.sty
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)) (./mediabb.sty
 Package: mediabb 2006/10/26 v1.9 iNOUE Koich! <inoue@ma.ns.musashi-tech.ac.jp>
 )
 
@@ -240,7 +248,14 @@ LaTeX Font Info:    Font shape `JT2/mc/m/n' will be
 (Font)              scaled to size 16.62714pt on input line 26.
 LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
 (Font)              scaled to size 16.62714pt on input line 26.
- [0
+LaTeX Font Info:    Try loading font information for U+msa on input line 31.
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 31.
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [0
 
 ])
 File: z_figure_files/author.pdf Graphic file (type pdf)
@@ -347,32 +362,74 @@ File: vtol23K_2.pdf Graphic file (type pdf)
 
 ]) [4]
 第 3 章
-(./d_chapter3/3.tex) [5
+(./d_chapter3/3.tex
 
-]
+LaTeX Warning: Reference `' on page 5 undefined on input line 10.
+
+
+LaTeX Warning: Reference `' on page 5 undefined on input line 10.
+
+LaTeX Font Info:    Font shape `JT2/mc/m/n' will be
+(Font)              scaled to size 13.85594pt on input line 14.
+LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
+(Font)              scaled to size 13.85594pt on input line 14.
+LaTeX Font Info:    Font shape `JT2/mc/bx/n' in size <14.4> not available
+(Font)              Font shape `JT2/gt/m/n' tried instead on input line 14.
+LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
+(Font)              scaled to size 13.85594pt on input line 14.
+LaTeX Font Info:    Font shape `JY2/mc/bx/n' in size <14.4> not available
+(Font)              Font shape `JY2/gt/m/n' tried instead on input line 14.
+LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
+(Font)              scaled to size 13.85594pt on input line 14.
+[5
+
+] [6]
+
+LaTeX Warning: Reference `' on page 7 undefined on input line 257.
+
+
+Overfull \hbox (2.02875pt too wide) detected at line 378
+[]
+ []
+
+[7]
+
+LaTeX Warning: Reference `' on page 8 undefined on input line 417.
+
+
+LaTeX Warning: Reference `' on page 8 undefined on input line 417.
+
+
+LaTeX Warning: Reference `' on page 8 undefined on input line 422.
+
+) [8]
 第 4 章
-(./e_chapter4/4.tex) [6
+(./e_chapter4/4.tex) [9
 
 ]
 第 5 章
-(./f_chapter5/5.tex) [7
+(./f_chapter5/5.tex) [10
 
 ]
 第 6 章
-(./g_conclusion/conclusion.tex) [8
+(./g_conclusion/conclusion.tex) [11
 
-] (./h_acknowledgements/acknowledgements.tex [9
+] (./h_acknowledgements/acknowledgements.tex [12
 
-]) (./i_references/references.tex [10
+]) (./i_references/references.tex [13
 
-]) (./j_appendix/appendix.tex) [11] (./main.aux) ) 
+]) (./j_appendix/appendix.tex) [14] (./main.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 1799 strings out of 493270
- 22244 string characters out of 6145018
- 91539 words of memory out of 5000000
- 5700 multiletter control sequences out of 15000+600000
- 14377 words of font info for 66 fonts, out of 8000000 for 9000
+ 2114 strings out of 493270
+ 25794 string characters out of 6145017
+ 100487 words of memory out of 5000000
+ 5990 multiletter control sequences out of 15000+600000
+ 20069 words of font info for 90 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 27i,5n,33p,907b,465s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,15n,33p,907b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (16 pages, 20108 bytes).
+Output written on main.dvi (19 pages, 34888 bytes).
