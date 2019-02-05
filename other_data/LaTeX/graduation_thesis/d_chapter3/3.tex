@@ -8,9 +8,24 @@
 \label{sec:axis}
 %%%%%%%%%%%%%%%%%%%%%%
 
-Fig. \ref{fig:}に示すように，機体に固定した回転座標系$a^{(B)}-x_B,y_B,z_B$(機体座標系)を導入する．また，機体の姿勢を定義するため，Fig. \ref{fig:}に示すように，地球に固定した$a^{(E)}-x_E,y_E,z_E$(地球固定座標系)を導入する．
+Fig. \ref{fig:body_axis}に示すように，機体に固定した回転座標系$a^{(B)}-x_B,y_B,z_B$(機体座標系)を導入する．また，機体の姿勢を定義するため，Fig. \ref{fig:ned_axis}に示すように，地球に固定した$a^{(E)}-x_E,y_E,z_E$(NED座標系)を導入する．
 
 機体姿勢は，姿勢角$\psi,\theta,\phi$によって表し，それぞれヨー角，ピッチ角，ロール角である．これらはオイラー角とよばれ，この順序で機体を回転させることにより，座標系の変換を行なう．
+
+\begin{figure}[H]
+\centering
+\includegraphics[clip,width=10.0cm]{}
+\caption{Body coordinate system}
+\label{fig:body_axis}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[clip,width=10.0cm]{}
+\caption{NED coordinate system}
+\label{fig:ned_axis}
+\end{figure}
+
 
 \subsection{座標系の変換}
 
@@ -425,6 +440,7 @@ where
 である．また，ロータ推力によるモーメントは，\cite{}によるとまだ未解明な点も多いため，本研究で扱う縦運動に関係するピッチングモーメント$M_t$のみ記載することにする．機体軸原点から各ロータまでの距離をFig. \ref{fig:}のように定めると
 \begin{equation}
   M_t = -l_m T_m \cos\gamma + l_f T_f - l_{r_y} T_r
+  \label{eq:M_t}
 \end{equation}
 
 空気力項については，\ref{sec:airf_model}節で詳しく述べる．
@@ -537,14 +553,14 @@ $\mbox{\boldmath $V_a$}$は，$\mbox{\boldmath $V_g$},\mbox{\boldmath $V_w$}$を
 
 以上は一般的な空気力モデルであるが，ロータの吸い込みによって発生する，対気速度に比例する抗力\cite{}と同様に対気速度に比例した揚力が発生するとして，本研究ではモデル式を次のように変更している\cite{}．
 \begin{align}
-  L &= \dfrac{1}{2}\rho {V_a}^2 S C_L + k_L V_a \\
-  D &= \dfrac{1}{2}\rho {V_a}^2 S C_D + k_D V_a \\
+  L &= \dfrac{1}{2}\rho {V_a}^2 S C_L + k_L V_a \\[5pt]
+  D &= \dfrac{1}{2}\rho {V_a}^2 S C_D + k_D V_a \\[5pt]
   M_a &= \dfrac{1}{2}\rho {V_a}^2 S \bar{c} C_m + k_m V_a
 \end{align}
 
 また安定微係数について，影響が小さいとして省略されていた項を考慮し
 \begin{align}
-  C_L &= C_{L_0}+C_{L_\alpha}\alpha+C_{L_{\dot{\alpha}}}\dfrac{\bar{c}}{2V_a}\dot{\alpha}+C_{L_q}\dfrac{\bar{c}}{2V_a}q+C_{L_{\delta_e}}\delta_e \\
+  C_L &= C_{L_0}+C_{L_\alpha}\alpha+C_{L_{\dot{\alpha}}}\dfrac{\bar{c}}{2V_a}\dot{\alpha}+C_{L_q}\dfrac{\bar{c}}{2V_a}q+C_{L_{\delta_e}}\delta_e \\[5pt]
   C_m &= C_{m_0}+C_{m_\alpha}\alpha+C_{m_{\dot{\alpha}}}\dfrac{\bar{c}}{2V_a}\dot{\alpha}+C_{m_q}\dfrac{\bar{c}}{2V_a}q+C_{m_{\delta_e}}\delta_e
 \end{align}
 とした．最後に，\ref{sec:nonlin_model}節の空気力項について
@@ -580,6 +596,7 @@ $\mbox{\boldmath $V_a$}$は，$\mbox{\boldmath $V_g$},\mbox{\boldmath $V_w$}$を
 本節では，縦運動を解析的に検討するために，機体の運動を定常状態からの微小擾乱運動と仮定して近似を行なう．これにより，\ref{sec:nonlin_model}節の非線形モデルを線形化し，機体の低速飛行時の状態方程式を導出する．
 
 \subsection{定常状態}
+\label{sec:steady}
 
 まず，回転翼機モードにおける定常状態の定義について述べる．定常状態での状態変数を，添字0を付けて表し，以下を仮定する．
 	\begin{itemize}
@@ -618,6 +635,7 @@ $\mbox{\boldmath $V_a$}$は，$\mbox{\boldmath $V_g$},\mbox{\boldmath $V_w$}$を
     \Delta \alpha \fallingdotseq \dfrac{\Delta w}{u_0}
   \end{align}
   \right
+  \label{eq:alpha_Delta}
 \end{equation}
 \begin{equation}
   \left\{
@@ -650,5 +668,86 @@ $\mbox{\boldmath $V_a$}$は，$\mbox{\boldmath $V_g$},\mbox{\boldmath $V_w$}$を
   \Delta \dot{w} &= qu_0 - (g\sin \theta_0)\Delta \theta +\dfrac{1}{m}(\Delta Z_a + \Delta Z_t) \\
   \Delta \dot{q} &= \dfrac{1}{I_{yy}}\left\{mg(R_{G_x}\sin\theta_0 - R_{G_z}\cos\theta_0)\Delta \theta + \Delta M_a + \Delta M_t\right\}
 \end{align}
+となる．
 
-\subsection{}
+\subsection{空気力項の線形化}
+\label{sec:airf_lin}
+
+空気力項($X_a, Z_a, M_a$)のうちの1つを$A$で代表して表す．ティルト角$\gamma$は一定であるという条件下で，$A$は機体の速度，角速度，舵角，およびロータ推力の関数であると仮定できる．いまそれらの釣り合い位置からの変化分を，$\Delta u,\Delta w,\Delta q,\Delta \delta_e$とし，これらはいずれも微小量とする．このとき，$A$を上記4変数についてテイラー級数に展開し，それぞれの第1項のみ用いると
+\begin{equation}
+    A \fallingdotseq A_0 &+ \dfrac{\partial A}{\partial \Delta u}\Delta u
+    + \dfrac{\partial A}{\partial \Delta w}\Delta w
+    + \dfrac{\partial A}{\partial \Delta q}\Delta q
+    + \dfrac{\partial A}{\partial \Delta \delta e}\Delta \delta e
+\end{equation}
+と近似できる．ここで$A_0$は釣り合い時の値で，力に関しては$X_{a0},Z_{a0}$，モーメントに関しては$M_a{0}=0$である．また右辺に現れる微係数は，すべて釣り合い状態で定義される．
+
+また，$Z_a,M_a$については，$\dfrac{\partial Z_a}{\partial \Delta \dot{w}}\Delta \dot{w},\dfrac{\partial M_a}{\partial \Delta \dot{w}}\Delta \dot{w}$あるいは$\dfrac{\partial Z_a}{\partial \Delta \dot{\alpha}}\Delta \dot{\alpha},\dfrac{\partial M_a}{\partial \Delta \dot{\alpha}}\Delta \dot{\alpha}$の項を含める．
+
+以上より，機体に作用する力とモーメントは次のように線形化される．
+\begin{align}
+  \Delta X_a &= \dfrac{\partial X_a}{\partial \Delta u}\Delta u
+  + \dfrac{\partial X_a}{\partial \Delta w}\Delta w
+  + \dfrac{\partial X_a}{\partial \Delta q}\Delta q
+  + \dfrac{\partial X_a}{\partial \Delta \delta_e}\Delta \delta_e  \\
+  \Delta Z_a &= \dfrac{\partial Z_a}{\partial \Delta u}\Delta u
+  + \dfrac{\partial Z_a}{\partial \Delta w}\Delta w
+  + \dfrac{\partial Z_a}{\partial \Delta \dot{w}}\Delta \dot{w}
+  + \dfrac{\partial Z_a}{\partial \Delta q}\Delta q
+  + \dfrac{\partial Z_a}{\partial \Delta \delta_e}\Delta \delta_e \\
+  \Delta M_a &= \dfrac{\partial M_a}{\partial \Delta u}\Delta u
+  + \dfrac{\partial M_a}{\partial \Delta w}\Delta w
+  + \dfrac{\partial M_a}{\partial \Delta \dot{w}}\Delta \dot{w}
+  + \dfrac{\partial M_a}{\partial \Delta q}\Delta q
+  + \dfrac{\partial M_a}{\partial \Delta \delta_e}\Delta \delta_e
+\end{align}
+
+さらに式(\ref{eq:alpha_Delta})より
+\begin{equation}
+  \left\{
+  \begin{align}
+    \Delta \dot{w} &= u_0 \Delta \dot{\alpha} \\
+    \dfrac{\partial A}{\partial \Delta w} &= \dfrac{1}{u_0}\left(\dfrac{\partial A}{\partial \Delta \alpha}\right) \\
+    \dfrac{\partial A}{\partial \Delta \dot{w}} &= \dfrac{1}{u_0}\left(\dfrac{\partial A}{\partial \Delta \dot{\alpha}}\right)
+  \end{align}
+\end{equation}
+であるから，まとめて
+\begin{equation}
+  \left\{
+  \begin{align}
+    \dfrac{\partial A}{\partial \Delta w}\Delta w &= \dfrac{\partial A}{\partial \Delta \alpha}\Delta\alpha \\
+    \dfrac{\partial A}{\partial \Delta \dot{w}}\Delta \dot{w} &= \dfrac{\partial A}{\partial \Delta \dot{\alpha}}\Delta\dot{\alpha}
+  \end{align}
+  \label{eq:w_to_alpha}
+\end{equation}
+
+\subsection{線形化された縦運動モデル}
+\label{sec:linear}
+
+\ref{sec:steady}小節と\ref{sec:airf_lin}小節の内容をふまえ，式(\ref{eq:F_t})と式(\ref{eq:M_t})も考慮して，線形化した縦の運動方程式をまとめると次のようになる．ただし，式(\ref{eq:w_to_alpha})を用いて，$w$に関する式を$\alpha$に関する式に変換した上で，表\ref{tb:}にまとめたとおり各項の係数を略記している．
+\begin{equation}
+  \left\{
+  \begin{align}
+    \Delta \dot{u} &= X_u \Delta u + X_\alpha \Delta \alpha + X_q \Delta q + X_\theta \Delta \theta + X_{\delta_e} \Delta \delta_e + X_{T_m}\Delta T_m \\[3pt]
+    \Delta \dot{\alpha} &= \overline{Z_u} \Delta u + \overline{Z_\alpha} \Delta \alpha + \overline{Z_q} \Delta q + \overline{Z_\theta} \Delta \theta \\
+    &\qquad+ \overline{Z_{\delta_e}} \Delta \delta_e + \overline{Z_{T_m}}\Delta T_m + \overline{Z_{T_r}}\Delta T_r + \overline{Z_{T_f}}\Delta T_f \\[3pt]
+    \Delta \dot{q} &= M_u \Delta u + M_\alpha \Delta \alpha + M_{\dot{\alpha}} \Delta \dot{\alpha} + M_q \Delta q + M_\theta \Delta \theta \\
+    &\qquad+ M_{\delta_e} \Delta \delta_e + M_{T_m}\Delta T_m + M_{T_r} \Delta T_r + M_{T_f}\Delta T_f \\[3pt]
+    \Delta \dot{\theta} &= q
+  \end{align}
+  \label{eq:lin_model_1}
+\end{equation}
+
+式(\ref{eq:lin_model_1})において，$\Delta \dot{\alpha}$を用いて$\Delta \dot{q}$内の$\dot{\alpha}$を消去し，改めて線形化した縦運動モデルのまとめを次に示す．
+\begin{equation}
+  \left\{
+  \begin{align}
+    \Delta \dot{u} &= X_u \Delta u + X_\alpha \Delta \alpha + X_q \Delta q + X_\theta \Delta \theta + X_{\delta_e} \Delta \delta_e + X_{T_m}\Delta T_m \\[3pt]
+    \Delta \dot{\alpha} &= \overline{Z_u} \Delta u + \overline{Z_\alpha} \Delta \alpha + \overline{Z_q} \Delta q + \overline{Z_\theta} \Delta \theta \\
+    &\qquad+ \overline{Z_{\delta_e}} \Delta \delta_e + \overline{Z_{T_m}}\Delta T_m + \overline{Z_{T_r}}\Delta T_r + \overline{Z_{T_f}}\Delta T_f \\[3pt]
+    \Delta \dot{q} &= \overline{M_u} \Delta u + \overline{M_\alpha} \Delta \alpha + \overline{M_q} \Delta q + \overline{M_\theta} \Delta \theta \\
+    &\qquad+ \overline{M_{\delta_e}} \Delta \delta_e + \overline{M_{T_m}}\Delta T_m + \overline{M_{T_r}} \Delta T_r + \overline{M_{T_f}}\Delta T_f \\[3pt]
+    \Delta \dot{\theta} &= q
+  \end{align}
+  \label{eq:lin_model}
+\end{equation}

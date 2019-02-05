@@ -1,0 +1,212 @@
+This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  5 FEB 2019 12:46
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**references.tex
+(./references.tex
+pLaTeX2e <2018-04-01u02>+1 (based on LaTeX2e <2018-04-01> patch level 2)
+Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
+
+./references.tex:1: LaTeX Error: Environment thebibliography undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1 \begin{thebibliography}
+                           {99}
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./references.tex:1: LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1 \begin{thebibliography}{9
+                             9}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (30.00003pt too wide) in paragraph at lines 1--2
+[]\OT1/cmr/m/n/10 99 
+ []
+
+
+./references.tex:5: LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.5 \bibitem{katou}
+                   
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+./references.tex:5: Undefined control sequence.
+<argument> \@listctr 
+                     
+l.5 \bibitem{katou}
+                   
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+./references.tex:5: You can't use `\relax' after \the.
+<recently read> \c@ 
+                    
+l.5 \bibitem{katou}
+                   
+I'm forgetting what you said and using zero instead.
+
+\bibcite{katou}{0}
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 6--7
+\JY2/mc/m/n/10 加
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 6--7
+\JY2/mc/m/n/10 藤
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 6--7
+\JY2/mc/m/n/10 寛
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 6--7
+\JY2/mc/m/n/10 一
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 6--7
+\JY2/mc/m/n/10 郎
+ []
+
+
+Overfull \hbox (2.77779pt too wide) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 :
+ []
+
+
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 ``
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 6--7
+\JY2/mc/m/n/10 航
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 6--7
+\JY2/mc/m/n/10 空
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 6--7
+\JY2/mc/m/n/10 機
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 6--7
+\JY2/mc/m/n/10 力
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 6--7
+\JY2/mc/m/n/10 学
+ []
+
+
+Overfull \hbox (9.6222pt too wide) in paragraph at lines 6--7
+\JY2/mc/m/n/10 入
+ []
+
+
+Overfull \hbox (17.4pt too wide) in paragraph at lines 6--7
+\JY2/mc/m/n/10 門\OT1/cmr/m/n/10 ,''
+ []
+
+
+Overfull \hbox (2.77779pt too wide) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 ,
+ []
+
+
+Overfull \hbox (13.33337pt too wide) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 no.
+ []
+
+
+Overfull \hbox (2.77779pt too wide) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 ,
+ []
+
+
+Overfull \hbox (13.88893pt too wide) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 pp.
+ []
+
+
+Overfull \hbox (7.7778pt too wide) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 () 
+ []
+
+
+./references.tex:8: LaTeX Error: \begin{document} ended by \end{thebibliography}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.8 \end{thebibliography}
+                         
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+LaTeX Font Info:    Font shape `JT2/mc/m/n' will be
+(Font)              scaled to size 9.6222pt on input line 10.
+LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
+(Font)              scaled to size 9.6222pt on input line 10.
+
+./references.tex:10: LaTeX Error: The font size command \normalsize is not defined:
+               there is probably something wrong with the class file.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 \newpage
+             
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+[1])
+! Emergency stop.
+<*> references.tex
+                  
+*** (job aborted, no legal \end found)
+
+ 
+Here is how much of TeX's memory you used:
+ 7 strings out of 493270
+ 88 string characters out of 6145017
+ 62600 words of memory out of 5000000
+ 4046 multiletter control sequences out of 15000+600000
+ 6281 words of font info for 32 fonts, out of 8000000 for 9000
+ 929 hyphenation exceptions out of 8191
+ 19i,4n,8p,86b,118s stack positions out of 5000i,500n,10000p,200000b,80000s
+Output written on references.dvi (1 page, 364 bytes).
