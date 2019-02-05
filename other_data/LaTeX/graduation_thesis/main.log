@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2019.1.21)  5 FEB 2019 11:33
+This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2019.1.21)  5 FEB 2019 11:51
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -364,10 +364,10 @@ File: vtol23K_2.pdf Graphic file (type pdf)
 第 3 章
 (./d_chapter3/3.tex
 
-LaTeX Warning: Reference `' on page 5 undefined on input line 11.
+LaTeX Warning: Reference `fig:' on page 5 undefined on input line 11.
 
 
-LaTeX Warning: Reference `' on page 5 undefined on input line 11.
+LaTeX Warning: Reference `fig:' on page 5 undefined on input line 11.
 
 LaTeX Font Info:    Font shape `JT2/mc/m/n' will be
 (Font)              scaled to size 13.85594pt on input line 15.
@@ -383,23 +383,13 @@ LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
 (Font)              scaled to size 13.85594pt on input line 15.
 [5
 
-] [6]
-
-LaTeX Warning: Reference `' on page 7 undefined on input line 262.
-
-[7]
+] [6] [7]
 Overfull \hbox (2.02875pt too wide) detected at line 385
 []
  []
 
 
-LaTeX Warning: Reference `' on page 8 undefined on input line 425.
-
-
-LaTeX Warning: Reference `' on page 8 undefined on input line 425.
-
-
-LaTeX Warning: Reference `' on page 8 undefined on input line 430.
+LaTeX Warning: Reference `fig:' on page 8 undefined on input line 425.
 
 
 LaTeX Warning: Reference `fig:' on page 8 undefined on input line 434.
@@ -419,10 +409,11 @@ I could not locate the file with any of these extensions:
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
+[9]
 
-LaTeX Warning: Reference `fig:' on page 9 undefined on input line 506.
+LaTeX Warning: Reference `fig:' on page 10 undefined on input line 506.
 
-[9] [10]
+[10]
 
 ./d_chapter3/3.tex:598: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
@@ -448,6 +439,7 @@ braces don't get unbalanced. Otherwise just proceed.
 Acceptable delimiters are characters whose \delcode is
 nonnegative, or you can use `\delimiter <delimiter code>'.
 
+[11]
 
 ./d_chapter3/3.tex:610: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
@@ -498,7 +490,6 @@ braces don't get unbalanced. Otherwise just proceed.
 Acceptable delimiters are characters whose \delcode is
 nonnegative, or you can use `\delimiter <delimiter code>'.
 
-[11]
 
 ./d_chapter3/3.tex:629: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
@@ -577,12 +568,12 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 2149 strings out of 493270
- 26004 string characters out of 6145018
- 100487 words of memory out of 5000000
- 6001 multiletter control sequences out of 15000+600000
+ 2148 strings out of 493270
+ 26002 string characters out of 6145018
+ 101487 words of memory out of 5000000
+ 6000 multiletter control sequences out of 15000+600000
  20069 words of font info for 90 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 27i,19n,33p,907b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,19n,33p,867b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (23 pages, 48472 bytes).
+Output written on main.dvi (23 pages, 48520 bytes).
