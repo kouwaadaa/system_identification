@@ -201,6 +201,8 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
     Vi_wind = np.array(Vi_wind)
 
     # センサー位置の補正
+    # 要修正？
+    # Vi[:,1] = Vi[:,1] - d_psi*const.LEN_P
     Vi[:,2] = Vi[:,2] + d_theta*const.LEN_P
 
     # 対気速度を計算

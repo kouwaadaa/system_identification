@@ -53,6 +53,9 @@ INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 INPUT mediabb.sty
 INPUT mediabb.sty
+INPUT ulem.sty
+INPUT ulem.sty
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/latex-fonts/lasy6.tfm
 INPUT main.aux
 INPUT main.aux
 OUTPUT main.aux

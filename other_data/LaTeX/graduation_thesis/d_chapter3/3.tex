@@ -125,7 +125,17 @@ Fig. \ref{fig:body_axis}に示すように，機体に固定した回転座標�
   \right]
   \label{eq:euler}
 \end{equation}
-となり，これはオイラー角のキネマティクス方程式とよばれる．ここで，$\dot{\phi},\dot{\theta},\dot{\psi}$はそれぞれ姿勢角の時間微分であり，$p,q,r$はそれぞれ機体座標系における角速度の$x,y,z$成分である．
+where
+\begin{equation*}
+  \mbox{\boldmath $\omega$} =
+  \left[
+  \begin{array}{c}
+    p \quad q \quad r
+  \end{array}
+  \right]^{\mathrm{T}} :
+  \mbox{機体の角速度}
+\end{equation*}
+となり，これはオイラー角のキネマティクス方程式とよばれる．$\dot{\phi},\dot{\theta},\dot{\psi}$はそれぞれ姿勢角の時間微分である．
 
 %%%%%%%%%%%%%%%%%%%%%%
 \section{非線形モデル}
@@ -446,6 +456,7 @@ where
 空気力項については，\ref{sec:airf_model}節で詳しく述べる．
 
 \subsection{縦運動の非線形モデル}
+\label{sec:lng_non_linear}
 
 ここでは，Fig. \ref{fig:}に示すような縦運動を考える．そこで横・方向系の運動状態変数と入力変数を，$v=p=r=\delta_a=\phi=0$とすれば，縦運動における低速飛行の非線形モデルは式(\ref{eq:mot_eq}), 式(\ref{eq:F_g})および式(\ref{eq:roll_eq}), 式(\ref{eq:M_g})より，次のようになる．
 \begin{align}
@@ -468,6 +479,7 @@ where
 本研究では，風が吹いている環境での回転翼機モードにおける低速飛行を想定する．そこで，まず機体の対気速度の設定を述べ，その後空気力モデルについてまとめ，\ref{sec:nonlin_model}節の空気力項について詳しく述べる．
 
 \subsection{一定風下での対気速度}
+\label{sec:wind_speed}
 
 機体の対気速度$\mbox{\boldmath $V_a$}$，対地速度$\mbox{\boldmath $V_g$}$，風速$\mbox{\boldmath $V_w$}$の関係をFig. \ref{fig:vel_air}に示す．
 
@@ -518,6 +530,7 @@ $\mbox{\boldmath $V_a$}$は，$\mbox{\boldmath $V_g$},\mbox{\boldmath $V_w$}$を
 で計算される．
 
 \subsection{対気速度により発生する空気力}
+\label{sec:airspeed_airf}
 
 ここで，Fig. \ref{fig:}の場合を想定する．まず，エレベータ舵角$\delta_e$とエルロン舵角$\delta_a$は，左右エレボン舵角$\delta_{e_l}, \delta_{e_r}$を用いて次のように表される．
 \begin{equation}
@@ -583,6 +596,7 @@ $\mbox{\boldmath $V_a$}$は，$\mbox{\boldmath $V_g$},\mbox{\boldmath $V_w$}$を
     D \\
   \end{array}
   \right]
+  \label{eq:XZ_to_LD}
 \end{equation}
 と書ける．$Y_a$は揚力や抗力と同様に
 \begin{equation}
