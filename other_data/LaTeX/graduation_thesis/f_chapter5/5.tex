@@ -1,8 +1,76 @@
 % 第5章 低速飛行特性
 %!TEX root = main.tex
 
-\section{線形モデル}
+%%%%%%%%%%%%%%%%%%%%%%
+\chapter{低速飛行特性}
+\label{flight_char}
+%%%%%%%%%%%%%%%%%%%%%%
 
+本章では，実験で得られたデータから，これまでに述べた力学モデルを用いてパラメータ同定を行ない，低速飛行時の飛行特性について検証する．まず機体が持つ固有振動をとらえるために，線形モデルによる固有値解析を行なう．次に，同定を行なった結果から，設定した空気力モデルの妥当性を検討する．最後に，同定結果をCFD解析の結果と比較し，考察を行なう．
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{線形モデルによる固有値解析}
+\label{sec:analyze}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+本節では，線形化された機体の飛行モデルを用いて，固有値解析を行なう．まず機体の状態方程式を導出する．次に，実際に計算で得られた機体の固有振動数を示し，考察を行なう．
+
+\subsection{機体の状態方程式}
+
+式(\ref{eq:lin_model})より，$\Delta$を省略して微分方程式をまとめると
+\begin{equation}
+  \dfrac{d}{dt}
+  \left[
+  \begin{array}{cccc}
+    u \\
+    \alpha \\
+    q \\
+    \theta \\
+  \end{array}
+  \right] =
+  \left[
+  \begin{array}{cccc}
+    X_u & X_\alpha & X_q & X_\theta \\
+    \overline{Z_u} & \overline{Z_\alpha} & \overline{Z_q} & \overline{Z_\theta} \\
+    \overline{M_u} & \overline{M_\alpha} & \overline{M_q} & \overline{M_\theta} \\
+    0 & 0 & 1 & 0
+  \end{array}
+  \right]
+  \left[
+  \begin{array}{cccc}
+    u \\
+    \alpha \\
+    q \\
+    \theta \\
+  \end{array}
+  \right] +
+  \left[
+  \begin{array}{cccc}
+    X_{\delta_e} & X_{T_m} & 0 & 0 \\
+    \overline{Z_{\delta_e}} & \overline{Z_{T_m}} & \overline{Z_{T_r}} & \overline{Z_{T_f}} \\
+    \overline{M_{\delta_e}} & \overline{M_{T_m}} & \overline{M_{T_r}} & \overline{M_{T_f}} \\
+    0 & 0 & 0 & 0
+  \end{array}
+  \right]
+  \left[
+  \begin{array}{cccc}
+    \delta_e \\
+    T_m \\
+    T_r \\
+    T_f \\
+  \end{array}
+  \right]
+\end{equation}
+となり，プロセスノイズを省略すれば，この状態方程式は行列$A$と状態量$\underline{x}(u,\alpha,q,\theta)$，入力$\underline{u}$を用いることによって
+\begin{equation}
+  \dfrac{d\underline{x}}{dt} = A\underline{x} + \underline{u}
+\end{equation}
+と表すことができる．ここで入力
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{空気力モデルの検証}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{CFDの解析結果との比較}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

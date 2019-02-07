@@ -38,17 +38,12 @@
 \vspace*{13cm}
 \begin{flushleft}
 \hspace*{-9mm}
-\includegraphics[height=8.3cm,width=6.0cm,clip]{z_figure_files/author.pdf}
+\includegraphics[height=8.3cm,width=6.0cm,clip]{z_figure_files/author.eps}
 \end{flushleft}
 \vspace*{-5mm}
 \hspace*{-9mm}
 Copyright \copyright \, 2019, Hiroki Yuba
 
-
-%%B4の人は省く----------------------------------------------------
-%\thispagestyle{empty}%%%英文要旨ページ番号なし
-%\input{./abstract/abstract_en.tex}%%%%%%%英文要旨
-%%----------------------------------------------------------------
 \thispagestyle{empty}%%%和文要旨ページ番号なし
 \input{./a_abstract/abstract_ja.tex}%%%%%%%和文要旨
 %\baselineskip=0.7cm%%%%目次の間隔狭い時ON
@@ -60,22 +55,12 @@ Copyright \copyright \, 2019, Hiroki Yuba
 \pagenumbering{arabic}%%本文のページ番号arabic
 \setcounter{page}{1}%%%%本文のページ1から開始
 
-\chapter{序論}
-  \input{./b_chapter1/1.tex}
-\chapter{実験機体}
-  \label{aircraft}
-  \input{./c_chapter2/2.tex}
-\chapter{力学モデル}
-  \label{model}
-  \input{./d_chapter3/3.tex}
-\chapter{パラメータ同定}
-  \label{sys_id}
-  \input{./e_chapter4/4.tex}
-\chapter{低速飛行特性}
-  \label{flight_char}
-  \input{./f_chapter5/5.tex}
-\chapter{結論}
-  \input{./g_conclusion/conclusion.tex}
+\input{./b_chapter1/1.tex}
+\input{./c_chapter2/2.tex}
+\input{./d_chapter3/3.tex}
+\input{./e_chapter4/4.tex}
+\input{./f_chapter5/5.tex}
+\input{./g_conclusion/conclusion.tex}
 
 \newpage
 \addcontentsline{toc}{chapter}{謝辞}
