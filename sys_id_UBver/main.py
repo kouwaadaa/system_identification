@@ -150,9 +150,9 @@ format_df6 = statistics.calc_RMSE(format_df6)
 # format_df6[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD alpha dot x')
 # format_df6[['Cm_log','Cm','Va']].plot.line(x='Va', style='o', title='Cm alpha dot x')
 
-format_df5[['CL_log','CL','Va']].plot.line(x='Va', style=['o','p'], title='CL')
-format_df5[['CD_log','CD','Va']].plot.line(x='Va', style=['o','p'], title='CD')
-format_df5[['Cm_log','Cm','Va']].plot.line(x='Va', style=['o','p'], title='Cm')
+# format_df5[['CL_log','CL','Va']].plot.line(x='Va', style=['o','p'], title='CL')
+# format_df5[['CD_log','CD','Va']].plot.line(x='Va', style=['o','p'], title='CD')
+# format_df5[['Cm_log','Cm','Va']].plot.line(x='Va', style=['o','p'], title='Cm')
 
 # format_df4[['CL_log','CL','Va']].plot.line(x='Va', style='o', title='CL kv x')
 # format_df4[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD kv x')
@@ -171,29 +171,29 @@ format_df5[['Cm_log','Cm','Va']].plot.line(x='Va', style=['o','p'], title='Cm')
 # window = np.hamming(data_size)
 # manual_T3 = window * manual_T3
 
-# # 固有値の絶対値をとる．
-# lambda_A_abs = np.abs(anly_result[0])
+# 固有値の絶対値をとる．
+lambda_A_abs = np.abs(anly_result[0])
+
+xxx = np.arange(data_size)
+y = lambda_A_abs[:,0]
+yy = lambda_A_abs[:,1]
+yyy = lambda_A_abs[:,2]
+yyyy = lambda_A_abs[:,3]
+
+plt.subplot(111)
+plt.scatter(xxx,y,label="")
+plt.scatter(xxx,yy,label="")
+plt.scatter(xxx,yyy,label="")
+plt.scatter(xxx,yyyy,label="")
 #
-# xxx = np.arange(data_size)
-# y = lambda_A_abs[:,0]
-# yy = lambda_A_abs[:,1]
-# yyy = lambda_A_abs[:,2]
-# yyyy = lambda_A_abs[:,3]
 #
-# plt.subplot(111)
-# plt.scatter(xxx,y)
-# plt.scatter(xxx,yy)
-# plt.scatter(xxx,yyy)
-# plt.scatter(xxx,yyyy)
-# #
-# #
-# # for j in range(FILE_NUM-1):
-# #     plt.axvline(x=borderline_data_num[j], color="black") # 実験データの境目で線を引く
-# #
+# for j in range(FILE_NUM-1):
+#     plt.axvline(x=borderline_data_num[j], color="black") # 実験データの境目で線を引く
+
 # plt.title('固有値散布図')
-# plt.xlabel('データ番号')
-# plt.ylabel('固有値')
-# plt.show()
+plt.xlabel('Data Number')
+plt.ylabel('Eigenvalue')
+plt.show()
 # #
 # # ax = fig.add_subplot(2,1,2)
 # #

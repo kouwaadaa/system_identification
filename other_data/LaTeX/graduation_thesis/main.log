@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  7 FEB 2019 22:45
+This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  7 FEB 2019 23:47
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -720,26 +720,26 @@ my insertion and my current dilemma will both disappear.
 
 ]
 
-LaTeX Warning: Reference `fig:' on page 16 undefined on input line 39.
+LaTeX Warning: Reference `fig:' on page 16 undefined on input line 40.
 
 [16]
 
-./e_chapter4/4.tex:63: Package amsmath Error: Erroneous nesting of equation structures;
+./e_chapter4/4.tex:64: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
 
 See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.63   \end{align}
+l.64   \end{align}
                   
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-./e_chapter4/4.tex:65: Missing delimiter (. inserted).
+./e_chapter4/4.tex:66: Missing delimiter (. inserted).
 <to be read again> 
                    \gdef 
-l.65   \label
+l.66   \label
              {eq:L_D_Ma}
 I was expecting to see something like `(' or `\{' or
 `\}' here. If you typed, e.g., `{' instead of `\{', you
@@ -749,22 +749,22 @@ Acceptable delimiters are characters whose \delcode is
 nonnegative, or you can use `\delimiter <delimiter code>'.
 
 
-./e_chapter4/4.tex:74: Package amsmath Error: Erroneous nesting of equation structures;
+./e_chapter4/4.tex:75: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
 
 See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.74   \end{align}
+l.75   \end{align}
                   
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-./e_chapter4/4.tex:76: Missing delimiter (. inserted).
+./e_chapter4/4.tex:77: Missing delimiter (. inserted).
 <to be read again> 
                    \gdef 
-l.76   \label
+l.77   \label
              {eq:CL_CD_Cm}
 I was expecting to see something like `(' or `\{' or
 `\}' here. If you typed, e.g., `{' instead of `\{', you
@@ -773,20 +773,20 @@ braces don't get unbalanced. Otherwise just proceed.
 Acceptable delimiters are characters whose \delcode is
 nonnegative, or you can use `\delimiter <delimiter code>'.
 
-./e_chapter4/4.tex:83: Missing { inserted.
+./e_chapter4/4.tex:84: Missing { inserted.
 <to be read again> 
                    \gdef 
-l.83   C_{L_\dot{\alpha}
+l.84   C_{L_\dot{\alpha}
                         }},
 A left brace was mandatory here, so I've put one in.
 You might want to delete and/or insert some corrections
 so that I will find a matching right brace soon.
 (If you're confused by all this, try typing `I}' now.)
 
-./e_chapter4/4.tex:92: Missing { inserted.
+./e_chapter4/4.tex:93: Missing { inserted.
 <to be read again> 
                    \gdef 
-l.92   C_{m_\dot{\alpha}
+l.93   C_{m_\dot{\alpha}
                         }},
 A left brace was mandatory here, so I've put one in.
 You might want to delete and/or insert some corrections
@@ -794,10 +794,10 @@ so that I will find a matching right brace soon.
 (If you're confused by all this, try typing `I}' now.)
 
 [17]
-./e_chapter4/4.tex:142: Missing { inserted.
+./e_chapter4/4.tex:143: Missing { inserted.
 <to be read again> 
                    \gdef 
-l.142 ...quad C_{L_\alpha} \quad C_{L_\dot{\alpha}
+l.143 ...quad C_{L_\alpha} \quad C_{L_\dot{\alpha}
                                                   }} \quad C_{L_q} \quad C_{...
 A left brace was mandatory here, so I've put one in.
 You might want to delete and/or insert some corrections
@@ -805,13 +805,17 @@ so that I will find a matching right brace soon.
 (If you're confused by all this, try typing `I}' now.)
 
 
-LaTeX Warning: Reference `sec:' on page 18 undefined on input line 183.
+LaTeX Warning: Reference `sec:' on page 18 undefined on input line 184.
 
 ) (./f_chapter5/5.tex [18]
 第 5 章
-) (./g_conclusion/conclusion.tex [19
+[19
 
-] [20]
+]
+
+LaTeX Warning: Reference `fig:' on page 20 undefined on input line 84.
+
+) (./g_conclusion/conclusion.tex [20]
 第 6 章
 ) [21
 
@@ -825,12 +829,12 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 2244 strings out of 493270
- 26875 string characters out of 6145017
+ 2247 strings out of 493270
+ 26912 string characters out of 6145017
  102291 words of memory out of 5000000
- 6092 multiletter control sequences out of 15000+600000
+ 6095 multiletter control sequences out of 15000+600000
  20175 words of font info for 91 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
  27i,19n,27p,865b,464s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (29 pages, 74828 bytes).
+Output written on main.dvi (29 pages, 77144 bytes).
