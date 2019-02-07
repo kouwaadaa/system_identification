@@ -125,19 +125,19 @@ where
   \mbox{\boldmath $z$} =
   \left[
   \begin{array}{c}
-    C_L(1) \quad C_L(2) \quad \hdots \quad C_L(N)
+    C_L^{\prime}(1) \quad C_L^{\prime}(2) \quad \hdots \quad C_L^{\prime}(N)
   \end{array}
   \right]^{\mathrm{T}} :
-  \mbox{式(\ref{eq:LD_to_XZ})から計算される$N\times1$ベクトル}
+  \mbox{式(\ref{eq:L_D_Ma})から計算される$N\times1$ベクトル}
 \end{equation*}
 \begin{equation*}
   \mbox{\boldmath $\theta$} =
   \left[
   \begin{array}{c}
-    C_{L_0} \quad C_{L_\alpha} \quad C_{L_\dot{\alpha}}} \quad C_{L_q} \quad C_{L_{\delta_e}}
+    C_{L_0} \quad C_{L_\alpha} \quad C_{L_\dot{\alpha}}} \quad C_{L_q} \quad C_{L_{\delta_e}} \quad C_{L_k}
   \end{array}
   \right]^{\mathrm{T}} :
-  \mbox{未知パラメータの$5\times1$ベクトル}
+  \mbox{未知パラメータの$6\times1$ベクトル}
 \end{equation*}
 \begin{equation*}
   \mbox{\boldmath $X$} =
@@ -147,10 +147,11 @@ where
     \mbox{\boldmath $\alpha$} \quad
     \dfrac{\bar{c}}{2 \mbox{\boldmath $V_a$}} \mbox{\boldmath $\dot{\alpha}$} \quad
     \dfrac{\bar{c}}{2 \mbox{\boldmath $V_a$}} \mbox{\boldmath $q$} \quad
-    \mbox{\boldmath $\delta_e$}
+    \mbox{\boldmath $\delta_e$} \quad
+    \dfrac{1}{\mbox{\boldmath $V_a$}}
   \end{array}
   \right] :
-  \mbox{ログデータから得られる$N\times4$行列}
+  \mbox{ログデータから得られる$N\times6$行列}
 \end{equation*}
 \begin{equation*}
   \mbox{\boldmath $\nu$} =
@@ -161,3 +162,17 @@ where
   \right]^{\mathrm{T}} :
   \mbox{誤差の$N\times1$ベクトル}
 \end{equation*}
+
+\hspace{5pt}
+
+このとき推定したい$\mbox{\boldmath $\theta$}$は，モデルから想定される理論値と実際の測定値との差の二乗和である
+\begin{equation}
+  \mbox{\boldmath $J(\theta)$} = \dfrac{1}{2}(\mbox{\boldmath $z$}-\mbox{\boldmath $X\theta$})^{T}(\mbox{\boldmath $z$}-\mbox{\boldmath $X\theta$})
+\end{equation}
+を最小にするように定めればよい．したがって，最小二乗法\cite{}により推定値は
+\begin{equation}
+  \mbox{\boldmath $\hat{\theta}$} = (\mbox{\boldmath $X$}^{T}\mbox{\boldmath $X$})^{-1}\mbox{\boldmath $X$}^{T}\mbox{\boldmath $z$}
+\end{equation}
+と計算できる．
+
+同様の手順で，抗力係数$C_D$とピッチモーメント係数$C_m$についても計算すれば，未知パラメータ群$\xi$はすべて求めることができる．実際の推定結果とそれに対する考察は，\ref{sec:}で行なう．

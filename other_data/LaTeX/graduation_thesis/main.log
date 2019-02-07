@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  7 FEB 2019 19:35
+This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  7 FEB 2019 21:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -783,6 +783,9 @@ You might want to delete and/or insert some corrections
 so that I will find a matching right brace soon.
 (If you're confused by all this, try typing `I}' now.)
 
+
+LaTeX Warning: Reference `sec:' on page 18 undefined on input line 178.
+
 ) [18]
 第 5 章
 (./f_chapter5/5.tex) [19
@@ -801,12 +804,12 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 2242 strings out of 493270
- 26862 string characters out of 6145017
+ 2243 strings out of 493270
+ 26868 string characters out of 6145017
  102291 words of memory out of 5000000
- 6090 multiletter control sequences out of 15000+600000
+ 6091 multiletter control sequences out of 15000+600000
  20175 words of font info for 91 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
  27i,19n,33p,867b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (28 pages, 69768 bytes).
+Output written on main.dvi (28 pages, 70876 bytes).

@@ -607,7 +607,7 @@ $\mbox{\boldmath $V_a$}$は，$\mbox{\boldmath $V_g$},\mbox{\boldmath $V_w$}$を
 %%%%%%%%%%%%%%%%%%%%
 \section{縦運動の線形モデル}
 %%%%%%%%%%%%%%%%%%%%
-本節では，縦運動を解析的に検討するために，機体の運動を定常状態からの微小擾乱運動と仮定して近似を行なう．これにより，\ref{sec:nonlin_model}節の非線形モデルを線形化し，機体の低速飛行時の状態方程式を導出する．
+本節では，縦運動を解析的に検討するために，機体の運動を定常状態からの微小擾乱運動と仮定して近似を行なう．これにより，\ref{sec:nonlin_model}節の非線形モデルを線形化する．
 
 \subsection{定常状態}
 \label{sec:steady}
@@ -747,7 +747,7 @@ $\mbox{\boldmath $V_a$}$は，$\mbox{\boldmath $V_g$},\mbox{\boldmath $V_w$}$を
     &\qquad+ \overline{Z_{\delta_e}} \Delta \delta_e + \overline{Z_{T_m}}\Delta T_m + \overline{Z_{T_r}}\Delta T_r + \overline{Z_{T_f}}\Delta T_f \\[3pt]
     \Delta \dot{q} &= M_u \Delta u + M_\alpha \Delta \alpha + M_{\dot{\alpha}} \Delta \dot{\alpha} + M_q \Delta q + M_\theta \Delta \theta \\
     &\qquad+ M_{\delta_e} \Delta \delta_e + M_{T_m}\Delta T_m + M_{T_r} \Delta T_r + M_{T_f}\Delta T_f \\[3pt]
-    \Delta \dot{\theta} &= q
+    \Delta \dot{\theta} &= \Delta q
   \end{align}
   \label{eq:lin_model_1}
 \end{equation}
@@ -761,7 +761,7 @@ $\mbox{\boldmath $V_a$}$は，$\mbox{\boldmath $V_g$},\mbox{\boldmath $V_w$}$を
     &\qquad+ \overline{Z_{\delta_e}} \Delta \delta_e + \overline{Z_{T_m}}\Delta T_m + \overline{Z_{T_r}}\Delta T_r + \overline{Z_{T_f}}\Delta T_f \\[3pt]
     \Delta \dot{q} &= \overline{M_u} \Delta u + \overline{M_\alpha} \Delta \alpha + \overline{M_q} \Delta q + \overline{M_\theta} \Delta \theta \\
     &\qquad+ \overline{M_{\delta_e}} \Delta \delta_e + \overline{M_{T_m}}\Delta T_m + \overline{M_{T_r}} \Delta T_r + \overline{M_{T_f}}\Delta T_f \\[3pt]
-    \Delta \dot{\theta} &= q
+    \Delta \dot{\theta} &= \Delta q
   \end{align}
   \label{eq:lin_model}
 \end{equation}
