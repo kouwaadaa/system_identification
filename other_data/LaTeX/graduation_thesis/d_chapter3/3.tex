@@ -6,7 +6,7 @@
 \label{model}
 %%%%%%%%%%%%%%%%%%%%
 
-本章では，機体を単一の剛体とみなしたときの6自由度(3軸方向，3軸まわり回転)非線形運動方程式，および3つの姿勢角(オイラー角)の微分方程式による，計9次の非線形微分方程式を記述し，特に縦運動(前後，上下，機首の上下回転運動)にのみ着目し，飛行モデルを設定する．さらに，機体まわりに働く空気力のモデルの設定について述べる．最後に，微小擾乱運動を仮定し，非線形モデルの線形化を行なう．
+本章では，機体を単一の剛体とみなしたときの6自由度(3軸方向並進，3軸まわり回転)非線形運動方程式，および3つの姿勢角(オイラー角)の微分方程式による計9個の非線形微分方程式を記述し，特に縦運動(前後，上下，機首の上下回転運動)にのみ着目し，飛行モデルを設定する．さらに，機体まわりに働く空気力のモデルの設定について述べる．最後に，微小擾乱運動を仮定し，非線形モデルの線形化を行なう．
 
 %%%%%%%%%%%%%%%%%%%%%%
 \section{座標系の導入}
@@ -130,7 +130,7 @@ Fig. \ref{fig:body_axis}に示すように，機体に固定した回転座標�
   \right]
   \label{eq:euler}
 \end{equation}
-where
+となる．ただし，
 \begin{equation*}
   \mbox{\boldmath $\omega$} =
   \left[
@@ -140,7 +140,8 @@ where
   \right]^{\mathrm{T}} :
   \mbox{機体の角速度}
 \end{equation*}
-となり，これはオイラー角のキネマティクス方程式とよばれる．$\dot{\phi},\dot{\theta},\dot{\psi}$はそれぞれ姿勢角の時間微分である．
+
+これはオイラー角のキネマティクス方程式とよばれる．$\dot{\phi},\dot{\theta},\dot{\psi}$はそれぞれ姿勢角の時間微分である．
 
 %%%%%%%%%%%%%%%%%%%%%%
 \section{非線形モデル}
@@ -184,7 +185,7 @@ where
   \right]
   \label{eq:mot_eq}
 \end{equation}
-where
+となる．ただし，
 \begin{equation*}
   \mbox{\boldmath $V_g$} =
   \left[
@@ -203,11 +204,11 @@ where
   \right]^{\mathrm{T}} :
   \mbox{機体に働く力}
 \end{equation*}
-となる．式(\ref{eq:mot_eq})の右辺第2項の力は，重力，空気力，ロータ推力に分けて
+
+式(\ref{eq:mot_eq})の右辺第2項の力は，重力，空気力，ロータ推力に分けて
 \begin{equation}
     \mbox{\boldmath $F$} = \mbox{\boldmath $F_g$} + \mbox{\boldmath $F_a$} + \mbox{\boldmath $F_t$}
 \end{equation}
-where
 \begin{align*}
   \mbox{\boldmath $F_g$} =
   \left[
@@ -343,8 +344,6 @@ where
   \end{array}
   \right]
 \end{equation}
-ただし，回転翼機モードにおいて，慣性モーメント$I_{xz}$は，値が微小である場合か，機体軸として慣性主軸を選んだ場合を考え0とする．
-
 このとき，機体の回転運動方程式は
 \begin{equation}
 I\left[
@@ -378,7 +377,7 @@ I\left[
   \right]
   \label{eq:roll_eq}
 \end{equation}
-where
+となる．ただし，
 \begin{equation*}
   \mbox{\boldmath $M$} =
   \left[
@@ -388,11 +387,11 @@ where
   \right]^{\mathrm{T}} :
   \mbox{各機体軸まわりのモーメント}
 \end{equation*}
-となる．式(\ref{eq:roll_eq})の右辺第2項のモーメントは，重力，空気力，ロータ推力それぞれによるモーメントに分けて
+
+式(\ref{eq:roll_eq})の右辺第2項のモーメントは，重力，空気力，ロータ推力それぞれによるモーメントに分けて
 \begin{equation}
     \mbox{\boldmath $M$} = \mbox{\boldmath $M_g$} + \mbox{\boldmath $M_a$} + \mbox{\boldmath $M_t$}
 \end{equation}
-where
 \begin{align*}
   \mbox{\boldmath $M_g$} =
   \left[
@@ -413,7 +412,7 @@ where
   \end{array}
   \right]^{\mathrm{T}}
 \end{align*}
-と書ける．ここで重力について，機体軸原点から重心までの距離ベクトルを\mbox{\boldmath $R_G$}とすれば
+と書ける．ここで重力について，機体軸原点から重心までの距離ベクトルを\mbox{\boldmath $R_G$}とすれば，式(\ref{eq:F_g})も考慮して
 \begin{equation}
   \begin{split}
     \mbox{\boldmath $M_g$} \triangleq
@@ -432,19 +431,18 @@ where
       0 \\
       R_{G_z}
     \end{array}
-    \right] \times
-    A^{(B,E)}
+    \right] \times mg
     \left[
     \begin{array}{ccc}
-      0 \\
-      0 \\
-      mg
+      -sin\theta \\
+      sin\phi cos\theta \\
+      cos\phi cos\theta
     \end{array}
     \right] \\
     &= mg
     \left[
     \begin{array}{ccc}
-      R_{G_z}\cos\theta\sin\phi \\
+      -R_{G_z}\cos\theta\sin\phi \\
       -R_{G_z}\sin\theta - R_{G_x}\cos\theta\cos\phi \\
       R_{G_x}\cos\theta\sin\phi
     \end{array}
@@ -569,14 +567,14 @@ $\mbox{\boldmath $V_a$}$は，$\mbox{\boldmath $V_g$},\mbox{\boldmath $V_w$}$を
 \end{align}
 と表される．ただし，$\rho$は大気密度，$S$は全機面積，$\bar{c}$は平均空力翼弦であり，$C_L,C_D$はそれぞれ揚力係数，抗力係数である．例えば$C_{L_\alpha}$は，迎角$\alpha$が増加したときにどれくらい$C_L$が増えるかを表したもので，このような空力係数は安定微係数とよばれる．
 
-以上は一般的な空気力モデルであるが，ロータの吸い込みによって発生する，対気速度に比例する抗力\cite{}と同様に対気速度に比例した揚力が発生するとして，本研究ではモデル式を次のように変更している\cite{}．
+以上は一般的な空気力モデルであるが，ロータの吸い込みによって発生する，対気速度に比例する抗力\cite{}と同様に対気速度に比例した揚力およびピッチモーメントが発生するとして，本研究ではモデル式を次のように変更している\cite{}．
 \begin{align}
   L &= \dfrac{1}{2}\rho {V_a}^2 S C_L + k_L V_a \\[5pt]
   D &= \dfrac{1}{2}\rho {V_a}^2 S C_D + k_D V_a \\[5pt]
   M_a &= \dfrac{1}{2}\rho {V_a}^2 S \bar{c} C_m + k_m V_a
 \end{align}
 
-また安定微係数について，影響が小さいとして省略されていた項を考慮し
+また安定微係数について，一般の航空機では影響が小さいとして省略されていた項を考慮し
 \begin{align}
   C_L &= C_{L_0}+C_{L_\alpha}\alpha+C_{L_{\dot{\alpha}}}\dfrac{\bar{c}}{2V_a}\dot{\alpha}+C_{L_q}\dfrac{\bar{c}}{2V_a}q+C_{L_{\delta_e}}\delta_e \\[5pt]
   C_m &= C_{m_0}+C_{m_\alpha}\alpha+C_{m_{\dot{\alpha}}}\dfrac{\bar{c}}{2V_a}\dot{\alpha}+C_{m_q}\dfrac{\bar{c}}{2V_a}q+C_{m_{\delta_e}}\delta_e
@@ -603,11 +601,15 @@ $\mbox{\boldmath $V_a$}$は，$\mbox{\boldmath $V_g$},\mbox{\boldmath $V_w$}$を
   \right]
   \label{eq:XZ_to_LD}
 \end{equation}
-と書ける．$Y_a$は揚力や抗力と同様に
-\begin{equation}
-  Y_a = \dfrac{1}{2}\rho {V_a}^2 S C_Y + k_Y V_a
-\end{equation}
-と仮定する．
+と書ける．
+
+$Y_a,L_a,N_a$についても同様な表現が可能だが，本研究では縦運動にのみ着目するためここでは述べない．
+
+% $Y_a$は揚力や抗力と同様に
+% \begin{equation}
+%   Y_a = \dfrac{1}{2}\rho {V_a}^2 S C_Y + k_Y V_a
+% \end{equation}
+% と仮定する．
 
 %%%%%%%%%%%%%%%%%%%%
 \section{縦運動の線形モデル}
@@ -622,6 +624,7 @@ $\mbox{\boldmath $V_a$}$は，$\mbox{\boldmath $V_g$},\mbox{\boldmath $V_w$}$を
 	\item[(1)]機体加速度は$\dot{u_0} = 0$，$\dot{w_0} = 0$である．
 	\item[(2)]角速度は$q_0 = 0$である．
   \item[(3)]$w_0$および$\alpha_0$は微小である．
+  \item[(4)]$|u_0|$はある程度の大きさを持ち，$|w_0|\ll|u_0|$である．
 	\end{itemize}
 
 釣り合い条件として，運動方程式の加速度，モーメント，および外力の総和が0であるから
@@ -683,8 +686,8 @@ $\mbox{\boldmath $V_a$}$は，$\mbox{\boldmath $V_g$},\mbox{\boldmath $V_w$}$を
 \end{equation}
 と近似する．これらを式(\ref{eq:})〜式(\ref{eq:})に代入する．その後，式(\ref{eq:balance})を用いて変形し，速度と加速度の変化分が積で現れる項は微小であるとして無視すれば
 \begin{align}
-  \Delta \dot{u} &= -qw_0 - (g\cos\theta_0)\Delta \theta +\dfrac{1}{m}(\Delta X_a + \Delta X_t) \\
-  \Delta \dot{w} &= qu_0 - (g\sin \theta_0)\Delta \theta +\dfrac{1}{m}(\Delta Z_a + \Delta Z_t) \\
+  \Delta \dot{u} &= -\Delta qw_0 - (g\cos\theta_0)\Delta \theta +\dfrac{1}{m}(\Delta X_a + \Delta X_t) \\
+  \Delta \dot{w} &= \Delta qu_0 - (g\sin \theta_0)\Delta \theta +\dfrac{1}{m}(\Delta Z_a + \Delta Z_t) \\
   \Delta \dot{q} &= \dfrac{1}{I_{yy}}\left\{mg(R_{G_x}\sin\theta_0 - R_{G_z}\cos\theta_0)\Delta \theta + \Delta M_a + \Delta M_t\right\}
 \end{align}
 となる．
@@ -692,16 +695,16 @@ $\mbox{\boldmath $V_a$}$は，$\mbox{\boldmath $V_g$},\mbox{\boldmath $V_w$}$を
 \subsection{空気力項の線形化}
 \label{sec:airf_lin}
 
-空気力項($X_a, Z_a, M_a$)のうちの1つを$A$で代表して表す．ティルト角$\gamma$は一定であるという条件下で，$A$は機体の速度，角速度，舵角，およびロータ推力の関数であると仮定できる．いまそれらの釣り合い位置からの変化分を，$\Delta u,\Delta w,\Delta q,\Delta \delta_e$とし，これらはいずれも微小量とする．このとき，$A$を上記4変数についてテイラー級数に展開し，それぞれの第1項のみ用いると
+空気力項($X_a, Z_a, M_a$)のうちの1つを$A$で代表して表す．ティルト角$\gamma$は一定であるという条件下で，$A$は一般に機体の速度，角速度，舵角，およびロータ推力の関数であると仮定できる．いまそれらの釣り合い位置からの変化分を，$\Delta u,\Delta w,\Delta q,\Delta \delta_e$とし，これらはいずれも微小量とする．このとき，$A$を上記4変数についてテイラー級数に展開し，それぞれの第1項のみ用いると
 \begin{equation}
     A \fallingdotseq A_0 &+ \dfrac{\partial A}{\partial \Delta u}\Delta u
     + \dfrac{\partial A}{\partial \Delta w}\Delta w
     + \dfrac{\partial A}{\partial \Delta q}\Delta q
     + \dfrac{\partial A}{\partial \Delta \delta e}\Delta \delta e
 \end{equation}
-と近似できる．ここで$A_0$は釣り合い時の値で，力に関しては$X_{a0},Z_{a0}$，モーメントに関しては$M_a{0}=0$である．また右辺に現れる微係数は，すべて釣り合い状態で定義される．
+と近似できる．ここで$A_0$は釣り合い時の値で，力に関しては$X_{a0},Z_{a0}$，モーメントに関しては$M_{a0}=0$である．また右辺に現れる微係数は，すべて釣り合い状態で定義される．
 
-また，$Z_a,M_a$については，$\dfrac{\partial Z_a}{\partial \Delta \dot{w}}\Delta \dot{w},\dfrac{\partial M_a}{\partial \Delta \dot{w}}\Delta \dot{w}$あるいは$\dfrac{\partial Z_a}{\partial \Delta \dot{\alpha}}\Delta \dot{\alpha},\dfrac{\partial M_a}{\partial \Delta \dot{\alpha}}\Delta \dot{\alpha}$の項を含める．
+また，$Z_a,M_a$については，さらに$\dfrac{\partial Z_a}{\partial \Delta \dot{w}}\Delta \dot{w},\dfrac{\partial M_a}{\partial \Delta \dot{w}}\Delta \dot{w}$あるいは$\dfrac{\partial Z_a}{\partial \Delta \dot{\alpha}}\Delta \dot{\alpha},\dfrac{\partial M_a}{\partial \Delta \dot{\alpha}}\Delta \dot{\alpha}$の項を含める．
 
 以上より，機体に作用する力とモーメントは次のように線形化される．
 \begin{align}

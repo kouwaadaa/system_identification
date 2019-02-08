@@ -3,12 +3,12 @@
   "title.dvi" 0 -1 0 "latex"
   (generated)
   "title.pdf"
-["latex"] 1549334807 "title.tex" "title.dvi" "title" 1549334808
+["latex"] 1549605706 "title.tex" "title.dvi" "title" 1549605706
   "/usr/local/texlive/2018/texmf-dist/web2c/texmf.cnf" 1522066949 33362 cf75436e19743e94a92a6b1b9183c434 ""
-  "/usr/local/texlive/2018/texmf-var/web2c/euptex/uplatex.fmt" 1548013727 4470727 3a5aa48ac8f730a1b433f147ad03ab10 ""
+  "/usr/local/texlive/2018/texmf-var/web2c/euptex/uplatex.fmt" 1545798427 4470728 c9054b2edb03fadb4d0c89d07d814ffd ""
   "/usr/local/texlive/2018/texmf.cnf" 1523934483 577 0b39adfd7c93507ff20c9c14c2f1a33f ""
-  "title.aux" 1548429263 8 a94a2480d3289e625eea47cd1b285758 ""
-  "title.tex" 1549334807 1021 7ce073bd9e3c7ddc407e12d979ec940d ""
+  "title.aux" 1548294243 8 a94a2480d3289e625eea47cd1b285758 ""
+  "title.tex" 1549605705 1000 d9de73e67a10f16d103c8dc215d66394 ""
   (generated)
   "title.log"
   "title.dvi"

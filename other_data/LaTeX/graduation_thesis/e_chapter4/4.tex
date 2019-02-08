@@ -16,7 +16,36 @@
 
 \subsection{センサ取り付け位置の補正}
 
-各運動モデルは機体座標系の原点を基準として構成されているが，原点位置にセンサを取り付けることができない構造であるため，その分の補正が必要である．取り付け位置によって変化するものは速度だけである．
+各運動モデルは機体座標系の原点を基準として構成されているが，原点位置にセンサを取り付けることができない構造であるため，その分の補正が必要である．ここでは，取り付け位置によって変化する速度の補正について述べる．Fig. \ref{fig:},\ref{fig:}に示すように，加速度センサは機体軸原点からベクトル$R_{p2B}$だけ離れた位置に取り付けられている．このとき，機体軸原点の速度は
+\begin{equation}
+  \mbox{\boldmath $V$} = \dfrac{d}{dt}\mbox{\boldmath $R_B$} = \dfrac{d}{dt}(\mbox{\boldmath $R_p$}+\mbox{\boldmath $R_{p2B}$})\triangleq \mbox{\boldmath $\dot{R}_p$}+\mbox{\boldmath $\dot{R}_{p2B}$}
+\end{equation}
+で与えられる．したがって，$\mbox{\boldmath $\dot{R}_{p2B}$}$によってセンサ位置によるずれを補正する．このベクトルの機体座標表現は
+\begin{equation}
+  \mbox{\boldmath $\dot{R}_{p2B}$} = \mbox{\boldmath $\omega_p$}\times\mbox{\boldmath $R_{p2B}$} =
+  \left[
+    \begin{array}{ccc}
+      p \\
+      q \\
+      r
+    \end{array}
+  \right] \times
+  \left[
+    \begin{array}{ccc}
+      -l_{px} \\
+      0 \\
+      l_{pz}
+    \end{array}
+  \right] =
+  \left[
+    \begin{array}{ccc}
+      ql_{pz} \\
+      -rl_{px} + pl_{pz} \\
+      ql_{px}
+    \end{array}
+  \right]
+\end{equation}
+と計算できる．
 
 \subsection{風の影響の補正}
 
@@ -37,7 +66,7 @@
 \subsection{データのフィルタリング}
 \label{sec:filter}
 
-センサで取得したログデータには，ノイズが含まれているためそのままでは使えず，必要な信号成分を取り出す必要がある．そこで，後に\ref{sec:analyze}で述べる解析結果から，おおよその機体の固有振動数を算出し，入力や制御の周波数も考慮して，ログデータに対して$10[Hz]$をカットオフ周波数としたローパスフィルタをかけた．サンプリング間隔は$0.02[s]$であるから，サンプリング周波数は$50[Hz]$である．フィルタの実現には高速フーリエ変換を用いた．フィルタ前後でどれだけノイズが除去されているかは，Fig. \ref{fig:}に示す．
+センサで取得したログデータには，ノイズが含まれているためそのままでは使えず，必要な信号成分を取り出す必要がある．そこで，後に\ref{sec:analyze}で述べる解析結果から，おおよその機体の固有振動数を算出し，入力や制御の周波数も考慮して，ログデータに対して$10\mathrm{[Hz]}$をカットオフ周波数としたローパスフィルタをかけた．サンプリング間隔は$0.02\mathrm{[s]}$であるから，サンプリング周波数は$50\mathrm{[Hz]}$である．フィルタの実現には高速フーリエ変換を用いた．フィルタ前後でどれだけノイズが除去されているかは，Fig. \ref{fig:}に示す．
 
 
 % 補正が必要なデータとして，次の項目が挙げられる．
@@ -126,7 +155,7 @@
 \begin{equation}
   \mbox{\boldmath $z$} = \mbox{\boldmath $X$}\mbox{\boldmath $\theta$} + \mbox{\boldmath $\nu$}
 \end{equation}
-where
+となる．ここで，
 \begin{equation*}
   \mbox{\boldmath $z$} =
   \left[
