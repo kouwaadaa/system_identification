@@ -24,11 +24,12 @@ Fig. \ref{fig:body_axis}に示すように，機体に固定した回転座標�
 \label{fig:body_axis}
 \end{figure}
 
-\begin{figure}[H]
-\centering
-\includegraphics[clip,width=10.0cm]{}
-\caption{NED coordinate system}
-\label{fig:ned_axis}
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[clip,width=10.0cm,bb=0 0 913 476]{./z_figure_files/chapter3/3_NED.jpeg}
+		\caption{NED coordinate system}
+		\label{fig:ned_axis}
+	\end{center}
 \end{figure}
 
 
@@ -773,3 +774,24 @@ $Y_a,L_a,N_a$についても同様な表現が可能だが，本研究では縦�
   \end{align}
   \label{eq:lin_model}
 \end{equation}
+
+\begin{table}[htb]
+	\begin{center}
+		\caption{Specifications of the tilt rotor UAV}
+		\label{tb:partial_derivatives}
+		\begin{tabular}{|c|c|}\hline
+			Total length & 1.08[m] \\ \hline
+			Total width & 1.43[m] \\ \hline
+			Total weight & 5.738[kg]\\ \hline
+			Main rotor motor & KDE4215XF-435 $\times$ 2\\ \hline
+			Main propeller(upper) & MB-ARRIS-P1365C$13 \times 6.5$EP\\ \hline
+			Main propeller(lower) & APC$13 \times 8.0$E\\ \hline
+			Main rotor battery & 6S-6300mAh(30C)\\ \hline
+			Main rotor maximum thrust(coaxial) & 6.209[kgf]\\ \hline
+			Sub rotor motor & RM2204-2600 $\times$ 4\\ \hline
+			Sub rotor propeller & Lumenier $4 \times 4 \times 4$\\ \hline
+			Sub rotor and System battery & 4S-2200mAh(35C)\\ \hline
+			Sub rotor maximum thrust(single) & 0.931[kgf]\\ \hline
+		\end{tabular}
+	\end{center}
+\end{table}
