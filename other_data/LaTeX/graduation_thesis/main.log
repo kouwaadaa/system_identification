@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  9 FEB 2019 18:41
+This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2019.1.21)  10 FEB 2019 22:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -657,9 +657,6 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-
-LaTeX Warning: Reference `tb:' on page 17 undefined on input line 750.
-
 [17]
 
 ./d_chapter3/3.tex:760: Package amsmath Error: Erroneous nesting of equation structures;
@@ -830,12 +827,12 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 2290 strings out of 493270
- 27846 string characters out of 6145017
+ 2289 strings out of 493270
+ 27841 string characters out of 6145018
  102291 words of memory out of 5000000
- 6124 multiletter control sequences out of 15000+600000
+ 6123 multiletter control sequences out of 15000+600000
  20175 words of font info for 91 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
  27i,19n,33p,865b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (33 pages, 92952 bytes).
+Output written on main.dvi (33 pages, 91624 bytes).
