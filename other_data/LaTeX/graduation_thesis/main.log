@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  12 FEB 2019 06:48
+This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  12 FEB 2019 07:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -568,12 +568,6 @@ Acceptable delimiters are characters whose \delcode is
 nonnegative, or you can use `\delimiter <delimiter code>'.
 
 [17]
-
-LaTeX Warning: Reference `eq:' on page 18 undefined on input line 714.
-
-
-LaTeX Warning: Reference `eq:' on page 18 undefined on input line 714.
-
 ./d_chapter3/3.tex:727: Misplaced alignment tab character &.
 l.727     A \fallingdotseq A_0 &
                                 + \dfrac{\partial A}{\partial \Delta u}\Delta u
@@ -812,29 +806,32 @@ LaTeX Warning: Reference `sec:' on page 25 undefined on input line 240.
 [26
 
 ]
+File: ./z_figure_files/chapter5/1_eigenvalue.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter5/1_eigenvalue.jpeg>
 
-LaTeX Warning: Reference `fig:' on page 27 undefined on input line 80.
 
-) (./g_conclusion/conclusion.tex [27]
+LaTeX Warning: Reference `fig:' on page 27 undefined on input line 95.
+
+[27]) (./g_conclusion/conclusion.tex [28]
 第 6 章
-) [28
+) [29
 
-] (./h_acknowledgements/acknowledgements.tex [29
+] (./h_acknowledgements/acknowledgements.tex [30
 
-]) (./i_references/references.tex [30
+]) (./i_references/references.tex [31
 
-]) (./j_appendix/appendix.tex) [31] (./main.aux)
+]) (./j_appendix/appendix.tex) [32] (./main.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 2292 strings out of 493270
- 28340 string characters out of 6145017
+ 2302 strings out of 493270
+ 28493 string characters out of 6145017
  114291 words of memory out of 5000000
- 6137 multiletter control sequences out of 15000+600000
+ 6145 multiletter control sequences out of 15000+600000
  20175 words of font info for 91 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
  27i,19n,33p,865b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (36 pages, 98848 bytes).
+Output written on main.dvi (37 pages, 101364 bytes).

@@ -475,9 +475,9 @@ I\left[
 
 ここでは，Fig. \ref{fig:longtitude}に示すような縦運動を考える．そこで横・方向系の運動状態変数と入力変数を，$v=p=r=\delta_a=\phi=0$とすれば，縦運動における低速飛行の非線形モデルは式(\ref{eq:mot_eq}), 式(\ref{eq:F_g})および式(\ref{eq:roll_eq}), 式(\ref{eq:M_g})より，次のようになる．
 \begin{align}
-  \dot{u} &= -qw - g\sin\theta +\dfrac{1}{m}(X_a + X_t) \\
-  \dot{w} &= qu + g\cos\theta +\dfrac{1}{m}(Z_a + Z_t) \\
-  \dot{q} &= \dfrac{1}{I_{yy}}\left\{-mg(R_{G_z}\sin\theta+R_{G_x}\cos\theta\cos\phi) + M_a + M_t\right\}
+  \dot{u} &= -qw - g\sin\theta +\dfrac{1}{m}(X_a + X_t) \label{eq:u_dot} \\
+  \dot{w} &= qu + g\cos\theta +\dfrac{1}{m}(Z_a + Z_t)  \\
+  \dot{q} &= \dfrac{1}{I_{yy}}\left\{-mg(R_{G_z}\sin\theta+R_{G_x}\cos\theta\cos\phi) + M_a + M_t\right\} \label{eq:theta_dot}
 \end{align}
 
 加えて，式(\ref{eq:euler})より
@@ -589,15 +589,15 @@ $\mbox{\boldmath $V_a$}$は，$\mbox{\boldmath $V_g$},\mbox{\boldmath $V_w$}$を
 
 以上は一般的な空気力モデルであるが，ロータの吸い込みによって発生する，対気速度に比例する抗力\cite{}と同様に対気速度に比例した揚力およびピッチモーメントが発生するとして，本研究ではモデル式を次のように変更している\cite{}．
 \begin{align}
-  L &= \dfrac{1}{2}\rho {V_a}^2 S C_L + k_L V_a \\[5pt]
-  D &= \dfrac{1}{2}\rho {V_a}^2 S C_D + k_D V_a \\[5pt]
-  M_a &= \dfrac{1}{2}\rho {V_a}^2 S \bar{c} C_m + k_m V_a
+  L &= \dfrac{1}{2}\rho {V_a}^2 S C_L + k_L V_a \label{eq:L} \\[5pt]
+  D &= \dfrac{1}{2}\rho {V_a}^2 S C_D + k_D V_a \label{eq:D} \\[5pt]
+  M_a &= \dfrac{1}{2}\rho {V_a}^2 S \bar{c} C_m + k_m V_a \label{eq:Ma}
 \end{align}
 
 また安定微係数について，一般の航空機では影響が小さいとして省略されていた項を考慮し
 \begin{align}
-  C_L &= C_{L_0}+C_{L_\alpha}\alpha+C_{L_{\dot{\alpha}}}\dfrac{\bar{c}}{2V_a}\dot{\alpha}+C_{L_q}\dfrac{\bar{c}}{2V_a}q+C_{L_{\delta_e}}\delta_e \\[5pt]
-  C_m &= C_{m_0}+C_{m_\alpha}\alpha+C_{m_{\dot{\alpha}}}\dfrac{\bar{c}}{2V_a}\dot{\alpha}+C_{m_q}\dfrac{\bar{c}}{2V_a}q+C_{m_{\delta_e}}\delta_e
+  C_L &= C_{L_0}+C_{L_\alpha}\alpha+C_{L_{\dot{\alpha}}}\dfrac{\bar{c}}{2V_a}\dot{\alpha}+C_{L_q}\dfrac{\bar{c}}{2V_a}q+C_{L_{\delta_e}}\delta_e \label{eq:CL} \\[5pt]
+  C_m &= C_{m_0}+C_{m_\alpha}\alpha+C_{m_{\dot{\alpha}}}\dfrac{\bar{c}}{2V_a}\dot{\alpha}+C_{m_q}\dfrac{\bar{c}}{2V_a}q+C_{m_{\delta_e}}\delta_e \label{eq:Cm}
 \end{align}
 とした．最後に，\ref{sec:nonlin_model}節の空気力項について
 \begin{equation}
@@ -711,7 +711,7 @@ $Y_a,L_a,N_a$についても同様な表現が可能だが，本研究では縦�
 \begin{equation}
   \delta_e = \delta_{e0} + \Delta \delta_e
 \end{equation}
-と近似する．これらを式(\ref{eq:})〜式(\ref{eq:})に代入する．その後，式(\ref{eq:balance})を用いて変形し，速度と加速度の変化分が積で現れる項は微小であるとして無視すれば
+と近似する．これらを式(\ref{eq:u_dot})〜式(\ref{eq:theta_dot})に代入する．その後，式(\ref{eq:balance})を用いて変形し，速度と加速度の変化分が積で現れる項は微小であるとして無視すれば
 \begin{align}
   \Delta \dot{u} &= -\Delta qw_0 - (g\cos\theta_0)\Delta \theta +\dfrac{1}{m}(\Delta X_a + \Delta X_t) \\
   \Delta \dot{w} &= \Delta qu_0 - (g\sin \theta_0)\Delta \theta +\dfrac{1}{m}(\Delta Z_a + \Delta Z_t) \\

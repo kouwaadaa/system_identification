@@ -164,6 +164,7 @@ INPUT ./z_figure_files/chapter4/2_IMU_position.jpeg
 INPUT ./z_figure_files/chapter4/3_filter.jpeg
 INPUT ./f_chapter5/5.tex
 INPUT ./f_chapter5/5.tex
+INPUT ./z_figure_files/chapter5/1_eigenvalue.jpeg
 INPUT ./g_conclusion/conclusion.tex
 INPUT ./g_conclusion/conclusion.tex
 INPUT ./h_acknowledgements/acknowledgements.tex

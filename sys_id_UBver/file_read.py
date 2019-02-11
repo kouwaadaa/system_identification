@@ -320,7 +320,7 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
     #---------------------------
 
     alpha = ffilt.fourier_filter(alpha,0.02,data_size,10)
-    d_theta_filt = ffilt.fourier_filter(d_theta,0.02,data_size,10)
+    d_theta = ffilt.fourier_filter(d_theta,0.02,data_size,10)
     delta_e = ffilt.fourier_filter(delta_e,0.02,data_size,10)
     Va_mag = ffilt.fourier_filter(Va_mag,0.02,data_size,10)
     L = ffilt.fourier_filter(L,0.02,data_size,10)
@@ -345,7 +345,6 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
         'psi' : psi,
         'd_phi' : d_phi,
         'd_theta' : d_theta,
-        'd_theta_filt' : d_theta_filt,
         'd_psi' : d_psi,
         'dd_phi' : dd_phi,
         'dd_theta' : dd_theta,
