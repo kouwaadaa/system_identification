@@ -747,7 +747,7 @@ $Y_a,L_a,N_a$についても同様な表現が可能だが，本研究では縦�
 \subsection{線形化された縦運動モデル}
 \label{sec:linear}
 
-\ref{sec:steady}小節と\ref{sec:airf_lin}小節の内容をふまえ，式(\ref{eq:F_t})と式(\ref{eq:M_t})も考慮して，線形化した縦の運動方程式をまとめると次のようになる．ただし，式(\ref{eq:w_to_alpha})を用いて，$w$に関する式を$\alpha$に関する式に変換した上で，Table \ref{tb:partial_derivatives}にまとめたとおり各項の係数を略記している．
+\ref{sec:steady}小節と\ref{sec:airf_lin}小節の内容をふまえ，式(\ref{eq:F_t})と式(\ref{eq:M_t})も考慮して，線形化した縦の運動方程式をまとめると次のようになる．ただし，式(\ref{eq:w_to_alpha})を用いて，$w$に関する式を$\alpha$に関する式に変換した上で，各項の係数を略記し
 \begin{equation}
   \left\{
   \begin{align}
@@ -760,8 +760,7 @@ $Y_a,L_a,N_a$についても同様な表現が可能だが，本研究では縦�
   \end{align}
   \label{eq:lin_model_1}
 \end{equation}
-
-式(\ref{eq:lin_model_1})において，$\Delta \dot{\alpha}$を用いて$\Delta \dot{q}$内の$\dot{\alpha}$を消去し，改めて線形化した縦運動モデルのまとめを次に示す．
+のように書ける．さらに式(\ref{eq:lin_model_1})において，$\Delta \dot{\alpha}$を用いて$\Delta \dot{q}$内の$\dot{\alpha}$を消去し，改めて線形化した縦運動モデルをまとめると
 \begin{equation}
   \left\{
   \begin{align}
@@ -774,13 +773,36 @@ $Y_a,L_a,N_a$についても同様な表現が可能だが，本研究では縦�
   \end{align}
   \label{eq:lin_model}
 \end{equation}
-
-\begin{table}[htb]
-	\begin{center}
-		\caption{Partial derivatives}
-		\label{tb:partial_derivatives}
-		\begin{tabular}{|c|c|}\hline
-			Total length & 1.08[m] \\ \hline
-		\end{tabular}
-	\end{center}
-\end{table}
+のようになる．ただし
+\begin{equation}
+	\left\{
+	\begin{align}
+		X_u &= \frac{1}{m} \frac{\partial X_a}{\partial u},\quad
+		X_\alpha = \frac{1}{m} \frac{\partial X_a}{\partial \alpha},\quad
+		X_q = \frac{1}{m} \frac{\partial X_a}{\partial q} - w_0 \\[2pt]
+		X_\theta &= -g\cos\theta_0,\quad
+		X_{\delta_e} = \frac{1}{m} \frac{\partial X_a}{\partial \delta_e},\quad
+		X_{T_m} = \frac{\sin\gamma}{m} \\[2pt]
+		Z_u &= \frac{1}{m} \frac{\partial Z_a}{\partial u},\quad
+		Z_\alpha = \frac{1}{m} \frac{\partial Z_a}{\partial \alpha},\quad
+		Z_{\dot{\alpha}} = u_0 - \frac{1}{m} \frac{\partial Z_a}{\partial \dot\alpha} \\[2pt]
+		Z_q &= \frac{1}{m} \frac{\partial Z_a}{\partial q} - u_0,\quad
+		Z_\theta = -g\sin\theta_0,\quad
+		Z_{\delta_e} = \frac{1}{m} \frac{\partial Z_a}{\partial \delta_e} \\[2pt]
+		Z_{T_m} &= -\frac{\cos\gamma}{m},\quad
+		Z_{T_r} = -\frac{1}{m},\quad
+		Z_{T_f} = -\frac{1}{m} \\[2pt]
+		M_u &= \frac{\partial M_a}{\partial u},\quad
+		M_\alpha = \frac{\partial M_a}{\partial \alpha},\quad
+		M_{\dot\alpha} = \frac{\partial M_a}{\partial \dot\alpha},\quad
+		M_q = \frac{\partial M_a}{\partial q} \\[2pt]
+		M_\theta &= mg(R_{G_x}\sin\theta_0 - R_{G_z}\cos\theta_0),\quad
+		M_{\delta_e} = \frac{\partial M_a}{\partial {\delta_e}} \\[2pt]
+		M_{T_m} &= -l_m\cos\gamma,\quad
+		M_{T_r} = -l_{r_x},\quad
+		M_{T_f} = l_f \\[2pt]
+		\overline{Z_*} &= \frac{Z_*}{Z_{\dot\alpha}},\quad
+		\overline{M_*} = M_* + \overline{Z_*}
+	\end{align}
+	\label{eq:partial_derivatives}
+\end{equation}
