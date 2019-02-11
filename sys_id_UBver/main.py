@@ -49,27 +49,40 @@ plt.rcParams["figure.figsize"] = [20, 12]
 #---------------------------
 
 format_df = pd.DataFrame()
+borderline_list = list()
 
-format_df = file_read.file_read('../log_data/Book3.csv',17.52,19.14,-4.03,40/48,0,format_df)
-
+format_df,size = file_read.file_read('../log_data/Book3.csv',17.52,19.14,-4.03,40/48,0,format_df)
+borderline_list.append(size)
 # format_df = file_read.file_read('../log_data/Book4.csv',11.97,13.30,-5.05,40/45,0,format_df)
-format_df = file_read.file_read('../log_data/Book4.csv',18.66,21.08,-5.05,40/45,0,format_df)
+format_df,size = file_read.file_read('../log_data/Book4.csv',18.66,21.08,-5.05,40/45,0,format_df)
+borderline_list.append(size+borderline_list[-1])
 
-format_df = file_read.file_read('../log_data/Book5.csv',12.45,13.66,-4.80,40/48,0,format_df)
-format_df = file_read.file_read('../log_data/Book5.csv',16.07,17.03,-4.80,40/48,0,format_df)
-format_df = file_read.file_read('../log_data/Book5.csv',18.95,22.88,-4.80,40/48,0,format_df)
+# format_df,size = file_read.file_read('../log_data/Book5.csv',12.45,13.66,-4.80,40/48,0,format_df)
+# borderline_list.append(size+borderline_list[-1])
+# format_df,size = file_read.file_read('../log_data/Book5.csv',16.07,17.03,-4.80,40/48,0,format_df)
+# borderline_list.append(size+borderline_list[-1])
+# format_df,size = file_read.file_read('../log_data/Book5.csv',18.95,22.88,-4.80,40/48,0,format_df)
+# borderline_list.append(size+borderline_list[-1])
 
-format_df = file_read.file_read('../log_data/Book8.csv',15.41,20.10,-2.00,40/47,0,format_df)
-format_df = file_read.file_read('../log_data/Book8.csv',21.46,23.07,-2.00,40/47,0,format_df)
-format_df = file_read.file_read('../log_data/Book8.csv',23.44,24.64,-2.00,40/47,0,format_df)
-format_df = file_read.file_read('../log_data/Book8.csv',25.28,27.38,-2.00,40/47,0,format_df)
+# format_df,size = file_read.file_read('../log_data/Book8.csv',15.41,20.10,-2.00,40/47,0,format_df)
+# borderline_list.append(size+borderline_list[-1])
+# format_df,size = file_read.file_read('../log_data/Book8.csv',21.46,23.07,-2.00,40/47,0,format_df)
+# borderline_list.append(size+borderline_list[-1])
+# format_df,size = file_read.file_read('../log_data/Book8.csv',23.44,24.64,-2.00,40/47,0,format_df)
+# borderline_list.append(size+borderline_list[-1])
+# format_df,size = file_read.file_read('../log_data/Book8.csv',25.28,27.38,-2.00,40/47,0,format_df)
+# borderline_list.append(size+borderline_list[-1])
 
-format_df = file_read.file_read('../log_data/Book9.csv',20.73,30.28,-2.647,40/48,0,format_df)
-format_df = file_read.file_read('../log_data/Book9.csv',98.05,104.1,-2.647,40/48,0,format_df)
-format_df = file_read.file_read('../log_data/Book9.csv',104.9,107.1,-2.647,40/48,0,format_df)
-format_df = file_read.file_read('../log_data/Book9.csv',107.7,109.7,-2.647,40/48,0,format_df)
+# format_df,size = file_read.file_read('../log_data/Book9.csv',20.73,30.28,-2.647,40/48,0,format_df)
+# borderline_list.append(size+borderline_list[-1])
+# format_df,size = file_read.file_read('../log_data/Book9.csv',98.05,104.1,-2.647,40/48,0,format_df)
+# borderline_list.append(size+borderline_list[-1])
+# format_df,size = file_read.file_read('../log_data/Book9.csv',104.9,107.1,-2.647,40/48,0,format_df)
+# borderline_list.append(size+borderline_list[-1])
+# format_df,size = file_read.file_read('../log_data/Book9.csv',107.7,109.7,-2.647,40/48,0,format_df)
+# borderline_list.append(size+borderline_list[-1])
+# format_df,size = file_read.file_read('../log_data/Book11.csv',19.86,25.27,-1.467,40/48,0,format_df)
 
-format_df = file_read.file_read('../log_data/Book11.csv',19.86,25.27,-1.467,40/48,0,format_df)
 # format_df = file_read.file_read('../log_data/Book11.csv',26.43,29.83,-1.467,40/48,0,format_df)
 
 #---------------------------
@@ -137,7 +150,7 @@ format_df6 = statistics.calc_RMSE(format_df6)
 # format_df5[['L','L_calc']].plot.line()
 # format_df5[['D','D_calc']].plot.line()
 # format_df5[['Ma','Ma_calc']].plot.line()
-#
+
 # format_df6[['L','L_calc']].plot.line()
 # format_df6[['D','D_calc']].plot.line()
 # format_df6[['Ma','Ma_calc']].plot.line()
@@ -154,10 +167,6 @@ format_df6 = statistics.calc_RMSE(format_df6)
 # format_df5[['CD_log','CD','Va']].plot.line(x='Va', style=['o','p'], title='CD')
 # format_df5[['Cm_log','Cm','Va']].plot.line(x='Va', style=['o','p'], title='Cm')
 
-# format_df4[['CL_log','CL','Va']].plot.line(x='Va', style='o', title='CL kv x')
-# format_df4[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD kv x')
-# format_df4[['Cm_log','Cm','Va']].plot.line(x='Va', style='o', title='Cm kv x')
-
 # format_df[['L_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['D_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['Ma_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
@@ -171,30 +180,44 @@ format_df6 = statistics.calc_RMSE(format_df6)
 # window = np.hamming(data_size)
 # manual_T3 = window * manual_T3
 
-# 固有値の絶対値をとる．
-lambda_A_abs = np.abs(anly_result[0])
-
-xxx = np.arange(data_size)
-y = lambda_A_abs[:,0]
-yy = lambda_A_abs[:,1]
-yyy = lambda_A_abs[:,2]
-yyyy = lambda_A_abs[:,3]
-
-plt.subplot(111)
-plt.scatter(xxx,y,label="")
-plt.scatter(xxx,yy,label="")
-plt.scatter(xxx,yyy,label="")
-plt.scatter(xxx,yyyy,label="")
+# # 固有値の絶対値をとる．
+# lambda_A_abs = np.abs(anly_result[0])
 #
+# xxx = np.arange(data_size)
+# y = lambda_A_abs[:,0]
+# yy = lambda_A_abs[:,1]
+# yyy = lambda_A_abs[:,2]
+# yyyy = lambda_A_abs[:,3]
 #
-# for j in range(FILE_NUM-1):
-#     plt.axvline(x=borderline_data_num[j], color="black") # 実験データの境目で線を引く
-
-# plt.title('固有値散布図')
-plt.xlabel('Data Number')
-plt.ylabel('Eigenvalue')
-plt.show()
+# plt.subplot(111)
+# plt.scatter(xxx,y,label="")
+# plt.scatter(xxx,yy,label="")
+# plt.scatter(xxx,yyy,label="")
+# plt.scatter(xxx,yyyy,label="")
+# #
+# #
+# for j in borderline_list:
+#     plt.axvline(x=j, color="black") # 実験データの境目で線を引く
+#
+# # plt.title('固有値散布図')
+# plt.xlabel('Data Number')
+# plt.ylabel('Eigenvalue')
+# plt.show()
 # #
 # # ax = fig.add_subplot(2,1,2)
 # #
 # # ax.plot(xxx,d_alpha)
+
+# format_df5[['d_theta','d_theta_filt']].plot.line()
+
+d_theta = np.array(format_df5['d_theta'])
+d_theta_filt = np.array(format_df5['d_theta_filt'])
+
+plt.subplot(111)
+plt.plot(d_theta,label="Native data")
+plt.plot(d_theta_filt,label="Filtered data",linewidth="3")
+plt.legend()
+
+plt.xlabel('Data Number')
+plt.ylabel('Pitch Rate [rad/s]')
+plt.show()

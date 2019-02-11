@@ -16,7 +16,7 @@
 
 \subsection{センサ取り付け位置の補正}
 
-各運動モデルは機体座標系の原点を基準として構成されているが，原点位置にセンサを取り付けることができない構造であるため，その分の補正が必要である．ここでは，取り付け位置によって変化する速度の補正について述べる．Fig. \ref{fig:},\ref{fig:}に示すように，加速度センサは機体軸原点からベクトル$R_{p2B}$だけ離れた位置に取り付けられている．このとき，機体軸原点の速度は
+各運動モデルは機体座標系の原点を基準として構成されているが，原点位置にセンサを取り付けることができない構造であるため，その分の補正が必要である．ここでは，取り付け位置によって変化する速度の補正について述べる．Fig. \ref{fig:location_IMU},~\ref{fig:IMU_position}に示すように，加速度センサは機体軸原点からベクトル$\mbox{\boldmath $R_{p2B}$}$だけ離れた位置に取り付けられている．このとき，機体軸原点の速度は
 \begin{equation}
   \mbox{\boldmath $V$} = \dfrac{d}{dt}\mbox{\boldmath $R_B$} = \dfrac{d}{dt}(\mbox{\boldmath $R_p$}+\mbox{\boldmath $R_{p2B}$})\triangleq \mbox{\boldmath $\dot{R}_p$}+\mbox{\boldmath $\dot{R}_{p2B}$}
 \end{equation}
@@ -47,9 +47,30 @@
 \end{equation}
 と計算できる．
 
+\begin{figure}[htbp]
+	\begin{center}
+		\begin{tabular}{c}
+			\begin{minipage}{0.5\hsize}
+				\begin{center}
+					\includegraphics[clip,width=7.0cm,bb=0 0 800 600]{./z_figure_files/chapter4/1_location_IMU.jpeg}
+					\caption{Location of acceleration sensor}
+					\label{fig:location_IMU}
+				\end{center}
+			\end{minipage}
+			\begin{minipage}{0.5\hsize}
+				\begin{center}
+					\includegraphics[clip,width=7.0cm,bb=0 0 800 600]{./z_figure_files/chapter4/2_IMU_position.jpeg}
+					\caption{Consideration of sensor position}
+					\label{fig:IMU_position}
+				\end{center}
+			\end{minipage}
+		\end{tabular}
+	\end{center}
+\end{figure}
+
 \subsection{風の影響の補正}
 
-実験は，屋外で風外乱の環境下にて，回転翼機モードにおいて行なった．対気速度の測定のために，機首先端にピトー管が取り付けられているが，回転翼機モードでの飛行時は測定誤差が大きいことが分かっている．そこで，風速計を機体の進行方向と同じ向きに設置し，風速を測定した．データ処理時には，風速計による計測ログと機体の対地速度，および機体姿勢ログを用いて，\ref{sec:wind_speed}の通り対気速度を計算する．
+実験は，屋外で風外乱の環境下にて，回転翼機モードにおいて行なった．対気速度の測定のために，機首先端にピトー管が取り付けられているが，回転翼機モードでの飛行時は測定誤差が大きいことが分かっている．そこで，風速計を機体の進行方向と同じ向きに設置し，風速を測定した．データ処理時には，風速計による計測ログと機体の対地速度，および機体姿勢ログを用いて，\ref{sec:wind_speed}小節の通り対気速度を計算する．
 
 \subsection{機体の加速度の算出}
 
@@ -66,8 +87,14 @@
 \subsection{データのフィルタリング}
 \label{sec:filter}
 
-センサで取得したログデータには，ノイズが含まれているためそのままでは使えず，必要な信号成分を取り出す必要がある．そこで，後に\ref{sec:analyze}で述べる解析結果から，おおよその機体の固有振動数を算出し，入力や制御の周波数も考慮して，ログデータに対して$10\mathrm{[Hz]}$をカットオフ周波数としたローパスフィルタをかけた．サンプリング間隔は$0.02\mathrm{[s]}$であるから，サンプリング周波数は$50\mathrm{[Hz]}$である．フィルタの実現には高速フーリエ変換を用いた．フィルタ前後でどれだけノイズが除去されているかは，Fig. \ref{fig:}に示す．
+センサで取得したログデータには，ノイズが含まれているためそのままでは使えず，必要な信号成分を取り出す必要がある．そこで，後に\ref{sec:analyze}節で述べる解析結果から，おおよその機体の固有振動数を算出し，入力や制御の周波数も考慮して，ログデータに対して$10\mathrm{[Hz]}$をカットオフ周波数としたローパスフィルタをかけた．サンプリング間隔は$0.02\mathrm{[s]}$であるから，サンプリング周波数は$50\mathrm{[Hz]}$である．フィルタの実現には高速フーリエ変換を用いた．フィルタ前後でどれだけノイズが除去されているかは，ある実験データのピッチ角速度を例に，Fig. \ref{fig:f_filter}に示す．
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[clip,width=13.0cm,bb=0 0 1250 750]{./z_figure_files/chapter4/3_filter.jpeg}
+	\caption{Filter pitch rate}
+	\label{fig:f_filter}
+\end{figure}
 
 % 補正が必要なデータとして，次の項目が挙げられる．
 % \begin{itemize}
@@ -83,7 +110,7 @@
 \section{パラメータの推定手法}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-まず，モデル内の未知パラメータについて述べる．\ref{sec:lng_non_linear}に示したモデルにおいて，空気力項に未知パラメータが含まれる．ただし，\ref{sec:airspeed_airf}の空気力モデル式については，計算の際に式を変形して
+まず，モデル内の未知パラメータについて述べる．\ref{sec:lng_non_linear}小節に示したモデルにおいて，空気力項に未知パラメータが含まれる．ただし，\ref{sec:airspeed_airf}小節の空気力モデル式については，計算の際に式を変形して
 \begin{equation}
   \left\{
   \begin{align}
@@ -125,7 +152,7 @@
   C_{m_k}
   ]
 \end{equation}
-となり，合計15個である．$\xi$に含まれていない変数は，実機実験からログデータとして直接取得可能か，あるいは計算が可能なものであり，パラメータ推定はすべてオフライン処理となる．\ref{sec:lng_non_linear}のモデル式より，$X_a,Z_a,M_a$はそれぞれ計算で求められ，式(\ref{eq:XZ_to_LD})より
+となり，合計15個である．$\xi$に含まれていない変数は，実機実験からログデータとして直接取得可能か，あるいは計算が可能なものであり，パラメータ推定はすべてオフライン処理となる．\ref{sec:lng_non_linear}小節のモデル式より，$X_a,Z_a,M_a$はそれぞれ計算で求められ，式(\ref{eq:XZ_to_LD})より
 \begin{equation}
   \left[
   \begin{array}{ccc}
@@ -210,4 +237,4 @@
 \end{equation}
 と計算できる．
 
-同様の手順で，抗力係数$C_D$とピッチモーメント係数$C_m$についても計算すれば，未知パラメータ群$\xi$はすべて求めることができる．実際の推定結果とそれに対する考察は，\ref{sec:}で行なう．
+同様の手順で，抗力係数$C_D$とピッチモーメント係数$C_m$についても計算すれば，未知パラメータ群$\xi$はすべて求めることができる．実際の推定結果とそれに対する考察は，\ref{sec:}節で行なう．

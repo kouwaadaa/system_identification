@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  11 FEB 2019 17:22
+This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  12 FEB 2019 06:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -402,87 +402,63 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 ) (./d_chapter3/3.tex [6] [7] [8]
 第 3 章
+File: ./z_figure_files/chapter3/1_body_axis.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter3/1_body_axis.jpeg>
+File: ./z_figure_files/chapter3/2_NED.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter3/2_NED.jpeg>
 
-./d_chapter3/3.tex:22: LaTeX Error: File `' not found.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.22 \includegraphics[clip,width=10.0cm]{}
-                                          
-I could not locate the file with any of these extensions:
-.pdf,.PDF,.ai,.AI,.png,.PNG,.jpg,.JPG,.jpeg,.JPEG,.jp2,.JP2,.jpf,.JPF,.bmp,.BMP,.ps,.PS,.eps,.EPS,.mps,.MPS,.pz,.eps.Z,.ps.Z,.ps.gz,.eps.gz
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-File: ./z_figure_files/chapter3/3_NED.jpeg Graphic file (type bmp)
-<./z_figure_files/chapter3/3_NED.jpeg>
-
-LaTeX Warning: `h' float specifier changed to `ht'.
+Overfull \hbox (15.91661pt too wide) in paragraph at lines 22--38
+ [][][] 
+ []
 
 LaTeX Font Info:    Font shape `JT2/mc/m/n' will be
-(Font)              scaled to size 13.85594pt on input line 36.
+(Font)              scaled to size 13.85594pt on input line 41.
 LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
-(Font)              scaled to size 13.85594pt on input line 36.
+(Font)              scaled to size 13.85594pt on input line 41.
 LaTeX Font Info:    Font shape `JT2/mc/bx/n' in size <14.4> not available
-(Font)              Font shape `JT2/gt/m/n' tried instead on input line 36.
+(Font)              Font shape `JT2/gt/m/n' tried instead on input line 41.
 LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
-(Font)              scaled to size 13.85594pt on input line 36.
+(Font)              scaled to size 13.85594pt on input line 41.
 LaTeX Font Info:    Font shape `JY2/mc/bx/n' in size <14.4> not available
-(Font)              Font shape `JY2/gt/m/n' tried instead on input line 36.
+(Font)              Font shape `JY2/gt/m/n' tried instead on input line 41.
 LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
-(Font)              scaled to size 13.85594pt on input line 36.
+(Font)              scaled to size 13.85594pt on input line 41.
 [9
 
 ] [10] [11]
-Overfull \hbox (2.02875pt too wide) detected at line 415
+Overfull \hbox (2.02875pt too wide) detected at line 420
 []
  []
 
-
-LaTeX Warning: Reference `fig:' on page 12 undefined on input line 454.
-
-
-LaTeX Warning: Reference `fig:' on page 12 undefined on input line 465.
-
+File: ./z_figure_files/chapter3/3_distance.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter3/3_distance.jpeg>
 [12]
+File: ./z_figure_files/chapter3/4_longtitude.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter3/4_longtitude.jpeg>
+ [13]
+File: ./z_figure_files/chapter3/5_Va_Vw.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter3/5_Va_Vw.jpeg>
+ [14] [15]
+File: ./z_figure_files/chapter3/6_xz_force.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter3/6_xz_force.jpeg>
+ [16]
 
-./d_chapter3/3.tex:492: LaTeX Error: File `' not found.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.492 \includegraphics[clip,width=10.0cm]{}
-                                           
-I could not locate the file with any of these extensions:
-.pdf,.PDF,.ai,.AI,.png,.PNG,.jpg,.JPG,.jpeg,.JPEG,.jp2,.JP2,.jpf,.JPF,.bmp,.BMP,.ps,.PS,.eps,.EPS,.mps,.MPS,.pz,.eps.Z,.ps.Z,.ps.gz,.eps.gz
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-[13]
-
-LaTeX Warning: Reference `fig:' on page 14 undefined on input line 539.
-
-[14]
-
-./d_chapter3/3.tex:638: Package amsmath Error: Erroneous nesting of equation structures;
+./d_chapter3/3.tex:664: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
 
 See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.638   \end{align}
+l.664   \end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-./d_chapter3/3.tex:640: Missing delimiter (. inserted).
+./d_chapter3/3.tex:666: Missing delimiter (. inserted).
 <to be read again> 
                    \gdef 
-l.640   \label
+l.666   \label
               {eq:balance}
 I was expecting to see something like `(' or `\{' or
 `\}' here. If you typed, e.g., `{' instead of `\{', you
@@ -491,24 +467,23 @@ braces don't get unbalanced. Otherwise just proceed.
 Acceptable delimiters are characters whose \delcode is
 nonnegative, or you can use `\delimiter <delimiter code>'.
 
-[15]
 
-./d_chapter3/3.tex:650: Package amsmath Error: Erroneous nesting of equation structures;
+./d_chapter3/3.tex:676: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
 
 See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.650   \end{align}
+l.676   \end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-./d_chapter3/3.tex:652: Missing delimiter (. inserted).
+./d_chapter3/3.tex:678: Missing delimiter (. inserted).
 <to be read again> 
                    \gdef 
-l.652 \end{equation}
+l.678 \end{equation}
                     
 I was expecting to see something like `(' or `\{' or
 `\}' here. If you typed, e.g., `{' instead of `\{', you
@@ -518,22 +493,22 @@ Acceptable delimiters are characters whose \delcode is
 nonnegative, or you can use `\delimiter <delimiter code>'.
 
 
-./d_chapter3/3.tex:659: Package amsmath Error: Erroneous nesting of equation structures;
+./d_chapter3/3.tex:685: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
 
 See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.659   \end{align}
+l.685   \end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-./d_chapter3/3.tex:661: Missing delimiter (. inserted).
+./d_chapter3/3.tex:687: Missing delimiter (. inserted).
 <to be read again> 
                    \gdef 
-l.661   \label
+l.687   \label
               {eq:alpha_Delta}
 I was expecting to see something like `(' or `\{' or
 `\}' here. If you typed, e.g., `{' instead of `\{', you
@@ -543,22 +518,22 @@ Acceptable delimiters are characters whose \delcode is
 nonnegative, or you can use `\delimiter <delimiter code>'.
 
 
-./d_chapter3/3.tex:670: Package amsmath Error: Erroneous nesting of equation structures;
+./d_chapter3/3.tex:696: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
 
 See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.670   \end{align}
+l.696   \end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-./d_chapter3/3.tex:672: Missing delimiter (. inserted).
+./d_chapter3/3.tex:698: Missing delimiter (. inserted).
 <to be read again> 
                    \gdef 
-l.672 \end{equation}
+l.698 \end{equation}
                     
 I was expecting to see something like `(' or `\{' or
 `\}' here. If you typed, e.g., `{' instead of `\{', you
@@ -568,22 +543,22 @@ Acceptable delimiters are characters whose \delcode is
 nonnegative, or you can use `\delimiter <delimiter code>'.
 
 
-./d_chapter3/3.tex:682: Package amsmath Error: Erroneous nesting of equation structures;
+./d_chapter3/3.tex:708: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
 
 See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.682   \end{align}
+l.708   \end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-./d_chapter3/3.tex:684: Missing delimiter (. inserted).
+./d_chapter3/3.tex:710: Missing delimiter (. inserted).
 <to be read again> 
                    \gdef 
-l.684 \end{equation}
+l.710 \end{equation}
                     
 I was expecting to see something like `(' or `\{' or
 `\}' here. If you typed, e.g., `{' instead of `\{', you
@@ -592,15 +567,15 @@ braces don't get unbalanced. Otherwise just proceed.
 Acceptable delimiters are characters whose \delcode is
 nonnegative, or you can use `\delimiter <delimiter code>'.
 
+[17]
 
-LaTeX Warning: Reference `eq:' on page 16 undefined on input line 688.
+LaTeX Warning: Reference `eq:' on page 18 undefined on input line 714.
 
 
-LaTeX Warning: Reference `eq:' on page 16 undefined on input line 688.
+LaTeX Warning: Reference `eq:' on page 18 undefined on input line 714.
 
-[16]
-./d_chapter3/3.tex:701: Misplaced alignment tab character &.
-l.701     A \fallingdotseq A_0 &
+./d_chapter3/3.tex:727: Misplaced alignment tab character &.
+l.727     A \fallingdotseq A_0 &
                                 + \dfrac{\partial A}{\partial \Delta u}\Delta u
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -610,62 +585,14 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 
-./d_chapter3/3.tex:735: Package amsmath Error: Erroneous nesting of equation structures;
+./d_chapter3/3.tex:761: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
 
 See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.735   \end{align}
-                   
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-./d_chapter3/3.tex:736: Missing \right. inserted.
-<inserted text> 
-                \right .
-l.736 \end{equation}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-
-./d_chapter3/3.tex:743: Package amsmath Error: Erroneous nesting of equation structures;
-(amsmath)                trying to recover with `aligned'.
-
-See the amsmath package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.743   \end{align}
-                   
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-./d_chapter3/3.tex:745: Missing \right. inserted.
-<inserted text> 
-                \right .
-l.745 \end{equation}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-
-./d_chapter3/3.tex:760: Package amsmath Error: Erroneous nesting of equation structures;
-(amsmath)                trying to recover with `aligned'.
-
-See the amsmath package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.760   \end{align}
+l.761   \end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -681,24 +608,24 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-[17]
+[18]
 
-./d_chapter3/3.tex:773: Package amsmath Error: Erroneous nesting of equation structures;
+./d_chapter3/3.tex:769: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
 
 See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.773   \end{align}
+l.769   \end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-./d_chapter3/3.tex:775: Missing \right. inserted.
+./d_chapter3/3.tex:771: Missing \right. inserted.
 <inserted text> 
                 \right .
-l.775 \end{equation}
+l.771 \end{equation}
                     
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -707,22 +634,22 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 
-./d_chapter3/3.tex:806: Package amsmath Error: Erroneous nesting of equation structures;
+./d_chapter3/3.tex:786: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
 
 See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.806 ^^I\end{align}
-                    
+l.786   \end{align}
+                   
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-./d_chapter3/3.tex:808: Missing \right. inserted.
+./d_chapter3/3.tex:788: Missing \right. inserted.
 <inserted text> 
                 \right .
-l.808 \end{equation}
+l.788 \end{equation}
                     
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -730,39 +657,90 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-) (./e_chapter4/4.tex [18]
+
+./d_chapter3/3.tex:799: Package amsmath Error: Erroneous nesting of equation structures;
+(amsmath)                trying to recover with `aligned'.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.799   \end{align}
+                   
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+./d_chapter3/3.tex:801: Missing \right. inserted.
+<inserted text> 
+                \right .
+l.801 \end{equation}
+                    
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+./d_chapter3/3.tex:832: Package amsmath Error: Erroneous nesting of equation structures;
+(amsmath)                trying to recover with `aligned'.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.832 ^^I\end{align}
+                    
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+./d_chapter3/3.tex:834: Missing \right. inserted.
+<inserted text> 
+                \right .
+l.834 \end{equation}
+                    
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+[19]) (./e_chapter4/4.tex [20]
 第 4 章
-
-LaTeX Warning: Reference `fig:' on page 19 undefined on input line 19.
-
-
-LaTeX Warning: Reference `fig:' on page 19 undefined on input line 19.
-
-[19
+[21
 
 ]
+File: ./z_figure_files/chapter4/1_location_IMU.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter4/1_location_IMU.jpeg>
+File: ./z_figure_files/chapter4/2_IMU_position.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter4/2_IMU_position.jpeg>
 
-LaTeX Warning: Reference `fig:' on page 20 undefined on input line 69.
+Overfull \hbox (15.91661pt too wide) in paragraph at lines 52--68
+ [][][] 
+ []
 
-[20]
+[22]
+File: ./z_figure_files/chapter4/3_filter.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter4/3_filter.jpeg>
+ [23]
 
-./e_chapter4/4.tex:93: Package amsmath Error: Erroneous nesting of equation structures;
+./e_chapter4/4.tex:120: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
 
 See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.93   \end{align}
-                  
+l.120   \end{align}
+                   
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-./e_chapter4/4.tex:95: Missing delimiter (. inserted).
+./e_chapter4/4.tex:122: Missing delimiter (. inserted).
 <to be read again> 
                    \gdef 
-l.95   \label
-             {eq:L_D_Ma}
+l.122   \label
+              {eq:L_D_Ma}
 I was expecting to see something like `(' or `\{' or
 `\}' here. If you typed, e.g., `{' instead of `\{', you
 should probably delete the `{' by typing `1' now, so that
@@ -771,22 +749,22 @@ Acceptable delimiters are characters whose \delcode is
 nonnegative, or you can use `\delimiter <delimiter code>'.
 
 
-./e_chapter4/4.tex:104: Package amsmath Error: Erroneous nesting of equation structures;
+./e_chapter4/4.tex:131: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
 
 See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.104   \end{align}
+l.131   \end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-./e_chapter4/4.tex:106: Missing delimiter (. inserted).
+./e_chapter4/4.tex:133: Missing delimiter (. inserted).
 <to be read again> 
                    \gdef 
-l.106   \label
+l.133   \label
               {eq:CL_CD_Cm}
 I was expecting to see something like `(' or `\{' or
 `\}' here. If you typed, e.g., `{' instead of `\{', you
@@ -795,31 +773,31 @@ braces don't get unbalanced. Otherwise just proceed.
 Acceptable delimiters are characters whose \delcode is
 nonnegative, or you can use `\delimiter <delimiter code>'.
 
-./e_chapter4/4.tex:113: Missing { inserted.
+./e_chapter4/4.tex:140: Missing { inserted.
 <to be read again> 
                    \gdef 
-l.113   C_{L_\dot{\alpha}
+l.140   C_{L_\dot{\alpha}
                          }},
 A left brace was mandatory here, so I've put one in.
 You might want to delete and/or insert some corrections
 so that I will find a matching right brace soon.
 (If you're confused by all this, try typing `I}' now.)
 
-./e_chapter4/4.tex:122: Missing { inserted.
+./e_chapter4/4.tex:149: Missing { inserted.
 <to be read again> 
                    \gdef 
-l.122   C_{m_\dot{\alpha}
+l.149   C_{m_\dot{\alpha}
                          }},
 A left brace was mandatory here, so I've put one in.
 You might want to delete and/or insert some corrections
 so that I will find a matching right brace soon.
 (If you're confused by all this, try typing `I}' now.)
 
-[21]
-./e_chapter4/4.tex:172: Missing { inserted.
+[24]
+./e_chapter4/4.tex:199: Missing { inserted.
 <to be read again> 
                    \gdef 
-l.172 ...quad C_{L_\alpha} \quad C_{L_\dot{\alpha}
+l.199 ...quad C_{L_\alpha} \quad C_{L_\dot{\alpha}
                                                   }} \quad C_{L_q} \quad C_{...
 A left brace was mandatory here, so I've put one in.
 You might want to delete and/or insert some corrections
@@ -827,36 +805,36 @@ so that I will find a matching right brace soon.
 (If you're confused by all this, try typing `I}' now.)
 
 
-LaTeX Warning: Reference `sec:' on page 22 undefined on input line 213.
+LaTeX Warning: Reference `sec:' on page 25 undefined on input line 240.
 
-) (./f_chapter5/5.tex [22]
+) (./f_chapter5/5.tex [25]
 第 5 章
-[23
+[26
 
 ]
 
-LaTeX Warning: Reference `fig:' on page 24 undefined on input line 84.
+LaTeX Warning: Reference `fig:' on page 27 undefined on input line 80.
 
-) (./g_conclusion/conclusion.tex [24]
+) (./g_conclusion/conclusion.tex [27]
 第 6 章
-) [25
+) [28
 
-] (./h_acknowledgements/acknowledgements.tex [26
+] (./h_acknowledgements/acknowledgements.tex [29
 
-]) (./i_references/references.tex [27
+]) (./i_references/references.tex [30
 
-]) (./j_appendix/appendix.tex) [28] (./main.aux)
+]) (./j_appendix/appendix.tex) [31] (./main.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 2289 strings out of 493270
- 27841 string characters out of 6145017
- 110291 words of memory out of 5000000
- 6123 multiletter control sequences out of 15000+600000
+ 2292 strings out of 493270
+ 28340 string characters out of 6145017
+ 114291 words of memory out of 5000000
+ 6137 multiletter control sequences out of 15000+600000
  20175 words of font info for 91 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
  27i,19n,33p,865b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (33 pages, 96680 bytes).
+Output written on main.dvi (36 pages, 98848 bytes).

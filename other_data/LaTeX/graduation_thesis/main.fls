@@ -137,7 +137,8 @@ INPUT ./z_figure_files/chapter2/12_GPS.JPG
 INPUT ./z_figure_files/chapter2/13_pitot.png
 INPUT ./d_chapter3/3.tex
 INPUT ./d_chapter3/3.tex
-INPUT ./z_figure_files/chapter3/3_NED.jpeg
+INPUT ./z_figure_files/chapter3/1_body_axis.jpeg
+INPUT ./z_figure_files/chapter3/2_NED.jpeg
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisr-v.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisr-h.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
@@ -152,8 +153,15 @@ INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmmib
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmbsy10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy8.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm
+INPUT ./z_figure_files/chapter3/3_distance.jpeg
+INPUT ./z_figure_files/chapter3/4_longtitude.jpeg
+INPUT ./z_figure_files/chapter3/5_Va_Vw.jpeg
+INPUT ./z_figure_files/chapter3/6_xz_force.jpeg
 INPUT ./e_chapter4/4.tex
 INPUT ./e_chapter4/4.tex
+INPUT ./z_figure_files/chapter4/1_location_IMU.jpeg
+INPUT ./z_figure_files/chapter4/2_IMU_position.jpeg
+INPUT ./z_figure_files/chapter4/3_filter.jpeg
 INPUT ./f_chapter5/5.tex
 INPUT ./f_chapter5/5.tex
 INPUT ./g_conclusion/conclusion.tex

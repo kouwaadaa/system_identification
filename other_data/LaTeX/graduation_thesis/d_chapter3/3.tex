@@ -13,25 +13,30 @@
 \label{sec:axis}
 %%%%%%%%%%%%%%%%%%%%%%
 
-Fig. \ref{fig:body_axis}に示すように，機体に固定した回転座標系$a^{(B)}-x_B,y_B,z_B$(機体座標系)を導入する．また，機体の姿勢を定義するため，Fig. \ref{fig:ned_axis}に示すように，地球に固定した$a^{(E)}-x_E,y_E,z_E$(NED座標系)を導入する．
+Fig. \ref{fig:body_axis}に示すように，機体に固定した回転座標系$a^{(B)}-x_B,y_B,z_B$(機体座標系)を導入する．なお原点は重心ではなく，メインロータの設置されているフレーム位置にとる．また，機体の姿勢を定義するため，Fig. \ref{fig:ned_axis}に示すように，地球に固定した$a^{(E)}-x_E,y_E,z_E$(NED座標系)を導入する．
 
 機体姿勢は，姿勢角$\psi,\theta,\phi$によって表し，それぞれヨー角，ピッチ角，ロール角である．これらはオイラー角とよばれ，この順序で機体を回転させることにより，座標系の変換を行なう．
 
-\begin{figure}[H]
-\centering
-\includegraphics[clip,width=10.0cm]{}
-\caption{Body coordinate system}
-\label{fig:body_axis}
-\end{figure}
-
-\begin{figure}[h]
+\begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[clip,width=10.0cm,bb=0 0 913 476]{./z_figure_files/chapter3/3_NED.jpeg}
-		\caption{NED coordinate system}
-		\label{fig:ned_axis}
+		\begin{tabular}{c}
+			\begin{minipage}{0.5\hsize}
+				\begin{center}
+					\includegraphics[clip,width=7.0cm,bb=0 0 900 480]{./z_figure_files/chapter3/1_body_axis.jpeg}
+					\caption{Body coordinate frame}
+					\label{fig:body_axis}
+				\end{center}
+			\end{minipage}
+			\begin{minipage}{0.5\hsize}
+				\begin{center}
+					\includegraphics[clip,width=7.0cm,bb=0 0 900 480]{./z_figure_files/chapter3/2_NED.jpeg}
+					\caption{NED coordinate system}
+					\label{fig:ned_axis}
+				\end{center}
+			\end{minipage}
+		\end{tabular}
 	\end{center}
 \end{figure}
-
 
 \subsection{座標系の変換}
 
@@ -451,18 +456,24 @@ I\left[
   \end{split}
   \label{eq:M_g}
 \end{equation}
-である．また，ロータ推力によるモーメントは，\cite{}によるとまだ未解明な点も多いため，本研究で扱う縦運動に関係するピッチングモーメント$M_t$のみ記載することにする．機体軸原点から各ロータまでの距離をFig. \ref{fig:}のように定めると
+である．また，ロータ推力によるモーメントは，\cite{}によるとまだ未解明な点も多いため，本研究で扱う縦運動に関係するピッチングモーメント$M_t$のみ記載することにする．機体軸原点から各ロータまでの距離をFig. \ref{fig:distance}のように定めると
 \begin{equation}
   M_t = -l_m T_m \cos\gamma + l_f T_f - l_{r_y} T_r
   \label{eq:M_t}
 \end{equation}
+となる．ただし，$l_m$は機体軸原点からメインロータまでの$x$軸方向の距離であり，本研究においては$l_m=0$である．空気力によるモーメントの項については，\ref{sec:airf_model}節で詳しく述べる．
 
-空気力によるモーメントの項については，\ref{sec:airf_model}節で詳しく述べる．
+\begin{figure}[H]
+	\centering
+	\includegraphics[clip,width=10.0cm,bb=0 0 800 630]{./z_figure_files/chapter3/3_distance.jpeg}
+	\caption{Locations of rotors on the UAV}
+	\label{fig:distance}
+\end{figure}
 
 \subsection{縦運動の非線形モデル}
 \label{sec:lng_non_linear}
 
-ここでは，Fig. \ref{fig:}に示すような縦運動を考える．そこで横・方向系の運動状態変数と入力変数を，$v=p=r=\delta_a=\phi=0$とすれば，縦運動における低速飛行の非線形モデルは式(\ref{eq:mot_eq}), 式(\ref{eq:F_g})および式(\ref{eq:roll_eq}), 式(\ref{eq:M_g})より，次のようになる．
+ここでは，Fig. \ref{fig:longtitude}に示すような縦運動を考える．そこで横・方向系の運動状態変数と入力変数を，$v=p=r=\delta_a=\phi=0$とすれば，縦運動における低速飛行の非線形モデルは式(\ref{eq:mot_eq}), 式(\ref{eq:F_g})および式(\ref{eq:roll_eq}), 式(\ref{eq:M_g})より，次のようになる．
 \begin{align}
   \dot{u} &= -qw - g\sin\theta +\dfrac{1}{m}(X_a + X_t) \\
   \dot{w} &= qu + g\cos\theta +\dfrac{1}{m}(Z_a + Z_t) \\
@@ -474,6 +485,14 @@ I\left[
   \dot{\theta} = q\cos\phi - r\sin\phi = q
 \end{equation}
 である．
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[clip,width=12.0cm,bb=0 0 820 300]{./z_figure_files/chapter3/4_longtitude.jpeg}
+	\caption{Longtitudinal motion}
+	\label{fig:longtitude}
+\end{figure}
+
 
 %%%%%%%%%%%%%%%%%%%%%%
 \section{空気力モデル}
@@ -488,10 +507,10 @@ I\left[
 機体の対気速度$\mbox{\boldmath $V_a$}$，対地速度$\mbox{\boldmath $V_g$}$，風速$\mbox{\boldmath $V_w$}$の関係をFig. \ref{fig:vel_air}に示す．
 
 \begin{figure}[H]
-\centering
-\includegraphics[clip,width=10.0cm]{}
-\caption{The wind triangle}
-\label{fig:vel_air}
+	\centering
+	\includegraphics[clip,width=10.0cm,bb=0 0 1500 700]{./z_figure_files/chapter3/5_Va_Vw.jpeg}
+	\caption{The wind triangle}
+	\label{fig:vel_air}
 \end{figure}
 
 $\mbox{\boldmath $V_a$}$は，$\mbox{\boldmath $V_g$},\mbox{\boldmath $V_w$}$を用いて次のように表される．
@@ -536,7 +555,7 @@ $\mbox{\boldmath $V_a$}$は，$\mbox{\boldmath $V_g$},\mbox{\boldmath $V_w$}$を
 \subsection{対気速度により発生する空気力}
 \label{sec:airspeed_airf}
 
-ここで，Fig. \ref{fig:}の場合を想定する．まず，エレベータ舵角$\delta_e$とエルロン舵角$\delta_a$は，左右エレボン舵角$\delta_{e_l}, \delta_{e_r}$を用いて次のように表される．
+ここで，Fig. \ref{fig:xz_force}の場合を想定する．まず，エレベータ舵角$\delta_e$とエルロン舵角$\delta_a$は，左右エレボン舵角$\delta_{e_l}, \delta_{e_r}$を用いて次のように表される．
 \begin{equation}
   \left[
     \begin{array}{ccc}
@@ -611,6 +630,13 @@ $Y_a,L_a,N_a$についても同様な表現が可能だが，本研究では縦�
 %   Y_a = \dfrac{1}{2}\rho {V_a}^2 S C_Y + k_Y V_a
 % \end{equation}
 % と仮定する．
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[clip,width=15.0cm,bb=0 0 940 560]{./z_figure_files/chapter3/6_xz_force.jpeg}
+	\caption{Force and moment}
+	\label{fig:xz_force}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%
 \section{縦運動の線形モデル}

@@ -4,33 +4,32 @@
 \contentsline {section}{\numberline {2.2}搭載システム}{5}
 \contentsline {chapter}{\numberline {第3章}力学モデル}{9}
 \contentsline {section}{\numberline {3.1}座標系の導入}{9}
-\contentsline {subsection}{\numberline {3.1.1}座標系の変換}{9}
+\contentsline {subsection}{\numberline {3.1.1}座標系の変換}{10}
 \contentsline {subsection}{\numberline {3.1.2}オイラー角の微分方程式}{10}
 \contentsline {section}{\numberline {3.2}非線形モデル}{11}
 \contentsline {subsection}{\numberline {3.2.1}非線形並進運動方程式}{11}
 \contentsline {subsection}{\numberline {3.2.2}非線形回転運動方程式}{12}
 \contentsline {subsection}{\numberline {3.2.3}縦運動の非線形モデル}{13}
-\contentsline {section}{\numberline {3.3}空気力モデル}{13}
-\contentsline {subsection}{\numberline {3.3.1}一定風下での対気速度}{13}
-\contentsline {subsection}{\numberline {3.3.2}対気速度により発生する空気力}{14}
-\contentsline {section}{\numberline {3.4}縦運動の線形モデル}{15}
-\contentsline {subsection}{\numberline {3.4.1}定常状態}{15}
-\contentsline {subsection}{\numberline {3.4.2}空気力項の線形化}{17}
-\contentsline {subsection}{\numberline {3.4.3}線形化された縦運動モデル}{17}
-\contentsline {chapter}{\numberline {第4章}パラメータ同定}{19}
-\contentsline {section}{\numberline {4.1}データの前処理}{19}
-\contentsline {subsection}{\numberline {4.1.1}センサ取り付け位置の補正}{19}
-\contentsline {subsection}{\numberline {4.1.2}風の影響の補正}{20}
-\contentsline {subsection}{\numberline {4.1.3}機体の加速度の算出}{20}
-\contentsline {subsection}{\numberline {4.1.4}各ロータ出力の評価}{20}
-\contentsline {subsection}{\numberline {4.1.5}データのフィルタリング}{21}
-\contentsline {section}{\numberline {4.2}パラメータの推定手法}{21}
-\contentsline {chapter}{\numberline {第5章}低速飛行特性}{23}
-\contentsline {section}{\numberline {5.1}線形モデルによる固有値解析}{23}
-\contentsline {subsection}{\numberline {5.1.1}機体の状態方程式}{23}
-\contentsline {section}{\numberline {5.2}空気力モデルの検証}{24}
-\contentsline {section}{\numberline {5.3}CFDの解析結果との比較}{24}
-\contentsline {chapter}{\numberline {第6章}結論}{25}
-\contentsline {chapter}{謝辞}{26}
-\contentsline {chapter}{参考文献}{27}
+\contentsline {section}{\numberline {3.3}空気力モデル}{14}
+\contentsline {subsection}{\numberline {3.3.1}一定風下での対気速度}{14}
+\contentsline {subsection}{\numberline {3.3.2}対気速度により発生する空気力}{15}
+\contentsline {section}{\numberline {3.4}縦運動の線形モデル}{17}
+\contentsline {subsection}{\numberline {3.4.1}定常状態}{17}
+\contentsline {subsection}{\numberline {3.4.2}空気力項の線形化}{18}
+\contentsline {subsection}{\numberline {3.4.3}線形化された縦運動モデル}{19}
+\contentsline {chapter}{\numberline {第4章}パラメータ同定}{21}
+\contentsline {section}{\numberline {4.1}データの前処理}{21}
+\contentsline {subsection}{\numberline {4.1.1}センサ取り付け位置の補正}{21}
+\contentsline {subsection}{\numberline {4.1.2}風の影響の補正}{22}
+\contentsline {subsection}{\numberline {4.1.3}機体の加速度の算出}{22}
+\contentsline {subsection}{\numberline {4.1.4}各ロータ出力の評価}{23}
+\contentsline {subsection}{\numberline {4.1.5}データのフィルタリング}{23}
+\contentsline {section}{\numberline {4.2}パラメータの推定手法}{24}
+\contentsline {chapter}{\numberline {第5章}低速飛行特性}{26}
+\contentsline {section}{\numberline {5.1}線形モデルによる固有値解析}{26}
+\contentsline {section}{\numberline {5.2}空気力モデルの検証}{27}
+\contentsline {section}{\numberline {5.3}CFDによる解析結果との比較}{27}
+\contentsline {chapter}{\numberline {第6章}結論}{28}
+\contentsline {chapter}{謝辞}{29}
+\contentsline {chapter}{参考文献}{30}
 \contentsline {chapter}{付録}{}

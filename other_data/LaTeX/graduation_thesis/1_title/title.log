@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  8 FEB 2019 15:01
+This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  12 FEB 2019 03:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -350,8 +350,8 @@ Overfull \hbox (9.6222pt too wide) in paragraph at lines 36--37
  []
 
 
-Overfull \hbox (5.00002pt too wide) in paragraph at lines 36--37
- \OT1/cmr/m/n/10 5 
+Overfull \hbox (10.00003pt too wide) in paragraph at lines 36--37
+ \OT1/cmr/m/n/10 12 
  []
 
 
@@ -382,7 +382,7 @@ or  <return>  to continue without it.
 Here is how much of TeX's memory you used:
  11 strings out of 493270
  94 string characters out of 6145017
- 63565 words of memory out of 5000000
+ 63566 words of memory out of 5000000
  4052 multiletter control sequences out of 15000+600000
  6281 words of font info for 32 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
