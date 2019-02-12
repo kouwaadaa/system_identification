@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  12 FEB 2019 20:46
+This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  13 FEB 2019 07:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -709,31 +709,35 @@ File: ./z_figure_files/chapter4/1_location_IMU.jpeg Graphic file (type bmp)
 File: ./z_figure_files/chapter4/2_IMU_position.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter4/2_IMU_position.jpeg>
 
-Overfull \hbox (15.91661pt too wide) in paragraph at lines 52--68
+Overfull \hbox (15.91661pt too wide) in paragraph at lines 55--71
  [][][] 
  []
 
-[22]
+File: ./z_figure_files/chapter4/wind_measure.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter4/wind_measure.jpeg>
+[22] [23]
+File: ./z_figure_files/chapter4/sub_input.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter4/sub_input.jpeg>
 File: ./z_figure_files/chapter4/3_filter.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter4/3_filter.jpeg>
- [23]
+ [24]
 
-./e_chapter4/4.tex:122: Package amsmath Error: Erroneous nesting of equation structures;
+./e_chapter4/4.tex:142: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
 
 See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.122   \end{align}
+l.142   \end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-./e_chapter4/4.tex:124: Missing delimiter (. inserted).
+./e_chapter4/4.tex:144: Missing delimiter (. inserted).
 <to be read again> 
                    \gdef 
-l.124   \label
+l.144   \label
               {eq:L_D_Ma}
 I was expecting to see something like `(' or `\{' or
 `\}' here. If you typed, e.g., `{' instead of `\{', you
@@ -743,22 +747,22 @@ Acceptable delimiters are characters whose \delcode is
 nonnegative, or you can use `\delimiter <delimiter code>'.
 
 
-./e_chapter4/4.tex:133: Package amsmath Error: Erroneous nesting of equation structures;
+./e_chapter4/4.tex:153: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
 
 See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.133   \end{align}
+l.153   \end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-./e_chapter4/4.tex:135: Missing delimiter (. inserted).
+./e_chapter4/4.tex:155: Missing delimiter (. inserted).
 <to be read again> 
                    \gdef 
-l.135   \label
+l.155   \label
               {eq:CL_CD_Cm}
 I was expecting to see something like `(' or `\{' or
 `\}' here. If you typed, e.g., `{' instead of `\{', you
@@ -767,42 +771,42 @@ braces don't get unbalanced. Otherwise just proceed.
 Acceptable delimiters are characters whose \delcode is
 nonnegative, or you can use `\delimiter <delimiter code>'.
 
-./e_chapter4/4.tex:142: Missing { inserted.
+./e_chapter4/4.tex:162: Missing { inserted.
 <to be read again> 
                    \gdef 
-l.142   C_{L_\dot{\alpha}
+l.162   C_{L_\dot{\alpha}
                          }},
 A left brace was mandatory here, so I've put one in.
 You might want to delete and/or insert some corrections
 so that I will find a matching right brace soon.
 (If you're confused by all this, try typing `I}' now.)
 
-./e_chapter4/4.tex:151: Missing { inserted.
+./e_chapter4/4.tex:171: Missing { inserted.
 <to be read again> 
                    \gdef 
-l.151   C_{m_\dot{\alpha}
+l.171   C_{m_\dot{\alpha}
                          }},
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-[24]
-./e_chapter4/4.tex:201: Missing { inserted.
-<to be read again> 
-                   \gdef 
-l.201 ...quad C_{L_\alpha} \quad C_{L_\dot{\alpha}
-                                                  }} \quad C_{L_q} \quad C_{...
 A left brace was mandatory here, so I've put one in.
 You might want to delete and/or insert some corrections
 so that I will find a matching right brace soon.
 (If you're confused by all this, try typing `I}' now.)
 
 [25]
-./e_chapter4/4.tex:301: Missing { inserted.
+./e_chapter4/4.tex:221: Missing { inserted.
 <to be read again> 
                    \gdef 
-l.301 ...quad C_{m_\alpha} \quad C_{m_\dot{\alpha}
+l.221 ...quad C_{L_\alpha} \quad C_{L_\dot{\alpha}
+                                                  }} \quad C_{L_q} \quad C_{...
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+[26]
+./e_chapter4/4.tex:321: Missing { inserted.
+<to be read again> 
+                   \gdef 
+l.321 ...quad C_{m_\alpha} \quad C_{m_\dot{\alpha}
                                                   }} \quad C_{m_q} \quad C_{...
 A left brace was mandatory here, so I've put one in.
 You might want to delete and/or insert some corrections
@@ -810,42 +814,68 @@ so that I will find a matching right brace soon.
 (If you're confused by all this, try typing `I}' now.)
 
 
-Overfull \hbox (1.59206pt too wide) detected at line 305
+Overfull \hbox (1.59206pt too wide) detected at line 325
  $[] \OT1/cmr/m/n/12 = [][] : []$ 
  []
 
+[27]
+File: ./z_figure_files/chapter4/experiment.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter4/experiment.jpeg>
+File: ./z_figure_files/chapter4/L.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter4/L.jpeg>
+File: ./z_figure_files/chapter4/D.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter4/D.jpeg>
 
-LaTeX Warning: Reference `sec:' on page 26 undefined on input line 329.
+Overfull \hbox (15.91661pt too wide) in paragraph at lines 397--413
+ [][][] 
+ []
 
-) (./f_chapter5/5.tex [26]
+File: ./z_figure_files/chapter4/Ma.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter4/Ma.jpeg>
+[28]
+Overfull \vbox (17.31659pt too high) has occurred while \output is active []
+
+ [29]) (./f_chapter5/5.tex
 第 5 章
 
 Overfull \hbox (13.80832pt too wide) in paragraph at lines 64--66
 \JY2/mc/m/n/12 となる ． プロセスノイズを省略すれば ， この状態方程式は行列 $\OML/cmm/m/it/12 A; B$ \JY2/mc/m/n/12 と状態量 $[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 u; ^^K; q; ^^R\OT1/cmr/m/n/12 )$\JY2/mc/m/n/12 ，
  []
 
-[27
+[30
 
 ]
 File: ./z_figure_files/chapter5/1_eigenvalue.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/1_eigenvalue.jpeg>
- [28]
+ [31]
 File: ./z_figure_files/chapter5/2_CL.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/2_CL.jpeg>
 File: ./z_figure_files/chapter5/3_CD.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/3_CD.jpeg>
 
-Overfull \hbox (15.91661pt too wide) in paragraph at lines 110--126
+Overfull \hbox (15.91661pt too wide) in paragraph at lines 111--127
  [][][] 
  []
 
 File: ./z_figure_files/chapter5/4_Cm.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/4_Cm.jpeg>
-) (./g_conclusion/conclusion.tex [29] [30]
-第 6 章
-) [31
+[32]
+File: ./z_figure_files/chapter5/cfd_L.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter5/cfd_L.jpeg>
+File: ./z_figure_files/chapter5/cfd_D.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter5/cfd_D.jpeg>
 
-] (./h_acknowledgements/acknowledgements.tex [32
+Overfull \hbox (15.91661pt too wide) in paragraph at lines 153--167
+ [][][][] 
+ []
+
+File: ./z_figure_files/chapter5/cfd_m.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter5/cfd_m.jpeg>
+) (./g_conclusion/conclusion.tex [33] [34]
+第 6 章
+) [35
+
+] (./h_acknowledgements/acknowledgements.tex [36
 
 ]) (./i_references/references.tex
 
@@ -866,23 +896,20 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-[33
+[37
 
-]) (./j_appendix/appendix.tex) [34] (./main.aux)
+]) (./j_appendix/appendix.tex) [38] (./main.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: There were undefined references.
-
  ) 
 Here is how much of TeX's memory you used:
- 2328 strings out of 493270
- 28830 string characters out of 6145017
- 114291 words of memory out of 5000000
- 6167 multiletter control sequences out of 15000+600000
+ 2360 strings out of 493270
+ 29431 string characters out of 6145017
+ 114325 words of memory out of 5000000
+ 6190 multiletter control sequences out of 15000+600000
  20522 words of font info for 92 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 27i,19n,33p,994b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,19n,33p,1162b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (39 pages, 109424 bytes).
+Output written on main.dvi (43 pages, 121388 bytes).

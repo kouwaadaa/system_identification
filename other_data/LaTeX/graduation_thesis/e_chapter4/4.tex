@@ -6,10 +6,13 @@
 \label{sys_id}
 %%%%%%%%%%%%%%%%%%%%%%%%
 
-本章では，開発機体を用いた実験で得た飛行データをもとに，モデル内の未知パラメータを同定する手順および手法について述べる．高次元モデルを用いて正確なパラメータ推定を行なうことは困難であるため，ここまでに記述した低次元モデル，中でも縦運動にのみ注目しさらに低次元化したモデルを用いて推定を行なう．ただし，縦運動と横運動に分ける際に，それぞれの干渉を無視した条件を与えることになる．そのため，単純に低次元化しただけでは欲しい実験データ取得の困難性が残る．そこで，プロの操縦者に協力してもらい，できる限り各運動に限定したデータ取得を行なっている．\label{da}
+本章では，開発機体を用いた実験で得た飛行データをもとに，モデル内の未知パラメータを同定する手順および手法について述べる．その後，実際の実機実験によるデータの取得と，同定の結果を述べる．
+
+高次元モデルを用いて正確なパラメータ推定を行なうことは困難であるため，ここまでに記述した低次元モデル，中でも縦運動にのみ注目しさらに低次元化したモデルを用いて推定を行なう．ただし，縦運動と横運動に分ける際に，それぞれの干渉を無視した条件を与えることになる．そのため，単純に低次元化しただけでは欲しい実験データ取得の困難性が残る．そこで，プロの操縦者に協力してもらい，できる限り各運動に限定したデータ取得を行なっている．\label{da}
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 \section{データの前処理}
+\label{sec:data_prepro}
 %%%%%%%%%%%%%%%%%%%%%%%%
 
 本節では，取得したログデータの前処理について述べる．前処理としては，得られたデータを計算に必要な値に変換する処理と，データのフィルタリングに大きく分けられる．
@@ -70,7 +73,15 @@
 
 \subsection{風の影響の補正}
 
-実験は，屋外で風のある環境下で回転翼機モードにおいて行なった．対気速度の測定のために，機首先端にピトー管が取り付けられているが，回転翼機モードでの飛行時は測定誤差が大きいことが分かっている．そこで，風速計を実験地点付近に機体の進行方向と同じ向きで設置し，風速を測定した．風速計の値は時々刻々変化するが，風速が一定に近い時間帯で実験を行ない，その時間帯のおおよその平均風速を測定値とした．データ処理時には，この測定値の一定風が吹いていると仮定し，機体の対地速度，および機体姿勢のログデータを用いて，\ref{sec:wind_speed}小節の通り対気速度を計算する．
+実験は，屋外で風のある環境下で行なう．そこで，対気速度の測定のために，機首先端にピトー管が取り付けられているが，回転翼機モードでの飛行時は測定誤差が大きいことが分かっている．そこで，Fig. \ref{fig:wind_measure}に示すように，風速計を実験地点付近に機体の進行方向と同じ向きで設置し，風速を測定した．風速計の値は時々刻々変化するが，風速が一定に近い時間帯で実験を行ない，その時間帯のおおよその平均風速を測定値とした．データ処理時には，この測定値の一定風が吹いていると仮定し，機体の対地速度，および機体姿勢のログデータを用いて，\ref{sec:wind_speed}小節の通り対気速度を計算する．
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[clip,width=10.0cm,bb=0 0 1250 750]{./z_figure_files/chapter4/wind_measure.jpeg}
+	\caption{Wind measurement}
+	\label{fig:wind_measure}
+\end{figure}
+
 
 \subsection{算出が必要なデータ}
 
@@ -89,7 +100,14 @@
 
 センサで取得したログデータには，様々なノイズが含まれているためそのままでは使えず，必要な信号成分だけを取り出すための処理を施す必要がある．そこで有効となるのが周波数によるフィルタリングである．パラメータ推定を行なう前に，フィルタリングによりデータの誤差を少なくしておかなければ，推定結果に余計な誤差が生じてしまう．
 
-そこで，後に\ref{sec:analyze}節で述べる解析結果から，おおよその機体の固有振動数を算出し，入力や制御の周波数も考慮して，ログデータに対して$10\mathrm{[Hz]}$をカットオフ周波数としたローパスフィルタをかけた．サンプリング間隔は$0.02\mathrm{[s]}$であるから，サンプリング周波数は$50\mathrm{[Hz]}$である．フィルタの実現には高速フーリエ変換(Fast Fourier Transform, FFT)を用いた．FFTによる周波数領域の解析の例として，後に\ref{sec:analyze}節でも触れる入力データの解析結果をFig. \ref{fig:f_input}に示す．また，フィルタリング前後でどれだけノイズが除去されているかは，ある実験データのピッチ角速度を例に，Fig. \ref{fig:f_filter}に示す．
+そこで，後に\ref{sec:analyze}節で述べる解析結果から，おおよその機体の固有振動数を算出し，入力や制御の周波数も考慮して，ログデータに対して$10\mathrm{[Hz]}$をカットオフ周波数としたローパスフィルタをかけた．サンプリング間隔は$0.02\mathrm{[s]}$であるから，サンプリング周波数は$50\mathrm{[Hz]}$である．フィルタの実現には高速フーリエ変換(Fast Fourier Transform, FFT)を用いた．FFTによる周波数領域の解析の例として，後に\ref{sec:analyze}節でも触れる入力データの解析結果をFig. \ref{fig:f_input}に示す．左側に時系列データ，右側にFFTの解析結果を表示している．機首上サブロータの指令値を例としている．また，フィルタリング前後でどれだけノイズが除去されているかは，ある実験データのピッチ角速度を例に，Fig. \ref{fig:f_filter}に示す．
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[clip,width=13.0cm,bb=0 0 1440 864]{./z_figure_files/chapter4/sub_input.jpeg}
+	\caption{FFT analysis of sub rotor command}
+	\label{fig:f_input}
+\end{figure}
 
 \begin{figure}[H]
 	\centering
@@ -97,6 +115,7 @@
 	\caption{Filter pitch rate}
 	\label{fig:f_filter}
 \end{figure}
+
 
 % 補正が必要なデータとして，次の項目が挙げられる．
 % \begin{itemize}
@@ -110,6 +129,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{パラメータの推定手法}
+\label{sec:param_i}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 まず，モデル内の未知パラメータについて述べる．\ref{sec:lng_non_linear}小節に示したモデルにおいて，空気力項に未知パラメータが含まれる．ただし，\ref{sec:airspeed_airf}小節の空気力モデル式については，計算の際に式を変形して
@@ -180,7 +200,7 @@
 
 \hspace{5pt}
 
-次に，推定手法について述べる．パラメータ推定はすべてオフライン処理とし，推定計算には最小二乗法を用いる．式(\ref{eq:CL_CD_Cm})より，$C_D$の式には$C_L$を含む項があるため，$C_L$の推定の後，$C_D$を推定する必要がある．推定順序の観点でいえば，$C_m$は独立である．その上で，最小二乗計算の例として，ここでは$C_L$の推定を取り上げる．式(\ref{eq:CL_CD_Cm})を用いた$C_L$についての最小二乗問題は，次のように策定される．
+次に，推定手法について述べる．パラメータ推定はすべてオフライン処理とし，推定計算には最小二乗法を用いる．式(\ref{eq:CL_CD_Cm})より，$C_D$の式には$C_L$を含む項があるため，$C_L$の推定の後，$C_D$を推定する必要がある．推定順序の観点でいえば，$C_m$は独立である．その上で，最小二乗計算の例として，ここでは$C_L$の推定を取り上げる．式(\ref{eq:CL_CD_Cm})を用いた$C_L$についての最小二乗問題は，次のように策定される\cite{eugene}．
 \begin{equation}
   \mbox{\boldmath $z_L$} = \mbox{\boldmath $X_L$}\mbox{\boldmath $\theta_L$} + \mbox{\boldmath $\nu$}
 \end{equation}
@@ -326,6 +346,79 @@
   \right]^{\mathrm{T}} :
   \mbox{誤差の$N\times1$ベクトル}
 \end{equation*}
-と書けて，$C_L$と同様の手順で計算を行ない，未知パラメータ群$\xi$をすべて求める．実際の推定結果とそれに対する考察は，\ref{sec:}節で行なう．
 
-% 同様の手順で，抗力係数$C_D$とピッチモーメント係数$C_m$についても計算すれば，未知パラメータ群$\xi$はすべて求めることができる．実際の推定結果とそれに対する考察は，\ref{sec:}節で行なう．
+\vspace{10pt}
+
+と書けて，$C_L$と同様の手順で計算を行ない，未知パラメータ群$\xi$をすべて求める．
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\section{実機実験によるパラメータ同定}
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+屋外で風のある環境下で，回転翼機モードによる飛行実験を行なった．飛行実験の様子をFig. \ref{fig:flight_ex}に示す．また，強風下における実験もあったため，安全のために機体の脚部に軽量の紐を取り付けて飛行実験を行なった．具体的には以下のような場合に分けて，それぞれの実験を行なった．
+
+\begin{itemize}
+\item[(1)]風に正対して，静止ホバリングを行なう．
+\item[(2)]ティルト角$0\mathrm{[deg]}$において，高速・低速で前進飛行させる．
+\item[(3)]ティルト角$0\mathrm{[deg]}$において，機首を上下(ピッチ運動)させながら前進飛行させる．
+\item[(4)]エレボンに一定の入力値を与えてホバリングさせる．
+\end{itemize}
+
+得られた実験データに対して，\ref{sec:data_prepro}節で述べたように前処理を行ない，実験結果より\ref{sec:param_i}節で述べた手法で同定した．ただし，実験データは必ずしも連続しておらず，複数のデータを用いている．Table \ref{tb:si_result}に同定結果を示す．また同定したパラメータを用いて再現した揚力，抗力，およびピッチモーメント(橙線)と$C_{L_{log}},C_{D_{log}},M_{a_{log}}$(青線)とを比較したグラフをFig. \ref{fig:L_re}〜\ref{fig:Ma_re}に示す．縦の黒破線は，実験データごとの境界を表す．おおよその再現性は見られるものの，誤差が大きな区間は，突風などの外乱の影響や，わずかな横運動が原因であると考えられる．またバッテリー残量などの影響により，各ロータが事前に測定した通りの推力値を出せていなかったことも原因であると考えられる．モデルの妥当性に関しては，\ref{sec:airf_model_ver}節で検証することにする．
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[clip,width=10cm,bb=0 0 1123 762]{./z_figure_files/chapter4/experiment.jpeg}
+    \caption{Outdoor experiment under strong wind}
+    \label{fig:flight_ex}
+  \end{center}
+\end{figure}
+
+\begin{table} [htbp]
+  \begin{center}
+    \caption{Identified parameters}
+    \label{tb:si_result}
+    \begin{tabular}{|c||r|cc||r|} \hline
+      $C_{L_0}$ & 0.1313 & & $C_{m_0}$ & 1.237 \\ \hline
+      $C_{L_\alpha}$ & 0.7357 & & $C_{m_\alpha}$ & -0.04574 \\ \hline
+      $C_{L_{\dot{\alpha}}}$ & -36.87 & & $C_{m_{\dot{\alpha}}}$ & -7.799 \\ \hline
+      $C_{L_q}$ & 36.33 & & $C_{m_q}$ & 8.414 \\ \hline
+      $C_{L_{\delta_e}}$ & -1.112 & & $C_{m_{\delta_e}}$ & 0.4092 \\ \hline
+      $C_{L_k}$ & -4.070 & & $C_{m_k}$ & -7.505 \\ \hline
+      $C_{D_0}$ & 0.2385 &&&\\ \hline
+      $\kappa$ & 0.2228 &&&\\ \hline
+      $C_{D_k}$ & 5.976 &&&\\ \hline
+    \end{tabular}
+  \end{center}
+\end{table}
+
+\begin{figure}[htbp]
+	\begin{center}
+		\begin{tabular}{c}
+			\begin{minipage}{0.5\hsize}
+				\begin{center}
+					\includegraphics[clip,width=7.5cm,bb=0 0 982 835]{./z_figure_files/chapter4/L.jpeg}
+					\caption{Reproduction of lift}
+					\label{fig:L_re}
+				\end{center}
+			\end{minipage}
+			\begin{minipage}{0.5\hsize}
+				\begin{center}
+					\includegraphics[clip,width=7.5cm,bb=0 0 982 835]{./z_figure_files/chapter4/D.jpeg}
+					\caption{Reproduction of drag}
+					\label{fig:D_re}
+				\end{center}
+			\end{minipage}
+		\end{tabular}
+	\end{center}
+\end{figure}
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[clip,width=7.5cm,bb=0 0 982 835]{./z_figure_files/chapter4/Ma.jpeg}
+    \caption{Reproduction of pitch moment}
+    \label{fig:Ma_re}
+  \end{center}
+\end{figure}
+
+
+% 実際の推定結果とそれに対する考察は，\ref{sec:airf_model_ver}節で行なう．

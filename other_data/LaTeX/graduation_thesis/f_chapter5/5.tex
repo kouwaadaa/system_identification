@@ -99,11 +99,12 @@ Fig. \ref{fig:eigenvalue}から，機体の回転翼機モードにおける低�
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{空気力モデルの検証}
+\label{sec:airf_model_ver}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-本節では，パラメータ同定の結果から，式(\ref{eq:L})〜(\ref{eq:Ma})で設定した空気力モデルが妥当であるかを考える．Fig. \ref{fig:CL_si}〜\ref{fig:Cm_si}に示すように，$L_{log},D_{log},M_{a_{log}}$から算出した空力係数(青)，空気力モデル内の速度に比例した項を除いたモデルを用いて同定した結果から算出した空力係数(黃)，および本研究で仮定する空気力モデルを用いて同定した結果から算出した空力係数(緑)とをそれぞれ比較する．ただし，式(\ref{eq:CL}),~(\ref{eq:Cm})より空力係数に関係する変数は，$\alpha,\dot{\alpha},q,\delta_e,V_a$の計5個あるため，その中から$V_a$を横軸にとった射影を図示している．
+本節では，パラメータ同定の結果から，式(\ref{eq:L})〜(\ref{eq:Ma})で設定した空気力モデルが妥当であるかを考える．Fig. \ref{fig:CL_si}〜\ref{fig:Cm_si}に示すように，$L_{log},D_{log},M_{a_{log}}$から算出した空力係数(青点)，空気力モデル内の速度に比例した項を除いたモデルを用いて同定した結果から算出した空力係数(黃点)，および本研究で仮定する空気力モデルを用いて同定した結果から算出した空力係数(緑点)とをそれぞれ比較する．ただし，式(\ref{eq:CL}),~(\ref{eq:Cm})より空力係数に関係する変数は，$\alpha,\dot{\alpha},q,\delta_e,V_a$の計5個あるため，その中から$V_a$を横軸にとった射影を図示している．
 
-$C_L$はそれほど大きな変化は見られないが，$C_D,C_m$では$k_* V_a$の項を含めた空気力モデルの方が，実験値に沿うように点在しているように見える．これを数値で示すために
+$C_L$はそれほど大きな変化は見られないが，$C_D,C_m$では$k_* V_a$の項を含めた空気力モデルの方が，実験値に沿うように点在しているように見える．
 
 \begin{figure}[htbp]
 	\begin{center}
@@ -136,4 +137,37 @@ $C_L$はそれほど大きな変化は見られないが，$C_D,C_m$では$k_* V
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{CFDによる解析結果との比較}
+\label{sec:cfd}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+本節では，パラメータ同定結果の妥当性をさらに検証するために，CFDによる解析結果とも比較する．CFD解析において，パラメータ同定の計算上の条件と比べて，機体前方から一定風が吹いているという条件は一致するが，常に対気速度$V_a=5\mathrm{[m s^{-1}]}$であるという条件が異なる．そのため，同定結果およびログデータのうち，$V_a$が$4.5\mathrm{[m s^{-1}]}$以上$5.5\mathrm{[m s^{-1}]}$以下であるデータのみを採用した．Fig. \ref{fig:cfd_L}〜\ref{fig:cfd_Ma}に，迎角$\alpha$を横軸にとり，揚力・抗力・ピッチモーメントそれぞれの空力係数をプロットしたものを示す．青の点がログデータから算出された値，緑の点が同定結果から再現された値，そして赤の点がCFD解析による値である．また，$\alpha$との関係性を見るために，各点と同じ色で回帰直線を引いてある．
+
+$C_L$について，CFDの解析結果は$\alpha$が大きいほど数値も大きくなることが見て取れる．しかし，ログデータや，特に同定結果を見ると，$\alpha$が$-5\mathrm{[deg]}$付近を境に$\alpha$の上昇に伴って数値が小さくなっていくように見える．CFDでは，ロータは回していない状態で解析を行なっているため，$\alpha$が大きいとき，ロータによって発生する空気の流れによって，負の揚力が発生しているのではないかと考えられる．
+
+次に$C_D$について，同定結果とCFD解析結果がほぼ一致している一方で，ログデータとは一致していない．これは抗力係数のうち，迎角によって変化するとされる有害抵抗係数による影響だと考えられる\cite{}．同定に用いる式(\ref{eq:D_o})の設定を見直す必要があると思われる．
+
+最後に$C_m$について，ログデータにはばらつきがあるものの，どの結果も$\alpha$の値によらずほぼ一定の値を取っている．CFDの解析結果が大きく離れているのは，ロータ推力の推算による誤差が大きい可能性が考えられる．ロータ推力の算出方法も改善の余地があると思われる．
+
+\begin{figure}[htbp]
+	\centering
+		\begin{tabular}{c}
+			\begin{minipage}{0.5\hsize}
+				\centering
+					\includegraphics[clip,width=7.5cm,bb=0 0 1912 1743]{./z_figure_files/chapter5/cfd_L.jpeg}
+					\caption{Comparing $C_L$ results of CFD and identification}
+					\label{fig:cfd_L}
+			\end{minipage}
+			\begin{minipage}{0.5\hsize}
+				\centering
+					\includegraphics[clip,width=7.5cm,bb=0 0 1819 1662]{./z_figure_files/chapter5/cfd_D.jpeg}
+					\caption{Comparing $C_D$ results of CFD and identification}
+					\label{fig:cfd_D}
+			\end{minipage}
+		\end{tabular}
+\end{figure}
+\begin{figure}[H]
+  \centering
+    \includegraphics[clip,width=7.5cm,bb=0 0 1832 1662]{./z_figure_files/chapter5/cfd_m.jpeg}
+    \caption{Comparing $C_m$ results of CFD and identification}
+    \label{fig:cfd_Ma}
+\end{figure}

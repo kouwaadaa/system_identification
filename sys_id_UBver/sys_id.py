@@ -438,7 +438,7 @@ def sys_id_LS_max_ub(format_df):
     xL[:,2] = (const.MAC/(2*Va))*d_alpha
     xL[:,3] = (const.MAC/(2*Va))*d_theta
     xL[:,4] = delta_e
-    xL[:,5] = 1/((1/2)*const.RHO*Va*const.S)
+    xL[:,5] = 1/Va
 
     # 擬似逆行列を用いた最小二乗解の計算
     L_theta_hat = np.dot((np.linalg.pinv(xL)),yL)
@@ -449,7 +449,7 @@ def sys_id_LS_max_ub(format_df):
     CL_d_alpha = L_theta_hat[2]
     CL_q = L_theta_hat[3]
     CL_delta_e = L_theta_hat[4]
-    k_L = L_theta_hat[5]
+    CL_k = L_theta_hat[5]
 
     # 同定結果から得られたCLを計算
     CL = CL_0 \
@@ -457,7 +457,7 @@ def sys_id_LS_max_ub(format_df):
         + CL_d_alpha*(const.MAC/(2*Va))*d_alpha \
         + CL_q*(const.MAC/(2*Va))*d_theta \
         + CL_delta_e*delta_e \
-        + k_L*(1/((1/2)*const.RHO*Va*const.S))
+        + CL_k*(1/Va)
 
     #---------------------------
     # 抗力
@@ -470,7 +470,7 @@ def sys_id_LS_max_ub(format_df):
     xD = np.zeros((data_size,3))
     xD[:,0] = 1
     xD[:,1] = CL**2
-    xD[:,2] = 1/((1/2)*const.RHO*Va*const.S)
+    xD[:,2] = 1/Va
 
     # 擬似逆行列を用いた最小二乗解の計算
     D_theta_hat = np.dot((np.linalg.pinv(xD)),yD)
@@ -478,10 +478,10 @@ def sys_id_LS_max_ub(format_df):
     # 同定された未知パラメータの取り出し
     CD_0 = D_theta_hat[0]
     kappa = D_theta_hat[1]
-    k_D = D_theta_hat[2]
+    CD_k = D_theta_hat[2]
 
     # 同定結果から得られたCDを計算
-    CD = CD_0 + kappa*(CL**2) + k_D*(1/((1/2)*const.RHO*Va*const.S))
+    CD = CD_0 + kappa*(CL**2) + CD_k*(1/Va)
 
     #---------------------------
     # モーメント
@@ -497,7 +497,7 @@ def sys_id_LS_max_ub(format_df):
     xm[:,2] = (const.MAC/(2*Va))*d_alpha
     xm[:,3] = (const.MAC/(2*Va))*d_theta
     xm[:,4] = delta_e
-    xm[:,5] = 1/((1/2)*const.RHO*Va*const.S*const.MAC)
+    xm[:,5] = 1/Va
 
     # 擬似逆行列を用いた最小二乗解の計算
     m_theta_hat = np.dot((np.linalg.pinv(xm)),ym)
@@ -508,7 +508,7 @@ def sys_id_LS_max_ub(format_df):
     Cm_d_alpha = m_theta_hat[2]
     Cm_q = m_theta_hat[3]
     Cm_delta_e = m_theta_hat[4]
-    k_m = m_theta_hat[5]
+    Cm_k = m_theta_hat[5]
 
     # 同定結果から得られたCDを計算
     Cm = Cm_0 \
@@ -516,7 +516,7 @@ def sys_id_LS_max_ub(format_df):
         + Cm_d_alpha*(const.MAC/(2*Va))*d_alpha \
         + Cm_q*(const.MAC/(2*Va))*d_theta \
         + Cm_delta_e*delta_e \
-        + k_m*(1/((1/2)*const.RHO*Va*const.S*const.MAC))
+        + Cm_k*(1/Va)
 
     #---------------------------
     # 同定結果を用いて空力を再現
@@ -537,18 +537,18 @@ def sys_id_LS_max_ub(format_df):
     format_df_return['CL_d_alpha'] = CL_d_alpha
     format_df_return['CL_q'] = CL_q
     format_df_return['CL_delta_e'] = CL_delta_e
-    format_df_return['k_L'] = k_L
+    format_df_return['CL_k'] = CL_k
 
     format_df_return['CD_0'] = CD_0
     format_df_return['kappa'] = kappa
-    format_df_return['k_D'] = k_D
+    format_df_return['CD_k'] = CD_k
 
     format_df_return['Cm_0'] = Cm_0
     format_df_return['Cm_alpha'] = Cm_alpha
     format_df_return['Cm_d_alpha'] = Cm_d_alpha
     format_df_return['Cm_q'] = Cm_q
     format_df_return['Cm_delta_e'] = Cm_delta_e
-    format_df_return['k_m'] = k_m
+    format_df_return['Cm_k'] = Cm_k
 
     format_df_return['CL'] = CL
     format_df_return['CD'] = CD

@@ -237,23 +237,71 @@ format_df6 = statistics.calc_RMSE(format_df6)
 # plt.ylabel(r'$C_L$')
 # plt.show()
 
-f_up_pwm = np.array(format_df5['f_up_pwm'])
+# f_up_pwm = np.array(format_df5['f_up_pwm'])
+#
+# # 高速フーリエ変換(FFT)
+# F = np.fft.fft(f_up_pwm) #
+#
+# # FFTの複素数結果を絶対に変換
+# F_abs = np.abs(F)
+# # 振幅をもとの信号に揃える
+# F_abs_am = F_abs / data_size * 2 # 交流成分はデータ数で割って2倍
+# F_abs_amp = F_abs_am / (1/0.02)
+#
+# # 周波数軸のデータ作成
+# fq = np.linspace(1, 1.0/0.02, data_size) # 周波数軸　linspace(開始,終了,分割数)
+#
+# fig = plt.figure()
+#
+# # 時間軸
+# ax1 = fig.add_subplot(121)
+# plt.xlabel('Data Number')
+# plt.ylabel('PWM value')
+# plt.plot(f_up_pwm,label="Sub rotor command") # ナイキスト定数まで表示
+# plt.legend()
+#
+# # FFTのグラフ（周波数軸）
+# ax2 = fig.add_subplot(122)
+# plt.xlabel('Freqency[Hz]')
+# plt.ylabel('Amplitude')
+# plt.plot(fq[1:int(data_size/2)], F_abs_amp[1:int(data_size/2)],label="Sub rotor command") # ナイキスト定数まで表示
+# plt.legend()
+# plt.show()
 
-# 高速フーリエ変換(FFT)
-F = np.fft.fft(f_up_pwm) #
+L = np.array(format_df5['L'])
+L_calc = np.array(format_df5['L_calc'])
+D = np.array(format_df5['D'])
+D_calc = np.array(format_df5['D_calc'])
+Ma = np.array(format_df5['Ma'])
+Ma_calc = np.array(format_df5['Ma_calc'])
 
-# FFTの複素数結果を絶対に変換
-F_abs = np.abs(F)
-# 振幅をもとの信号に揃える
-F_abs_am = F_abs / data_size * 2 # 交流成分はデータ数で割って2倍
-F_abs_amp = F_abs_am / (1/0.02)
+plt.subplot(111)
+plt.plot(Ma,label=r"$M_{a_{log}}$")
+plt.plot(Ma_calc,label=r"$M_{a_{calc}}$")
+plt.legend()
 
-# 周波数軸のデータ作成
-fq = np.linspace(1, 1.0/0.02, data_size) # 周波数軸　linspace(開始,終了,分割数)
+for j in borderline_list:
+    plt.axvline(x=j, color="black",linestyle="--") # 実験データの境目で線を引く
 
-# FFTのグラフ（周波数軸）
-ax2 = fig.add_subplot(122)
-plt.xlabel('Freqency[Hz]')
-plt.ylabel('Amplitude')
-plt.plot(fq[1:int(data_size/2)], F_abs_amp[1:int(data_size/2)]) # ナイキスト定数まで表示
+plt.xlabel('Data Number')
+plt.ylabel(r'Pitch moment$\mathrm{[N \cdot m]}$')
 plt.show()
+
+# CL = np.array(format_df5['CL'])
+# CL_log = np.array(format_df5['CL_log'])
+# CD = np.array(format_df5['CD'])
+# CD_log = np.array(format_df5['CD_log'])
+# Cm = np.array(format_df5['Cm'])
+# Cm_log = np.array(format_df5['Cm_log'])
+#
+# plt.subplot(111)
+# plt.plot(CD_log,label=r"$D_{log}$")
+# plt.plot(CD,label=r"$D_{calc}$")
+# plt.legend()
+#
+# for j in borderline_list:
+#     plt.axvline(x=j, color="black",linestyle="--") # 実験データの境目で線を引く
+#
+# plt.xlabel('Data Number')
+# plt.ylabel(r'Drag$\mathrm{[N]}$')
+# plt.show()
