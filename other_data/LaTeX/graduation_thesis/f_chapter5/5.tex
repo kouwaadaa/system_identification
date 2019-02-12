@@ -67,9 +67,12 @@
   \dfrac{d\underline{x}}{dt} = A\underline{x} + B\underline{u}
 \label{eq:matrix_A}
 \end{equation}
-と表すことができる．
-
-
+と表すことができる．したがってこれを連続時間システムとすれば，一般に
+\begin{equation}
+  \underline{x}(t) = e^{At}\underline{x}(0) + \int_0^t e^{A(t-\tau)}B\underline{u}(\tau) d\tau
+  \label{eq:system}
+\end{equation}
+が得られる．式(\ref{eq:system})の右辺第1項目は，斉次方程式の一般解であり，行列$A$の固有値から成る．右辺第2項目は特殊解であり，\underline{u}による振動数と行列$A$の固有値から成る．例えば，右辺第2項目は$u=1$のとき，$\int_0^t e^{A(t-\tau)}B d\tau$となり，行列$A$の固有値に依存した振動になり得るということである．
 
 % ここで入力$\underline{u}$が，振動や減衰を表す関数
 % \begin{equation}

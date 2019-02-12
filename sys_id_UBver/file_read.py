@@ -356,7 +356,7 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
         'v' : Va[:,1],
         'w' : Va[:,2],
         'Va' : Va_mag,
-        'pitot_Va' : measurement_airspeed,
+        # 'pitot_Va' : measurement_airspeed,
         'Tm_up' : Tm_up,
         'Tm_down' : Tm_down,
         'Tr_r' : Tr_r,
@@ -384,7 +384,8 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
         'CL_log' : CL_log,
         'CD_log' : CD_log,
         'Cm_log' : Cm_log,
-        'Time_DIFF' : time_diff,
+        # 'Time_DIFF' : time_diff,
+        'f_up_pwm' : f_up_pwm,
         })
     ])
 

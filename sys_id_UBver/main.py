@@ -124,7 +124,7 @@ format_df4 = statistics.calc_RMSE(format_df4)
 format_df5 = statistics.calc_RMSE(format_df5)
 format_df6 = statistics.calc_RMSE(format_df6)
 
-df5_V_filter = format_df5.query('4.5 <= Va <= 5.5')
+# df5_V_filter = format_df5.query('4.5 <= Va <= 5.5')
 
 # format_df[['L_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['D_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
@@ -220,19 +220,40 @@ df5_V_filter = format_df5.query('4.5 <= Va <= 5.5')
 # plt.ylabel('Pitch Rate [rad/s]')
 # plt.show()
 
-Va = np.array(format_df5['Va'])
-CL_log = np.array(format_df5['CL_log'])
-CL_4 = np.array(format_df4['CL']) # non kV
-CL_5 = np.array(format_df5['CL']) # max
-# CL_6 = np.array(format_df6['CL']) # non d_alpha
+# Va = np.array(format_df5['Va'])
+# CL_log = np.array(format_df5['CL_log'])
+# CL_4 = np.array(format_df4['CL']) # non kV
+# CL_5 = np.array(format_df5['CL']) # max
+# # CL_6 = np.array(format_df6['CL']) # non d_alpha
+#
+# plt.subplot(111)
+# plt.scatter(Va,CL_log,label="Log data",linewidth="3")
+# plt.scatter(Va,CL_4,label=r"None $k_LV_a$ model")
+# plt.scatter(Va,CL_5,label="Postulate model")
+# # plt.scatter(Va,CL_6,label=r"Model:No $\dot{\alpha}$")
+# plt.legend()
+#
+# plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$')
+# plt.ylabel(r'$C_L$')
+# plt.show()
 
-plt.subplot(111)
-plt.scatter(Va,CL_log,label="Log data",linewidth="3")
-plt.scatter(Va,CL_4,label=r"None $k_LV_a$ model")
-plt.scatter(Va,CL_5,label="Postulate model")
-# plt.scatter(Va,CL_6,label=r"Model:No $\dot{\alpha}$")
-plt.legend()
+f_up_pwm = np.array(format_df5['f_up_pwm'])
 
-plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$')
-plt.ylabel(r'$C_L$')
+# 高速フーリエ変換(FFT)
+F = np.fft.fft(f_up_pwm) #
+
+# FFTの複素数結果を絶対に変換
+F_abs = np.abs(F)
+# 振幅をもとの信号に揃える
+F_abs_am = F_abs / data_size * 2 # 交流成分はデータ数で割って2倍
+F_abs_amp = F_abs_am / (1/0.02)
+
+# 周波数軸のデータ作成
+fq = np.linspace(1, 1.0/0.02, data_size) # 周波数軸　linspace(開始,終了,分割数)
+
+# FFTのグラフ（周波数軸）
+ax2 = fig.add_subplot(122)
+plt.xlabel('Freqency[Hz]')
+plt.ylabel('Amplitude')
+plt.plot(fq[1:int(data_size/2)], F_abs_amp[1:int(data_size/2)]) # ナイキスト定数まで表示
 plt.show()

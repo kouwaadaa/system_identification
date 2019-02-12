@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  12 FEB 2019 13:25
+This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  12 FEB 2019 20:46
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -718,22 +718,22 @@ File: ./z_figure_files/chapter4/3_filter.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter4/3_filter.jpeg>
  [23]
 
-./e_chapter4/4.tex:120: Package amsmath Error: Erroneous nesting of equation structures;
+./e_chapter4/4.tex:122: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
 
 See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.120   \end{align}
+l.122   \end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-./e_chapter4/4.tex:122: Missing delimiter (. inserted).
+./e_chapter4/4.tex:124: Missing delimiter (. inserted).
 <to be read again> 
                    \gdef 
-l.122   \label
+l.124   \label
               {eq:L_D_Ma}
 I was expecting to see something like `(' or `\{' or
 `\}' here. If you typed, e.g., `{' instead of `\{', you
@@ -743,22 +743,22 @@ Acceptable delimiters are characters whose \delcode is
 nonnegative, or you can use `\delimiter <delimiter code>'.
 
 
-./e_chapter4/4.tex:131: Package amsmath Error: Erroneous nesting of equation structures;
+./e_chapter4/4.tex:133: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
 
 See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.131   \end{align}
+l.133   \end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-./e_chapter4/4.tex:133: Missing delimiter (. inserted).
+./e_chapter4/4.tex:135: Missing delimiter (. inserted).
 <to be read again> 
                    \gdef 
-l.133   \label
+l.135   \label
               {eq:CL_CD_Cm}
 I was expecting to see something like `(' or `\{' or
 `\}' here. If you typed, e.g., `{' instead of `\{', you
@@ -767,20 +767,20 @@ braces don't get unbalanced. Otherwise just proceed.
 Acceptable delimiters are characters whose \delcode is
 nonnegative, or you can use `\delimiter <delimiter code>'.
 
-./e_chapter4/4.tex:140: Missing { inserted.
+./e_chapter4/4.tex:142: Missing { inserted.
 <to be read again> 
                    \gdef 
-l.140   C_{L_\dot{\alpha}
+l.142   C_{L_\dot{\alpha}
                          }},
 A left brace was mandatory here, so I've put one in.
 You might want to delete and/or insert some corrections
 so that I will find a matching right brace soon.
 (If you're confused by all this, try typing `I}' now.)
 
-./e_chapter4/4.tex:149: Missing { inserted.
+./e_chapter4/4.tex:151: Missing { inserted.
 <to be read again> 
                    \gdef 
-l.149   C_{m_\dot{\alpha}
+l.151   C_{m_\dot{\alpha}
                          }},
 A left brace was mandatory here, so I've put one in.
 You might want to delete and/or insert some corrections
@@ -788,10 +788,10 @@ so that I will find a matching right brace soon.
 (If you're confused by all this, try typing `I}' now.)
 
 [24]
-./e_chapter4/4.tex:199: Missing { inserted.
+./e_chapter4/4.tex:201: Missing { inserted.
 <to be read again> 
                    \gdef 
-l.199 ...quad C_{L_\alpha} \quad C_{L_\dot{\alpha}
+l.201 ...quad C_{L_\alpha} \quad C_{L_\dot{\alpha}
                                                   }} \quad C_{L_q} \quad C_{...
 A left brace was mandatory here, so I've put one in.
 You might want to delete and/or insert some corrections
@@ -799,10 +799,10 @@ so that I will find a matching right brace soon.
 (If you're confused by all this, try typing `I}' now.)
 
 [25]
-./e_chapter4/4.tex:299: Missing { inserted.
+./e_chapter4/4.tex:301: Missing { inserted.
 <to be read again> 
                    \gdef 
-l.299 ...quad C_{m_\alpha} \quad C_{m_\dot{\alpha}
+l.301 ...quad C_{m_\alpha} \quad C_{m_\dot{\alpha}
                                                   }} \quad C_{m_q} \quad C_{...
 A left brace was mandatory here, so I've put one in.
 You might want to delete and/or insert some corrections
@@ -810,12 +810,12 @@ so that I will find a matching right brace soon.
 (If you're confused by all this, try typing `I}' now.)
 
 
-Overfull \hbox (1.59206pt too wide) detected at line 303
+Overfull \hbox (1.59206pt too wide) detected at line 305
  $[] \OT1/cmr/m/n/12 = [][] : []$ 
  []
 
 
-LaTeX Warning: Reference `sec:' on page 26 undefined on input line 327.
+LaTeX Warning: Reference `sec:' on page 26 undefined on input line 329.
 
 ) (./f_chapter5/5.tex [26]
 第 5 章
@@ -829,23 +829,23 @@ Overfull \hbox (13.80832pt too wide) in paragraph at lines 64--66
 ]
 File: ./z_figure_files/chapter5/1_eigenvalue.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/1_eigenvalue.jpeg>
+ [28]
 File: ./z_figure_files/chapter5/2_CL.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/2_CL.jpeg>
 File: ./z_figure_files/chapter5/3_CD.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/3_CD.jpeg>
 
-Overfull \hbox (15.91661pt too wide) in paragraph at lines 107--123
+Overfull \hbox (15.91661pt too wide) in paragraph at lines 110--126
  [][][] 
  []
 
-[28]
 File: ./z_figure_files/chapter5/4_Cm.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/4_Cm.jpeg>
-) (./g_conclusion/conclusion.tex [29]
+) (./g_conclusion/conclusion.tex [29] [30]
 第 6 章
-) [30
+) [31
 
-] (./h_acknowledgements/acknowledgements.tex [31
+] (./h_acknowledgements/acknowledgements.tex [32
 
 ]) (./i_references/references.tex
 
@@ -856,9 +856,19 @@ LaTeX Font Warning: Font shape `JT2/mc/m/it' undefined
 LaTeX Font Warning: Font shape `JY2/mc/m/it' undefined
 (Font)              using `JY2/mc/m/n' instead on input line 17.
 
-[32
+./i_references/references.tex:17: Misplaced alignment tab character &.
+l.17 ...textit{Dynamics of FLIGHT}'', John Wiley &
+                                                   Sons. Inc. , pp.18-92 (1959)
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
 
-]) (./j_appendix/appendix.tex) [33] (./main.aux)
+[33
+
+]) (./j_appendix/appendix.tex) [34] (./main.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -867,12 +877,12 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 2323 strings out of 493270
- 28786 string characters out of 6145017
+ 2328 strings out of 493270
+ 28830 string characters out of 6145017
  114291 words of memory out of 5000000
- 6162 multiletter control sequences out of 15000+600000
+ 6167 multiletter control sequences out of 15000+600000
  20522 words of font info for 92 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
  27i,19n,33p,994b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (38 pages, 106380 bytes).
+Output written on main.dvi (39 pages, 109424 bytes).
