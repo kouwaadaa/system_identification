@@ -51,7 +51,8 @@
     \overline{M_{\delta_e}} & \overline{M_{T_m}} & \overline{M_{T_r}} & \overline{M_{T_f}} \\
     0 & 0 & 0 & 0
   \end{array}
-  \right]
+  \right]}_{B}
+  \underbrace{
   \left[
   \begin{array}{cccc}
     \delta_e \\
@@ -61,23 +62,28 @@
   \end{array}
   \right]}_{\underline{u}}
 \end{equation}
-となる．プロセスノイズを省略すれば，\cite{}を参考に，この状態方程式は行列$A$と状態量$\underline{x}(u,\alpha,q,\theta)$，入力$\underline{u}(\delta_e,T_m,T_r,T_f)$を用いることによって
+となる．プロセスノイズを省略すれば，この状態方程式は行列$A,B$と状態量$\underline{x}(u,\alpha,q,\theta)$，入力$\underline{u}(\delta_e,T_m,T_r,T_f)$を用いることによって
 \begin{equation}
-  \dfrac{d\underline{x}}{dt} = A\underline{x} + \underline{u}
+  \dfrac{d\underline{x}}{dt} = A\underline{x} + B\underline{u}
 \label{eq:matrix_A}
 \end{equation}
-と表すことができる．ここで入力$\underline{u}$が，振動や減衰を表す関数
-\begin{equation}
-  \underline{u} = \sum \underline{f} e^{\omega t}
-\end{equation}
-であるとする．ただし$\omega$は複素数($\omega \in \mathbb{C}$)である．これにより，状態量$\underline{x}$は解析的に解くことができ
-\begin{equation}
-  \underline{x} = \left(\sum_{i}C_i x_i e^{\lambda_i t}\right) +
-  \sum(\omega I - A)^{-1} \underline{f} e^{\omega t}
-\end{equation}
-となる．ここで右辺第1項は，ある係数$C_i$，行列$A$の固有値$\lambda_i$，固有ベクトル$x_i$で表された一般解で，状態に固有な振動や発散，減衰などを表している．右辺第2項は特殊解であり，入力と同じ周波数成分を持つ．つまり，外乱がない限り，状態量は周波数成分として固有振動数や入力に存在する周波数成分に相関するということである．
+と表すことができる．
 
-そこで，\ref{sec:filter}でも述べたように，固有振動数を計算することで機体の運動が持つおおよその周波数帯をつかみ，データのフィルタリングに利用する．実際に式(\ref{eq:matrix_A})の行列$A$について，固有値を計算して絶対値をプロットしたものがFig. \ref{fig:eigenvalue}である．ただし，実験中の風の影響などの外乱が大きいと思われるデータは除き，計算を行なった．行列$A$が4次の正方行列であるため，各データ点ごとに最大4つの固有値を持ち，それぞれ色分けされている．グラフ内の縦線は，複数の実験データそれぞれの境界を示す．
+
+
+% ここで入力$\underline{u}$が，振動や減衰を表す関数
+% \begin{equation}
+%   \underline{u} = \sum \underline{f} e^{\omega t}
+% \end{equation}
+% であるとする．ただし$\omega$は複素数($\omega \in \mathbb{C}$)である．これにより，状態量$\underline{x}$は解析的に解くことができ
+% \begin{equation}
+%   \underline{x} = \left(\sum_{i}C_i x_i e^{\lambda_i t}\right) +
+%   \sum(\omega I - A)^{-1} \underline{f} e^{\omega t}
+% \end{equation}
+% となる．ここで右辺第1項は，ある係数$C_i$，行列$A$の固有値$\lambda_i$，固有ベクトル$x_i$で表された一般解で，状態に固有な振動や発散，減衰などを表している．右辺第2項は特殊解であり，入力と同じ周波数成分を持つ．つまり，外乱がない限り，状態量は周波数成分として固有振動数や入力に存在する周波数成分に相関するということである．
+
+
+そこで，\ref{sec:filter}小節でも述べたように，固有振動数を計算することで機体の運動が持つおおよその周波数帯をつかみ，データのフィルタリングに利用する．実際に式(\ref{eq:matrix_A})の行列$A$について，固有値を計算して絶対値をプロットしたものがFig. \ref{fig:eigenvalue}である．ただし，実験中の風の影響などの外乱が大きいと思われるデータは除き，計算を行なった．行列$A$が4次の正方行列であるため，各データ点ごとに最大4つの固有値を持ち，それぞれ色分けされている．グラフ内の縦線は，複数の実験データそれぞれの境界を示す．
 
 Fig. \ref{fig:eigenvalue}から，機体の回転翼機モードにおける低速飛行縦運動の固有振動数は，おおよそ0〜5$\mathrm{[Hz]}$であることが見て取れる．つまり，この範囲内の周波数はフィルタリングなどの処理で落としてはいけない．このように小型UAVにおいても，運動の固有値解析を行なうことは有用であると考えられる．
 
@@ -92,7 +98,38 @@ Fig. \ref{fig:eigenvalue}から，機体の回転翼機モードにおける低�
 \section{空気力モデルの検証}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-本節では，パラメータ同定の結果から，式(\ref{eq:L})〜(\ref{eq:Cm})で設定した空気力モデルおよび空力係数が妥当であるかを考える．まず，$L,D,M_a$のモデルについて検証する．Fig. \ref{fig:}に示すように，同定結果から算出したそれぞれの空力係数を，$L_{log},D_{log},M_{a_{log}}$から算出したそれぞれの空力係数と比較する．ただし，式(\ref{eq:CL}),~(\ref{eq:Cm})より空力係数に関係する変数は，$\alpha,\dot{\alpha},q,\delta_e,V_a$の計5個あるため，その中から代表して$V_a$を横軸にとった射影を図示している．
+本節では，パラメータ同定の結果から，式(\ref{eq:L})〜(\ref{eq:Ma})で設定した空気力モデルが妥当であるかを考える．Fig. \ref{fig:CL_si}〜\ref{fig:Cm_si}に示すように，$L_{log},D_{log},M_{a_{log}}$から算出した空力係数(青)，空気力モデル内の速度に比例した項を除いたモデルを用いて同定した結果から算出した空力係数(黃)，および本研究で仮定する空気力モデルを用いて同定した結果から算出した空力係数(緑)とをそれぞれ比較する．ただし，式(\ref{eq:CL}),~(\ref{eq:Cm})より空力係数に関係する変数は，$\alpha,\dot{\alpha},q,\delta_e,V_a$の計5個あるため，その中から$V_a$を横軸にとった射影を図示している．
+
+$C_L$はそれほど大きな変化は見られないが，$C_D,C_m$では$k_* V_a$の項を含めた空気力モデルの方が，実験値に沿うように点在しているように見える．これを数値で示すために
+
+\begin{figure}[htbp]
+	\begin{center}
+		\begin{tabular}{c}
+			\begin{minipage}{0.5\hsize}
+				\begin{center}
+					\includegraphics[clip,width=7.5cm,bb=0 0 982 835]{./z_figure_files/chapter5/2_CL.jpeg}
+					\caption{$C_L$ plots}
+					\label{fig:CL_si}
+				\end{center}
+			\end{minipage}
+			\begin{minipage}{0.5\hsize}
+				\begin{center}
+					\includegraphics[clip,width=7.5cm,bb=0 0 982 835]{./z_figure_files/chapter5/3_CD.jpeg}
+					\caption{$C_D$ plots}
+					\label{fig:CD_si}
+				\end{center}
+			\end{minipage}
+		\end{tabular}
+	\end{center}
+\end{figure}
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[clip,width=7.5cm,bb=0 0 982 835]{./z_figure_files/chapter5/4_Cm.jpeg}
+    \caption{$C_m$ plots}
+    \label{fig:Cm_si}
+  \end{center}
+\end{figure}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{CFDによる解析結果との比較}

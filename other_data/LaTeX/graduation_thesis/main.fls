@@ -130,8 +130,8 @@ INPUT ./z_figure_files/chapter2/5_Sub_rotor_wing.JPG
 INPUT ./z_figure_files/chapter2/6_Sub_rotor_nose.JPG
 INPUT ./z_figure_files/chapter2/7_elevon.jpg
 INPUT ./z_figure_files/chapter2/8_rudder.jpg
-INPUT ./z_figure_files/chapter2/9_frame.png
-INPUT ./z_figure_files/chapter2/10_Wings.png
+INPUT ./z_figure_files/chapter2/9_frame.jpeg
+INPUT ./z_figure_files/chapter2/10_Wings.jpeg
 INPUT ./z_figure_files/chapter2/11_pixhawk.JPG
 INPUT ./z_figure_files/chapter2/12_GPS.JPG
 INPUT ./z_figure_files/chapter2/13_pitot.png
@@ -165,12 +165,16 @@ INPUT ./z_figure_files/chapter4/3_filter.jpeg
 INPUT ./f_chapter5/5.tex
 INPUT ./f_chapter5/5.tex
 INPUT ./z_figure_files/chapter5/1_eigenvalue.jpeg
+INPUT ./z_figure_files/chapter5/2_CL.jpeg
+INPUT ./z_figure_files/chapter5/3_CD.jpeg
+INPUT ./z_figure_files/chapter5/4_Cm.jpeg
 INPUT ./g_conclusion/conclusion.tex
 INPUT ./g_conclusion/conclusion.tex
 INPUT ./h_acknowledgements/acknowledgements.tex
 INPUT ./h_acknowledgements/acknowledgements.tex
 INPUT ./i_references/references.tex
 INPUT ./i_references/references.tex
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmti12.tfm
 INPUT ./j_appendix/appendix.tex
 INPUT ./j_appendix/appendix.tex
 INPUT main.aux

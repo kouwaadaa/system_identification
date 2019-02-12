@@ -73,10 +73,10 @@ borderline_list.append(size+borderline_list[-1])
 format_df,size = file_read.file_read('../log_data/Book8.csv',25.28,27.38,-2.00,40/47,0,format_df)
 borderline_list.append(size+borderline_list[-1])
 
-# format_df,size = file_read.file_read('../log_data/Book9.csv',20.73,30.28,-2.647,40/48,0,format_df)
-# borderline_list.append(size+borderline_list[-1])
-# format_df,size = file_read.file_read('../log_data/Book9.csv',98.05,104.1,-2.647,40/48,0,format_df)
-# borderline_list.append(size+borderline_list[-1])
+format_df,size = file_read.file_read('../log_data/Book9.csv',20.73,30.28,-2.647,40/48,0,format_df)
+borderline_list.append(size+borderline_list[-1])
+format_df,size = file_read.file_read('../log_data/Book9.csv',98.05,104.1,-2.647,40/48,0,format_df)
+borderline_list.append(size+borderline_list[-1])
 format_df,size = file_read.file_read('../log_data/Book9.csv',104.9,107.1,-2.647,40/48,0,format_df)
 borderline_list.append(size+borderline_list[-1])
 format_df,size = file_read.file_read('../log_data/Book9.csv',107.7,109.7,-2.647,40/48,0,format_df)
@@ -108,7 +108,7 @@ format_df6 = sys_id.sys_id_LS_non_d_alpha_ub(format_df)
 # 機体の状態方程式から固有振動数を解析する
 #---------------------------
 
-anly_result = analyze.linearlize(format_df5)
+# anly_result = analyze.linearlize(format_df5)
 
 #---------------------------
 # データの取り出し
@@ -124,7 +124,7 @@ format_df4 = statistics.calc_RMSE(format_df4)
 format_df5 = statistics.calc_RMSE(format_df5)
 format_df6 = statistics.calc_RMSE(format_df6)
 
-# df5_V_filter = format_df6.query('4.5 <= Va <= 5.5')
+df5_V_filter = format_df5.query('4.5 <= Va <= 5.5')
 
 # format_df[['L_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['D_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
@@ -159,9 +159,9 @@ format_df6 = statistics.calc_RMSE(format_df6)
 # format_df['fq'] = fq
 # format_df[['alpha_fft','fq']].plot.line(x='fq')
 
-# format_df6[['CL_log','CL','Va']].plot.line(x='Va', style='o', title='CL alpha dot x')
-# format_df6[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD alpha dot x')
-# format_df6[['Cm_log','Cm','Va']].plot.line(x='Va', style='o', title='Cm alpha dot x')
+# df5_V_filter[['CL_log','CL','alpha_deg']].plot.line(x='alpha_deg', style='o', title='CL alpha dot x')
+# df5_V_filter[['CD_log','CD','alpha_deg']].plot.line(x='alpha_deg', style='o', title='CD alpha dot x')
+# df5_V_filter[['Cm_log','Cm','alpha_deg']].plot.line(x='alpha_deg', style='o', title='Cm alpha dot x')
 
 # format_df5[['CL_log','CL','Va']].plot.line(x='Va', style=['o','p'], title='CL')
 # format_df5[['CD_log','CD','Va']].plot.line(x='Va', style=['o','p'], title='CD')
@@ -175,35 +175,33 @@ format_df6 = statistics.calc_RMSE(format_df6)
 # format_df[['CD_kawano','Va']].plot.line(x='Va', style=['o'])
 # format_df[['Cm_kawano','Va']].plot.line(x='Va', style=['o'])
 
-# format_df5.to_csv('../output_data/df_out.csv')
-
 # window = np.hamming(data_size)
 # manual_T3 = window * manual_T3
 
-# 固有値の絶対値をとる．
-lambda_A_abs = np.abs(anly_result[0])
-
-xxx = np.arange(data_size)
-y = lambda_A_abs[:,0]
-yy = lambda_A_abs[:,1]
-yyy = lambda_A_abs[:,2]
-yyyy = lambda_A_abs[:,3]
-
-plt.subplot(111)
-plt.scatter(xxx,y,label="")
-plt.scatter(xxx,yy,label="")
-plt.scatter(xxx,yyy,label="")
-plt.scatter(xxx,yyyy,label="")
+# # 固有値の絶対値をとる．
+# lambda_A_abs = np.abs(anly_result[0])
 #
+# xxx = np.arange(data_size)
+# y = lambda_A_abs[:,0]
+# yy = lambda_A_abs[:,1]
+# yyy = lambda_A_abs[:,2]
+# yyyy = lambda_A_abs[:,3]
 #
-for j in borderline_list:
-    plt.axvline(x=j, color="black") # 実験データの境目で線を引く
-
-# plt.title('固有値散布図')
-plt.xlabel('Data Number')
-plt.ylabel('Eigenvalue')
-plt.show()
+# plt.subplot(111)
+# plt.scatter(xxx,y,label="")
+# plt.scatter(xxx,yy,label="")
+# plt.scatter(xxx,yyy,label="")
+# plt.scatter(xxx,yyyy,label="")
+# #
+# #
+# for j in borderline_list:
+#     plt.axvline(x=j, color="black") # 実験データの境目で線を引く
 #
+# # plt.title('固有値散布図')
+# plt.xlabel('Data Number')
+# plt.ylabel('Eigenvalue')
+# plt.show()
+# #
 # ax = fig.add_subplot(2,1,2)
 #
 # ax.plot(xxx,d_alpha)
@@ -221,3 +219,20 @@ plt.show()
 # plt.xlabel('Data Number')
 # plt.ylabel('Pitch Rate [rad/s]')
 # plt.show()
+
+Va = np.array(format_df5['Va'])
+CL_log = np.array(format_df5['CL_log'])
+CL_4 = np.array(format_df4['CL']) # non kV
+CL_5 = np.array(format_df5['CL']) # max
+# CL_6 = np.array(format_df6['CL']) # non d_alpha
+
+plt.subplot(111)
+plt.scatter(Va,CL_log,label="Log data",linewidth="3")
+plt.scatter(Va,CL_4,label=r"None $k_LV_a$ model")
+plt.scatter(Va,CL_5,label="Postulate model")
+# plt.scatter(Va,CL_6,label=r"Model:No $\dot{\alpha}$")
+plt.legend()
+
+plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$')
+plt.ylabel(r'$C_L$')
+plt.show()

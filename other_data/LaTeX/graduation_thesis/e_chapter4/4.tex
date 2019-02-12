@@ -12,17 +12,17 @@
 \section{データの前処理}
 %%%%%%%%%%%%%%%%%%%%%%%%
 
-本節では，IMUから取得した飛行ログデータの前処理について述べる．前処理としては，そのまま扱うことができないものについての補正と，データのフィルタリングに大きく分けられる．
+本節では，取得したログデータの前処理について述べる．前処理としては，得られたデータを計算に必要な値に変換する処理と，データのフィルタリングに大きく分けられる．
 
-\subsection{センサ取り付け位置の補正}
+\subsection{対地速度の補正}
 
-各運動モデルは機体座標系の原点を基準として構成されているが，原点位置にセンサを取り付けることができない構造であるため，その分の補正が必要である．ここでは，取り付け位置によって変化する速度の補正について述べる．Fig. \ref{fig:location_IMU},~\ref{fig:IMU_position}に示すように，加速度センサは機体軸原点からベクトル$\mbox{\boldmath $R_{p2B}$}$だけ離れた位置に取り付けられている．このとき，機体軸原点の速度は
+開発機体には，3軸方向の角速度および加速度を検出するセンサとして，慣性計測装置(Inertial Measurement Unit, IMU)が搭載されている．IMUから飛行ログデータとして得られる値は，当然センサが取り付けられている位置における値である．しかし，各運動モデルは機体座標系の原点を基準として構成されているため，原点位置にセンサを取り付けることができない場合，その分の補正が必要となる．ここでは，取り付け位置によって変化する速度の補正について述べる．開発機体においては，Fig. \ref{fig:location_IMU}に示す位置に取り付けられている．このとき，Fig. \ref{fig:IMU_position}のように設定し，センサ取り付け位置での対地速度を$\mbox{\boldmath $V_p$}$とすると，機体軸原点の対地速度\mbox{\boldmath $V_g$}は
 \begin{equation}
-  \mbox{\boldmath $V$} = \dfrac{d}{dt}\mbox{\boldmath $R_B$} = \dfrac{d}{dt}(\mbox{\boldmath $R_p$}+\mbox{\boldmath $R_{p2B}$})\triangleq \mbox{\boldmath $\dot{R}_p$}+\mbox{\boldmath $\dot{R}_{p2B}$}
+  \mbox{\boldmath $V_g$} \triangleq \dfrac{d}{dt}\mbox{\boldmath $R_{B}$} = \dfrac{d}{dt}(\mbox{\boldmath $R_{p}$} + \mbox{\boldmath $R_{pB}$}) =  \mbox{\boldmath $V_p$}+\mbox{\boldmath $\dot{R}_{pB}$}
 \end{equation}
-で与えられる．したがって，$\mbox{\boldmath $\dot{R}_{p2B}$}$によってセンサ位置によるずれを補正する．このベクトルの機体座標表現は
+で与えられる．つまり，$\mbox{\boldmath $\dot{R}_{pB}$}$によってセンサ位置によるずれを補正することになる．このベクトルの機体座標表現は，$\mbox{\boldmath $R_{pB}$}$がセンサから機体軸原点に向けたベクトルであることに注意して
 \begin{equation}
-  \mbox{\boldmath $\dot{R}_{p2B}$} = \mbox{\boldmath $\omega_p$}\times\mbox{\boldmath $R_{p2B}$} =
+  \mbox{\boldmath $\dot{R}_{pB}$} = \mbox{\boldmath $\omega$}\times\mbox{\boldmath $R_{pB}$} =
   \left[
     \begin{array}{ccc}
       p \\
@@ -40,7 +40,7 @@
   \left[
     \begin{array}{ccc}
       ql_{pz} \\
-      -rl_{px} + pl_{pz} \\
+      -rl_{px} - pl_{pz} \\
       ql_{px}
     \end{array}
   \right]
@@ -70,7 +70,7 @@
 
 \subsection{風の影響の補正}
 
-実験は，屋外で風外乱の環境下にて，回転翼機モードにおいて行なった．対気速度の測定のために，機首先端にピトー管が取り付けられているが，回転翼機モードでの飛行時は測定誤差が大きいことが分かっている．そこで，風速計を機体の進行方向と同じ向きに設置し，風速を測定した．データ処理時には，風速計による計測ログと機体の対地速度，および機体姿勢ログを用いて，\ref{sec:wind_speed}小節の通り対気速度を計算する．
+実験は，屋外で風のある環境下で回転翼機モードにおいて行なった．対気速度の測定のために，機首先端にピトー管が取り付けられているが，回転翼機モードでの飛行時は測定誤差が大きいことが分かっている．そこで，風速計を実験地点付近に機体の進行方向と同じ向きで設置し，風速を測定した．風速計の値は時々刻々変化するが，風速が一定に近い時間帯で実験を行ない，その時間帯のおおよその平均風速を測定値とした．データ処理時には，この測定値の一定風が吹いていると仮定し，機体の対地速度，および機体姿勢のログデータを用いて，\ref{sec:wind_speed}小節の通り対気速度を計算する．
 
 \subsection{機体の加速度の算出}
 
@@ -82,7 +82,7 @@
 
 \subsection{各ロータ出力の評価}
 
-メインロータおよびサブロータは，ログデータから得られる指令値(PWM値)を変換することによって推力値を得られる．この変換は，実験室内での予備実験により得られた測定結果から，計算結果と実際の推力との差が小さくなるように工夫して概算している．\cite{}
+メインロータおよびサブロータは，ログデータから得られる指令値(PWM値)を変換することによって推力値を得られる．この変換は，実験室内での予備実験により得られた測定結果から，計算結果と実際の推力との差が小さくなるように工夫して概算している．
 
 \subsection{データのフィルタリング}
 \label{sec:filter}
@@ -116,7 +116,7 @@
   \begin{align}
     L &= \dfrac{1}{2}\rho {V_a}^2 S C_L^{\prime}, \quad C_L^{\prime} = \dfrac{L}{\frac{1}{2}\rho {V_a}^2 S} \\[5pt]
     D &= \dfrac{1}{2}\rho {V_a}^2 S C_D^{\prime}, \quad C_D^{\prime} = \dfrac{D}{\frac{1}{2}\rho {V_a}^2 S} \\[5pt]
-    M_a &= \dfrac{1}{2}\rho {V_a}^2 S \bar{c} C_m^{\prime}, \quad C_m^{\prime} = \dfrac{Ma}{\frac{1}{2}\rho {V_a}^2 S \bar{c}}
+    M_a &= \dfrac{1}{2}\rho {V_a}^2 S \bar{c} C_m^{\prime}, \quad C_m^{\prime} = \dfrac{M_a}{\frac{1}{2}\rho {V_a}^2 S \bar{c}}
   \end{align}
   \right
   \label{eq:L_D_Ma}
@@ -152,7 +152,7 @@
   C_{m_k}
   ]
 \end{equation}
-となり，合計15個である．$\xi$に含まれていない変数は，実機実験からログデータとして直接取得可能か，あるいは計算が可能なものであり，パラメータ推定はすべてオフライン処理となる．\ref{sec:lng_non_linear}小節のモデル式より，$X_a,Z_a,M_a$はそれぞれ計算で求められ，式(\ref{eq:XZ_to_LD})より
+となり，合計15個である．式(\ref{eq:L_D_Ma}),~(\ref{eq:CL_CD_Cm})において$\xi$に含まれていない変数は，実機実験からログデータとして直接取得可能か，あるいは計算が可能なものである．\ref{sec:lng_non_linear}小節のモデル式より，$X_a,Z_a,M_a$はそれぞれ計算で求められ，式(\ref{eq:XZ_to_LD})より
 \begin{equation}
   \left[
   \begin{array}{ccc}
@@ -178,13 +178,13 @@
 
 \hspace{5pt}
 
-次に，推定手法について述べる．推定には最小二乗法を用いる．例えば，式(\ref{eq:CL_CD_Cm})を用いた揚力係数$C_L$についての最小二乗問題は，次のように策定される．
+次に，推定手法について述べる．パラメータ推定はすべてオフライン処理とし，推定計算には最小二乗法を用いる．式(\ref{eq:CL_CD_Cm})より，$C_D$の式には$C_L$を含む項があるため，$C_L$の推定の後，$C_D$を推定する必要がある．推定順序の観点でいえば，$C_m$は独立である．その上で，最小二乗計算の例として，ここでは$C_L$の推定を取り上げる．式(\ref{eq:CL_CD_Cm})を用いた$C_L$についての最小二乗問題は，次のように策定される．
 \begin{equation}
-  \mbox{\boldmath $z$} = \mbox{\boldmath $X$}\mbox{\boldmath $\theta$} + \mbox{\boldmath $\nu$}
+  \mbox{\boldmath $z_L$} = \mbox{\boldmath $X_L$}\mbox{\boldmath $\theta_L$} + \mbox{\boldmath $\nu$}
 \end{equation}
 となる．ここで，
 \begin{equation*}
-  \mbox{\boldmath $z$} =
+  \mbox{\boldmath $z_L$} =
   \left[
   \begin{array}{c}
     C_L^{\prime}(1) \quad C_L^{\prime}(2) \quad \hdots \quad C_L^{\prime}(N)
@@ -193,7 +193,7 @@
   \mbox{式(\ref{eq:L_D_Ma})から計算される$N\times1$ベクトル}
 \end{equation*}
 \begin{equation*}
-  \mbox{\boldmath $\theta$} =
+  \mbox{\boldmath $\theta_L$} =
   \left[
   \begin{array}{c}
     C_{L_0} \quad C_{L_\alpha} \quad C_{L_\dot{\alpha}}} \quad C_{L_q} \quad C_{L_{\delta_e}} \quad C_{L_k}
@@ -202,7 +202,7 @@
   \mbox{未知パラメータの$6\times1$ベクトル}
 \end{equation*}
 \begin{equation*}
-  \mbox{\boldmath $X$} =
+  \mbox{\boldmath $X_L$} =
   \left[
   \begin{array}{c}
     \mbox{\boldmath $1$} \quad
@@ -227,14 +227,103 @@
 
 \hspace{5pt}
 
-このとき推定したい$\mbox{\boldmath $\theta$}$は，モデルから想定される理論値と実際の測定値との差の二乗和である
+このとき推定したい$\mbox{\boldmath $\theta_L$}$は，モデルから想定される理論値と実際の測定値との差の二乗和である
 \begin{equation}
-  \mbox{\boldmath $J(\theta)$} = \dfrac{1}{2}(\mbox{\boldmath $z$}-\mbox{\boldmath $X\theta$})^{T}(\mbox{\boldmath $z$}-\mbox{\boldmath $X\theta$})
+  \mbox{\boldmath $J(\theta_L)$} = \dfrac{1}{2}(\mbox{\boldmath $z_L$}-\mbox{\boldmath $X_L\theta_L$})^{T}(\mbox{\boldmath $z_L$}-\mbox{\boldmath $X_L\theta_L$})
 \end{equation}
 を最小にするように定めればよい．したがって，最小二乗法\cite{}により推定値は
 \begin{equation}
-  \mbox{\boldmath $\hat{\theta}$} = (\mbox{\boldmath $X$}^{T}\mbox{\boldmath $X$})^{-1}\mbox{\boldmath $X$}^{T}\mbox{\boldmath $z$}
+  \mbox{\boldmath $\hat{\theta}_L$} = (\mbox{\boldmath $X_L$}^{T}\mbox{\boldmath $X_L$})^{-1}\mbox{\boldmath $X_L$}^{T}\mbox{\boldmath $z_L$}
 \end{equation}
 と計算できる．
 
-同様の手順で，抗力係数$C_D$とピッチモーメント係数$C_m$についても計算すれば，未知パラメータ群$\xi$はすべて求めることができる．実際の推定結果とそれに対する考察は，\ref{sec:}節で行なう．
+同様に，$C_D,C_m$についても最小二乗問題を策定すると
+\begin{equation}
+  \mbox{\boldmath $z_D$} = \mbox{\boldmath $X_D$}\mbox{\boldmath $\theta_D$} + \mbox{\boldmath $\nu$}
+\end{equation}
+\begin{equation*}
+  \mbox{\boldmath $z_D$} =
+  \left[
+  \begin{array}{c}
+    C_D^{\prime}(1) \quad C_D^{\prime}(2) \quad \hdots \quad C_D^{\prime}(N)
+  \end{array}
+  \right]^{\mathrm{T}} :
+  \mbox{式(\ref{eq:L_D_Ma})から計算される$N\times1$ベクトル}
+\end{equation*}
+\begin{equation*}
+  \mbox{\boldmath $\theta_D$} =
+  \left[
+  \begin{array}{c}
+    C_{D_0} \quad \kappa \quad C_{D_k}
+  \end{array}
+  \right]^{\mathrm{T}} :
+  \mbox{未知パラメータの$3\times1$ベクトル}
+\end{equation*}
+\begin{equation*}
+  \mbox{\boldmath $X_D$} =
+  \left[
+  \begin{array}{c}
+    \mbox{\boldmath $1$} \quad
+    \mbox{\boldmath $C_L^2$} \quad
+    \dfrac{1}{\mbox{\boldmath $V_a$}}
+  \end{array}
+  \right] :
+  \mbox{ログデータと推定結果から得られる$N\times3$行列}
+\end{equation*}
+\begin{equation*}
+  \mbox{\boldmath $\nu$} =
+  \left[
+  \begin{array}{c}
+    \nu(1) \quad \nu(2) \quad \hdots \quad \nu(N)
+  \end{array}
+  \right]^{\mathrm{T}} :
+  \mbox{誤差の$N\times1$ベクトル}
+\end{equation*}
+
+\begin{equation}
+  \mbox{\boldmath $z_m$} = \mbox{\boldmath $X_m$}\mbox{\boldmath $\theta_m$} + \mbox{\boldmath $\nu$}
+\end{equation}
+\begin{equation*}
+  \mbox{\boldmath $z_m$} =
+  \left[
+  \begin{array}{c}
+    C_m^{\prime}(1) \quad C_m^{\prime}(2) \quad \hdots \quad C_m^{\prime}(N)
+  \end{array}
+  \right]^{\mathrm{T}} :
+  \mbox{式(\ref{eq:L_D_Ma})から計算される$N\times1$ベクトル}
+\end{equation*}
+\begin{equation*}
+  \mbox{\boldmath $\theta_m$} =
+  \left[
+  \begin{array}{c}
+    C_{m_0} \quad C_{m_\alpha} \quad C_{m_\dot{\alpha}}} \quad C_{m_q} \quad C_{m_{\delta_e}} \quad C_{m_k}
+  \end{array}
+  \right]^{\mathrm{T}} :
+  \mbox{未知パラメータの$6\times1$ベクトル}
+\end{equation*}
+\begin{equation*}
+  \mbox{\boldmath $X_m$} =
+  \left[
+  \begin{array}{c}
+    \mbox{\boldmath $1$} \quad
+    \mbox{\boldmath $\alpha$} \quad
+    \dfrac{\bar{c}}{2 \mbox{\boldmath $V_a$}} \mbox{\boldmath $\dot{\alpha}$} \quad
+    \dfrac{\bar{c}}{2 \mbox{\boldmath $V_a$}} \mbox{\boldmath $q$} \quad
+    \mbox{\boldmath $\delta_e$} \quad
+    \dfrac{1}{\mbox{\boldmath $V_a$}}
+  \end{array}
+  \right] :
+  \mbox{ログデータから得られる$N\times6$行列}
+\end{equation*}
+\begin{equation*}
+  \mbox{\boldmath $\nu$} =
+  \left[
+  \begin{array}{c}
+    \nu(1) \quad \nu(2) \quad \hdots \quad \nu(N)
+  \end{array}
+  \right]^{\mathrm{T}} :
+  \mbox{誤差の$N\times1$ベクトル}
+\end{equation*}
+と書けて，$C_L$と同様の手順で計算を行ない，未知パラメータ群$\xi$をすべて求める．実際の推定結果とそれに対する考察は，\ref{sec:}節で行なう．
+
+% 同様の手順で，抗力係数$C_D$とピッチモーメント係数$C_m$についても計算すれば，未知パラメータ群$\xi$はすべて求めることができる．実際の推定結果とそれに対する考察は，\ref{sec:}節で行なう．

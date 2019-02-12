@@ -51,6 +51,8 @@
 \newlabel{fig:body_axis}{{3.1}{9}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces NED coordinate system}}{9}}
 \newlabel{fig:ned_axis}{{3.2}{9}}
+\citation{shimada}
+\citation{katayanagi}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1.1}座標系の変換}{10}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1.2}オイラー角の微分方程式}{10}}
 \newlabel{eq:euler}{{3.4}{10}}
@@ -60,6 +62,7 @@
 \newlabel{eq:mot_eq}{{3.5}{11}}
 \newlabel{eq:F_g}{{3.7}{11}}
 \newlabel{eq:F_t}{{3.8}{11}}
+\citation{yoshimura}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2.2}非線形回転運動方程式}{12}}
 \newlabel{eq:roll_eq}{{3.10}{12}}
 \newlabel{eq:M_g}{{3.12}{12}}
@@ -78,8 +81,12 @@
 \newlabel{sec:wind_speed}{{3.3.1}{14}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces The wind triangle}}{14}}
 \newlabel{fig:vel_air}{{3.5}{14}}
+\citation{etkin}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}対気速度により発生する空気力}{15}}
 \newlabel{sec:airspeed_airf}{{3.3.2}{15}}
+\newlabel{eq:L_o}{{3.23}{15}}
+\newlabel{eq:D_o}{{3.24}{15}}
+\newlabel{eq:Ma_o}{{3.25}{15}}
 \newlabel{eq:L}{{3.26}{16}}
 \newlabel{eq:D}{{3.27}{16}}
 \newlabel{eq:Ma}{{3.28}{16}}
@@ -107,7 +114,7 @@
 \newlabel{sys_id}{{4}{21}}
 \newlabel{da}{{4}{21}}
 \@writefile{toc}{\contentsline {section}{\numberline {4.1}データの前処理}{21}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}センサ取り付け位置の補正}{21}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}対地速度の補正}{21}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Location of acceleration sensor}}{22}}
 \newlabel{fig:location_IMU}{{4.1}{22}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Consideration of sensor position}}{22}}
@@ -117,28 +124,38 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1.4}各ロータ出力の評価}{23}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1.5}データのフィルタリング}{23}}
 \newlabel{sec:filter}{{4.1.5}{23}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Filter pitch rate}}{23}}
-\newlabel{fig:f_filter}{{4.3}{23}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Filter pitch rate}}{24}}
+\newlabel{fig:f_filter}{{4.3}{24}}
 \@writefile{toc}{\contentsline {section}{\numberline {4.2}パラメータの推定手法}{24}}
 \newlabel{eq:L_D_Ma}{{4.4}{24}}
 \newlabel{eq:CL_CD_Cm}{{4.5}{24}}
-\newlabel{eq:LD_to_XZ}{{4.7}{24}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {第5章}低速飛行特性}{26}}
+\newlabel{eq:LD_to_XZ}{{4.7}{25}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {第5章}低速飛行特性}{27}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{flight_char}{{5}{26}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}線形モデルによる固有値解析}{26}}
-\newlabel{sec:analyze}{{5.1}{26}}
-\newlabel{eq:matrix_A}{{5.2}{26}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Eigenvalue of matrix A}}{27}}
-\newlabel{fig:eigenvalue}{{5.1}{27}}
+\newlabel{flight_char}{{5}{27}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}線形モデルによる固有値解析}{27}}
+\newlabel{sec:analyze}{{5.1}{27}}
+\newlabel{eq:matrix_A}{{5.2}{27}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Eigenvalue of matrix A}}{28}}
+\newlabel{fig:eigenvalue}{{5.1}{28}}
 \@writefile{toc}{\contentsline {section}{\numberline {5.2}空気力モデルの検証}{28}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.3}CFDによる解析結果との比較}{28}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {第6章}結論}{29}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces $C_L$ plots}}{29}}
+\newlabel{fig:CL_si}{{5.2}{29}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces $C_D$ plots}}{29}}
+\newlabel{fig:CD_si}{{5.3}{29}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces $C_m$ plots}}{29}}
+\newlabel{fig:Cm_si}{{5.4}{29}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}CFDによる解析結果との比較}{29}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {第6章}結論}{30}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{conclusion}{{6}{29}}
-\@writefile{toc}{\contentsline {chapter}{謝辞}{30}}
-\bibcite{katou}{1}
-\@writefile{toc}{\contentsline {chapter}{参考文献}{31}}
+\newlabel{conclusion}{{6}{30}}
+\@writefile{toc}{\contentsline {chapter}{謝辞}{31}}
+\bibcite{shimada}{1}
+\bibcite{katayanagi}{2}
+\bibcite{yoshimura}{3}
+\bibcite{etkin}{4}
+\bibcite{katou}{5}
+\@writefile{toc}{\contentsline {chapter}{参考文献}{32}}
 \@writefile{toc}{\contentsline {chapter}{付録}{}}

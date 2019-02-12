@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  12 FEB 2019 07:34
+This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  12 FEB 2019 13:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -371,11 +371,11 @@ Overfull \hbox (7.38548pt too wide) in paragraph at lines 96--115
  [][][] 
  []
 
+File: ./z_figure_files/chapter2/9_frame.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter2/9_frame.jpeg>
 [5]
-File: ./z_figure_files/chapter2/9_frame.png Graphic file (type bmp)
-<./z_figure_files/chapter2/9_frame.png>
-File: ./z_figure_files/chapter2/10_Wings.png Graphic file (type bmp)
-<./z_figure_files/chapter2/10_Wings.png>
+File: ./z_figure_files/chapter2/10_Wings.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter2/10_Wings.jpeg>
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -393,7 +393,7 @@ File: ./z_figure_files/chapter2/12_GPS.JPG Graphic file (type bmp)
 File: ./z_figure_files/chapter2/13_pitot.png Graphic file (type bmp)
 <./z_figure_files/chapter2/13_pitot.png>
 
-Overfull \hbox (15.56767pt too wide) in paragraph at lines 192--219
+Overfull \hbox (15.56767pt too wide) in paragraph at lines 191--218
  [][][] 
  []
 
@@ -798,40 +798,81 @@ You might want to delete and/or insert some corrections
 so that I will find a matching right brace soon.
 (If you're confused by all this, try typing `I}' now.)
 
+[25]
+./e_chapter4/4.tex:299: Missing { inserted.
+<to be read again> 
+                   \gdef 
+l.299 ...quad C_{m_\alpha} \quad C_{m_\dot{\alpha}
+                                                  }} \quad C_{m_q} \quad C_{...
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
 
-LaTeX Warning: Reference `sec:' on page 25 undefined on input line 240.
 
-) (./f_chapter5/5.tex [25]
+Overfull \hbox (1.59206pt too wide) detected at line 303
+ $[] \OT1/cmr/m/n/12 = [][] : []$ 
+ []
+
+
+LaTeX Warning: Reference `sec:' on page 26 undefined on input line 327.
+
+) (./f_chapter5/5.tex [26]
 第 5 章
-[26
+
+Overfull \hbox (13.80832pt too wide) in paragraph at lines 64--66
+\JY2/mc/m/n/12 となる ． プロセスノイズを省略すれば ， この状態方程式は行列 $\OML/cmm/m/it/12 A; B$ \JY2/mc/m/n/12 と状態量 $[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 u; ^^K; q; ^^R\OT1/cmr/m/n/12 )$\JY2/mc/m/n/12 ，
+ []
+
+[27
 
 ]
 File: ./z_figure_files/chapter5/1_eigenvalue.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/1_eigenvalue.jpeg>
+File: ./z_figure_files/chapter5/2_CL.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter5/2_CL.jpeg>
+File: ./z_figure_files/chapter5/3_CD.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter5/3_CD.jpeg>
 
+Overfull \hbox (15.91661pt too wide) in paragraph at lines 107--123
+ [][][] 
+ []
 
-LaTeX Warning: Reference `fig:' on page 27 undefined on input line 95.
-
-[27]) (./g_conclusion/conclusion.tex [28]
+[28]
+File: ./z_figure_files/chapter5/4_Cm.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter5/4_Cm.jpeg>
+) (./g_conclusion/conclusion.tex [29]
 第 6 章
-) [29
+) [30
 
-] (./h_acknowledgements/acknowledgements.tex [30
+] (./h_acknowledgements/acknowledgements.tex [31
 
-]) (./i_references/references.tex [31
+]) (./i_references/references.tex
 
-]) (./j_appendix/appendix.tex) [32] (./main.aux)
+LaTeX Font Warning: Font shape `JT2/mc/m/it' undefined
+(Font)              using `JT2/mc/m/n' instead on input line 17.
+
+
+LaTeX Font Warning: Font shape `JY2/mc/m/it' undefined
+(Font)              using `JY2/mc/m/n' instead on input line 17.
+
+[32
+
+]) (./j_appendix/appendix.tex) [33] (./main.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 2302 strings out of 493270
- 28493 string characters out of 6145017
+ 2323 strings out of 493270
+ 28786 string characters out of 6145017
  114291 words of memory out of 5000000
- 6145 multiletter control sequences out of 15000+600000
- 20175 words of font info for 91 fonts, out of 8000000 for 9000
+ 6162 multiletter control sequences out of 15000+600000
+ 20522 words of font info for 92 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 27i,19n,33p,865b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,19n,33p,994b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (37 pages, 101364 bytes).
+Output written on main.dvi (38 pages, 106380 bytes).

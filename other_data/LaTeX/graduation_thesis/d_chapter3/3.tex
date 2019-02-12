@@ -147,14 +147,14 @@ Fig. \ref{fig:body_axis}に示すように，機体に固定した回転座標�
   \mbox{機体の角速度}
 \end{equation*}
 
-これはオイラー角のキネマティクス方程式とよばれる．$\dot{\phi},\dot{\theta},\dot{\psi}$はそれぞれ姿勢角の時間微分である．
+これはオイラー角のキネマティクス方程式とよばれる\cite{shimada}．$\dot{\phi},\dot{\theta},\dot{\psi}$はそれぞれ姿勢角の時間微分である．
 
 %%%%%%%%%%%%%%%%%%%%%%
 \section{非線形モデル}
 \label{sec:nonlin_model}
 %%%%%%%%%%%%%%%%%%%%%%
 
-並進運動と回転運動について，それぞれ運動方程式を記述する．その後，回転翼機モードでの低速飛行における縦運動の運動方程式についてまとめ，機体の非線形モデルとして設定する．
+並進運動と回転運動について，\cite{katayanagi}に倣ってそれぞれ運動方程式を記述する．その後，回転翼機モードでの低速飛行における縦運動の運動方程式についてまとめ，機体の非線形モデルとして設定する．
 
 \subsection{非線形並進運動方程式}
 
@@ -437,13 +437,13 @@ I\left[
       0 \\
       R_{G_z}
     \end{array}
-    \right] \times mg
-    \left[
-    \begin{array}{ccc}
-      -sin\theta \\
-      sin\phi cos\theta \\
-      cos\phi cos\theta
-    \end{array}
+    \right] \times A^{(B,E)}
+		  \left[
+		  \begin{array}{ccc}
+		    0 \\
+		    0 \\
+		    mg
+		  \end{array}
     \right] \\
     &= mg
     \left[
@@ -456,7 +456,7 @@ I\left[
   \end{split}
   \label{eq:M_g}
 \end{equation}
-である．また，ロータ推力によるモーメントは，\cite{}によるとまだ未解明な点も多いため，本研究で扱う縦運動に関係するピッチングモーメント$M_t$のみ記載することにする．機体軸原点から各ロータまでの距離をFig. \ref{fig:distance}のように定めると
+である．また，ロータ推力によるモーメントは，\cite{yoshimura}によるとまだ未解明な点も多いため，本研究で扱う縦運動に関係するピッチングモーメント$M_t$のみ記載することにする．機体軸原点から各ロータまでの距離をFig. \ref{fig:distance}のように定めると
 \begin{equation}
   M_t = -l_m T_m \cos\gamma + l_f T_f - l_{r_y} T_r
   \label{eq:M_t}
@@ -580,12 +580,12 @@ $\mbox{\boldmath $V_a$}$は，$\mbox{\boldmath $V_g$},\mbox{\boldmath $V_w$}$を
 対気速度$V_a$により発生する，速度と垂直方向に働く揚力$L$，水平方向に働く抗力$D$，およびピッチモーメント$M_a$は一般に
 \begin{align}
   L &= \dfrac{1}{2}\rho V_a^2 S \underbrace{\left[ C_{L_0}
-  +C_{L_\alpha}\alpha+C_{L_q}\dfrac{\bar{c}}{2V_a}q+C_{L_{\delta_e}}\delta_e \right]}_{C_L} \\
-  D &= \dfrac{1}{2}\rho V_a^2 S \underbrace{\left[ C_{D_0}+\kappa {C_L}^2 \right]}_{C_D} \\
+  +C_{L_\alpha}\alpha+C_{L_q}\dfrac{\bar{c}}{2V_a}q+C_{L_{\delta_e}}\delta_e \right]}_{C_L} \label{eq:L_o} \\
+  D &= \dfrac{1}{2}\rho V_a^2 S \underbrace{\left[ C_{D_0}+\kappa {C_L}^2 \right]}_{C_D} \label{eq:D_o} \\
   M_a &= \dfrac{1}{2}\rho V_a^2 S \bar{c} \underbrace{\left[ C_{m_0}
-  +C_{m_\alpha}\alpha+C_{m_q}\dfrac{\bar{c}}{2V_a}q+C_{m_{\delta_e}}\delta_e \right]}_{C_m}
+  +C_{m_\alpha}\alpha+C_{m_q}\dfrac{\bar{c}}{2V_a}q+C_{m_{\delta_e}}\delta_e \right]}_{C_m} \label{eq:Ma_o}
 \end{align}
-と表される．ただし，$\rho$は大気密度，$S$は全機面積，$\bar{c}$は平均空力翼弦であり，$C_L,C_D$はそれぞれ揚力係数，抗力係数である．例えば$C_{L_\alpha}$は，迎角$\alpha$が増加したときにどれくらい$C_L$が増えるかを表したもので，このような空力係数は安定微係数とよばれる．
+と表される\cite{etkin}．ただし，$\rho$は大気密度，$S$は全機面積，$\bar{c}$は平均空力翼弦であり，$C_L,C_D$はそれぞれ揚力係数，抗力係数である．例えば$C_{L_\alpha}$は，迎角$\alpha$が増加したときにどれくらい$C_L$が増えるかを表したもので，このような空力係数は安定微係数とよばれる．
 
 以上は一般的な空気力モデルであるが，ロータの吸い込みによって発生する，対気速度に比例する抗力\cite{}と同様に対気速度に比例した揚力およびピッチモーメントが発生するとして，本研究ではモデル式を次のように変更している\cite{}．
 \begin{align}
@@ -713,8 +713,8 @@ $Y_a,L_a,N_a$についても同様な表現が可能だが，本研究では縦�
 \end{equation}
 と近似する．これらを式(\ref{eq:u_dot})〜式(\ref{eq:theta_dot})に代入する．その後，式(\ref{eq:balance})を用いて変形し，速度と加速度の変化分が積で現れる項は微小であるとして無視すれば
 \begin{align}
-  \Delta \dot{u} &= -\Delta qw_0 - (g\cos\theta_0)\Delta \theta +\dfrac{1}{m}(\Delta X_a + \Delta X_t) \\
-  \Delta \dot{w} &= \Delta qu_0 - (g\sin \theta_0)\Delta \theta +\dfrac{1}{m}(\Delta Z_a + \Delta Z_t) \\
+  \Delta \dot{u} &= -w_0 \Delta q - (g\cos\theta_0)\Delta \theta +\dfrac{1}{m}(\Delta X_a + \Delta X_t) \\
+  \Delta \dot{w} &= u_0 \Delta q - (g\sin \theta_0)\Delta \theta +\dfrac{1}{m}(\Delta Z_a + \Delta Z_t) \\
   \Delta \dot{q} &= \dfrac{1}{I_{yy}}\left\{mg(R_{G_x}\sin\theta_0 - R_{G_z}\cos\theta_0)\Delta \theta + \Delta M_a + \Delta M_t\right\}
 \end{align}
 となる．
@@ -729,7 +729,7 @@ $Y_a,L_a,N_a$についても同様な表現が可能だが，本研究では縦�
     + \dfrac{\partial A}{\partial \Delta q}\Delta q
     + \dfrac{\partial A}{\partial \Delta \delta e}\Delta \delta e
 \end{equation}
-と近似できる．ここで$A_0$は釣り合い時の値で，力に関しては$X_{a0},Z_{a0}$，モーメントに関しては$M_{a0}=0$である．また右辺に現れる微係数は，すべて釣り合い状態で定義される．
+と近似できる．ここで$A_0$は釣り合い時の値で，力に関しては$X_{a0},Z_{a0}$，モーメントに関しては$M_{a0}$である．また右辺に現れる微係数は，すべて釣り合い状態で定義される．
 
 また，$Z_a,M_a$については，さらに$\dfrac{\partial Z_a}{\partial \Delta \dot{w}}\Delta \dot{w},\dfrac{\partial M_a}{\partial \Delta \dot{w}}\Delta \dot{w}$あるいは$\dfrac{\partial Z_a}{\partial \Delta \dot{\alpha}}\Delta \dot{\alpha},\dfrac{\partial M_a}{\partial \Delta \dot{\alpha}}\Delta \dot{\alpha}$の項を含める．
 

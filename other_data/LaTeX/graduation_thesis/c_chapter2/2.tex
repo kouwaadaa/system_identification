@@ -121,8 +121,7 @@ Fig. \ref{fig:frame}は機体フレームである．フレームにはカーボ
 \section{搭載システム}
 %%%%%%%%%%%%%%%%%%%%%%
 
-正確な機体の運動制御のためには，機体の速度や姿勢などの飛行データを正確に得ることが必要である．本研究では，3軸加速度・角速度センサ，地磁気センサ，気圧センサを内蔵した小型の搭載コンピュータ(Fig. \ref{fig:pixhawk})，GPSセンサ(Fig. \ref{fig:GPS})，およびピトー管とよばれる対気速度計測装置(Fig. \ref{fig:pitot})を使用する．これらのセンサからの観測値をもとに，カルマンフィルタによって飛行状態が推定される．また，搭載コンピュータを用いて制御量の計算を行う．
-
+正確な機体の運動制御のためには，機体の速度や姿勢などの飛行データを正確に得ることが必要である．本研究では，3軸加速度・角速度センサ，地磁気センサ，気圧センサを内蔵した小型の搭載コンピュータ(Fig. \ref{fig:pixhawk})，GPSセンサ(Fig. \ref{fig:GPS})，およびピトー管とよばれる対気速度計測装置(Fig. \ref{fig:pitot})を使用する．これらのセンサからの観測値をもとに，カルマンフィルタによって飛行状態が推定される．また，搭載コンピュータを用いて各ロータ推力などの制御量の計算を行なう．
 \begin{table}[htb]
 	\begin{center}
 		\caption{Specifications of the tilt rotor UAV}
@@ -145,7 +144,7 @@ Fig. \ref{fig:frame}は機体フレームである．フレームにはカーボ
 \end{table}
 \begin{figure}[hb]
 	\begin{center}
-		\includegraphics[clip,width=10.0cm,bb=0 0 500 300]{./z_figure_files/chapter2/9_frame.png}
+		\includegraphics[clip,width=10.0cm,bb=0 0 1122 543]{./z_figure_files/chapter2/9_frame.jpeg}
 		\caption{Body frame}
 		\label{fig:frame}
 	\end{center}
@@ -153,7 +152,7 @@ Fig. \ref{fig:frame}は機体フレームである．フレームにはカーボ
 
 \begin{figure}[h]
 	\begin{center}
-		\includegraphics[clip,width = 10.0cm, bb=0 0 500 250]{./z_figure_files/chapter2/10_Wings.png}
+		\includegraphics[clip,width = 10.0cm, bb=0 0 1000 511]{./z_figure_files/chapter2/10_Wings.jpeg}
 		\caption{Main wing and vertical wing}
 		\label{fig:wings}
 	\end{center}
@@ -164,12 +163,12 @@ Fig. \ref{fig:frame}は機体フレームである．フレームにはカーボ
 		\caption{Specifications of the wings}
 		\label{wingspec}
 		\begin{tabular}{|c|c|}\hline
-			Wing area(Sw) & $0.1677\times2$[m$^2$]\\ \hline
-			Wing area(St) & $0.0474\times2$[m$^2$]\\ \hline
-			Length(l1) & $0.52\times2$[m]\\ \hline
-			Length(l2) & $0.57$[m]\\ \hline
-			Length(l3) & $0.36$[m]\\ \hline
-			Length(l4) & $0.23$[m]\\ \hline
+			Wing area($S_w$) & $0.1677\times2$[m$^2$]\\ \hline
+			Wing area($S_t$) & $0.0474\times2$[m$^2$]\\ \hline
+			Length($l_1$) & $0.52$[m]\\ \hline
+			Length($l_2$) & $0.57$[m]\\ \hline
+			Length($l_3$) & $0.36$[m]\\ \hline
+			Length($l_4$) & $0.23$[m]\\ \hline
 		\end{tabular}
 	\end{center}
 \end{table}
