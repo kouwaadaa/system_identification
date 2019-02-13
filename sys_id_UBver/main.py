@@ -103,6 +103,7 @@ format_df = format_df.reset_index()
 format_df4 = sys_id.sys_id_LS_max_non_kv(format_df)
 format_df5 = sys_id.sys_id_LS_max_ub(format_df)
 format_df6 = sys_id.sys_id_LS_non_d_alpha_ub(format_df)
+format_df7 = sys_id.sys_id_LS_complete_ub(format_df)
 
 #---------------------------
 # 機体の状態方程式から固有振動数を解析する
@@ -123,6 +124,7 @@ data_size = len(format_df) # 合計のデータサイズを取得
 format_df4 = statistics.calc_RMSE(format_df4)
 format_df5 = statistics.calc_RMSE(format_df5)
 format_df6 = statistics.calc_RMSE(format_df6)
+format_df7 = statistics.calc_RMSE(format_df7)
 
 # df5_V_filter = format_df5.query('4.5 <= Va <= 5.5')
 
@@ -163,9 +165,30 @@ format_df6 = statistics.calc_RMSE(format_df6)
 # df5_V_filter[['CD_log','CD','alpha_deg']].plot.line(x='alpha_deg', style='o', title='CD alpha dot x')
 # df5_V_filter[['Cm_log','Cm','alpha_deg']].plot.line(x='alpha_deg', style='o', title='Cm alpha dot x')
 
+# format_df4[['CL_log','CL']].plot.line(title='CL_nonkv')
+format_df4[['CD_log','CD']].plot.line(title='CD_nonkv')
+# format_df4[['Cm_log','Cm']].plot.line(title='Cm_nonkv')
+
+# format_df5[['CL_log','CL']].plot.line(title='CL_max')
+format_df5[['CD_log','CD']].plot.line(title='CD_max')
+# format_df5[['Cm_log','Cm']].plot.line(title='Cm_max')
+
+# format_df6[['CL_log','CL']].plot.line(title='CL_nonda')
+format_df6[['CD_log','CD']].plot.line(title='CD_nonda')
+# format_df6[['Cm_log','Cm']].plot.line(title='Cm_nonda')
+
+# format_df7[['CL_log','CL']].plot.line(title='CL_complete')
+format_df7[['CD_log','CD']].plot.line(title='CD_complete')
+# format_df7[['Cm_log','Cm']].plot.line(title='Cm_complete')
+
 # format_df5[['CL_log','CL','Va']].plot.line(x='Va', style=['o','p'], title='CL')
 # format_df5[['CD_log','CD','Va']].plot.line(x='Va', style=['o','p'], title='CD')
 # format_df5[['Cm_log','Cm','Va']].plot.line(x='Va', style=['o','p'], title='Cm')
+#
+# format_df6[['CL_log','CL','Va']].plot.line(x='Va', style=['o','p'], title='CL')
+# format_df6[['CD_log','CD','Va']].plot.line(x='Va', style=['o','p'], title='CD')
+# format_df6[['Cm_log','Cm','Va']].plot.line(x='Va', style=['o','p'], title='Cm')
+
 
 # format_df[['L_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['D_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
@@ -268,24 +291,24 @@ format_df6 = statistics.calc_RMSE(format_df6)
 # plt.legend()
 # plt.show()
 
-L = np.array(format_df5['L'])
-L_calc = np.array(format_df5['L_calc'])
-D = np.array(format_df5['D'])
-D_calc = np.array(format_df5['D_calc'])
-Ma = np.array(format_df5['Ma'])
-Ma_calc = np.array(format_df5['Ma_calc'])
-
-plt.subplot(111)
-plt.plot(Ma,label=r"$M_{a_{log}}$")
-plt.plot(Ma_calc,label=r"$M_{a_{calc}}$")
-plt.legend()
-
-for j in borderline_list:
-    plt.axvline(x=j, color="black",linestyle="--") # 実験データの境目で線を引く
-
-plt.xlabel('Data Number')
-plt.ylabel(r'Pitch moment$\mathrm{[N \cdot m]}$')
-plt.show()
+# L = np.array(format_df5['L'])
+# L_calc = np.array(format_df5['L_calc'])
+# D = np.array(format_df5['D'])
+# D_calc = np.array(format_df5['D_calc'])
+# Ma = np.array(format_df5['Ma'])
+# Ma_calc = np.array(format_df5['Ma_calc'])
+#
+# plt.subplot(111)
+# plt.plot(Ma,label=r"$M_{a_{log}}$")
+# plt.plot(Ma_calc,label=r"$M_{a_{calc}}$")
+# plt.legend()
+#
+# for j in borderline_list:
+#     plt.axvline(x=j, color="black",linestyle="--") # 実験データの境目で線を引く
+#
+# plt.xlabel('Data Number')
+# plt.ylabel(r'Pitch moment$\mathrm{[N \cdot m]}$')
+# plt.show()
 
 # CL = np.array(format_df5['CL'])
 # CL_log = np.array(format_df5['CL_log'])
