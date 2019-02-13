@@ -31,6 +31,6 @@
 \contentsline {section}{\numberline {5.2}空気力モデルの検証}{31}
 \contentsline {section}{\numberline {5.3}CFDによる解析結果との比較}{33}
 \contentsline {chapter}{\numberline {第6章}結論}{35}
-\contentsline {chapter}{謝辞}{36}
-\contentsline {chapter}{参考文献}{37}
+\contentsline {chapter}{謝辞}{37}
+\contentsline {chapter}{参考文献}{38}
 \contentsline {chapter}{付録}{}
