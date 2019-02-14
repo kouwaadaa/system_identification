@@ -166,20 +166,20 @@ format_df7 = statistics.calc_RMSE(format_df7)
 # df5_V_filter[['Cm_log','Cm','alpha_deg']].plot.line(x='alpha_deg', style='o', title='Cm alpha dot x')
 
 # format_df4[['CL_log','CL']].plot.line(title='CL_nonkv')
-# format_df4[['CD_log','CD']].plot.line(title='CD_nonkv')
-format_df4[['Cm_log','Cm']].plot.line(title='Cm_nonkv')
+format_df4[['CD_log','CD']].plot.line(title='CD_nonkv')
+# format_df4[['Cm_log','Cm']].plot.line(title='Cm_nonkv')
 
 # format_df5[['CL_log','CL']].plot.line(title='CL_max')
-# format_df5[['CD_log','CD']].plot.line(title='CD_max')
-format_df5[['Cm_log','Cm']].plot.line(title='Cm_max')
+format_df5[['CD_log','CD']].plot.line(title='CD_max')
+# format_df5[['Cm_log','Cm']].plot.line(title='Cm_max')
 
 # format_df6[['CL_log','CL']].plot.line(title='CL_nonda')
-# format_df6[['CD_log','CD']].plot.line(title='CD_nonda')
-format_df6[['Cm_log','Cm']].plot.line(title='Cm_nonda')
+format_df6[['CD_log','CD']].plot.line(title='CD_nonda')
+# format_df6[['Cm_log','Cm']].plot.line(title='Cm_nonda')
 
 # format_df7[['CL_log','CL']].plot.line(title='CL_complete')
-# format_df7[['CD_log','CD']].plot.line(title='CD_complete')
-format_df7[['Cm_log','Cm']].plot.line(title='Cm_complete')
+format_df7[['CD_log','CD']].plot.line(title='CD_complete')
+# format_df7[['Cm_log','Cm']].plot.line(title='Cm_complete')
 
 # format_df5[['CL_log','CL','Va']].plot.line(x='Va', style=['o','p'], title='CL')
 # format_df5[['CD_log','CD','Va']].plot.line(x='Va', style=['o','p'], title='CD')

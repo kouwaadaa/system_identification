@@ -21,11 +21,11 @@
 
 開発機体には，3軸方向の角速度および加速度を検出するセンサとして，慣性計測装置(Inertial Measurement Unit, IMU)が搭載されている．IMUから飛行ログデータとして得られる値は，当然センサが取り付けられている位置における値である．しかし，各運動モデルは機体座標系の原点を基準として構成されているため，原点位置にセンサを取り付けることができない場合，その分の補正が必要となる．ここでは，取り付け位置によって変化する速度の補正について述べる．開発機体においては，Fig. \ref{fig:location_IMU}に示す位置に取り付けられている．このとき，Fig. \ref{fig:IMU_position}のように設定し，センサ取り付け位置での対地速度を$\mbox{\boldmath $V_p$}$とすると，機体軸原点の対地速度\mbox{\boldmath $V_g$}は
 \begin{equation}
-  \mbox{\boldmath $V_g$} \triangleq \dfrac{d}{dt}\mbox{\boldmath $R_{B}$} = \dfrac{d}{dt}(\mbox{\boldmath $R_{p}$} + \mbox{\boldmath $R_{pB}$}) =  \mbox{\boldmath $V_p$}+\mbox{\boldmath $\dot{R}_{pB}$}
+  \mbox{\boldmath $V_g$} \triangleq \dfrac{d}{dt}\mbox{\boldmath $R_{B}$} = \dfrac{d}{dt}(\mbox{\boldmath $R_{p}$} + \mbox{\boldmath $R_{p2B}$}) =  \mbox{\boldmath $V_p$}+\mbox{\boldmath $\dot{R}_{p2B}$}
 \end{equation}
-で与えられる．つまり，$\mbox{\boldmath $\dot{R}_{pB}$}$によってセンサ位置によるずれを補正することになる．このベクトルの機体座標表現は，$\mbox{\boldmath $R_{pB}$}$がセンサから機体軸原点に向けたベクトルであることに注意して
+で与えられる．つまり，$\mbox{\boldmath $\dot{R}_{p2B}$}$によってセンサ位置によるずれを補正することになる．このベクトルの機体座標表現は，$\mbox{\boldmath $R_{p2B}$}$がセンサから機体軸原点に向けたベクトルであることに注意して
 \begin{equation}
-  \mbox{\boldmath $\dot{R}_{pB}$} = \mbox{\boldmath $\omega$}\times\mbox{\boldmath $R_{pB}$} =
+  \mbox{\boldmath $\dot{R}_{p2B}$} = \mbox{\boldmath $\omega$}\times\mbox{\boldmath $R_{p2B}$} =
   \left[
     \begin{array}{ccc}
       p \\
@@ -73,7 +73,7 @@
 
 \subsection{風の影響の補正}
 
-実験は，屋外で風のある環境下で行なう．そこで，対気速度の測定のために，機首先端にピトー管が取り付けられているが，回転翼機モードでの飛行時は測定誤差が大きいことが分かっている．そこで，Fig. \ref{fig:wind_measure}に示すように，風速計を実験地点付近に機体の進行方向と同じ向きで設置し，風速を測定した．風速計の値は時々刻々変化するが，風速が一定に近い時間帯で実験を行ない，その時間帯のおおよその平均風速を測定値とした．データ処理時には，この測定値の一定風が吹いていると仮定し，機体の対地速度，および機体姿勢のログデータを用いて，\ref{sec:wind_speed}小節の通り対気速度を計算する．
+実験は，屋外で風のある環境下で行なう．対気速度の測定のために，機首先端にピトー管が取り付けられているが，回転翼機モードでの飛行時は測定誤差が大きいことが分かっている．そこで，Fig. \ref{fig:wind_measure}に示すように，風速計を実験地点付近に機体の進行方向と同じ向きで設置し，風速を測定した．風速計の値は時々刻々変化するが，風速が一定に近い時間帯で実験を行ない，その時間帯のおおよその平均風速を測定値とした．データ処理時には，この測定値の一定風が吹いていると仮定し，機体の対地速度，および機体姿勢のログデータを用いて，\ref{sec:wind_speed}小節の通り対気速度を計算する．
 
 \begin{figure}[H]
 	\centering
@@ -253,7 +253,7 @@
 \begin{equation}
   \mbox{\boldmath $J(\theta_L)$} = \dfrac{1}{2}(\mbox{\boldmath $z_L$}-\mbox{\boldmath $X_L\theta_L$})^{T}(\mbox{\boldmath $z_L$}-\mbox{\boldmath $X_L\theta_L$})
 \end{equation}
-を最小にするように定めればよい．したがって，最小二乗法\cite{}により推定値は
+を最小にするように定めればよい．したがって，最小二乗法により推定値は
 \begin{equation}
   \mbox{\boldmath $\hat{\theta}_L$} = (\mbox{\boldmath $X_L$}^{T}\mbox{\boldmath $X_L$})^{-1}\mbox{\boldmath $X_L$}^{T}\mbox{\boldmath $z_L$}
 \end{equation}
@@ -346,9 +346,6 @@
   \right]^{\mathrm{T}} :
   \mbox{誤差の$N\times1$ベクトル}
 \end{equation*}
-
-\vspace{10pt}
-
 と書けて，$C_L$と同様の手順で計算を行ない，未知パラメータ群$\xi$をすべて求める．
 
 %%%%%%%%%%%%%%%%%%%%%%%%
