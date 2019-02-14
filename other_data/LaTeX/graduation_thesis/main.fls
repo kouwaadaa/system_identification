@@ -163,7 +163,6 @@ INPUT ./z_figure_files/chapter4/1_location_IMU.jpeg
 INPUT ./z_figure_files/chapter4/2_IMU_position.jpeg
 INPUT ./z_figure_files/chapter4/wind_measure.jpeg
 INPUT ./z_figure_files/chapter4/sub_input.jpeg
-INPUT ./z_figure_files/chapter4/3_filter.jpeg
 INPUT ./z_figure_files/chapter4/experiment.jpeg
 INPUT ./z_figure_files/chapter4/L.jpeg
 INPUT ./z_figure_files/chapter4/D.jpeg

@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  14 FEB 2019 13:53
+This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  14 FEB 2019 22:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -718,26 +718,24 @@ File: ./z_figure_files/chapter4/wind_measure.jpeg Graphic file (type bmp)
 [22] [23]
 File: ./z_figure_files/chapter4/sub_input.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter4/sub_input.jpeg>
-File: ./z_figure_files/chapter4/3_filter.jpeg Graphic file (type bmp)
-<./z_figure_files/chapter4/3_filter.jpeg>
  [24]
 
-./e_chapter4/4.tex:142: Package amsmath Error: Erroneous nesting of equation structures;
+./e_chapter4/4.tex:144: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
 
 See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.142   \end{align}
+l.144   \end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-./e_chapter4/4.tex:144: Missing delimiter (. inserted).
+./e_chapter4/4.tex:146: Missing delimiter (. inserted).
 <to be read again> 
                    \gdef 
-l.144   \label
+l.146   \label
               {eq:L_D_Ma}
 I was expecting to see something like `(' or `\{' or
 `\}' here. If you typed, e.g., `{' instead of `\{', you
@@ -747,22 +745,22 @@ Acceptable delimiters are characters whose \delcode is
 nonnegative, or you can use `\delimiter <delimiter code>'.
 
 
-./e_chapter4/4.tex:153: Package amsmath Error: Erroneous nesting of equation structures;
+./e_chapter4/4.tex:155: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
 
 See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.153   \end{align}
+l.155   \end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-./e_chapter4/4.tex:155: Missing delimiter (. inserted).
+./e_chapter4/4.tex:157: Missing delimiter (. inserted).
 <to be read again> 
                    \gdef 
-l.155   \label
+l.157   \label
               {eq:CL_CD_Cm}
 I was expecting to see something like `(' or `\{' or
 `\}' here. If you typed, e.g., `{' instead of `\{', you
@@ -771,20 +769,20 @@ braces don't get unbalanced. Otherwise just proceed.
 Acceptable delimiters are characters whose \delcode is
 nonnegative, or you can use `\delimiter <delimiter code>'.
 
-./e_chapter4/4.tex:162: Missing { inserted.
+./e_chapter4/4.tex:164: Missing { inserted.
 <to be read again> 
                    \gdef 
-l.162   C_{L_\dot{\alpha}
+l.164   C_{L_\dot{\alpha}
                          }},
 A left brace was mandatory here, so I've put one in.
 You might want to delete and/or insert some corrections
 so that I will find a matching right brace soon.
 (If you're confused by all this, try typing `I}' now.)
 
-./e_chapter4/4.tex:171: Missing { inserted.
+./e_chapter4/4.tex:173: Missing { inserted.
 <to be read again> 
                    \gdef 
-l.171   C_{m_\dot{\alpha}
+l.173   C_{m_\dot{\alpha}
                          }},
 A left brace was mandatory here, so I've put one in.
 You might want to delete and/or insert some corrections
@@ -792,21 +790,20 @@ so that I will find a matching right brace soon.
 (If you're confused by all this, try typing `I}' now.)
 
 [25]
-./e_chapter4/4.tex:221: Missing { inserted.
+./e_chapter4/4.tex:223: Missing { inserted.
 <to be read again> 
                    \gdef 
-l.221 ...quad C_{L_\alpha} \quad C_{L_\dot{\alpha}
+l.223 ...quad C_{L_\alpha} \quad C_{L_\dot{\alpha}
                                                   }} \quad C_{L_q} \quad C_{...
 A left brace was mandatory here, so I've put one in.
 You might want to delete and/or insert some corrections
 so that I will find a matching right brace soon.
 (If you're confused by all this, try typing `I}' now.)
 
-[26]
-./e_chapter4/4.tex:321: Missing { inserted.
+./e_chapter4/4.tex:332: Missing { inserted.
 <to be read again> 
                    \gdef 
-l.321 ...quad C_{m_\alpha} \quad C_{m_\dot{\alpha}
+l.332 ...quad C_{m_\alpha} \quad C_{m_\dot{\alpha}
                                                   }} \quad C_{m_q} \quad C_{...
 A left brace was mandatory here, so I've put one in.
 You might want to delete and/or insert some corrections
@@ -814,28 +811,26 @@ so that I will find a matching right brace soon.
 (If you're confused by all this, try typing `I}' now.)
 
 
-Overfull \hbox (1.59206pt too wide) detected at line 325
+Overfull \hbox (1.59206pt too wide) detected at line 336
  $[] \OT1/cmr/m/n/12 = [][] : []$ 
  []
 
-[27]
+[26]
 File: ./z_figure_files/chapter4/experiment.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter4/experiment.jpeg>
+ [27]
 File: ./z_figure_files/chapter4/L.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter4/L.jpeg>
 File: ./z_figure_files/chapter4/D.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter4/D.jpeg>
 
-Overfull \hbox (15.91661pt too wide) in paragraph at lines 394--410
+Overfull \hbox (15.91661pt too wide) in paragraph at lines 405--421
  [][][] 
  []
 
 File: ./z_figure_files/chapter4/Ma.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter4/Ma.jpeg>
-[28]
-Overfull \vbox (17.31659pt too high) has occurred while \output is active []
-
- [29]) (./f_chapter5/5.tex
+[28]) (./f_chapter5/5.tex [29]
 第 5 章
 
 Overfull \hbox (13.80832pt too wide) in paragraph at lines 64--66
@@ -904,12 +899,12 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 2361 strings out of 493270
- 29440 string characters out of 6145017
- 114329 words of memory out of 5000000
- 6191 multiletter control sequences out of 15000+600000
+ 2359 strings out of 493270
+ 29382 string characters out of 6145017
+ 114322 words of memory out of 5000000
+ 6190 multiletter control sequences out of 15000+600000
  20522 words of font info for 92 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
  27i,19n,33p,1162b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (43 pages, 132300 bytes).
+Output written on main.dvi (43 pages, 132024 bytes).
