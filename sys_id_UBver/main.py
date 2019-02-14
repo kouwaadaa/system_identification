@@ -51,12 +51,12 @@ plt.rcParams["figure.figsize"] = [20, 12]
 format_df = pd.DataFrame()
 borderline_list = list()
 
-format_df,size = file_read.file_read('../log_data/Book3.csv',17.52,19.14,-4.03,40/48,0,format_df)
+# format_df,size = file_read.file_read('../log_data/Book3.csv',17.52,19.14,-4.03,40/48,0,format_df)
 borderline_list.append(size)
 # format_df = file_read.file_read('../log_data/Book4.csv',11.97,13.30,-5.05,40/45,0,format_df)
 format_df,size = file_read.file_read('../log_data/Book4.csv',18.66,21.08,-5.05,40/45,0,format_df)
 borderline_list.append(size+borderline_list[-1])
-
+#
 format_df,size = file_read.file_read('../log_data/Book5.csv',12.45,13.66,-4.80,40/48,0,format_df)
 borderline_list.append(size+borderline_list[-1])
 format_df,size = file_read.file_read('../log_data/Book5.csv',16.07,17.03,-4.80,40/48,0,format_df)
@@ -167,7 +167,10 @@ format_df8 = statistics.calc_RMSE(format_df8)
 
 # format_df7[['CL_log','CL','Va']].plot.line(x='Va', style='o', title='CL')
 # format_df7[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD_t')
-# format_df7[['Cm_log','Cm','Va']].plot.line(x='Va', style='o', title='Cm')
+format_df7[['Cm_log','Cm','Va']].plot.line(x='Va', style='o', title='Cm')
+
+
+# format_df7[['delta_e']].plot.line()
 
 # format_df5[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD_dalpha')
 # format_df4[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD_nonkv')
@@ -196,9 +199,9 @@ format_df8 = statistics.calc_RMSE(format_df8)
 # format_df6[['CD_log','CD','Va']].plot.line(x='Va', style=['o','p'], title='CD')
 # format_df6[['Cm_log','Cm','Va']].plot.line(x='Va', style=['o','p'], title='Cm')
 
-d_alpha = np.array(format_df7['d_alpha'])
-
-print(d_alpha.mean())
+# theta = np.array(format_df7['theta'])
+# for j in borderline_list:
+#     plt.axvline(x=j, color="black") # 実験データの境目で線を引く
 
 # format_df[['L_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['D_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
