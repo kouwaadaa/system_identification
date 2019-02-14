@@ -876,6 +876,7 @@ def sys_id_LS_max_non_kv(format_df):
 
     return format_df_return
 
+
 def sys_id_LS_complete_ub(format_df):
     '''
     整理されたデータをもとに，
@@ -1048,6 +1049,178 @@ def sys_id_LS_complete_ub(format_df):
     format_df_return['Cm_q'] = Cm_q
     format_df_return['Cm_delta_e'] = Cm_delta_e
     format_df_return['Cm_k'] = Cm_k
+
+    format_df_return['CL'] = CL
+    format_df_return['CD'] = CD
+    format_df_return['Cm'] = Cm
+    format_df_return['L_calc'] = L_calc
+    format_df_return['D_calc'] = D_calc
+    format_df_return['Ma_calc'] = Ma_calc
+
+    return format_df_return
+
+
+def sys_id_LS_complete_non_kv(format_df):
+    '''
+    整理されたデータをもとに，
+    最小二乗法を用いてパラメータ推定を行なう.
+    すべて未知パラメータとして推定．d_alphaに関する項も追加．
+    CDのモデル式を変更している．
+    kvの項は入れていない．
+
+    Parameters
+    ----------
+    format_df: pandas.DataFrame
+        ピッチ角速度, 迎角, 対気速度, エレベータ舵角, 揚力, 抗力, ピッチモーメント
+        のそれぞれの実験データを含むデータ群．
+
+    Returns
+    -------
+    format_df_return: pandas.DataFrame
+        元のデータに，同定結果を加えたデータ群．
+    '''
+
+    #---------------------------
+    # 入力データから値を取り出す
+    #---------------------------
+
+    data_size = len(format_df)
+    d_theta = np.array(format_df['d_theta'])
+    alpha = np.array(format_df['alpha'])
+    d_alpha = np.array(format_df['d_alpha'])
+    Va = np.array(format_df['Va'])
+    delta_e = np.array(format_df['delta_e'])
+    L = np.array(format_df['L'])
+    D = np.array(format_df['D'])
+    Ma = np.array(format_df['Ma'])
+
+    #---------------------------
+    # 揚力
+    #---------------------------
+
+    # n*1 揚力から計算された値のリスト
+    yL = (L/((1/2)*const.RHO*(Va**2)*const.S))
+
+    # n*6 リグレッサー（独立変数）や実験データのリスト
+    xL = np.zeros((data_size,5))
+    xL[:,0] = 1
+    xL[:,1] = alpha
+    xL[:,2] = (const.MAC/(2*Va))*d_alpha
+    xL[:,3] = (const.MAC/(2*Va))*d_theta
+    xL[:,4] = delta_e
+
+    # 擬似逆行列を用いた最小二乗解の計算
+    L_theta_hat = np.dot((np.linalg.pinv(xL)),yL)
+
+    # 同定された未知パラメータの取り出し
+    CL_0 = L_theta_hat[0]
+    CL_alpha = L_theta_hat[1]
+    CL_d_alpha = L_theta_hat[2]
+    CL_q = L_theta_hat[3]
+    CL_delta_e = L_theta_hat[4]
+
+    # 同定結果から得られたCLを計算
+    CL = CL_0 \
+        + CL_alpha*alpha \
+        + CL_d_alpha*(const.MAC/(2*Va))*d_alpha \
+        + CL_q*(const.MAC/(2*Va))*d_theta \
+        + CL_delta_e*delta_e
+
+    #---------------------------
+    # 抗力
+    #---------------------------
+
+    # n*1 抗力から計算された値のリスト
+    yD = (D/((1/2)*const.RHO*(Va**2)*const.S))
+
+    # n*6 リグレッサー（独立変数）や実験データのリスト
+    xD = np.zeros((data_size,5))
+    xD[:,0] = 1
+    xD[:,1] = alpha
+    xD[:,2] = (const.MAC/(2*Va))*d_alpha
+    xD[:,3] = (const.MAC/(2*Va))*d_theta
+    xD[:,4] = delta_e
+
+    # 擬似逆行列を用いた最小二乗解の計算
+    D_theta_hat = np.dot((np.linalg.pinv(xD)),yD)
+
+    # 同定された未知パラメータの取り出し
+    CD_0 = D_theta_hat[0]
+    CD_alpha = D_theta_hat[1]
+    CD_d_alpha = D_theta_hat[2]
+    CD_q = D_theta_hat[3]
+    CD_delta_e = D_theta_hat[4]
+
+    # 同定結果から得られたCDを計算
+    CD = CD_0 \
+        + CD_alpha*alpha \
+        + CD_d_alpha*(const.MAC/(2*Va))*d_alpha \
+        + CD_q*(const.MAC/(2*Va))*d_theta \
+        + CD_delta_e*delta_e
+
+    #---------------------------
+    # モーメント
+    #---------------------------
+
+    # n*1 空力モーメントから計算された値のリスト
+    ym = Ma/((1/2)*const.RHO*(Va**2)*const.S*const.MAC)
+
+    # n*6 リグレッサー（独立変数）や実験データのリスト
+    xm = np.zeros((data_size,5))
+    xm[:,0] = 1
+    xm[:,1] = alpha
+    xm[:,2] = (const.MAC/(2*Va))*d_alpha
+    xm[:,3] = (const.MAC/(2*Va))*d_theta
+    xm[:,4] = delta_e
+
+    # 擬似逆行列を用いた最小二乗解の計算
+    m_theta_hat = np.dot((np.linalg.pinv(xm)),ym)
+
+    # 同定された未知パラメータの取り出し
+    Cm_0 = m_theta_hat[0]
+    Cm_alpha = m_theta_hat[1]
+    Cm_d_alpha = m_theta_hat[2]
+    Cm_q = m_theta_hat[3]
+    Cm_delta_e = m_theta_hat[4]
+
+    # 同定結果から得られたCDを計算
+    Cm = Cm_0 \
+        + Cm_alpha*alpha \
+        + Cm_d_alpha*(const.MAC/(2*Va))*d_alpha \
+        + Cm_q*(const.MAC/(2*Va))*d_theta \
+        + Cm_delta_e*delta_e
+
+    #---------------------------
+    # 同定結果を用いて空力を再現
+    #---------------------------
+
+    L_calc = (1/2)*const.RHO*const.S*(Va**2)*CL
+    D_calc = (1/2)*const.RHO*const.S*(Va**2)*CD
+    Ma_calc = (1/2)*const.RHO*const.S*(Va**2)*const.MAC*Cm
+
+    #---------------------------
+    # 結果をデータファイルに書き込んで返す
+    #---------------------------
+
+    format_df_return = format_df.copy()
+
+    format_df_return['CL_0'] = CL_0
+    format_df_return['CL_alpha'] = CL_alpha
+    format_df_return['CL_d_alpha'] = CL_d_alpha
+    format_df_return['CL_q'] = CL_q
+    format_df_return['CL_delta_e'] = CL_delta_e
+
+    format_df_return['CD_0'] = CD_0
+    format_df_return['CD_alpha'] = CD_alpha
+    format_df_return['CD_d_alpha'] = CD_d_alpha
+    format_df_return['CD_q'] = CD_q
+    format_df_return['CD_delta_e'] = CD_delta_e
+
+    format_df_return['Cm_0'] = Cm_0
+    format_df_return['Cm_alpha'] = Cm_alpha
+    format_df_return['Cm_d_alpha'] = Cm_d_alpha
+    format_df_return['Cm_q'] = Cm_q
+    format_df_return['Cm_delta_e'] = Cm_delta_e
 
     format_df_return['CL'] = CL
     format_df_return['CD'] = CD
