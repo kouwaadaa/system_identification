@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  14 FEB 2019 22:26
+This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  16 FEB 2019 01:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -832,11 +832,6 @@ File: ./z_figure_files/chapter4/Ma.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter4/Ma.jpeg>
 [28]) (./f_chapter5/5.tex [29]
 第 5 章
-
-Overfull \hbox (13.80832pt too wide) in paragraph at lines 64--66
-\JY2/mc/m/n/12 となる ． プロセスノイズを省略すれば ， この状態方程式は行列 $\OML/cmm/m/it/12 A; B$ \JY2/mc/m/n/12 と状態量 $[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 u; ^^K; q; ^^R\OT1/cmr/m/n/12 )$\JY2/mc/m/n/12 ，
- []
-
 [30
 
 ]
@@ -848,25 +843,25 @@ File: ./z_figure_files/chapter5/2_CL.jpeg Graphic file (type bmp)
 File: ./z_figure_files/chapter5/3_CD.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/3_CD.jpeg>
 
-Overfull \hbox (15.91661pt too wide) in paragraph at lines 111--127
+Overfull \hbox (15.91661pt too wide) in paragraph at lines 121--137
  [][][] 
  []
 
 File: ./z_figure_files/chapter5/4_Cm.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/4_Cm.jpeg>
-[32]
+[32] [33]
 File: ./z_figure_files/chapter5/cfd_L.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/cfd_L.jpeg>
 File: ./z_figure_files/chapter5/cfd_D.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/cfd_D.jpeg>
 
-Overfull \hbox (15.91661pt too wide) in paragraph at lines 153--167
+Overfull \hbox (15.91661pt too wide) in paragraph at lines 163--177
  [][][][] 
  []
 
 File: ./z_figure_files/chapter5/cfd_m.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/cfd_m.jpeg>
-) (./g_conclusion/conclusion.tex [33] [34]
+) (./g_conclusion/conclusion.tex [34]
 第 6 章
 [35
 
@@ -901,10 +896,10 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Here is how much of TeX's memory you used:
  2359 strings out of 493270
  29382 string characters out of 6145017
- 114322 words of memory out of 5000000
+ 116322 words of memory out of 5000000
  6190 multiletter control sequences out of 15000+600000
  20522 words of font info for 92 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
  27i,19n,33p,1162b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (43 pages, 132024 bytes).
+Output written on main.dvi (43 pages, 132784 bytes).

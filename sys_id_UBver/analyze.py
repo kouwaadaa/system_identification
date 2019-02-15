@@ -165,26 +165,44 @@ def linearlize(format_log_data):
     # 安定微係数それぞれ
     X_u = (1/const.MASS)*p_diff_Xa_to_u
     X_alpha = (1/const.MASS)*p_diff_Xa_to_alpha
-    X_q = (1/const.MASS)*p_diff_Xa_to_q - w[0]
+    X_q = (1/const.MASS)*p_diff_Xa_to_q - w
+    X_theta = - const.GRA*np.cos(theta)
     X_delta_e = (1/const.MASS)*p_diff_Xa_to_delta_e
+    X_Tm = np.sin(tilt)/const.MASS
     Z_u = (1/const.MASS)*p_diff_Za_to_u
     Z_alpha = (1/const.MASS)*p_diff_Za_to_alpha
-    Z_d_alpha = u[0] - (1/const.MASS)*p_diff_Za_to_d_alpha
-    Z_q = (1/const.MASS)*p_diff_Za_to_q - u[0]
+    Z_d_alpha = u - (1/const.MASS)*p_diff_Za_to_d_alpha
+    Z_q = (1/const.MASS)*p_diff_Za_to_q + u
+    Z_theta = - const.GRA*np.sin(theta)
     Z_delta_e = (1/const.MASS)*p_diff_Za_to_delta_e
+    Z_Tm = -(np.cos(tilt)/const.MASS)
+    Z_Tr = -(1/const.MASS)
+    Z_Tf = -(1/const.MASS)
     Z_u_bar = Z_u/Z_d_alpha
     Z_alpha_bar = Z_alpha/Z_d_alpha
     Z_q_bar = Z_q/Z_d_alpha
+    Z_theta_bar = Z_theta/Z_d_alpha
     Z_delta_e_bar = Z_delta_e/Z_d_alpha
-    M_u_prime = p_diff_Ma_to_u + Z_u_bar
-    M_alpha_prime = p_diff_Ma_to_alpha + Z_alpha_bar
-    M_q_prime = p_diff_Ma_to_q + Z_q_bar
-    M_theta_prime = const.MASS*const.GRA*(const.R_G_X*np.sin(theta[0]) - const.R_G_Z*np.cos(theta[0])) \
-                    - const.GRA*np.sin(theta[0])/Z_d_alpha
-    M_delta_e_prime = p_diff_Ma_to_delta_e + Z_delta_e_bar
-    M_Tm_prime = - (const.LEN_M + (1/Z_d_alpha))*np.cos(tilt)
-    M_Tr_prime = - (const.LEN_R_X + (1/Z_d_alpha))
-    M_Tf_prime = const.LEN_F - (1/Z_d_alpha)
+    Z_Tm_bar = Z_Tm/Z_d_alpha
+    Z_Tr_bar = Z_Tr/Z_d_alpha
+    Z_Tf_bar = Z_Tf/Z_d_alpha
+    M_u = (1/const.I_YY)*p_diff_Ma_to_u
+    M_alpha = (1/const.I_YY)*p_diff_Ma_to_alpha
+    M_d_alpha = (1/const.I_YY)*p_diff_Ma_to_d_alpha
+    M_q = (1/const.I_YY)*p_diff_Ma_to_q
+    M_theta = (const.MASS*const.GRA/const.I_YY)*(const.R_G_X*np.sin(theta) - const.R_G_Z*np.cos(theta))
+    M_delta_e = (1/const.I_YY)*p_diff_Ma_to_delta_e
+    M_Tm = -const.LEN_M*np.cos(tilt)
+    M_Tr = -const.LEN_R_X
+    M_Tf = const.LEN_F
+    M_u_bar = M_u + Z_u_bar*M_d_alpha
+    M_alpha_bar = M_alpha + Z_alpha_bar*M_d_alpha
+    M_q_bar = M_q + Z_q_bar*M_d_alpha
+    M_theta_bar = M_theta + Z_theta_bar*M_d_alpha
+    M_delta_e_bar = M_delta_e + Z_delta_e_bar*M_d_alpha
+    M_Tm_bar = M_Tm + Z_Tm_bar*M_d_alpha
+    M_Tr_bar = M_Tr + Z_Tr_bar*M_d_alpha
+    M_Tf_bar = M_Tf + Z_Tf_bar*M_d_alpha
 
     # 状態方程式 dx = Ax + Bu
     A = np.zeros((data_size,4,4))
@@ -195,17 +213,17 @@ def linearlize(format_log_data):
     A[:,0,0] = X_u
     A[:,0,1] = X_alpha
     A[:,0,2] = X_q
-    A[:,0,3] = - const.GRA*np.cos(theta[0])
+    A[:,0,3] = X_theta
 
     A[:,1,0] = Z_u_bar
     A[:,1,1] = Z_alpha_bar
     A[:,1,2] = Z_q_bar
-    A[:,1,3] = - const.GRA*np.sin(theta[0])/Z_d_alpha
+    A[:,1,3] = Z_theta_bar
 
-    A[:,2,0] = M_u_prime
-    A[:,2,1] = M_alpha_prime
-    A[:,2,2] = M_q_prime
-    A[:,2,3] = M_theta_prime
+    A[:,2,0] = M_u_bar
+    A[:,2,1] = M_alpha_bar
+    A[:,2,2] = M_q_bar
+    A[:,2,3] = M_theta_bar
 
     A[:,3,0] = 0
     A[:,3,1] = 0
@@ -214,19 +232,19 @@ def linearlize(format_log_data):
 
     # B
     B[:,0,0] = X_delta_e
-    B[:,0,1] = np.sin(tilt)/const.MASS
+    B[:,0,1] = X_Tm
     B[:,0,2] = 0
     B[:,0,3] = 0
 
     B[:,1,0] = Z_delta_e_bar
-    B[:,1,1] = - np.cos(tilt)/(const.MASS*Z_d_alpha)
-    B[:,1,2] = - 1/(const.MASS*Z_d_alpha)
-    B[:,1,3] = - 1/(const.MASS*Z_d_alpha)
+    B[:,1,1] = Z_Tm_bar
+    B[:,1,2] = Z_Tr_bar
+    B[:,1,3] = Z_Tf_bar
 
-    B[:,2,0] = M_delta_e_prime
-    B[:,2,1] = - (const.LEN_M + 1/(const.MASS*Z_d_alpha))*np.cos(tilt)
-    B[:,2,2] = - (const.LEN_R_X + 1/(const.MASS*Z_d_alpha))
-    B[:,2,3] = const.LEN_F - 1/(const.MASS*Z_d_alpha)
+    B[:,2,0] = M_delta_e_bar
+    B[:,2,1] = M_Tm_bar
+    B[:,2,2] = M_Tr_bar
+    B[:,2,3] = M_Tf_bar
 
     B[:,3,0] = 0
     B[:,3,1] = 0

@@ -51,7 +51,7 @@ plt.rcParams["figure.figsize"] = [20, 12]
 format_df = pd.DataFrame()
 borderline_list = list()
 
-# format_df,size = file_read.file_read('../log_data/Book3.csv',17.52,19.14,-4.03,40/48,0,format_df)
+format_df,size = file_read.file_read('../log_data/Book3.csv',17.52,19.14,-4.03,40/48,0,format_df)
 borderline_list.append(size)
 # format_df = file_read.file_read('../log_data/Book4.csv',11.97,13.30,-5.05,40/45,0,format_df)
 format_df,size = file_read.file_read('../log_data/Book4.csv',18.66,21.08,-5.05,40/45,0,format_df)
@@ -104,13 +104,13 @@ format_df4 = sys_id.sys_id_LS_max_non_kv(format_df)
 format_df5 = sys_id.sys_id_LS_max_ub(format_df)
 format_df6 = sys_id.sys_id_LS_non_d_alpha_ub(format_df)
 format_df7 = sys_id.sys_id_LS_complete_ub(format_df)
-format_df8 = sys_id.sys_id_LS_complete_non_kv(format_df)
+# format_df8 = sys_id.sys_id_LS_complete_non_kv(format_df)
 
 #---------------------------
 # 機体の状態方程式から固有振動数を解析する
 #---------------------------
 
-# anly_result = analyze.linearlize(format_df5)
+anly_result = analyze.linearlize(format_df5)
 
 #---------------------------
 # データの取り出し
@@ -126,7 +126,7 @@ format_df4 = statistics.calc_RMSE(format_df4)
 format_df5 = statistics.calc_RMSE(format_df5)
 format_df6 = statistics.calc_RMSE(format_df6)
 format_df7 = statistics.calc_RMSE(format_df7)
-format_df8 = statistics.calc_RMSE(format_df8)
+# format_df8 = statistics.calc_RMSE(format_df8)
 
 # df5_V_filter = format_df5.query('4.5 <= Va <= 5.5')
 
@@ -167,7 +167,7 @@ format_df8 = statistics.calc_RMSE(format_df8)
 
 # format_df7[['CL_log','CL','Va']].plot.line(x='Va', style='o', title='CL')
 # format_df7[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD_t')
-format_df7[['Cm_log','Cm','Va']].plot.line(x='Va', style='o', title='Cm')
+# format_df7[['Cm_log','Cm','Va']].plot.line(x='Va', style='o', title='Cm')
 
 
 # format_df7[['delta_e']].plot.line()
@@ -214,29 +214,29 @@ format_df7[['Cm_log','Cm','Va']].plot.line(x='Va', style='o', title='Cm')
 # window = np.hamming(data_size)
 # manual_T3 = window * manual_T3
 
-# # 固有値の絶対値をとる．
-# lambda_A_abs = np.abs(anly_result[0])
+# 固有値の絶対値をとる．
+lambda_A_abs = np.abs(anly_result[0])
+
+xxx = np.arange(data_size)
+y = lambda_A_abs[:,0]
+yy = lambda_A_abs[:,1]
+yyy = lambda_A_abs[:,2]
+yyyy = lambda_A_abs[:,3]
+
+plt.subplot(111)
+plt.scatter(xxx,y,label="")
+plt.scatter(xxx,yy,label="")
+plt.scatter(xxx,yyy,label="")
+plt.scatter(xxx,yyyy,label="")
 #
-# xxx = np.arange(data_size)
-# y = lambda_A_abs[:,0]
-# yy = lambda_A_abs[:,1]
-# yyy = lambda_A_abs[:,2]
-# yyyy = lambda_A_abs[:,3]
 #
-# plt.subplot(111)
-# plt.scatter(xxx,y,label="")
-# plt.scatter(xxx,yy,label="")
-# plt.scatter(xxx,yyy,label="")
-# plt.scatter(xxx,yyyy,label="")
-# #
-# #
-# for j in borderline_list:
-#     plt.axvline(x=j, color="black") # 実験データの境目で線を引く
-#
-# # plt.title('固有値散布図')
-# plt.xlabel('Data Number')
-# plt.ylabel('Eigenvalue')
-# plt.show()
+for j in borderline_list:
+    plt.axvline(x=j, color="black") # 実験データの境目で線を引く
+
+# plt.title('固有値散布図')
+plt.xlabel('Data Number')
+plt.ylabel('Eigenvalue')
+plt.show()
 # #
 # ax = fig.add_subplot(2,1,2)
 #

@@ -62,7 +62,7 @@
   \end{array}
   \right]}_{\underline{u}}
 \end{equation}
-となる．プロセスノイズを省略すれば，この状態方程式は行列$A,B$と状態量$\underline{x}(u,\alpha,q,\theta)$，入力$\underline{u}(\delta_e,T_m,T_r,T_f)$を用いることによって
+となる．プロセスノイズを省略すれば，この状態方程式は行列$A,B$と状態量$\underline{x}$，入力$\underline{u}$を用いることによって
 \begin{equation}
   \dfrac{d\underline{x}}{dt} = A\underline{x} + B\underline{u}
 \label{eq:matrix_A}
@@ -72,7 +72,7 @@
   \underline{x}(t) = e^{At}\underline{x}(0) + \int_0^t e^{A(t-\tau)}B\underline{u}(\tau) d\tau
   \label{eq:system}
 \end{equation}
-が得られる．式(\ref{eq:system})の右辺第1項目は，斉次方程式の一般解であり，行列$A$の固有値から成る．右辺第2項目は特殊解であり，\underline{u}による振動数と行列$A$の固有値から成る．例えば，右辺第2項目は$u=1$のとき，$\int_0^t e^{A(t-\tau)}B d\tau$となり，行列$A$の固有値に依存した振動になり得るということである．
+が得られる．式(\ref{eq:system})の右辺第1項目は，斉次方程式の一般解であり，行列$A$の固有値に従う挙動を示す．右辺第2項目は特殊解であり，入力$\underline{u}$による振動数と行列$A$の固有値に従う挙動を示す．
 
 % ここで入力$\underline{u}$が，振動や減衰を表す関数
 % \begin{equation}
@@ -88,12 +88,12 @@
 
 そこで，\ref{sec:filter}小節でも述べたように，固有振動数を計算することで機体の運動が持つおおよその周波数帯をつかみ，データのフィルタリングに利用する．実際に式(\ref{eq:matrix_A})の行列$A$について，固有値を計算して絶対値をプロットしたものがFig. \ref{fig:eigenvalue}である．ただし，実験中の風の影響などの外乱が大きいと思われるデータは除き，計算を行なった．行列$A$が4次の正方行列であるため，各データ点ごとに最大4つの固有値を持ち，それぞれ色分けされている．グラフ内の縦線は，複数の実験データそれぞれの境界を示す．
 
-Fig. \ref{fig:eigenvalue}から，機体の回転翼機モードにおける低速飛行縦運動の固有振動数は，おおよそ0〜5$\mathrm{[Hz]}$であることが見て取れる．つまり，この範囲内の周波数はフィルタリングなどの処理で落としてはいけない．このように小型UAVにおいても，運動の固有値解析を行なうことは有用であると考えられる．
+Fig. \ref{fig:eigenvalue}から，機体の回転翼機モードにおける低速飛行縦運動の固有振動数は，おおよそ0〜5$\mathrm{[Hz]}$であることが見て取れる．つまり，この範囲内の周波数はフィルタリングなどの処理で落としてはいけない．
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[clip,width=15.0cm,bb=0 0 1250 750]{./z_figure_files/chapter5/1_eigenvalue.jpeg}
-	\caption{Eigenvalue of matrix A}
+	\caption{Absolute value of eigenvalue of matrix A}
 	\label{fig:eigenvalue}
 \end{figure}
 
@@ -102,9 +102,19 @@ Fig. \ref{fig:eigenvalue}から，機体の回転翼機モードにおける低�
 \label{sec:airf_model_ver}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-本節では，パラメータ同定の結果から，式(\ref{eq:L})〜(\ref{eq:Ma})で設定した空気力モデルが妥当であるかを考える．Fig. \ref{fig:CL_si}〜\ref{fig:Cm_si}に示すように，$L_{log},D_{log},M_{a_{log}}$から算出した空力係数(青点)，空気力モデル内の速度に比例した項を除いたモデルを用いて同定した結果から算出した空力係数(黃点)，および本研究で仮定する空気力モデルを用いて同定した結果から算出した空力係数(緑点)とをそれぞれ比較する．ただし，式(\ref{eq:CL}),~(\ref{eq:Cm})より空力係数に関係する変数は，$\alpha,\dot{\alpha},q,\delta_e,V_a$の計5個あるため，その中から$V_a$を横軸にとった射影を図示している．
+本節では，パラメータ同定の結果から，式(\ref{eq:L})〜(\ref{eq:Ma})で設定した空気力モデルが妥当であるかを考える．Fig. \ref{fig:CL_si}〜\ref{fig:Cm_si}にはそれぞれ3種類の色分けされた点がプロットされている．これらは以下に示す3通りのデータセットからプロットしている．
 
-$C_L$はそれほど大きな変化は見られないが，$C_D,C_m$では$k_* V_a$の項を含めた空気力モデルの方が，実験値に沿うように点在しているように見える．
+\begin{itemize}
+  \setlength{\leftskip}{1.0cm}
+  \setlength{\rightskip}{2.0cm}
+  \item[Data1(青)] $L_{log},D_{log},M_{a_{log}}$を用いて算出した空力係数\\（ログデータから得られた，真値に近いと考えられる値）
+  \item[Data2(黄)] 式(\ref{eq:L_o})〜(\ref{eq:Ma_o})，すなわち$k_* V_a$の項を除いたモデルを用いて同定した結果から算出した空力係数
+  \item[Data3(緑)] 式(\ref{eq:L})〜(\ref{eq:Ma})，すなわち本研究で仮定する空気力モデルを用いて同定した結果から算出した空力係数
+\end{itemize}
+
+ただし，式(\ref{eq:CL}),~(\ref{eq:Cm})より空力係数に関係する変数は，$\alpha,\dot{\alpha},q,\delta_e,V_a$の計5個あるが，その中から$V_a$を横軸にとった場合を図示している．
+
+$C_L$は各データセット間でそれほど大きな差は見られないが，$C_D,C_m$においては，Data1が真値に近い値であると考えれば，Data2よりもData3のほうが，よりData1に沿うように点在していることが分かる．よって，回転翼機モードの空気力モデルにおいては，$k_* V_a$の項を含めることが妥当であると考えられる．
 
 \begin{figure}[htbp]
 	\begin{center}

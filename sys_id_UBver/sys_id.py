@@ -527,6 +527,14 @@ def sys_id_LS_max_ub(format_df):
     Ma_calc = (1/2)*const.RHO*const.S*(Va**2)*const.MAC*Cm
 
     #---------------------------
+    # k_*を計算
+    #---------------------------
+
+    k_L = (1/2)*const.RHO*const.S*CL_k
+    k_D = (1/2)*const.RHO*const.S*CD_k
+    k_m = (1/2)*const.RHO*const.S*const.MAC*Cm_k
+
+    #---------------------------
     # 結果をデータファイルに書き込んで返す
     #---------------------------
 
@@ -538,10 +546,12 @@ def sys_id_LS_max_ub(format_df):
     format_df_return['CL_q'] = CL_q
     format_df_return['CL_delta_e'] = CL_delta_e
     format_df_return['CL_k'] = CL_k
+    format_df_return['k_L'] = k_L
 
     format_df_return['CD_0'] = CD_0
     format_df_return['kappa'] = kappa
     format_df_return['CD_k'] = CD_k
+    format_df_return['k_D'] = k_D
 
     format_df_return['Cm_0'] = Cm_0
     format_df_return['Cm_alpha'] = Cm_alpha
@@ -549,6 +559,7 @@ def sys_id_LS_max_ub(format_df):
     format_df_return['Cm_q'] = Cm_q
     format_df_return['Cm_delta_e'] = Cm_delta_e
     format_df_return['Cm_k'] = Cm_k
+    format_df_return['k_m'] = k_m
 
     format_df_return['CL'] = CL
     format_df_return['CD'] = CD
