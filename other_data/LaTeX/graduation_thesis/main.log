@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  16 FEB 2019 01:56
+This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2019.1.21)  17 FEB 2019 13:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -838,12 +838,15 @@ File: ./z_figure_files/chapter4/Ma.jpeg Graphic file (type bmp)
 File: ./z_figure_files/chapter5/1_eigenvalue.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/1_eigenvalue.jpeg>
  [31]
+
+LaTeX Warning: Reference `tb:rmse' on page 32 undefined on input line 124.
+
 File: ./z_figure_files/chapter5/2_CL.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/2_CL.jpeg>
 File: ./z_figure_files/chapter5/3_CD.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/3_CD.jpeg>
 
-Overfull \hbox (15.91661pt too wide) in paragraph at lines 121--137
+Overfull \hbox (15.91661pt too wide) in paragraph at lines 130--146
  [][][] 
  []
 
@@ -855,7 +858,7 @@ File: ./z_figure_files/chapter5/cfd_L.jpeg Graphic file (type bmp)
 File: ./z_figure_files/chapter5/cfd_D.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/cfd_D.jpeg>
 
-Overfull \hbox (15.91661pt too wide) in paragraph at lines 163--177
+Overfull \hbox (15.91661pt too wide) in paragraph at lines 172--186
  [][][][] 
  []
 
@@ -892,14 +895,17 @@ might try typing `S' now just to see what is salvageable.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+
+LaTeX Warning: There were undefined references.
+
  ) 
 Here is how much of TeX's memory you used:
- 2359 strings out of 493270
- 29382 string characters out of 6145017
- 116322 words of memory out of 5000000
- 6190 multiletter control sequences out of 15000+600000
+ 2361 strings out of 493270
+ 29400 string characters out of 6145018
+ 116333 words of memory out of 5000000
+ 6192 multiletter control sequences out of 15000+600000
  20522 words of font info for 92 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
  27i,19n,33p,1162b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (43 pages, 132784 bytes).
+Output written on main.dvi (43 pages, 133620 bytes).
