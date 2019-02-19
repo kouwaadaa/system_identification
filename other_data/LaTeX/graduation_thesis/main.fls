@@ -172,7 +172,8 @@ INPUT ./z_figure_files/chapter4/D.jpeg
 INPUT ./z_figure_files/chapter4/Ma.jpeg
 INPUT ./f_chapter5/5.tex
 INPUT ./f_chapter5/5.tex
-INPUT ./z_figure_files/chapter5/1_eigenvalue.jpeg
+INPUT ./z_figure_files/chapter5/eigen_bad.jpeg
+INPUT ./z_figure_files/chapter5/eigen_good.jpeg
 INPUT ./z_figure_files/chapter5/2_CL.jpeg
 INPUT ./z_figure_files/chapter5/3_CD.jpeg
 INPUT ./z_figure_files/chapter5/4_Cm.jpeg

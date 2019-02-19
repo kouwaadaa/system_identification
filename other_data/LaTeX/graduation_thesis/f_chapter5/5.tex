@@ -6,7 +6,7 @@
 \label{flight_char}
 %%%%%%%%%%%%%%%%%%%%%%
 
-本章では，実験で得られたデータから，これまでに述べた力学モデルを用いてパラメータ同定を行ない，低速飛行時の飛行特性について検証する．まず機体が持つ固有振動をとらえるために，線形モデルによる固有値解析を行なう．次に，同定を行なった結果から，設定した空気力モデルの妥当性を検討する．最後に，同定結果をCFD解析の結果と比較し，考察を行なう．
+本章では，実験で得られたデータから，これまでに述べた力学モデルを用いてパラメータ同定を行ない，低速飛行時の飛行特性について検証する．まず機体が持つ固有振動をとらえるために，線形モデルによる固有値解析を行なう．次に，同定を行なった結果から，提案モデルの妥当性を検討する．最後に，同定結果をCFD解析の結果と比較し，考察を行なう．
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{線形モデルによる固有値解析}
@@ -61,6 +61,7 @@
     T_f \\
   \end{array}
   \right]}_{\underline{u}}
+  \label{eq:system_eq}
 \end{equation}
 となる．プロセスノイズを省略すれば，この状態方程式は行列$A,B$と状態量$\underline{x}$，入力$\underline{u}$を用いることによって
 \begin{equation}
@@ -86,30 +87,56 @@
 % となる．ここで右辺第1項は，ある係数$C_i$，行列$A$の固有値$\lambda_i$，固有ベクトル$x_i$で表された一般解で，状態に固有な振動や発散，減衰などを表している．右辺第2項は特殊解であり，入力と同じ周波数成分を持つ．つまり，外乱がない限り，状態量は周波数成分として固有振動数や入力に存在する周波数成分に相関するということである．
 
 
-そこで，\ref{sec:filter}小節でも述べたように，固有振動数を計算することで機体の運動が持つおおよその周波数帯をつかみ，データのフィルタリングに利用する．実際に式(\ref{eq:matrix_A})の行列$A$について，固有値を計算して絶対値をプロットしたものがFig. \ref{fig:eigenvalue}である．ただし，実験中の風の影響などの外乱が大きいと思われるデータは除き，計算を行なった．行列$A$が4次の正方行列であるため，各データ点ごとに最大4つの固有値を持ち，それぞれ色分けされている．グラフ内の縦線は，複数の実験データそれぞれの境界を示す．
+そこで，\ref{sec:filter}小節でも述べたように，固有振動数を計算することで機体の運動が持つおおよその周波数帯をつかみ，データのフィルタリングに利用する．実際に式(\ref{eq:matrix_A})の行列$A$について，固有値を計算して絶対値をプロットしたものがFig. \ref{fig:eigen}，\ref{fig:eigen_nondalpha}である．Fig. \ref{fig:eigen}は，提案モデルをそのまま用いて同定した結果から固有値を計算したものである．一方Fig. \ref{fig:eigen_nondalpha}は，提案モデル内の空力係数から$\dot{\alpha}$を含む項を除いて同定した結果から固有値を計算したものである．ただし，式(\ref{eq:system_eq})で示した行列$A$の上線を付した要素は，上線を除いた要素に置き換えられる．行列$A$が4次の正方行列であるため，各データ点ごとに最大4つの固有値を持ち，それぞれ色分けされている．グラフ内の縦破線は，複数の実験データそれぞれの境界を示す．
 
-Fig. \ref{fig:eigenvalue}から，機体の回転翼機モードにおける低速飛行縦運動の固有振動数は，おおよそ0〜5$\mathrm{[Hz]}$であることが見て取れる．つまり，この範囲内の周波数はフィルタリングなどの処理で落としてはいけない．
+Fig. \ref{fig:eigen}では，固有値の絶対値が50よりも大きいものが存在するが，開発機体は$50\mbox{[Hz]}$の周波数をもつ制御系で安定化できているため，機体の持つ固有振動数としては適切でないと考えられる．そこで，Table \ref{tb:si_result}で示した同定結果を見ると，$\dot{\alpha}$と$q$の安定微係数の値は符号の異なる絶対値の近い値であることがわかる．それぞれ他の係数と比較しても妥当な値とは言えず，$\dot{\alpha}$および$q$の関係が独立でない可能性が考えられる．これに関しては，今後の課題として結論で詳細を述べる．
+
+以上を踏まえ，$\dot{\alpha}$を含む項を除いて同定した結果をTable \ref{tb:si_result_nondalpha}に示し，これを用いて固有値を計算した結果をFig. \ref{fig:eigen_nondalpha}に示している．
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[clip,width=15.0cm,bb=0 0 1250 750]{./z_figure_files/chapter5/1_eigenvalue.jpeg}
+	\includegraphics[clip,width=10.0cm,bb=0 0 1440 864]{./z_figure_files/chapter5/eigen_bad.jpeg}
 	\caption{Absolute value of eigenvalue of matrix A}
-	\label{fig:eigenvalue}
+	\label{fig:eigen}
 \end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[clip,width=10.0cm,bb=0 0 1440 864]{./z_figure_files/chapter5/eigen_good.jpeg}
+	\caption{Absolute value of eigenvalue of matrix A without $\dot{\alpha}$}
+	\label{fig:eigen_nondalpha}
+\end{figure}
+
+\begin{table} [htbp]
+  \begin{center}
+    \caption{Identified parameters without $\dot{\alpha}$}
+    \label{tb:si_result_nondalpha}
+    \begin{tabular}{|c||r|cc||r|} \hline
+      $C_{L_0}$ & 0.5153 & & $C_{m_0}$ & 1.318 \\ \hline
+      $C_{L_\alpha}$ & 1.484 & & $C_{m_\alpha}$ & -0.1126 \\ \hline
+      $C_{L_q}$ & 2.724 & & $C_{m_q}$ & 1.307\\ \hline
+      $C_{L_{\delta_e}}$ & -1.330 & & $C_{m_{\delta_e}}$ & 0.3632 \\ \hline
+      $C_{L_k}$ & -5.224 & & $C_{m_k}$ & -7.750 \\ \hline
+      $C_{D_0}$ & 0.9647 &&&\\ \hline
+      $\kappa$ & 0.6798 &&&\\ \hline
+      $C_{D_k}$ & 0.7904 &&&\\ \hline
+    \end{tabular}
+  \end{center}
+\end{table}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{空気力モデルの検証}
 \label{sec:airf_model_ver}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-本節では，パラメータ同定の結果から，式(\ref{eq:L})〜(\ref{eq:Ma})で設定した空気力モデルが妥当であるかを考える．Fig. \ref{fig:CL_si}〜\ref{fig:Cm_si}にはそれぞれ3種類の色分けされた点がプロットされている．これらは以下に示す3通りのデータセットをプロットしている．
+本節では，パラメータ同定の結果から，提案モデルが妥当であるかを考える．Fig. \ref{fig:CL_si}〜\ref{fig:Cm_si}にはそれぞれ3種類の色分けされた点がプロットされている．これらは以下に示す3通りのデータセットをプロットしている．
 
 \begin{itemize}
   \setlength{\leftskip}{1.0cm}
   \setlength{\rightskip}{0.5cm}
   \item[Data1(青)] $L_{log},D_{log},M_{a_{log}}$を用いて，各ステップごとに算出した空力係数群\\（ログデータから得られた，真値に近いと考えられる値）
-  \item[Data2(黄)] 式(\ref{eq:L_o})〜(\ref{eq:Ma_o})，すなわち$k_* V_a$の項を除いたモデルを用いて同定した結果から，各ステップごとに算出した空力係数群
-  \item[Data3(緑)] 式(\ref{eq:L})〜(\ref{eq:Ma})，すなわち本研究で仮定する空気力モデルを用いて同定した結果から，各ステップごとに算出した空力係数群
+  \item[Data2(黄)] 式(\ref{eq:L_o})〜(\ref{eq:Ma_o})，すなわち$k_* V_a$の項を除いた従来モデルを用いて同定した結果から，各ステップごとに算出した空力係数群
+  \item[Data3(緑)] 式(\ref{eq:L})〜(\ref{eq:Ma})，すなわち$k_* V_a$の項を含む提案モデルを用いて同定した結果から，各ステップごとに算出した空力係数群
 \end{itemize}
 
 ただし，式(\ref{eq:CL}),~(\ref{eq:Cm})より空力係数に関係する変数は，$\alpha,\dot{\alpha},q,\delta_e,V_a$の計5個あるが，その中から$V_a$を横軸にとった場合を図示している．

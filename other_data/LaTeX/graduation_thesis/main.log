@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  19 FEB 2019 17:40
+This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  19 FEB 2019 19:23
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -607,6 +607,7 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
+[17]
 
 ./d_chapter3/3.tex:769: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
@@ -631,7 +632,6 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-[17]
 
 ./d_chapter3/3.tex:786: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
@@ -835,37 +835,39 @@ File: ./z_figure_files/chapter4/Ma.jpeg Graphic file (type bmp)
 [28
 
 ]
-File: ./z_figure_files/chapter5/1_eigenvalue.jpeg Graphic file (type bmp)
-<./z_figure_files/chapter5/1_eigenvalue.jpeg>
- [29]
+File: ./z_figure_files/chapter5/eigen_bad.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter5/eigen_bad.jpeg>
+File: ./z_figure_files/chapter5/eigen_good.jpeg Graphic file (type bmp)
+<./z_figure_files/chapter5/eigen_good.jpeg>
+ [29] [30]
 File: ./z_figure_files/chapter5/2_CL.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/2_CL.jpeg>
 File: ./z_figure_files/chapter5/3_CD.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/3_CD.jpeg>
 
-Overfull \hbox (15.91661pt too wide) in paragraph at lines 146--162
+Overfull \hbox (15.91661pt too wide) in paragraph at lines 173--189
  [][][] 
  []
 
 File: ./z_figure_files/chapter5/4_Cm.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/4_Cm.jpeg>
-[30] [31]
+[31] [32]
 File: ./z_figure_files/chapter5/cfd_L.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/cfd_L.jpeg>
 File: ./z_figure_files/chapter5/cfd_D.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/cfd_D.jpeg>
 
-Overfull \hbox (15.91661pt too wide) in paragraph at lines 188--202
+Overfull \hbox (15.91661pt too wide) in paragraph at lines 215--229
  [][][][] 
  []
 
 File: ./z_figure_files/chapter5/cfd_m.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/cfd_m.jpeg>
-) (./g_conclusion/conclusion.tex [32] [33]
+) (./g_conclusion/conclusion.tex [33] [34]
 第 6 章
-[34
+[35
 
-]) [35] (./h_acknowledgements/acknowledgements.tex [36
+]) [36] (./h_acknowledgements/acknowledgements.tex [37
 
 ]) (./i_references/references.tex
 
@@ -886,20 +888,20 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-[37
+[38
 
-]) (./j_appendix/appendix.tex) [38] (./main.aux)
+]) (./j_appendix/appendix.tex) [39] (./main.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 2370 strings out of 493270
- 29541 string characters out of 6145017
- 114347 words of memory out of 5000000
- 6201 multiletter control sequences out of 15000+600000
+ 2376 strings out of 493270
+ 29652 string characters out of 6145017
+ 116384 words of memory out of 5000000
+ 6206 multiletter control sequences out of 15000+600000
  22357 words of font info for 100 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
  27i,19n,33p,1162b,518s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (43 pages, 134984 bytes).
+Output written on main.dvi (44 pages, 138888 bytes).
