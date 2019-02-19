@@ -95,14 +95,14 @@ Fig. \ref{fig:eigen}では，固有値の絶対値が50よりも大きいもの�
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[clip,width=10.0cm,bb=0 0 1440 864]{./z_figure_files/chapter5/eigen_bad.jpeg}
+	\includegraphics[clip,width=9.0cm,bb=0 0 1440 864]{./z_figure_files/chapter5/eigen_bad.jpeg}
 	\caption{Absolute value of eigenvalue of matrix A}
 	\label{fig:eigen}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[clip,width=10.0cm,bb=0 0 1440 864]{./z_figure_files/chapter5/eigen_good.jpeg}
+	\includegraphics[clip,width=9.0cm,bb=0 0 1440 864]{./z_figure_files/chapter5/eigen_good.jpeg}
 	\caption{Absolute value of eigenvalue of matrix A without $\dot{\alpha}$}
 	\label{fig:eigen_nondalpha}
 \end{figure}
@@ -204,32 +204,29 @@ $C_L$は各データセット間でそれほど大きな差は見られないが
 
 本節では，パラメータ同定結果の妥当性をさらに検証するために，\cite{kawano}で得られた対気速度$V_a=5\mathrm{[m s^{-1}]}$のCFD解析結果とも比較する．このため，\ref{sec:airf_model_ver}節で示したData2，Data3のデータセットから，$4.5\mathrm{[m s^{-1}]} \leq V_a \leq 5.5\mathrm{[m s^{-1}]}$であるものを選んで比較した．Fig. \ref{fig:cfd_L}〜\ref{fig:cfd_Ma}に，迎角$\alpha$を横軸にとり，揚力・抗力・ピッチモーメントそれぞれの空力係数をプロットしたものを示す．青の点($C_{*_{log}}$)がログデータから算出された値，赤の点($C_{*_{CFD}}$)がCFD解析による値，黄色の点($C_{*_{SI}}$)が同定結果をもとに，CFDに合わせて，$\alpha=-20\mathrm{[deg]},-10\mathrm{[deg]},0\mathrm{[deg]}$の3点において再現された値である．ただし，$C_{*_{CFD}}$と$C_{*_{SI}}$については$\alpha$との関係性を見るために，各点と同じ色で回帰直線を引いてある．
 
-$C_L$について，CFDの解析結果は$\alpha$が大きいほど数値も大きくなることが見て取れる．しかし，ログデータや，特に同定結果を見ると，$\alpha$が$-5\mathrm{[deg]}$付近を境に$\alpha$の上昇に伴って数値が小さくなっていくように見える．CFDでは，ロータは回していない状態で解析を行なっているため，$\alpha$が大きいとき，ロータによって発生する空気の流れによって，負の揚力が発生しているのではないかと考えられる．
+$C_L$について，CFDの解析結果は$\alpha$が大きいほど数値も大きくなることが見て取れる．しかし，ログデータや，特に同定結果を見ると，$\alpha$が$-5\mathrm{[deg]}$付近を境に$\alpha$の上昇に伴って数値が小さくなっていくように見える．
 
-次に$C_D$について，同定結果とCFD解析結果がほぼ一致している一方で，ログデータとは一致していない．これは抗力係数のうち，迎角によって変化するとされる有害抵抗係数による影響だと考えられる\cite{katou}．同定に用いる式(\ref{eq:D_o})の設定を見直す必要があると思われる．
+CFD解析では，ロータ部に加わる力と胴体および主翼等に加わる力を個別に算出している．一方で，本研究のパラメータ同定においては，機体全体に加わる力からロータで発生すると想定される力を引くことで，胴体および主翼等に加わる力を算出している．ロータで発生すると想定した力は，静止推力をもとにしており，実際の運動時の推力とずれがあると考えられる．実験時にロータで発生する推力やモーメントを正しく測定することは極めて困難であるが，運動時には静止推力に比べて実際の推力が下がっている可能性がある．この場合，実験での$C_L$の値は，CFDでの値に比べて小さくなる．
 
-最後に$C_m$について，ログデータにはばらつきがあるものの，どの結果も$\alpha$の値によらずほぼ一定の値を取っている．CFDの解析結果が大きく離れているのは，ロータ推力の推算による誤差が大きい可能性が考えられる．ロータ推力の算出方法も改善の余地があると思われる．
+次に$C_D$について，それぞれの値のは概ね一致している．これは抗力係数のうち，迎角によって変化するとされる有害抵抗係数による影響だと考えられる\cite{katou}．同定に用いるモデルを見直す必要があると思われる．
 
-\begin{figure}[htbp]
-	\centering
-		\begin{tabular}{c}
-			\begin{minipage}{0.5\hsize}
-				\centering
-					\includegraphics[clip,width=7.5cm,bb=0 0 1912 1743]{./z_figure_files/chapter5/cfd_L.jpeg}
-					\caption{\small{Comparing $C_L$ results of CFD and identification}}
-					\label{fig:cfd_L}
-			\end{minipage}
-			\begin{minipage}{0.5\hsize}
-				\centering
-					\includegraphics[clip,width=7.5cm,bb=0 0 1819 1662]{./z_figure_files/chapter5/cfd_D.jpeg}
-					\caption{\small{Comparing $C_D$ results of CFD and identification}}
-					\label{fig:cfd_D}
-			\end{minipage}
-		\end{tabular}
+最後に$C_m$について，ログデータにはばらつきがあるものの，どの結果も$\alpha$の値によらずほぼ一定の値を取っている．CFDの解析結果が大きく離れているのは，上述のロータ推力の推算による誤差が大きい可能性が考えられる．ロータ推力の算出方法の改善が必要である．
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[clip,width=9cm,bb=0 0 1912 1743]{./z_figure_files/chapter5/cfd_L.jpeg}
+  \caption{\small{Comparing $C_L$ results of CFD and identification}}
+  \label{fig:cfd_L}
 \end{figure}
 \begin{figure}[H]
   \centering
-    \includegraphics[clip,width=7.5cm,bb=0 0 1832 1662]{./z_figure_files/chapter5/cfd_m.jpeg}
+  \includegraphics[clip,width=9cm,bb=0 0 1819 1662]{./z_figure_files/chapter5/cfd_D.jpeg}
+  \caption{\small{Comparing $C_D$ results of CFD and identification}}
+  \label{fig:cfd_D}
+\end{figure}
+\begin{figure}[H]
+  \centering
+    \includegraphics[clip,width=9cm,bb=0 0 1832 1662]{./z_figure_files/chapter5/cfd_m.jpeg}
     \caption{\small{Comparing $C_m$ results of CFD and identification}}
     \label{fig:cfd_Ma}
 \end{figure}
