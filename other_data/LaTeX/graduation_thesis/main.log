@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2019.1.21)  17 FEB 2019 20:32
+This is e-upTeX, Version 3.14159265-p3.8.0-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018) (preloaded format=uplatex 2018.12.26)  19 FEB 2019 17:40
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -331,6 +331,10 @@ File: ./z_figure_files/chapter2/1_vtol23K.JPG Graphic file (type bmp)
 ]
 File: ./z_figure_files/chapter2/2_tilt0.JPG Graphic file (type bmp)
 <./z_figure_files/chapter2/2_tilt0.JPG>
+LaTeX Font Info:    Font shape `JT2/mc/m/n' will be
+(Font)              scaled to size 10.53629pt on input line 41.
+LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
+(Font)              scaled to size 10.53629pt on input line 41.
 File: ./z_figure_files/chapter2/3_tilt45.JPG Graphic file (type bmp)
 <./z_figure_files/chapter2/3_tilt45.JPG>
 File: ./z_figure_files/chapter2/4_tilt90.JPG Graphic file (type bmp)
@@ -348,6 +352,9 @@ File: ./z_figure_files/chapter2/6_Sub_rotor_nose.JPG Graphic file (type bmp)
 Overfull \hbox (7.38548pt too wide) in paragraph at lines 70--89
  [][][] 
  []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
 
 [4]
 
@@ -373,10 +380,8 @@ Overfull \hbox (7.38548pt too wide) in paragraph at lines 96--115
 
 File: ./z_figure_files/chapter2/9_frame.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter2/9_frame.jpeg>
-[5]
 File: ./z_figure_files/chapter2/10_Wings.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter2/10_Wings.jpeg>
-
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -400,7 +405,7 @@ Overfull \hbox (15.56767pt too wide) in paragraph at lines 191--218
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) (./d_chapter3/3.tex [6] [7] [8]
+) (./d_chapter3/3.tex [5] [6] [7]
 第 3 章
 File: ./z_figure_files/chapter3/1_body_axis.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter3/1_body_axis.jpeg>
@@ -423,25 +428,25 @@ LaTeX Font Info:    Font shape `JY2/mc/bx/n' in size <14.4> not available
 (Font)              Font shape `JY2/gt/m/n' tried instead on input line 41.
 LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
 (Font)              scaled to size 13.85594pt on input line 41.
-[9
+[8
 
-] [10] [11]
+] [9] [10]
 Overfull \hbox (2.02875pt too wide) detected at line 420
 []
  []
 
 File: ./z_figure_files/chapter3/3_distance.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter3/3_distance.jpeg>
-[12]
+[11]
 File: ./z_figure_files/chapter3/4_longtitude.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter3/4_longtitude.jpeg>
- [13]
+ [12]
 File: ./z_figure_files/chapter3/5_Va_Vw.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter3/5_Va_Vw.jpeg>
- [14] [15]
+ [13] [14]
 File: ./z_figure_files/chapter3/6_xz_force.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter3/6_xz_force.jpeg>
- [16]
+ [15]
 
 ./d_chapter3/3.tex:664: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
@@ -567,7 +572,7 @@ braces don't get unbalanced. Otherwise just proceed.
 Acceptable delimiters are characters whose \delcode is
 nonnegative, or you can use `\delimiter <delimiter code>'.
 
-[17]
+[16]
 ./d_chapter3/3.tex:727: Misplaced alignment tab character &.
 l.727     A \fallingdotseq A_0 &
                                 + \dfrac{\partial A}{\partial \Delta u}\Delta u
@@ -602,7 +607,6 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-[18]
 
 ./d_chapter3/3.tex:769: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
@@ -627,6 +631,7 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
+[17]
 
 ./d_chapter3/3.tex:786: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
@@ -699,9 +704,9 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-[19]) (./e_chapter4/4.tex [20]
+[18]) (./e_chapter4/4.tex [19]
 第 4 章
-[21
+[20
 
 ]
 File: ./z_figure_files/chapter4/1_location_IMU.jpeg Graphic file (type bmp)
@@ -715,10 +720,10 @@ Overfull \hbox (15.91661pt too wide) in paragraph at lines 55--71
 
 File: ./z_figure_files/chapter4/wind_measure.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter4/wind_measure.jpeg>
-[22] [23]
+[21] [22]
 File: ./z_figure_files/chapter4/sub_input.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter4/sub_input.jpeg>
- [24]
+
 
 ./e_chapter4/4.tex:144: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
@@ -744,6 +749,7 @@ braces don't get unbalanced. Otherwise just proceed.
 Acceptable delimiters are characters whose \delcode is
 nonnegative, or you can use `\delimiter <delimiter code>'.
 
+[23]
 
 ./e_chapter4/4.tex:155: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
@@ -789,7 +795,6 @@ You might want to delete and/or insert some corrections
 so that I will find a matching right brace soon.
 (If you're confused by all this, try typing `I}' now.)
 
-[25]
 ./e_chapter4/4.tex:223: Missing { inserted.
 <to be read again> 
                    \gdef 
@@ -800,6 +805,7 @@ You might want to delete and/or insert some corrections
 so that I will find a matching right brace soon.
 (If you're confused by all this, try typing `I}' now.)
 
+[24]
 ./e_chapter4/4.tex:332: Missing { inserted.
 <to be read again> 
                    \gdef 
@@ -810,15 +816,9 @@ You might want to delete and/or insert some corrections
 so that I will find a matching right brace soon.
 (If you're confused by all this, try typing `I}' now.)
 
-
-Overfull \hbox (1.59206pt too wide) detected at line 336
- $[] \OT1/cmr/m/n/12 = [][] : []$ 
- []
-
-[26]
+[25]
 File: ./z_figure_files/chapter4/experiment.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter4/experiment.jpeg>
- [27]
 File: ./z_figure_files/chapter4/L.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter4/L.jpeg>
 File: ./z_figure_files/chapter4/D.jpeg Graphic file (type bmp)
@@ -830,14 +830,14 @@ Overfull \hbox (15.91661pt too wide) in paragraph at lines 405--421
 
 File: ./z_figure_files/chapter4/Ma.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter4/Ma.jpeg>
-[28]) (./f_chapter5/5.tex [29]
+[26]) (./f_chapter5/5.tex [27]
 第 5 章
-[30
+[28
 
 ]
 File: ./z_figure_files/chapter5/1_eigenvalue.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/1_eigenvalue.jpeg>
- [31]
+ [29]
 File: ./z_figure_files/chapter5/2_CL.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/2_CL.jpeg>
 File: ./z_figure_files/chapter5/3_CD.jpeg Graphic file (type bmp)
@@ -849,7 +849,7 @@ Overfull \hbox (15.91661pt too wide) in paragraph at lines 146--162
 
 File: ./z_figure_files/chapter5/4_Cm.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/4_Cm.jpeg>
-[32] [33]
+[30] [31]
 File: ./z_figure_files/chapter5/cfd_L.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/cfd_L.jpeg>
 File: ./z_figure_files/chapter5/cfd_D.jpeg Graphic file (type bmp)
@@ -861,11 +861,11 @@ Overfull \hbox (15.91661pt too wide) in paragraph at lines 188--202
 
 File: ./z_figure_files/chapter5/cfd_m.jpeg Graphic file (type bmp)
 <./z_figure_files/chapter5/cfd_m.jpeg>
-) (./g_conclusion/conclusion.tex [34] [35]
+) (./g_conclusion/conclusion.tex [32] [33]
 第 6 章
-[36
+[34
 
-]) [37] (./h_acknowledgements/acknowledgements.tex [38
+]) [35] (./h_acknowledgements/acknowledgements.tex [36
 
 ]) (./i_references/references.tex
 
@@ -886,20 +886,20 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-[39
+[37
 
-]) (./j_appendix/appendix.tex) [40] (./main.aux)
+]) (./j_appendix/appendix.tex) [38] (./main.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 2362 strings out of 493270
- 29408 string characters out of 6145018
- 116348 words of memory out of 5000000
- 6193 multiletter control sequences out of 15000+600000
- 20522 words of font info for 92 fonts, out of 8000000 for 9000
+ 2370 strings out of 493270
+ 29541 string characters out of 6145017
+ 114347 words of memory out of 5000000
+ 6201 multiletter control sequences out of 15000+600000
+ 22357 words of font info for 100 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 27i,19n,33p,1162b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,19n,33p,1162b,518s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (45 pages, 135788 bytes).
+Output written on main.dvi (43 pages, 134984 bytes).

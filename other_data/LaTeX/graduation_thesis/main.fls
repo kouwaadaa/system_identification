@@ -1,4 +1,4 @@
-PWD /Users/hiroki/Dev/uav/python/other_data/LaTeX/graduation_thesis
+PWD /Users/cs22Mac/Dev/uav/python/other_data/LaTeX/graduation_thesis
 INPUT /usr/local/texlive/2018/texmf.cnf
 INPUT /usr/local/texlive/2018/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2018/texmf.cnf
@@ -124,6 +124,9 @@ INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisg-h.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT ./z_figure_files/chapter2/1_vtol23K.JPG
 INPUT ./z_figure_files/chapter2/2_tilt0.JPG
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisr-v.tfm
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisr-h.tfm
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
 INPUT ./z_figure_files/chapter2/3_tilt45.JPG
 INPUT ./z_figure_files/chapter2/4_tilt90.JPG
 INPUT ./z_figure_files/chapter2/5_Sub_rotor_wing.JPG
@@ -174,6 +177,11 @@ INPUT ./z_figure_files/chapter5/2_CL.jpeg
 INPUT ./z_figure_files/chapter5/3_CD.jpeg
 INPUT ./z_figure_files/chapter5/4_Cm.jpeg
 INPUT ./z_figure_files/chapter5/cfd_L.jpeg
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT ./z_figure_files/chapter5/cfd_D.jpeg
 INPUT ./z_figure_files/chapter5/cfd_m.jpeg
 INPUT ./g_conclusion/conclusion.tex

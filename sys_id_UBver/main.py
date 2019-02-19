@@ -110,7 +110,8 @@ format_df7 = sys_id.sys_id_LS_complete_ub(format_df)
 # 機体の状態方程式から固有振動数を解析する
 #---------------------------
 
-anly_result = analyze.linearlize(format_df5)
+# anly_result = analyze.linearlize(format_df5)
+anly_result = analyze.linearlize_non_d_alpha(format_df6)
 
 #---------------------------
 # データの取り出し
@@ -214,7 +215,26 @@ format_df5 = statistics.calc_RMSE(format_df5)
 # window = np.hamming(data_size)
 # manual_T3 = window * manual_T3
 
-# 固有値の絶対値をとる．
+#----------------------------------------------------------------
+# lambda_A_abs = np.abs(anly_result[0])
+# lambda_A_abs= lambda_A_abs[np.all(lambda_A_abs < 10,axis=1)]
+# data_size_lam = lambda_A_abs.shape[0]
+#
+# xxx = np.arange(data_size_lam)
+#----------------------------------------------------------------
+lambda_A_abs = np.abs(anly_result[0])
+
+y = lambda_A_abs[:,0]
+yy = lambda_A_abs[:,1]
+yyy = lambda_A_abs[:,2]
+yyyy = lambda_A_abs[:,3]
+
+print(y.mean())
+print(yy.mean())
+print(yyy.mean())
+print(yyyy.mean())
+
+#----------------------------------------------------------------
 # lambda_A_abs = np.abs(anly_result[0])
 #
 # xxx = np.arange(data_size)
@@ -223,21 +243,22 @@ format_df5 = statistics.calc_RMSE(format_df5)
 # yyy = lambda_A_abs[:,2]
 # yyyy = lambda_A_abs[:,3]
 #
-# plt.subplot(111)
-# plt.scatter(xxx,y,label="")
-# plt.scatter(xxx,yy,label="")
-# plt.scatter(xxx,yyy,label="")
-# plt.scatter(xxx,yyyy,label="")
-# #
-# #
-# for j in borderline_list:
-#     plt.axvline(x=j, color="black") # 実験データの境目で線を引く
-#
-# # plt.title('固有値散布図')
-# plt.xlabel('Data Number')
-# plt.ylabel('Eigenvalue')
-# plt.show()
-# #
+plt.subplot(111)
+plt.scatter(xxx,y,label="")
+plt.scatter(xxx,yy,label="")
+plt.scatter(xxx,yyy,label="")
+plt.scatter(xxx,yyyy,label="")
+
+for j in borderline_list:
+    plt.axvline(x=j, color="black", linestyle="--") # 実験データの境目で線を引く
+
+# plt.title('固有値散布図')
+plt.xlabel('Data Number')
+plt.ylabel('Absolute eigenvalue')
+plt.tight_layout()
+
+#----------------------------------------------------------------
+
 # ax = fig.add_subplot(2,1,2)
 #
 # ax.plot(xxx,d_alpha)
@@ -255,6 +276,8 @@ format_df5 = statistics.calc_RMSE(format_df5)
 # plt.xlabel('Data Number')
 # plt.ylabel('Pitch Rate [rad/s]')
 # plt.show()
+
+#----------------------------------------------------------------
 
 # Va = np.array(format_df5['Va'])
 # CL_log = np.array(format_df5['CL_log'])
@@ -323,23 +346,24 @@ format_df5 = statistics.calc_RMSE(format_df5)
 # plt.xlabel('Data Number')
 # plt.ylabel(r'Pitch moment$\mathrm{[N \cdot m]}$')
 # plt.show()
-
-L = np.array(format_df5['L_calc'])
-L_log = np.array(format_df5['L'])
-D = np.array(format_df5['D_calc'])
-D_log = np.array(format_df5['D'])
-Ma = np.array(format_df5['Ma_calc'])
-Ma_log = np.array(format_df5['Ma'])
-
-plt.figure(figsize=(12,10))
-plt.subplot(111)
-plt.plot(L_log,label=r"$L_{log}$")
-plt.plot(L,label=r"$L_{calc}$")
-plt.legend()
-
-for j in borderline_list:
-    plt.axvline(x=j, color="black",linestyle="--") # 実験データの境目で線を引く
-
-plt.xlabel('Data Number')
-plt.ylabel(r'Lift$\mathrm{[N]}$')
-plt.tight_layout()
+#----------------------------------------------------------------
+# L = np.array(format_df5['L_calc'])
+# L_log = np.array(format_df5['L'])
+# D = np.array(format_df5['D_calc'])
+# D_log = np.array(format_df5['D'])
+# Ma = np.array(format_df5['Ma_calc'])
+# Ma_log = np.array(format_df5['Ma'])
+#
+# plt.figure(figsize=(12,10))
+# plt.subplot(111)
+# plt.plot(L_log,label=r"$L_{log}$")
+# plt.plot(L,label=r"$L_{calc}$")
+# plt.legend()
+#
+# for j in borderline_list:
+#     plt.axvline(x=j, color="black",linestyle="--") # 実験データの境目で線を引く
+#
+# plt.xlabel('Data Number')
+# plt.ylabel(r'Lift$\mathrm{[N]}$')
+# plt.tight_layout()
+#----------------------------------------------------------------

@@ -123,7 +123,7 @@ $C_L$は各データセット間でそれほど大きな差は見られないが
 \end{equation}
 となる\cite{}．式(\ref{eq:rmse})を用いて，各空力係数に対して計算した結果をTable \ref{tb:rmse}に示す．結果から，Data2よりもData3のほうが，誤差は小さく予測精度が高いことがわかる．
 
-したがって，回転翼機モードの空気力モデルにおいては，$k_* V_a$の項を含めることが妥当であると考えられる．
+したがって，回転翼機モードの空気力モデルにおいては，$k_* V_a$の項を含めることが妥当であると考えられる．特に，$C_D$における$k_D V_a$の効果が大きく，この結果は従来研究\cite{}の結果とも整合する．
 
 \begin{table} [htbp]
   \begin{center}
@@ -189,13 +189,13 @@ $C_L$について，CFDの解析結果は$\alpha$が大きいほど数値も大�
 			\begin{minipage}{0.5\hsize}
 				\centering
 					\includegraphics[clip,width=7.5cm,bb=0 0 1912 1743]{./z_figure_files/chapter5/cfd_L.jpeg}
-					\caption{Comparing $C_L$ results of CFD and identification}
+					\caption{\small{Comparing $C_L$ results of CFD and identification}}
 					\label{fig:cfd_L}
 			\end{minipage}
 			\begin{minipage}{0.5\hsize}
 				\centering
 					\includegraphics[clip,width=7.5cm,bb=0 0 1819 1662]{./z_figure_files/chapter5/cfd_D.jpeg}
-					\caption{Comparing $C_D$ results of CFD and identification}
+					\caption{\small{Comparing $C_D$ results of CFD and identification}}
 					\label{fig:cfd_D}
 			\end{minipage}
 		\end{tabular}
@@ -203,6 +203,6 @@ $C_L$について，CFDの解析結果は$\alpha$が大きいほど数値も大�
 \begin{figure}[H]
   \centering
     \includegraphics[clip,width=7.5cm,bb=0 0 1832 1662]{./z_figure_files/chapter5/cfd_m.jpeg}
-    \caption{Comparing $C_m$ results of CFD and identification}
+    \caption{\small{Comparing $C_m$ results of CFD and identification}}
     \label{fig:cfd_Ma}
 \end{figure}

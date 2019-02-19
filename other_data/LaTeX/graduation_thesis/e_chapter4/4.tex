@@ -214,7 +214,7 @@
     C_L^{\prime}(1) \quad C_L^{\prime}(2) \quad \hdots \quad C_L^{\prime}(N)
   \end{array}
   \right]^{\mathrm{T}} :
-  \mbox{式(\ref{eq:L_D_Ma})から計算される$N\times1$ベクトル}
+  \mbox{式(\ref{eq:L_D_Ma})から計算される観測値ベクトル}
 \end{equation*}
 \begin{equation*}
   \mbox{\boldmath $\theta_L$} =
@@ -223,16 +223,16 @@
     C_{L_0} \quad C_{L_\alpha} \quad C_{L_\dot{\alpha}}} \quad C_{L_q} \quad C_{L_{\delta_e}} \quad C_{L_k}
   \end{array}
   \right]^{\mathrm{T}} :
-  \mbox{未知パラメータの$6\times1$ベクトル}
+  \mbox{推定したいパラメータベクトル}
 \end{equation*}
 \begin{equation*}
   X_L =
   \left[
   \begin{array}{c}
-    \mbox{\boldmath $X_L$}(1) \quad \mbox{\boldmath $X_L$}(2) \quad \hdots \quad \mbox{\boldmath $X_L$}(N)
+    \mbox{\boldmath $X_L$}(1)^{\mathrm{T}} \quad \mbox{\boldmath $X_L$}(2)^{\mathrm{T}} \quad \hdots \quad \mbox{\boldmath $X_L$}(N)^{\mathrm{T}}
   \end{array}
   \right]^{\mathrm{T}} :
-  \mbox{ログデータから得られる$N\times6$行列}
+  \mbox{説明変数により定まる行列}
 \end{equation*}
 \begin{equation*}
   \mbox{ただし， }
@@ -260,13 +260,13 @@
 
 \hspace{5pt}
 
-このとき推定したい$\mbox{\boldmath $\theta_L$}$は，モデルから想定される理論値と実際の測定値との差の二乗和である
+このとき推定したい$\mbox{\boldmath $\theta_L$}$は，モデルから想定される理論値と実際の観測値との差の二乗和である
 \begin{equation}
-  \mbox{\boldmath $J(\theta_L)$} = \dfrac{1}{2}(\mbox{\boldmath $z_L$}-\mbox{\boldmath $X_L\theta_L$})^{T}(\mbox{\boldmath $z_L$}-\mbox{\boldmath $X_L\theta_L$})
+  \mbox{\boldmath $J(\theta_L)$} = (\mbox{\boldmath $z_L$}-X_L\mbox{\boldmath $\theta_L$})^{T}(\mbox{\boldmath $z_L$}-X_L\mbox{\boldmath $\theta_L$})
 \end{equation}
-を最小にするように定めればよい．したがって，最小二乗法により推定値は
+を最小にするように定めればよい．したがって，推定値は
 \begin{equation}
-  \mbox{\boldmath $\hat{\theta}_L$} = (\mbox{\boldmath $X_L$}^{T}\mbox{\boldmath $X_L$})^{-1}\mbox{\boldmath $X_L$}^{T}\mbox{\boldmath $z_L$}
+  \mbox{\boldmath $\hat{\theta}_L$} = (X_L^{T}X_L)^{-1}X_L^{T}\mbox{\boldmath $z_L$}
 \end{equation}
 と計算できる．
 
@@ -281,7 +281,7 @@
     C_D^{\prime}(1) \quad C_D^{\prime}(2) \quad \hdots \quad C_D^{\prime}(N)
   \end{array}
   \right]^{\mathrm{T}} :
-  \mbox{式(\ref{eq:L_D_Ma})から計算される$N\times1$ベクトル}
+  \mbox{式(\ref{eq:L_D_Ma})から計算される観測値ベクトル}
 \end{equation*}
 \begin{equation*}
   \mbox{\boldmath $\theta_D$} =
@@ -290,16 +290,16 @@
     C_{D_0} \quad \kappa \quad C_{D_k}
   \end{array}
   \right]^{\mathrm{T}} :
-  \mbox{未知パラメータの$3\times1$ベクトル}
+  \mbox{推定したいパラメータベクトル}
 \end{equation*}
 \begin{equation*}
   X_D =
   \left[
   \begin{array}{c}
-    \mbox{\boldmath $X_D$}(1) \quad \mbox{\boldmath $X_D$}(2) \quad \hdots \quad \mbox{\boldmath $X_D$}(N)
+    \mbox{\boldmath $X_D$}(1)^{\mathrm{T}} \quad \mbox{\boldmath $X_D$}(2)^{\mathrm{T}} \quad \hdots \quad \mbox{\boldmath $X_D$}(N)^{\mathrm{T}}
   \end{array}
   \right]^{\mathrm{T}} :
-  \mbox{ログデータから得られる$N\times3$行列}
+  \mbox{説明変数により定まる行列}
 \end{equation*}
 \begin{equation*}
   \mbox{ただし， }
@@ -323,7 +323,7 @@
     C_m^{\prime}(1) \quad C_m^{\prime}(2) \quad \hdots \quad C_m^{\prime}(N)
   \end{array}
   \right]^{\mathrm{T}} :
-  \mbox{式(\ref{eq:L_D_Ma})から計算される$N\times1$ベクトル}
+  \mbox{式(\ref{eq:L_D_Ma})から計算される観測値ベクトル}
 \end{equation*}
 \begin{equation*}
   \mbox{\boldmath $\theta_m$} =
@@ -332,16 +332,16 @@
     C_{m_0} \quad C_{m_\alpha} \quad C_{m_\dot{\alpha}}} \quad C_{m_q} \quad C_{m_{\delta_e}} \quad C_{m_k}
   \end{array}
   \right]^{\mathrm{T}} :
-  \mbox{未知パラメータの$6\times1$ベクトル}
+  \mbox{推定したいパラメータベクトル}
 \end{equation*}
 \begin{equation*}
   X_m =
   \left[
   \begin{array}{c}
-    \mbox{\boldmath $X_m$}(1) \quad \mbox{\boldmath $X_m$}(2) \quad \hdots \quad \mbox{\boldmath $X_m$}(N)
+    \mbox{\boldmath $X_m$}(1)^{\mathrm{T}} \quad \mbox{\boldmath $X_m$}(2)^{\mathrm{T}} \quad \hdots \quad \mbox{\boldmath $X_m$}(N)^{\mathrm{T}}
   \end{array}
   \right]^{\mathrm{T}} :
-  \mbox{ログデータから得られる$N\times6$行列}
+  \mbox{説明変数により定まる行列}
 \end{equation*}
 \begin{equation*}
   \mbox{ただし， }

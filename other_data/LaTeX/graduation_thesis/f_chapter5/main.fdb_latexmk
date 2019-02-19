@@ -3,9 +3,9 @@
   "main.dvi" 0 -1 0 "latex"
   (generated)
   "main.pdf"
-["latex"] 1550403157 "main.tex" "main.dvi" "main" 1550403157
-  "main.aux" 1549031800 8 a94a2480d3289e625eea47cd1b285758 ""
+["latex"] 1550563082 "main.tex" "main.dvi" "main" 1550563082
+  "main.aux" 1548916556 8 a94a2480d3289e625eea47cd1b285758 ""
   "main.tex" 0 -1 0 ""
   (generated)
-  "main.log"
   "main.dvi"
+  "main.log"
