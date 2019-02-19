@@ -243,11 +243,11 @@ print(yyyy.mean())
 # yyy = lambda_A_abs[:,2]
 # yyyy = lambda_A_abs[:,3]
 #
-plt.subplot(111)
-plt.scatter(xxx,y,label="")
-plt.scatter(xxx,yy,label="")
-plt.scatter(xxx,yyy,label="")
-plt.scatter(xxx,yyyy,label="")
+# plt.subplot(111)
+# plt.scatter(xxx,y,label="")
+# plt.scatter(xxx,yy,label="")
+# plt.scatter(xxx,yyy,label="")
+# plt.scatter(xxx,yyyy,label="")
 
 for j in borderline_list:
     plt.axvline(x=j, color="black", linestyle="--") # 実験データの境目で線を引く
@@ -263,7 +263,7 @@ plt.tight_layout()
 #
 # ax.plot(xxx,d_alpha)
 
-# format_df5[['d_theta','d_theta_filt']].plot.line()
+format_df5[['Va']].plot.line()
 
 # d_theta = np.array(format_df5['d_theta'])
 # d_theta_filt = np.array(format_df5['d_theta_filt'])
@@ -278,6 +278,7 @@ plt.tight_layout()
 # plt.show()
 
 #----------------------------------------------------------------
+
 
 # Va = np.array(format_df5['Va'])
 # CL_log = np.array(format_df5['CL_log'])

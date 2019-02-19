@@ -192,6 +192,4 @@ INPUT ./h_acknowledgements/acknowledgements.tex
 INPUT ./i_references/references.tex
 INPUT ./i_references/references.tex
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmti12.tfm
-INPUT ./j_appendix/appendix.tex
-INPUT ./j_appendix/appendix.tex
 INPUT main.aux
