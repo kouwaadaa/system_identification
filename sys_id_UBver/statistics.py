@@ -7,6 +7,8 @@
 
 import numpy as np
 import pandas as pd
+from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_absolute_error
 
 import const
 import math_extention as matex
@@ -16,22 +18,28 @@ def calc_RMSE(format_df):
 
     '''
 
-    data_size = len(format_df)
+    # data_size = len(format_df)
 
     CL_log = np.array(format_df['CL_log'])
     CL = np.array(format_df['CL'])
 
-    CL_RMSE = np.sqrt(((CL-CL_log)**2).mean())
+    CL_RMSE = np.sqrt(mean_squared_error(CL_log,CL))
+    CL_MAE = mean_absolute_error(CL_log,CL)
+    CL_h = CL_RMSE / CL_MAE
 
     CD_log = np.array(format_df['CD_log'])
     CD = np.array(format_df['CD'])
 
-    CD_RMSE = np.sqrt(((CD-CD_log)**2).mean())
+    CD_RMSE = np.sqrt(mean_squared_error(CD_log,CD))
+    CD_MAE = mean_absolute_error(CD_log,CD)
+    CD_h = CD_RMSE / CD_MAE
 
     Cm_log = np.array(format_df['Cm_log'])
     Cm = np.array(format_df['Cm'])
 
-    Cm_RMSE = np.sqrt(((Cm-Cm_log)**2).mean())
+    Cm_RMSE = np.sqrt(mean_squared_error(Cm_log,Cm))
+    Cm_MAE = mean_absolute_error(Cm_log,Cm)
+    Cm_h = Cm_RMSE / Cm_MAE
 
     #---------------------------
     # 結果をデータファイルに書き込んで返す
@@ -44,5 +52,7 @@ def calc_RMSE(format_df):
     format_df_return['Cm_RMSE'] = Cm_RMSE
 
     print(f'CL_RMSE:{CL_RMSE:.10f} CD_RMSE:{CD_RMSE:.10f} Cm_RMSE:{Cm_RMSE:.10f}')
+    print(f'CL_MAE:{CL_MAE:.10f} CD_MAE:{CD_MAE:.10f} Cm_MAE:{Cm_MAE:.10f}')
+    print(f'CL_h:{CL_h:.10f} CD_h:{CD_h:.10f} Cm_h:{Cm_h:.10f}\n')
 
     return format_df_return

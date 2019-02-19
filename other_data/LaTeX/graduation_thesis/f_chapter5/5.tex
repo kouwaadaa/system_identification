@@ -106,7 +106,7 @@ Fig. \ref{fig:eigenvalue}から，機体の回転翼機モードにおける低�
 
 \begin{itemize}
   \setlength{\leftskip}{1.0cm}
-  \setlength{\rightskip}{1.5cm}
+  \setlength{\rightskip}{0.5cm}
   \item[Data1(青)] $L_{log},D_{log},M_{a_{log}}$を用いて，各ステップごとに算出した空力係数群\\（ログデータから得られた，真値に近いと考えられる値）
   \item[Data2(黄)] 式(\ref{eq:L_o})〜(\ref{eq:Ma_o})，すなわち$k_* V_a$の項を除いたモデルを用いて同定した結果から，各ステップごとに算出した空力係数群
   \item[Data3(緑)] 式(\ref{eq:L})〜(\ref{eq:Ma})，すなわち本研究で仮定する空気力モデルを用いて同定した結果から，各ステップごとに算出した空力係数群
@@ -116,28 +116,44 @@ Fig. \ref{fig:eigenvalue}から，機体の回転翼機モードにおける低�
 
 $C_L$は各データセット間でそれほど大きな差は見られないが，$C_D,C_m$においては，Data1が真値に近い値であると考えれば，Data2よりもData3のほうが，よりData1に沿うように点在していることが分かる．
 
-さらに詳細に評価するために，RMSEを用いる．$k$番目のステップにおけるData1の値を$C_{log}[k]$，比較対象とするデータセットの値を$C[k]$とすると
+さらに詳細にモデルを評価するための精度評価指標として，平均平方二乗誤差(Root Mean Square Error,RMSE)を用いる．$k$番目のステップにおけるData1の値を実測値として$C_{obs,k}$，比較対象とするデータセットの値を予測値として$C_{pred,k}$とすると
 \begin{equation}
-  \mbox{RMSE} = \dfrac{1}{N}\sqrt{\sum_{i=1}^{N}(C[i]-C_{log}[i])^{2}}
+  \mbox{RMSE} = \sqrt{\dfrac{1}{N}\sum_{k}(C_{obs,k}-C_{pred,k})^{2}} \quad (N\mbox{:サンプルデータ数})
   \label{eq:rmse}
 \end{equation}
-となる\cite{}．式(\ref{eq:rmse})を用いて，各空力係数に対して計算した結果をTable \ref{tb:rmse}に示す．
+となる\cite{}．式(\ref{eq:rmse})を用いて，各空力係数に対して計算した結果をTable \ref{tb:rmse}に示す．結果から，Data2よりもData3のほうが，誤差は小さく予測精度が高いことがわかる．
 
 したがって，回転翼機モードの空気力モデルにおいては，$k_* V_a$の項を含めることが妥当であると考えられる．
+
+\begin{table} [htbp]
+  \begin{center}
+    \caption{Comparing RMSE values}
+    \label{tb:rmse}
+    \begin{tabular}{|c||c|r|} \hline
+      ~ & Data set & RMSE value \\ \hline \hline
+      $C_L$ & Data2 & 0.4045 \\
+       & Data3 & 0.3443 \\ \hline
+       $C_D$ & Data2 & 0.5764 \\
+        & Data3 & 0.3883 \\ \hline
+        $C_m$ & Data2 & 0.8432 \\
+         & Data3 & 0.7419 \\ \hline
+    \end{tabular}
+  \end{center}
+\end{table}
 
 \begin{figure}[htbp]
 	\begin{center}
 		\begin{tabular}{c}
 			\begin{minipage}{0.5\hsize}
 				\begin{center}
-					\includegraphics[clip,width=7.5cm,bb=0 0 982 835]{./z_figure_files/chapter5/2_CL.jpeg}
+					\includegraphics[clip,width=7.5cm,bb=0 0 864 654]{./z_figure_files/chapter5/2_CL.jpeg}
 					\caption{$C_L$ plots}
 					\label{fig:CL_si}
 				\end{center}
 			\end{minipage}
 			\begin{minipage}{0.5\hsize}
 				\begin{center}
-					\includegraphics[clip,width=7.5cm,bb=0 0 982 835]{./z_figure_files/chapter5/3_CD.jpeg}
+					\includegraphics[clip,width=7.5cm,bb=0 0 864 654]{./z_figure_files/chapter5/3_CD.jpeg}
 					\caption{$C_D$ plots}
 					\label{fig:CD_si}
 				\end{center}
@@ -147,7 +163,7 @@ $C_L$は各データセット間でそれほど大きな差は見られないが
 \end{figure}
 \begin{figure}[H]
   \begin{center}
-    \includegraphics[clip,width=7.5cm,bb=0 0 982 835]{./z_figure_files/chapter5/4_Cm.jpeg}
+    \includegraphics[clip,width=7.5cm,bb=0 0 864 654]{./z_figure_files/chapter5/4_Cm.jpeg}
     \caption{$C_m$ plots}
     \label{fig:Cm_si}
   \end{center}
@@ -159,7 +175,7 @@ $C_L$は各データセット間でそれほど大きな差は見られないが
 \label{sec:cfd}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-本節では，パラメータ同定結果の妥当性をさらに検証するために，CFDによる解析結果とも比較する．CFD解析において，パラメータ同定の計算上の条件と比べて，機体前方から一定風が吹いているという条件は一致するが，常に対気速度$V_a=5\mathrm{[m s^{-1}]}$であるという条件が異なる．そのため，同定結果およびログデータのうち，$V_a$が$4.5\mathrm{[m s^{-1}]}$以上$5.5\mathrm{[m s^{-1}]}$以下であるデータのみを採用した．Fig. \ref{fig:cfd_L}〜\ref{fig:cfd_Ma}に，迎角$\alpha$を横軸にとり，揚力・抗力・ピッチモーメントそれぞれの空力係数をプロットしたものを示す．青の点がログデータから算出された値，緑の点が同定結果から再現された値，そして赤の点がCFD解析による値である．また，$\alpha$との関係性を見るために，各点と同じ色で回帰直線を引いてある．
+本節では，パラメータ同定結果の妥当性をさらに検証するために，\cite{kawano}で得られた対気速度$V_a=5\mathrm{[m s^{-1}]}$のCFD解析結果とも比較する．このため，\ref{sec:airf_model_ver}節で示したData2，Data3のデータセットから，$4.5\mathrm{[m s^{-1}]} \leq V_a \leq 5.5\mathrm{[m s^{-1}]}$であるものを選んで比較した．Fig. \ref{fig:cfd_L}〜\ref{fig:cfd_Ma}に，迎角$\alpha$を横軸にとり，揚力・抗力・ピッチモーメントそれぞれの空力係数をプロットしたものを示す．青の点($C_{*_{log}}$)がログデータから算出された値，赤の点($C_{*_{CFD}}$)がCFD解析による値，黄色の点($C_{*_{SI}}$)が同定結果をもとに，CFDに合わせて，$\alpha=-20\mathrm{[deg]},-10\mathrm{[deg]},0\mathrm{[deg]}$の3点において再現された値である．ただし，$C_{*_{CFD}}$と$C_{*_{SI}}$については$\alpha$との関係性を見るために，各点と同じ色で回帰直線を引いてある．
 
 $C_L$について，CFDの解析結果は$\alpha$が大きいほど数値も大きくなることが見て取れる．しかし，ログデータや，特に同定結果を見ると，$\alpha$が$-5\mathrm{[deg]}$付近を境に$\alpha$の上昇に伴って数値が小さくなっていくように見える．CFDでは，ロータは回していない状態で解析を行なっているため，$\alpha$が大きいとき，ロータによって発生する空気の流れによって，負の揚力が発生しているのではないかと考えられる．
 

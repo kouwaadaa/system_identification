@@ -124,8 +124,8 @@ data_size = len(format_df) # 合計のデータサイズを取得
 
 format_df4 = statistics.calc_RMSE(format_df4)
 format_df5 = statistics.calc_RMSE(format_df5)
-format_df6 = statistics.calc_RMSE(format_df6)
-format_df7 = statistics.calc_RMSE(format_df7)
+# format_df6 = statistics.calc_RMSE(format_df6)
+# format_df7 = statistics.calc_RMSE(format_df7)
 # format_df8 = statistics.calc_RMSE(format_df8)
 
 # df5_V_filter = format_df5.query('4.5 <= Va <= 5.5')
@@ -215,28 +215,28 @@ format_df7 = statistics.calc_RMSE(format_df7)
 # manual_T3 = window * manual_T3
 
 # 固有値の絶対値をとる．
-lambda_A_abs = np.abs(anly_result[0])
-
-xxx = np.arange(data_size)
-y = lambda_A_abs[:,0]
-yy = lambda_A_abs[:,1]
-yyy = lambda_A_abs[:,2]
-yyyy = lambda_A_abs[:,3]
-
-plt.subplot(111)
-plt.scatter(xxx,y,label="")
-plt.scatter(xxx,yy,label="")
-plt.scatter(xxx,yyy,label="")
-plt.scatter(xxx,yyyy,label="")
+# lambda_A_abs = np.abs(anly_result[0])
 #
+# xxx = np.arange(data_size)
+# y = lambda_A_abs[:,0]
+# yy = lambda_A_abs[:,1]
+# yyy = lambda_A_abs[:,2]
+# yyyy = lambda_A_abs[:,3]
 #
-for j in borderline_list:
-    plt.axvline(x=j, color="black") # 実験データの境目で線を引く
-
-# plt.title('固有値散布図')
-plt.xlabel('Data Number')
-plt.ylabel('Eigenvalue')
-plt.show()
+# plt.subplot(111)
+# plt.scatter(xxx,y,label="")
+# plt.scatter(xxx,yy,label="")
+# plt.scatter(xxx,yyy,label="")
+# plt.scatter(xxx,yyyy,label="")
+# #
+# #
+# for j in borderline_list:
+#     plt.axvline(x=j, color="black") # 実験データの境目で線を引く
+#
+# # plt.title('固有値散布図')
+# plt.xlabel('Data Number')
+# plt.ylabel('Eigenvalue')
+# plt.show()
 # #
 # ax = fig.add_subplot(2,1,2)
 #
@@ -262,16 +262,17 @@ plt.show()
 # CL_5 = np.array(format_df5['CL']) # max
 # # CL_6 = np.array(format_df6['CL']) # non d_alpha
 #
+# plt.figure(figsize=(12,10))
 # plt.subplot(111)
-# plt.scatter(Va,CL_log,label="Log data",linewidth="3")
-# plt.scatter(Va,CL_4,label=r"None $k_LV_a$ model")
-# plt.scatter(Va,CL_5,label="Postulate model")
+# plt.scatter(Va,CL_log,label="Data1: log data",linewidth="3")
+# plt.scatter(Va,CL_4,label=r"Data2: model without $k_LV_a$")
+# plt.scatter(Va,CL_5,label=r"Data3: model with $k_LV_a$")
 # # plt.scatter(Va,CL_6,label=r"Model:No $\dot{\alpha}$")
 # plt.legend()
 #
 # plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$')
 # plt.ylabel(r'$C_L$')
-# plt.show()
+# plt.tight_layout()
 
 # f_up_pwm = np.array(format_df5['f_up_pwm'])
 #
@@ -323,21 +324,22 @@ plt.show()
 # plt.ylabel(r'Pitch moment$\mathrm{[N \cdot m]}$')
 # plt.show()
 
-# CL = np.array(format_df5['CL'])
-# CL_log = np.array(format_df5['CL_log'])
-# CD = np.array(format_df5['CD'])
-# CD_log = np.array(format_df5['CD_log'])
-# Cm = np.array(format_df5['Cm'])
-# Cm_log = np.array(format_df5['Cm_log'])
-#
-# plt.subplot(111)
-# plt.plot(CD_log,label=r"$D_{log}$")
-# plt.plot(CD,label=r"$D_{calc}$")
-# plt.legend()
-#
-# for j in borderline_list:
-#     plt.axvline(x=j, color="black",linestyle="--") # 実験データの境目で線を引く
-#
-# plt.xlabel('Data Number')
-# plt.ylabel(r'Drag$\mathrm{[N]}$')
-# plt.show()
+L = np.array(format_df5['L_calc'])
+L_log = np.array(format_df5['L'])
+D = np.array(format_df5['D_calc'])
+D_log = np.array(format_df5['D'])
+Ma = np.array(format_df5['Ma_calc'])
+Ma_log = np.array(format_df5['Ma'])
+
+plt.figure(figsize=(12,10))
+plt.subplot(111)
+plt.plot(L_log,label=r"$L_{log}$")
+plt.plot(L,label=r"$L_{calc}$")
+plt.legend()
+
+for j in borderline_list:
+    plt.axvline(x=j, color="black",linestyle="--") # 実験データの境目で線を引く
+
+plt.xlabel('Data Number')
+plt.ylabel(r'Lift$\mathrm{[N]}$')
+plt.tight_layout()
