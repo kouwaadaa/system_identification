@@ -177,14 +177,14 @@ INPUT ./z_figure_files/chapter5/eigen_good.jpeg
 INPUT ./z_figure_files/chapter5/2_CL.jpeg
 INPUT ./z_figure_files/chapter5/3_CD.jpeg
 INPUT ./z_figure_files/chapter5/4_Cm.jpeg
-INPUT ./z_figure_files/chapter5/cfd_L.jpeg
+INPUT ./z_figure_files/chapter5/cfd_CL.jpeg
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
-INPUT ./z_figure_files/chapter5/cfd_D.jpeg
-INPUT ./z_figure_files/chapter5/cfd_m.jpeg
+INPUT ./z_figure_files/chapter5/cfd_CD.jpeg
+INPUT ./z_figure_files/chapter5/cfd_Cm.jpeg
 INPUT ./g_conclusion/conclusion.tex
 INPUT ./g_conclusion/conclusion.tex
 INPUT ./h_acknowledgements/acknowledgements.tex

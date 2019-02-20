@@ -104,7 +104,7 @@ format_df4 = sys_id.sys_id_LS_max_non_kv(format_df)
 format_df5 = sys_id.sys_id_LS_max_ub(format_df)
 format_df6 = sys_id.sys_id_LS_non_d_alpha_ub(format_df)
 format_df7 = sys_id.sys_id_LS_complete_ub(format_df)
-# format_df8 = sys_id.sys_id_LS_complete_non_kv(format_df)
+format_df8 = sys_id.sys_id_LS_max_non_kv_d_alpha(format_df)
 
 #---------------------------
 # 機体の状態方程式から固有振動数を解析する
@@ -125,8 +125,8 @@ data_size = len(format_df) # 合計のデータサイズを取得
 
 format_df4 = statistics.calc_RMSE(format_df4)
 format_df5 = statistics.calc_RMSE(format_df5)
-# format_df6 = statistics.calc_RMSE(format_df6)
-# format_df7 = statistics.calc_RMSE(format_df7)
+format_df6 = statistics.calc_RMSE(format_df6)
+format_df7 = statistics.calc_RMSE(format_df7)
 # format_df8 = statistics.calc_RMSE(format_df8)
 
 # df5_V_filter = format_df5.query('4.5 <= Va <= 5.5')
@@ -222,17 +222,17 @@ format_df5 = statistics.calc_RMSE(format_df5)
 #
 # xxx = np.arange(data_size_lam)
 #----------------------------------------------------------------
-lambda_A_abs = np.abs(anly_result[0])
-
-y = lambda_A_abs[:,0]
-yy = lambda_A_abs[:,1]
-yyy = lambda_A_abs[:,2]
-yyyy = lambda_A_abs[:,3]
-
-print(y.mean())
-print(yy.mean())
-print(yyy.mean())
-print(yyyy.mean())
+# lambda_A_abs = np.abs(anly_result[0])
+#
+# y = lambda_A_abs[:,0]
+# yy = lambda_A_abs[:,1]
+# yyy = lambda_A_abs[:,2]
+# yyyy = lambda_A_abs[:,3]
+#
+# print(y.mean())
+# print(yy.mean())
+# print(yyy.mean())
+# print(yyyy.mean())
 
 #----------------------------------------------------------------
 # lambda_A_abs = np.abs(anly_result[0])
@@ -249,13 +249,13 @@ print(yyyy.mean())
 # plt.scatter(xxx,yyy,label="")
 # plt.scatter(xxx,yyyy,label="")
 
-for j in borderline_list:
-    plt.axvline(x=j, color="black", linestyle="--") # 実験データの境目で線を引く
-
-# plt.title('固有値散布図')
-plt.xlabel('Data Number')
-plt.ylabel('Absolute eigenvalue')
-plt.tight_layout()
+# for j in borderline_list:
+#     plt.axvline(x=j, color="black", linestyle="--") # 実験データの境目で線を引く
+#
+# # plt.title('固有値散布図')
+# plt.xlabel('Data Number')
+# plt.ylabel('Absolute eigenvalue')
+# plt.tight_layout()
 
 #----------------------------------------------------------------
 
@@ -263,7 +263,7 @@ plt.tight_layout()
 #
 # ax.plot(xxx,d_alpha)
 
-format_df5[['Va']].plot.line()
+# format_df5[['Va']].plot.line()
 
 # d_theta = np.array(format_df5['d_theta'])
 # d_theta_filt = np.array(format_df5['d_theta_filt'])
@@ -280,23 +280,25 @@ format_df5[['Va']].plot.line()
 #----------------------------------------------------------------
 
 
-# Va = np.array(format_df5['Va'])
-# CL_log = np.array(format_df5['CL_log'])
-# CL_4 = np.array(format_df4['CL']) # non kV
-# CL_5 = np.array(format_df5['CL']) # max
-# # CL_6 = np.array(format_df6['CL']) # non d_alpha
-#
+Va = np.array(format_df5['Va'])
+CD_log = np.array(format_df5['CD_log'])
+CD_4 = np.array(format_df4['CD']) # non kV
+CD_5 = np.array(format_df5['CD']) # max
+# CL_6 = np.array(format_df6['CL']) # non d_alpha
+
 # plt.figure(figsize=(12,10))
-# plt.subplot(111)
-# plt.scatter(Va,CL_log,label="Data1: log data",linewidth="3")
-# plt.scatter(Va,CL_4,label=r"Data2: model without $k_LV_a$")
-# plt.scatter(Va,CL_5,label=r"Data3: model with $k_LV_a$")
-# # plt.scatter(Va,CL_6,label=r"Model:No $\dot{\alpha}$")
+plt.subplot(111)
+plt.xlim([2.2,7.4])
+plt.ylim([0.4,5.2])
+plt.scatter(Va,CD_log,label="Data1: log data",linewidth="3")
+# plt.scatter(Va,CD_4,label=r"Data2: model without $k_DV_a$")
+# plt.scatter(Va,CD_5,label=r"Data3: model with $k_DV_a$")
+# plt.scatter(Va,CD_6,label=r"Model:No $\dot{\alpha}$")
 # plt.legend()
-#
-# plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$')
-# plt.ylabel(r'$C_L$')
-# plt.tight_layout()
+
+plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$')
+plt.ylabel(r'$C_D$')
+plt.tight_layout()
 
 # f_up_pwm = np.array(format_df5['f_up_pwm'])
 #

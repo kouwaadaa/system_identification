@@ -87,11 +87,23 @@
 % となる．ここで右辺第1項は，ある係数$C_i$，行列$A$の固有値$\lambda_i$，固有ベクトル$x_i$で表された一般解で，状態に固有な振動や発散，減衰などを表している．右辺第2項は特殊解であり，入力と同じ周波数成分を持つ．つまり，外乱がない限り，状態量は周波数成分として固有振動数や入力に存在する周波数成分に相関するということである．
 
 
-そこで，\ref{sec:filter}小節でも述べたように，固有振動数を計算することで機体の運動が持つおおよその周波数帯をつかみ，データのフィルタリングに利用する．実際に式(\ref{eq:matrix_A})の行列$A$について，固有値を計算して絶対値をプロットしたものがFig. \ref{fig:eigen}，\ref{fig:eigen_nondalpha}である．Fig. \ref{fig:eigen}は，提案モデルをそのまま用いて同定した結果から固有値を計算したものである．一方Fig. \ref{fig:eigen_nondalpha}は，提案モデル内の空力係数から$\dot{\alpha}$を含む項を除いて同定した結果から固有値を計算したものである．ただし，式(\ref{eq:system_eq})で示した行列$A$の上線を付した要素は，上線を除いた要素に置き換えられる．行列$A$が4次の正方行列であるため，各データ点ごとに最大4つの固有値を持ち，それぞれ色分けされている．グラフ内の縦破線は，複数の実験データそれぞれの境界を示す．
+そこで，\ref{sec:filter}小節でも述べたように，固有振動数を計算することで機体の運動が持つおおよその周波数帯をつかみ，データのフィルタリングに利用する．実際に式(\ref{eq:matrix_A})の行列$A$について，各データごとに固有値を計算して絶対値をプロットしたものがFig. \ref{fig:eigen}，\ref{fig:eigen_nondalpha}である．Fig. \ref{fig:eigen}は，提案モデルをそのまま用いて同定した結果から固有値を計算したものである．行列$A$が4次の正方行列であるため，各データ点ごとに最大4つの固有値を持ち，それぞれ色分けされている．グラフ内の縦破線は，複数の実験データそれぞれの境界を示す．
 
-Fig. \ref{fig:eigen}では，固有値の絶対値が50よりも大きいものが存在するが，開発機体は$50\mbox{[Hz]}$の周波数をもつ制御系で安定化できているため，機体の持つ固有振動数としては適切でないと考えられる．そこで，Table \ref{tb:si_result}で示した同定結果を見ると，$\dot{\alpha}$と$q$の安定微係数の値は符号の異なる絶対値の近い値であることがわかる．それぞれ他の係数と比較しても妥当な値とは言えず，$\dot{\alpha}$および$q$の関係が独立でない可能性が考えられる．これに関しては，今後の課題として結論で詳細を述べる．
+Fig. \ref{fig:eigen}では，固有値の絶対値が100近いものが存在するが，開発機体は$50\mbox{[Hz]}$の周波数をもつ制御系で安定化できているため，機体の持つ固有振動数としては適切でないと考えられる．そこで，Table \ref{tb:si_result}で示した同定結果を見ると，$\dot{\alpha}$と$q$の安定微係数の値は符号の異なる絶対値の近い値であることがわかる．それぞれ他の係数と比較しても妥当な値とは言えず，$\dot{\alpha}$および$q$の関係が独立でない可能性が考えられる．これに関しては，今後の課題として結論で詳細を述べる．
 
-以上を踏まえ，$\dot{\alpha}$を含む項を除いて同定した結果をTable \ref{tb:si_result_nondalpha}に示し，これを用いて固有値を計算した結果をFig. \ref{fig:eigen_nondalpha}に示している．
+以上を踏まえ，提案モデル内の空力係数から$\dot{\alpha}$を含む項を除いて同定した結果をTable \ref{tb:si_result_nondalpha}に示し，これを用いて行列$\tilde{A}$の固有値を計算した結果をFig. \ref{fig:eigen_nondalpha}に示す．ただし行列$\tilde{A}$は，式(\ref{eq:system_eq})で示した行列$A$の上線を付した要素を，式(\ref{eq:partial_derivatives})で示した上線を除いた要素に置き換えて
+\begin{equation}
+  \tilde{A} =
+  \left[
+  \begin{array}{cccc}
+    X_u & X_\alpha & X_q & X_\theta \\
+    Z_u & Z_\alpha & Z_q & Z_\theta \\
+    M_u & M_\alpha & M_q & M_\theta \\
+    0 & 0 & 1 & 0
+  \end{array}
+  \right]
+\end{equation}
+とする．
 
 \begin{figure}[H]
 	\centering
@@ -103,7 +115,7 @@ Fig. \ref{fig:eigen}では，固有値の絶対値が50よりも大きいもの�
 \begin{figure}[H]
 	\centering
 	\includegraphics[clip,width=9.0cm,bb=0 0 1440 864]{./z_figure_files/chapter5/eigen_good.jpeg}
-	\caption{Absolute value of eigenvalue of matrix A without $\dot{\alpha}$}
+	\caption{Absolute value of eigenvalue of matrix $\tilde{A}$}
 	\label{fig:eigen_nondalpha}
 \end{figure}
 
@@ -143,14 +155,14 @@ Fig. \ref{fig:eigen}では，固有値の絶対値が50よりも大きいもの�
 
 $C_L$は各データセット間でそれほど大きな差は見られないが，$C_D,C_m$においては，Data1が真値に近い値であると考えれば，Data2よりもData3のほうが，よりData1に沿うように点在していることが分かる．
 
-さらに詳細にモデルを評価するための精度評価指標として，平均平方二乗誤差(Root Mean Square Error,RMSE)を用いる．$k$番目のステップにおけるData1の値を実測値として$C_{obs,k}$，比較対象とするデータセットの値を予測値として$C_{pred,k}$とすると
+さらに詳細にモデルを評価するための精度評価指標として，平方根平均二乗誤差(Root Mean Square Error,RMSE)を用いる．$k$番目のステップにおけるData1の値を実測値として$C_{obs,k}$，比較対象とするデータセットの値を予測値として$C_{pred,k}$とすると
 \begin{equation}
   \mbox{RMSE} = \sqrt{\dfrac{1}{N}\sum_{k}(C_{obs,k}-C_{pred,k})^{2}} \quad (N\mbox{:サンプルデータ数})
   \label{eq:rmse}
 \end{equation}
-となる\cite{}．式(\ref{eq:rmse})を用いて，各空力係数に対して計算した結果をTable \ref{tb:rmse}に示す．結果から，Data2よりもData3のほうが，誤差は小さく予測精度が高いことがわかる．
+となる．式(\ref{eq:rmse})を用いて，各空力係数に対して計算した結果をTable \ref{tb:rmse}に示す．結果から，Data2よりもData3のほうが，誤差は小さく予測精度が高いことがわかる．
 
-したがって，回転翼機モードの空気力モデルにおいては，$k_* V_a$の項を含めることが妥当であると考えられる．特に，$C_D$における$k_D V_a$の効果が大きく，この結果は従来研究\cite{}の結果とも整合する．
+以上より，回転翼機モードの空気力モデルにおいては，$k_* V_a$の項を含めることが妥当であると考えられる．特に，$C_D$における$k_D V_a$の効果が大きく，この結果は従来研究\cite{yoshimura}の結果とも整合する．
 
 \begin{table} [htbp]
   \begin{center}
@@ -208,25 +220,25 @@ $C_L$について，CFDの解析結果は$\alpha$が大きいほど数値も大�
 
 CFD解析では，ロータ部に加わる力と胴体および主翼等に加わる力を個別に算出している．一方で，本研究のパラメータ同定においては，機体全体に加わる力からロータで発生すると想定される力を引くことで，胴体および主翼等に加わる力を算出している．ロータで発生すると想定した力は，静止推力をもとにしており，実際の運動時の推力とずれがあると考えられる．実験時にロータで発生する推力やモーメントを正しく測定することは極めて困難であるが，運動時には静止推力に比べて実際の推力が下がっている可能性がある．この場合，実験での$C_L$の値は，CFDでの値に比べて小さくなる．
 
-次に$C_D$について，それぞれの値のスケールは概ね一致しているが，$\alpha$に対する傾きはやや異なる．これは迎角によって変化するとされる有害抵抗係数による影響だと考えられる\cite{katou}．同定に用いる抗力係数に関するモデルを見直す必要があると思われる．
+次に$C_D$について，それぞれの値のスケールは概ね一致しているが，$\alpha$に対する傾きはやや異なる．この一因として迎角によって変化するとされる有害抵抗係数による影響が考えられる\cite{katou}．同定に用いる抗力係数に関するモデルを見直すことで，この差異は改善される可能性がある．
 
 最後に$C_m$について，ログデータにはばらつきがあるものの，どの結果も$\alpha$の値によらずほぼ一定の値を取っている．CFDの解析結果が大きく離れているのは，上述のロータ推力の推算による誤差が大きい可能性が考えられる．ロータ推力の算出方法の改善が必要である．
 
 \begin{figure}[H]
   \centering
-  \includegraphics[clip,width=9cm,bb=0 0 1912 1743]{./z_figure_files/chapter5/cfd_L.jpeg}
+  \includegraphics[clip,width=9cm,bb=0 0 2220 1270]{./z_figure_files/chapter5/cfd_CL.jpeg}
   \caption{\small{Comparing $C_L$ results of CFD and identification}}
   \label{fig:cfd_L}
 \end{figure}
 \begin{figure}[H]
   \centering
-  \includegraphics[clip,width=9cm,bb=0 0 1819 1662]{./z_figure_files/chapter5/cfd_D.jpeg}
+  \includegraphics[clip,width=9cm,bb=0 0 2220 1270]{./z_figure_files/chapter5/cfd_CD.jpeg}
   \caption{\small{Comparing $C_D$ results of CFD and identification}}
   \label{fig:cfd_D}
 \end{figure}
 \begin{figure}[H]
   \centering
-    \includegraphics[clip,width=9cm,bb=0 0 1832 1662]{./z_figure_files/chapter5/cfd_m.jpeg}
+    \includegraphics[clip,width=9cm,bb=0 0 1024 590]{./z_figure_files/chapter5/cfd_Cm.jpeg}
     \caption{\small{Comparing $C_m$ results of CFD and identification}}
     \label{fig:cfd_Ma}
 \end{figure}
