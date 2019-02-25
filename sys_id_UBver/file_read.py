@@ -242,41 +242,44 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, RHO, GAMMA, inpu
     dd_theta = matex.central_diff(d_theta,time)
     dd_psi = matex.central_diff(d_psi,time)
 
-    # どちらにティルトしているか
-    tilt_switch = np.diff(manual_tilt)
-    tilt_switch[np.isnan(tilt_switch)] = 0 # Nan -> 0
+    # ティルト角固定
+    tilt = GAMMA * (pi/180)
 
-    for i in range(np.size(tilt_switch)):
-        if tilt_switch[i] > 0: # MC -> FW
-            tilt_switch[i] = 1
-            continue
-        elif tilt_switch[i] < 0: # FW -> MC
-            tilt_switch[i] = -1
-            continue
-        elif tilt_switch[i] == 0:
-            tilt_switch[i] = tilt_switch[i-1]
-            continue
+    # # どちらにティルトしているか
+    # tilt_switch = np.diff(manual_tilt)
+    # tilt_switch[np.isnan(tilt_switch)] = 0 # Nan -> 0
+    #
+    # for i in range(np.size(tilt_switch)):
+    #     if tilt_switch[i] > 0: # MC -> FW
+    #         tilt_switch[i] = 1
+    #         continue
+    #     elif tilt_switch[i] < 0: # FW -> MC
+    #         tilt_switch[i] = -1
+    #         continue
+    #     elif tilt_switch[i] == 0:
+    #         tilt_switch[i] = tilt_switch[i-1]
+    #         continue
+    #
+    # tilt_switch = np.append(tilt_switch,tilt_switch[data_size-2])
 
-    tilt_switch = np.append(tilt_switch,tilt_switch[data_size-2])
-
-    # ティルト角
-    tilt = []
-
-    # ティルト角を計算
-    # ０度〜設定したティルト角の上限値に制限する
-    for i in range(np.size(tilt_switch)):
-        if tilt_switch[i] == 1:
-            tilt = np.append(tilt,tilt[i-1] + (90/4.0)*(pi/180)*time_diff[i])
-            if tilt[i] >= GAMMA:
-                tilt[i] = GAMMA
-                continue
-        elif tilt_switch[i] == -1:
-            tilt = np.append(tilt,tilt[i-1] - (90/4.0)*(pi/180)*time_diff[i])
-            if tilt[i] < 0.0:
-                tilt[i] = 0
-                continue
-        elif tilt_switch[i] == 0:
-            tilt = np.append(tilt,0)
+    # # ティルト角
+    # tilt = []
+    #
+    # # ティルト角を計算
+    # # ０度〜設定したティルト角の上限値に制限する
+    # for i in range(np.size(tilt_switch)):
+    #     if tilt_switch[i] == 1:
+    #         tilt = np.append(tilt,tilt[i-1] + (90/4.0)*(pi/180)*time_diff[i])
+    #         if tilt[i] >= GAMMA:
+    #             tilt[i] = GAMMA
+    #             continue
+    #     elif tilt_switch[i] == -1:
+    #         tilt = np.append(tilt,tilt[i-1] - (90/4.0)*(pi/180)*time_diff[i])
+    #         if tilt[i] < 0.0:
+    #             tilt[i] = 0
+    #             continue
+    #     elif tilt_switch[i] == 0:
+    #         tilt = np.append(tilt,0)
 
     # 空力の計算
     F_x = const.MASS * (d_Va[:,0] + d_theta*Vg[:,2]) \

@@ -51,16 +51,14 @@ format_df = pd.DataFrame()
 borderline_list = list()
 
 #---------------------------------------------------------
-format_df,size = file_read.file_read('../log_data/Book1.csv',22.00,25.50,-2.00,40/45,1.255,10,format_df)
-borderline_list.append(size)
-#---------------------------------------------------------
-format_df,size = file_read.file_read('../log_data/Book2.csv',54.35,59.46,-2.30,40/45,1.252,10,format_df)
-borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read('../log_data/Book2.csv',70.68,83.38,-2.30,40/45,1.252,10,format_df)
-borderline_list.append(size+borderline_list[-1])
+# format_df,size = file_read.file_read('../log_data/Book2.csv',54.35,59.46,-2.30,40/45,1.252,10,format_df)
+# borderline_list.append(size)
+# format_df,size = file_read.file_read('../log_data/Book2.csv',70.68,83.38,-2.30,40/45,1.252,10,format_df)
+# borderline_list.append(size+borderline_list[-1])
 #---------------------------------------------------------
 format_df,size = file_read.file_read('../log_data/Book6.csv',17.47,19.08,-2.00,40/47,1.282,10,format_df)
-borderline_list.append(size+borderline_list[-1])
+borderline_list.append(size)
+# borderline_list.append(size+borderline_list[-1])
 format_df,size = file_read.file_read('../log_data/Book6.csv',21.36,24.67,-2.00,40/47,1.282,10,format_df)
 borderline_list.append(size+borderline_list[-1])
 format_df,size = file_read.file_read('../log_data/Book6.csv',63.34,68.20,-2.00,40/47,1.282,10,format_df)
@@ -137,42 +135,64 @@ data_size = len(format_df) # 合計のデータサイズを取得
 # 結果をプロット
 #---------------------------
 
-# # Va横軸で空力係数比較
-# Va = np.array(df_with_dalpha['Va'])
-# CD_log = np.array(df_with_dalpha['CD_log'])
-# CD_non_kv = np.array(df_non_kv['CD']) # non kV
-# CD_with_dalpha = np.array(df_with_dalpha['CD']) # max
-# # CD_non_dalpha = np.array(df_non_dalpha['CD']) # non d_alpha
-#
-# # plt.figure(figsize=(12,10))
-# plt.subplot(111)
-# plt.scatter(Va,CD_log,label="Data1: log data",linewidth="3")
-# plt.scatter(Va,CD_non_kv,label=r"Data2: model without $k_DV_a$")
-# plt.scatter(Va,CD_with_dalpha,label=r"Data3: model with $k_DV_a$")
-# # plt.scatter(Va,CD_non_dalpha,label=r"Model:No $\dot{\alpha}$")
-# plt.legend()
-#
-# plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$')
-# plt.ylabel(r'$C_D$')
-# plt.tight_layout()
-#------------------------------------------------------------------
-# 各空気力の再現性を見る
-L = np.array(df_with_dalpha['L_calc'])
-L_log = np.array(df_with_dalpha['L'])
-D = np.array(df_with_dalpha['D_calc'])
-D_log = np.array(df_with_dalpha['D'])
-Ma = np.array(df_with_dalpha['Ma_calc'])
-Ma_log = np.array(df_with_dalpha['Ma'])
+# Va横軸で空力係数比較
+Va = np.array(df_with_dalpha['Va'])
+CD_log = np.array(df_with_dalpha['CD_log'])
+CD_non_kv = np.array(df_non_kv['CD']) # non kV
+CD_with_dalpha = np.array(df_with_dalpha['CD']) # max
+# CD_non_dalpha = np.array(df_non_dalpha['CD']) # non d_alpha
 
 # plt.figure(figsize=(12,10))
 plt.subplot(111)
-plt.plot(D_log,label=r"$D_{log}$")
-plt.plot(D,label=r"$D_{calc}$")
+plt.scatter(Va,CD_log,label="Data1: log data",linewidth="3")
+plt.scatter(Va,CD_non_kv,label=r"Data2: model without $k_DV_a$")
+plt.scatter(Va,CD_with_dalpha,label=r"Data3: model with $k_DV_a$")
+# plt.scatter(Va,CD_non_dalpha,label=r"Model:No $\dot{\alpha}$")
 plt.legend()
 
-for j in borderline_list:
-    plt.axvline(x=j, color="black",linestyle="--") # 実験データの境目で線を引く
-
-plt.xlabel('Data Number')
-plt.ylabel(r'Lift$\mathrm{[N]}$')
+plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$')
+plt.ylabel(r'$C_D$')
 plt.tight_layout()
+#------------------------------------------------------------------
+# # 各空気力の再現性を見る
+# L = np.array(df_with_dalpha['L_calc'])
+# L_log = np.array(df_with_dalpha['L'])
+# D = np.array(df_with_dalpha['D_calc'])
+# D_log = np.array(df_with_dalpha['D'])
+# Ma = np.array(df_with_dalpha['Ma_calc'])
+# Ma_log = np.array(df_with_dalpha['Ma'])
+#
+# # plt.figure(figsize=(12,10))
+# plt.subplot(111)
+# plt.plot(D_log,label=r"$D_{log}$")
+# plt.plot(D,label=r"$D_{calc}$")
+# plt.legend()
+#
+# for j in borderline_list:
+#     plt.axvline(x=j, color="black",linestyle="--") # 実験データの境目で線を引く
+#
+# plt.xlabel('Data Number')
+# plt.ylabel(r'Lift$\mathrm{[N]}$')
+# plt.tight_layout()
+#----------------------------------------------------------------
+# lambda_A_abs = np.abs(anly_result[0])
+#
+# xxx = np.arange(data_size)
+# y = lambda_A_abs[:,0]
+# yy = lambda_A_abs[:,1]
+# yyy = lambda_A_abs[:,2]
+# yyyy = lambda_A_abs[:,3]
+#
+# plt.subplot(111)
+# plt.scatter(xxx,y,label="")
+# plt.scatter(xxx,yy,label="")
+# plt.scatter(xxx,yyy,label="")
+# plt.scatter(xxx,yyyy,label="")
+#
+# for j in borderline_list:
+#     plt.axvline(x=j, color="black", linestyle="--") # 実験データの境目で線を引く
+#
+# # plt.title('固有値散布図')
+# plt.xlabel('Data Number')
+# plt.ylabel('Absolute eigenvalue')
+# plt.tight_layout()

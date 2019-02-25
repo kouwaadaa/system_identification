@@ -284,23 +284,23 @@ df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
 #----------------------------------------------------------------
 
 
-Va = np.array(df_with_dalpha['Va'])
-CD_log = np.array(df_with_dalpha['CD_log'])
-CD_4 = np.array(df_non_kv['CD']) # non kV
-CD_5 = np.array(df_with_dalpha['CD']) # max
-# CD_6 = np.array(df_non_dalpha['CD']) # non d_alpha
-
-# plt.figure(figsize=(12,10))
-plt.subplot(111)
-plt.scatter(Va,CD_log,label="Data1: log data",linewidth="3")
-plt.scatter(Va,CD_4,label=r"Data2: model without $k_DV_a$")
-plt.scatter(Va,CD_5,label=r"Data3: model with $k_DV_a$")
-# plt.scatter(Va,CD_6,label=r"Model:No $\dot{\alpha}$")
-plt.legend()
-
-plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$')
-plt.ylabel(r'$C_D$')
-plt.tight_layout()
+# Va = np.array(df_with_dalpha['Va'])
+# CD_log = np.array(df_with_dalpha['CD_log'])
+# CD_4 = np.array(df_non_kv['CD']) # non kV
+# CD_5 = np.array(df_with_dalpha['CD']) # max
+# # CD_6 = np.array(df_non_dalpha['CD']) # non d_alpha
+#
+# # plt.figure(figsize=(12,10))
+# plt.subplot(111)
+# plt.scatter(Va,CD_log,label="Data1: log data",linewidth="3")
+# plt.scatter(Va,CD_4,label=r"Data2: model without $k_DV_a$")
+# plt.scatter(Va,CD_5,label=r"Data3: model with $k_DV_a$")
+# # plt.scatter(Va,CD_6,label=r"Model:No $\dot{\alpha}$")
+# plt.legend()
+#
+# plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$')
+# plt.ylabel(r'$C_D$')
+# plt.tight_layout()
 
 # f_up_pwm = np.array(df_with_dalpha['f_up_pwm'])
 #
@@ -352,23 +352,23 @@ plt.tight_layout()
 # plt.ylabel(r'Pitch moment$\mathrm{[N \cdot m]}$')
 # plt.show()
 #----------------------------------------------------------------
-# L = np.array(df_with_dalpha['L_calc'])
-# L_log = np.array(df_with_dalpha['L'])
-# D = np.array(df_with_dalpha['D_calc'])
-# D_log = np.array(df_with_dalpha['D'])
-# Ma = np.array(df_with_dalpha['Ma_calc'])
-# Ma_log = np.array(df_with_dalpha['Ma'])
-#
+L = np.array(df_with_dalpha['L_calc'])
+L_log = np.array(df_with_dalpha['L'])
+D = np.array(df_with_dalpha['D_calc'])
+D_log = np.array(df_with_dalpha['D'])
+Ma = np.array(df_with_dalpha['Ma_calc'])
+Ma_log = np.array(df_with_dalpha['Ma'])
+
 # plt.figure(figsize=(12,10))
-# plt.subplot(111)
-# plt.plot(L_log,label=r"$L_{log}$")
-# plt.plot(L,label=r"$L_{calc}$")
-# plt.legend()
-#
-# for j in borderline_list:
-#     plt.axvline(x=j, color="black",linestyle="--") # 実験データの境目で線を引く
-#
-# plt.xlabel('Data Number')
-# plt.ylabel(r'Lift$\mathrm{[N]}$')
-# plt.tight_layout()
+plt.subplot(111)
+plt.plot(D_log,label=r"$D_{log}$")
+plt.plot(D,label=r"$D_{calc}$")
+plt.legend()
+
+for j in borderline_list:
+    plt.axvline(x=j, color="black",linestyle="--") # 実験データの境目で線を引く
+
+plt.xlabel('Data Number')
+plt.ylabel(r'Lift$\mathrm{[N]}$')
+plt.tight_layout()
 #----------------------------------------------------------------
