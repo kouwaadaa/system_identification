@@ -48,42 +48,48 @@ plt.rcParams["figure.figsize"] = [20, 12]
 # ログデータの読み込み
 #---------------------------
 
+# 読み込みデータ初期化
 format_df = pd.DataFrame()
+
+# データ群ごとに線引き，綺麗でない
 borderline_list = list()
 
-format_df,size = file_read.file_read('../log_data/Book3.csv',17.52,19.14,-4.03,40/48,0,format_df)
+#---------------------------------------------------------
+format_df,size = file_read.file_read('../log_data/Book3.csv',17.52,19.14,-4.03,40/48,1.264,0,format_df)
 borderline_list.append(size)
-# format_df = file_read.file_read('../log_data/Book4.csv',11.97,13.30,-5.05,40/45,0,format_df)
-format_df,size = file_read.file_read('../log_data/Book4.csv',18.66,21.08,-5.05,40/45,0,format_df)
+#---------------------------------------------------------
+# format_df = file_read.file_read('../log_data/Book4.csv',11.97,13.30,-5.05,40/45,1.264,0,format_df)
+format_df,size = file_read.file_read('../log_data/Book4.csv',18.66,21.08,-5.05,40/45,1.264,0,format_df)
 borderline_list.append(size+borderline_list[-1])
-#
-format_df,size = file_read.file_read('../log_data/Book5.csv',12.45,13.66,-4.80,40/48,0,format_df)
+#---------------------------------------------------------
+format_df,size = file_read.file_read('../log_data/Book5.csv',12.45,13.66,-4.80,40/48,1.266,0,format_df)
 borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read('../log_data/Book5.csv',16.07,17.03,-4.80,40/48,0,format_df)
+format_df,size = file_read.file_read('../log_data/Book5.csv',16.07,17.03,-4.80,40/48,1.266,0,format_df)
 borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read('../log_data/Book5.csv',18.95,22.88,-4.80,40/48,0,format_df)
+format_df,size = file_read.file_read('../log_data/Book5.csv',18.95,22.88,-4.80,40/48,1.266,0,format_df)
 borderline_list.append(size+borderline_list[-1])
-
-format_df,size = file_read.file_read('../log_data/Book8.csv',15.41,20.10,-2.00,40/47,0,format_df)
+#---------------------------------------------------------
+format_df,size = file_read.file_read('../log_data/Book8.csv',15.41,20.10,-2.00,40/47,1.275,0,format_df)
 borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read('../log_data/Book8.csv',21.46,23.07,-2.00,40/47,0,format_df)
+format_df,size = file_read.file_read('../log_data/Book8.csv',21.46,23.07,-2.00,40/47,1.275,0,format_df)
 borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read('../log_data/Book8.csv',23.44,24.64,-2.00,40/47,0,format_df)
+format_df,size = file_read.file_read('../log_data/Book8.csv',23.44,24.64,-2.00,40/47,1.275,0,format_df)
 borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read('../log_data/Book8.csv',25.28,27.38,-2.00,40/47,0,format_df)
+format_df,size = file_read.file_read('../log_data/Book8.csv',25.28,27.38,-2.00,40/47,1.275,0,format_df)
 borderline_list.append(size+borderline_list[-1])
-
-format_df,size = file_read.file_read('../log_data/Book9.csv',20.73,30.28,-2.647,40/48,0,format_df)
+#---------------------------------------------------------
+format_df,size = file_read.file_read('../log_data/Book9.csv',20.73,30.28,-2.647,40/48,1.251,0,format_df)
 borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read('../log_data/Book9.csv',98.05,104.1,-2.647,40/48,0,format_df)
+format_df,size = file_read.file_read('../log_data/Book9.csv',98.05,104.1,-2.647,40/48,1.251,0,format_df)
 borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read('../log_data/Book9.csv',104.9,107.1,-2.647,40/48,0,format_df)
+format_df,size = file_read.file_read('../log_data/Book9.csv',104.9,107.1,-2.647,40/48,1.251,0,format_df)
 borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read('../log_data/Book9.csv',107.7,109.7,-2.647,40/48,0,format_df)
+format_df,size = file_read.file_read('../log_data/Book9.csv',107.7,109.7,-2.647,40/48,1.251,0,format_df)
 borderline_list.append(size+borderline_list[-1])
-# format_df,size = file_read.file_read('../log_data/Book11.csv',19.86,25.27,-1.467,40/48,0,format_df)
-
-# format_df = file_read.file_read('../log_data/Book11.csv',26.43,29.83,-1.467,40/48,0,format_df)
+#---------------------------------------------------------
+# format_df,size = file_read.file_read('../log_data/Book11.csv',19.86,25.27,-1.467,40/48,1.268,0,format_df)
+# format_df = file_read.file_read('../log_data/Book11.csv',26.43,29.83,-1.467,40/48,1.268,0,format_df)
+#---------------------------------------------------------
 
 #---------------------------
 # データの整理
@@ -127,7 +133,7 @@ df_non_kv = statistics.calc_RMSE(df_non_kv)
 df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
 # format_df8 = statistics.calc_RMSE(format_df8)
 
-# df5_V_filter = format_df5.query('4.5 <= Va <= 5.5')
+# df5_V_filter = df_with_dalpha.query('4.5 <= Va <= 5.5')
 
 # format_df[['L_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['D_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
@@ -147,16 +153,16 @@ df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
 
 # format_df[['theta']].plot.line()
 # format_df[['d_theta']].plot.line()
-# format_df4[['D','D_calc']].plot.line()
-# format_df4[['Ma','Ma_calc']].plot.line()
+# df_non_kv[['D','D_calc']].plot.line()
+# df_non_kv[['Ma','Ma_calc']].plot.line()
 #
-# format_df5[['L','L_calc']].plot.line()
-# format_df5[['D','D_calc']].plot.line()
-# format_df5[['Ma','Ma_calc']].plot.line()
+# df_with_dalpha[['L','L_calc']].plot.line()
+# df_with_dalpha[['D','D_calc']].plot.line()
+# df_with_dalpha[['Ma','Ma_calc']].plot.line()
 
-# format_df6[['L','L_calc']].plot.line()
-# format_df6[['D','D_calc']].plot.line()
-# format_df6[['Ma','Ma_calc']].plot.line()
+# df_non_dalpha[['L','L_calc']].plot.line()
+# df_non_dalpha[['D','D_calc']].plot.line()
+# df_non_dalpha[['Ma','Ma_calc']].plot.line()
 
 # fq = np.fft.fftfreq(data_size,d=0.02)
 # format_df['fq'] = fq
@@ -171,32 +177,32 @@ df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
 
 # format_df7[['delta_e']].plot.line()
 
-# format_df5[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD_dalpha')
-# format_df4[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD_nonkv')
+# df_with_dalpha[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD_dalpha')
+# df_non_kv[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD_nonkv')
 
-# format_df4[['CL_log','CL']].plot.line(title='CL_nonkv')
-# format_df4[['CD_log','CD']].plot.line(title='CD_nonkv')
-# format_df4[['Cm_log','Cm']].plot.line(title='Cm_nonkv')
+# df_non_kv[['CL_log','CL']].plot.line(title='CL_nonkv')
+# df_non_kv[['CD_log','CD']].plot.line(title='CD_nonkv')
+# df_non_kv[['Cm_log','Cm']].plot.line(title='Cm_nonkv')
 
-# format_df5[['CL_log','CL']].plot.line(title='CL_max')
-# format_df5[['CD_log','CD']].plot.line(title='CD_max')
-# format_df5[['Cm_log','Cm']].plot.line(title='Cm_max')
+# df_with_dalpha[['CL_log','CL']].plot.line(title='CL_max')
+# df_with_dalpha[['CD_log','CD']].plot.line(title='CD_max')
+# df_with_dalpha[['Cm_log','Cm']].plot.line(title='Cm_max')
 
-# format_df6[['CL_log','CL']].plot.line(title='CL_nonda')
-# format_df6[['CD_log','CD']].plot.line(title='CD_nonda')
-# format_df6[['Cm_log','Cm']].plot.line(title='Cm_nonda')
+# df_non_dalpha[['CL_log','CL']].plot.line(title='CL_nonda')
+# df_non_dalpha[['CD_log','CD']].plot.line(title='CD_nonda')
+# df_non_dalpha[['Cm_log','Cm']].plot.line(title='Cm_nonda')
 
 # format_df7[['CL_log','CL']].plot.line(title='CL_complete')
 # format_df7[['CD_log','CD']].plot.line(title='CD_complete')
 # format_df7[['Cm_log','Cm']].plot.line(title='Cm_complete')
 
-# format_df5[['CL_log','CL','Va']].plot.line(x='Va', style=['o','p'], title='CL')
-# format_df5[['CD_log','CD','Va']].plot.line(x='Va', style=['o','p'], title='CD')
-# format_df5[['Cm_log','Cm','Va']].plot.line(x='Va', style=['o','p'], title='Cm')
+# df_with_dalpha[['CL_log','CL','Va']].plot.line(x='Va', style=['o','p'], title='CL')
+# df_with_dalpha[['CD_log','CD','Va']].plot.line(x='Va', style=['o','p'], title='CD')
+# df_with_dalpha[['Cm_log','Cm','Va']].plot.line(x='Va', style=['o','p'], title='Cm')
 #
-# format_df6[['CL_log','CL','Va']].plot.line(x='Va', style=['o','p'], title='CL')
-# format_df6[['CD_log','CD','Va']].plot.line(x='Va', style=['o','p'], title='CD')
-# format_df6[['Cm_log','Cm','Va']].plot.line(x='Va', style=['o','p'], title='Cm')
+# df_non_dalpha[['CL_log','CL','Va']].plot.line(x='Va', style=['o','p'], title='CL')
+# df_non_dalpha[['CD_log','CD','Va']].plot.line(x='Va', style=['o','p'], title='CD')
+# df_non_dalpha[['Cm_log','Cm','Va']].plot.line(x='Va', style=['o','p'], title='Cm')
 
 # theta = np.array(format_df7['theta'])
 # for j in borderline_list:
@@ -261,10 +267,10 @@ df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
 #
 # ax.plot(xxx,d_alpha)
 
-# format_df5[['Va']].plot.line()
+# df_with_dalpha[['Va']].plot.line()
 
-# d_theta = np.array(format_df5['d_theta'])
-# d_theta_filt = np.array(format_df5['d_theta_filt'])
+# d_theta = np.array(df_with_dalpha['d_theta'])
+# d_theta_filt = np.array(df_with_dalpha['d_theta_filt'])
 #
 # plt.subplot(111)
 # plt.plot(d_theta,label="Native data")
@@ -278,27 +284,25 @@ df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
 #----------------------------------------------------------------
 
 
-# Va = np.array(format_df5['Va'])
-# CD_log = np.array(format_df5['CD_log'])
-# CD_4 = np.array(format_df4['CD']) # non kV
-# CD_5 = np.array(format_df5['CD']) # max
-# # CL_6 = np.array(format_df6['CL']) # non d_alpha
-#
-# # plt.figure(figsize=(12,10))
-# plt.subplot(111)
-# plt.xlim([2.2,7.4])
-# plt.ylim([0.4,5.2])
-# plt.scatter(Va,CD_log,label="Data1: log data",linewidth="3")
-# plt.scatter(Va,CD_4,label=r"Data2: model without $k_DV_a$")
-# plt.scatter(Va,CD_5,label=r"Data3: model with $k_DV_a$")
-# # plt.scatter(Va,CD_6,label=r"Model:No $\dot{\alpha}$")
-# # plt.legend()
-#
-# plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$')
-# plt.ylabel(r'$C_D$')
-# plt.tight_layout()
+Va = np.array(df_with_dalpha['Va'])
+CD_log = np.array(df_with_dalpha['CD_log'])
+CD_4 = np.array(df_non_kv['CD']) # non kV
+CD_5 = np.array(df_with_dalpha['CD']) # max
+# CD_6 = np.array(df_non_dalpha['CD']) # non d_alpha
 
-# f_up_pwm = np.array(format_df5['f_up_pwm'])
+# plt.figure(figsize=(12,10))
+plt.subplot(111)
+plt.scatter(Va,CD_log,label="Data1: log data",linewidth="3")
+plt.scatter(Va,CD_4,label=r"Data2: model without $k_DV_a$")
+plt.scatter(Va,CD_5,label=r"Data3: model with $k_DV_a$")
+# plt.scatter(Va,CD_6,label=r"Model:No $\dot{\alpha}$")
+plt.legend()
+
+plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$')
+plt.ylabel(r'$C_D$')
+plt.tight_layout()
+
+# f_up_pwm = np.array(df_with_dalpha['f_up_pwm'])
 #
 # # 高速フーリエ変換(FFT)
 # F = np.fft.fft(f_up_pwm) #
@@ -329,12 +333,12 @@ df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
 # plt.legend()
 # plt.show()
 
-# L = np.array(format_df5['L'])
-# L_calc = np.array(format_df5['L_calc'])
-# D = np.array(format_df5['D'])
-# D_calc = np.array(format_df5['D_calc'])
-# Ma = np.array(format_df5['Ma'])
-# Ma_calc = np.array(format_df5['Ma_calc'])
+# L = np.array(df_with_dalpha['L'])
+# L_calc = np.array(df_with_dalpha['L_calc'])
+# D = np.array(df_with_dalpha['D'])
+# D_calc = np.array(df_with_dalpha['D_calc'])
+# Ma = np.array(df_with_dalpha['Ma'])
+# Ma_calc = np.array(df_with_dalpha['Ma_calc'])
 #
 # plt.subplot(111)
 # plt.plot(Ma,label=r"$M_{a_{log}}$")
@@ -348,12 +352,12 @@ df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
 # plt.ylabel(r'Pitch moment$\mathrm{[N \cdot m]}$')
 # plt.show()
 #----------------------------------------------------------------
-# L = np.array(format_df5['L_calc'])
-# L_log = np.array(format_df5['L'])
-# D = np.array(format_df5['D_calc'])
-# D_log = np.array(format_df5['D'])
-# Ma = np.array(format_df5['Ma_calc'])
-# Ma_log = np.array(format_df5['Ma'])
+# L = np.array(df_with_dalpha['L_calc'])
+# L_log = np.array(df_with_dalpha['L'])
+# D = np.array(df_with_dalpha['D_calc'])
+# D_log = np.array(df_with_dalpha['D'])
+# Ma = np.array(df_with_dalpha['Ma_calc'])
+# Ma_log = np.array(df_with_dalpha['Ma'])
 #
 # plt.figure(figsize=(12,10))
 # plt.subplot(111)

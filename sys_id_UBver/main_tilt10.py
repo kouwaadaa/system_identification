@@ -44,14 +44,51 @@ plt.rcParams["figure.figsize"] = [20, 12]
 # ログデータの読み込み
 #---------------------------
 
+# 読み込みデータ初期化
 format_df = pd.DataFrame()
+
+# データ群ごとに線引き，綺麗でない
 borderline_list = list()
 
-format_df,size = file_read.file_read('../log_data/Book3.csv',17.52,19.14,-4.03,40/48,0,format_df)
+#---------------------------------------------------------
+format_df,size = file_read.file_read('../log_data/Book1.csv',22.00,25.50,-2.00,40/45,1.255,10,format_df)
 borderline_list.append(size)
-# format_df = file_read.file_read('../log_data/Book4.csv',11.97,13.30,-5.05,40/45,0,format_df)
-format_df,size = file_read.file_read('../log_data/Book4.csv',18.66,21.08,-5.05,40/45,0,format_df)
+#---------------------------------------------------------
+format_df,size = file_read.file_read('../log_data/Book2.csv',54.35,59.46,-2.30,40/45,1.252,10,format_df)
 borderline_list.append(size+borderline_list[-1])
+format_df,size = file_read.file_read('../log_data/Book2.csv',70.68,83.38,-2.30,40/45,1.252,10,format_df)
+borderline_list.append(size+borderline_list[-1])
+#---------------------------------------------------------
+format_df,size = file_read.file_read('../log_data/Book6.csv',17.47,19.08,-2.00,40/47,1.282,10,format_df)
+borderline_list.append(size+borderline_list[-1])
+format_df,size = file_read.file_read('../log_data/Book6.csv',21.36,24.67,-2.00,40/47,1.282,10,format_df)
+borderline_list.append(size+borderline_list[-1])
+format_df,size = file_read.file_read('../log_data/Book6.csv',63.34,68.20,-2.00,40/47,1.282,10,format_df)
+borderline_list.append(size+borderline_list[-1])
+#---------------------------------------------------------
+format_df,size = file_read.file_read('../log_data/Book7.csv',13.93,15.36,-1.25,40/47,1.281,10,format_df)
+borderline_list.append(size+borderline_list[-1])
+format_df,size = file_read.file_read('../log_data/Book7.csv',55.40,56.85,-1.25,40/47,1.281,10,format_df)
+borderline_list.append(size+borderline_list[-1])
+format_df,size = file_read.file_read('../log_data/Book7.csv',62.60,64.83,-1.25,40/47,1.281,10,format_df)
+borderline_list.append(size+borderline_list[-1])
+#---------------------------------------------------------
+format_df,size = file_read.file_read('../log_data/Book8.csv',43.24,45.90,-2.00,40/47,1.275,10,format_df)
+borderline_list.append(size+borderline_list[-1])
+format_df,size = file_read.file_read('../log_data/Book8.csv',61.44,64.48,-2.00,40/47,1.275,10,format_df)
+borderline_list.append(size+borderline_list[-1])
+format_df,size = file_read.file_read('../log_data/Book8.csv',71.60,80.56,-2.00,40/47,1.275,10,format_df)
+borderline_list.append(size+borderline_list[-1])
+format_df,size = file_read.file_read('../log_data/Book8.csv',101.9,109.6,-2.00,40/47,1.275,10,format_df)
+borderline_list.append(size+borderline_list[-1])
+#---------------------------------------------------------
+format_df,size = file_read.file_read('../log_data/Book10.csv',15.56,17.40,-3.277,40/48,1.260,10,format_df)
+borderline_list.append(size+borderline_list[-1])
+format_df,size = file_read.file_read('../log_data/Book10.csv',94.13,101.5,-3.277,40/48,1.260,10,format_df)
+borderline_list.append(size+borderline_list[-1])
+format_df,size = file_read.file_read('../log_data/Book10.csv',103.6,105.3,-3.277,40/48,1.260,10,format_df)
+borderline_list.append(size+borderline_list[-1])
+#---------------------------------------------------------
 
 #---------------------------
 # データの整理
@@ -66,13 +103,29 @@ format_df = format_df.reset_index()
 # パラメータ推定の結果を計算し，取得
 #---------------------------
 
-format_df4 = sys_id.sys_id_LS_max_non_kv(format_df)
+df_non_dalpha = sys_id.sys_id_LS(format_df)
+df_with_dalpha = sys_id.sys_id_LS_with_dalpha(format_df)
+df_non_kv = sys_id.sys_id_LS_non_kv(format_df)
+
+df_ex_with_dalpha = sys_id.sys_id_LS_ex_with_dalpha(format_df)
+df_ex_non_kv = sys_id.sys_id_LS_ex_non_kv(format_df)
 
 #---------------------------
 # 機体の状態方程式から固有振動数を解析する
 #---------------------------
 
-anly_result = analyze.linearlize_non_d_alpha(format_df6)
+# anly_result = analyze.linearlize(df_with_dalpha)
+anly_result = analyze.linearlize_non_d_alpha(df_non_dalpha)
+
+#---------------------------
+# 統計データ算出
+#---------------------------
+
+df_non_dalpha = statistics.calc_RMSE(df_non_dalpha)
+df_with_dalpha = statistics.calc_RMSE(df_with_dalpha)
+df_non_kv = statistics.calc_RMSE(df_non_kv)
+df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
+df_ex_non_kv = statistics.calc_RMSE(df_ex_non_kv)
 
 #---------------------------
 # データの取り出し
@@ -83,3 +136,43 @@ data_size = len(format_df) # 合計のデータサイズを取得
 #---------------------------
 # 結果をプロット
 #---------------------------
+
+# # Va横軸で空力係数比較
+# Va = np.array(df_with_dalpha['Va'])
+# CD_log = np.array(df_with_dalpha['CD_log'])
+# CD_non_kv = np.array(df_non_kv['CD']) # non kV
+# CD_with_dalpha = np.array(df_with_dalpha['CD']) # max
+# # CD_non_dalpha = np.array(df_non_dalpha['CD']) # non d_alpha
+#
+# # plt.figure(figsize=(12,10))
+# plt.subplot(111)
+# plt.scatter(Va,CD_log,label="Data1: log data",linewidth="3")
+# plt.scatter(Va,CD_non_kv,label=r"Data2: model without $k_DV_a$")
+# plt.scatter(Va,CD_with_dalpha,label=r"Data3: model with $k_DV_a$")
+# # plt.scatter(Va,CD_non_dalpha,label=r"Model:No $\dot{\alpha}$")
+# plt.legend()
+#
+# plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$')
+# plt.ylabel(r'$C_D$')
+# plt.tight_layout()
+#------------------------------------------------------------------
+# 各空気力の再現性を見る
+L = np.array(df_with_dalpha['L_calc'])
+L_log = np.array(df_with_dalpha['L'])
+D = np.array(df_with_dalpha['D_calc'])
+D_log = np.array(df_with_dalpha['D'])
+Ma = np.array(df_with_dalpha['Ma_calc'])
+Ma_log = np.array(df_with_dalpha['Ma'])
+
+# plt.figure(figsize=(12,10))
+plt.subplot(111)
+plt.plot(D_log,label=r"$D_{log}$")
+plt.plot(D,label=r"$D_{calc}$")
+plt.legend()
+
+for j in borderline_list:
+    plt.axvline(x=j, color="black",linestyle="--") # 実験データの境目で線を引く
+
+plt.xlabel('Data Number')
+plt.ylabel(r'Lift$\mathrm{[N]}$')
+plt.tight_layout()

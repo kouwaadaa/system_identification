@@ -42,6 +42,7 @@ def sys_id_LS_yoshimura(format_df):
     L = np.array(format_df['L'])
     D = np.array(format_df['D'])
     Ma = np.array(format_df['Ma'])
+    RHO = np.array(format_df['RHO'])
 
     #---------------------------
     # パラメータ推定（最小二乗法を用いる）
@@ -57,13 +58,13 @@ def sys_id_LS_yoshimura(format_df):
     CL_alpha = 2.68
 
     # n*1 揚力から計算された値のリスト
-    yL = (L/((1/2)*const.RHO*(Va**2)*const.S)) - CL_0 - CL_alpha*alpha
+    yL = (L/((1/2)*RHO*(Va**2)*const.S)) - CL_0 - CL_alpha*alpha
 
     # n*3 リグレッサー（独立変数）や実験データのリスト
     xL = np.zeros((data_size,3))
     xL[:,0] = (const.MAC*d_theta)/(2*Va)
     xL[:,1] = delta_e
-    xL[:,2] = 1/((1/2)*const.RHO*Va*const.S)
+    xL[:,2] = 1/((1/2)*RHO*Va*const.S)
 
     # # ３次ローパスフィルタをかける
     # for i in range(3):
@@ -95,12 +96,12 @@ def sys_id_LS_yoshimura(format_df):
     CD_0 = 0.07887
 
     # n*1 抗力から計算された値のリスト
-    yD = (D/((1/2)*const.RHO*(Va**2)*const.S)) - CD_0
+    yD = (D/((1/2)*RHO*(Va**2)*const.S)) - CD_0
 
     # n*2 リグレッサー（独立変数）や実験データのリスト
     xD = np.zeros((data_size,2))
     xD[:,0] = CL**2
-    xD[:,1] = 1/((1/2)*const.RHO*Va*const.S)
+    xD[:,1] = 1/((1/2)*RHO*Va*const.S)
 
     # # ３次ローパスフィルタをかける
     # for i in range(3):
@@ -125,7 +126,7 @@ def sys_id_LS_yoshimura(format_df):
     #---------------------------
 
     # n*1 空力モーメントから計算された値のリスト
-    ym = Ma/((1/2)*const.RHO*(Va**2)*const.S*const.MAC)
+    ym = Ma/((1/2)*RHO*(Va**2)*const.S*const.MAC)
 
     # n*5 リグレッサー（独立変数）や実験データのリスト
     xm = np.zeros((data_size,5))
@@ -133,7 +134,7 @@ def sys_id_LS_yoshimura(format_df):
     xm[:,1] = alpha
     xm[:,2] = (const.MAC/(2*Va))*d_theta
     xm[:,3] = delta_e
-    xm[:,4] = 1/((1/2)*const.RHO*Va*const.S*const.MAC)
+    xm[:,4] = 1/((1/2)*RHO*Va*const.S*const.MAC)
 
     # # ３次ローパスフィルタをかける
     # for i in range(3):
@@ -163,9 +164,9 @@ def sys_id_LS_yoshimura(format_df):
     # 同定結果を用いて空力を再現
     #---------------------------
 
-    L_calc = (1/2)*const.RHO*const.S*(Va**2)*CL + k_L*Va
-    D_calc = (1/2)*const.RHO*const.S*(Va**2)*CD + k_D*Va
-    Ma_calc = (1/2)*const.RHO*const.S*(Va**2)*const.MAC*Cm + k_m*Va
+    L_calc = (1/2)*RHO*const.S*(Va**2)*CL + k_L*Va
+    D_calc = (1/2)*RHO*const.S*(Va**2)*CD + k_D*Va
+    Ma_calc = (1/2)*RHO*const.S*(Va**2)*const.MAC*Cm + k_m*Va
 
     #---------------------------
     # 結果をデータファイルに書き込んで返す
@@ -227,13 +228,14 @@ def sys_id_LS_with_dalpha(format_df):
     L = np.array(format_df['L'])
     D = np.array(format_df['D'])
     Ma = np.array(format_df['Ma'])
+    RHO = np.array(format_df['RHO'])
 
     #---------------------------
     # 揚力
     #---------------------------
 
     # n*1 揚力から計算された値のリスト
-    yL = (L/((1/2)*const.RHO*(Va**2)*const.S))
+    yL = (L/((1/2)*RHO*(Va**2)*const.S))
 
     # n*6 リグレッサー（独立変数）や実験データのリスト
     xL = np.zeros((data_size,6))
@@ -268,7 +270,7 @@ def sys_id_LS_with_dalpha(format_df):
     #---------------------------
 
     # n*1 抗力から計算された値のリスト
-    yD = (D/((1/2)*const.RHO*(Va**2)*const.S))
+    yD = (D/((1/2)*RHO*(Va**2)*const.S))
 
     # n*3 リグレッサー（独立変数）や実験データのリスト
     xD = np.zeros((data_size,3))
@@ -292,7 +294,7 @@ def sys_id_LS_with_dalpha(format_df):
     #---------------------------
 
     # n*1 空力モーメントから計算された値のリスト
-    ym = Ma/((1/2)*const.RHO*(Va**2)*const.S*const.MAC)
+    ym = Ma/((1/2)*RHO*(Va**2)*const.S*const.MAC)
 
     # n*6 リグレッサー（独立変数）や実験データのリスト
     xm = np.zeros((data_size,6))
@@ -326,17 +328,17 @@ def sys_id_LS_with_dalpha(format_df):
     # 同定結果を用いて空力を再現
     #---------------------------
 
-    L_calc = (1/2)*const.RHO*const.S*(Va**2)*CL
-    D_calc = (1/2)*const.RHO*const.S*(Va**2)*CD
-    Ma_calc = (1/2)*const.RHO*const.S*(Va**2)*const.MAC*Cm
+    L_calc = (1/2)*RHO*const.S*(Va**2)*CL
+    D_calc = (1/2)*RHO*const.S*(Va**2)*CD
+    Ma_calc = (1/2)*RHO*const.S*(Va**2)*const.MAC*Cm
 
     #---------------------------
     # k_*を計算
     #---------------------------
 
-    k_L = (1/2)*const.RHO*const.S*CL_k
-    k_D = (1/2)*const.RHO*const.S*CD_k
-    k_m = (1/2)*const.RHO*const.S*const.MAC*Cm_k
+    k_L = (1/2)*RHO*const.S*CL_k
+    k_D = (1/2)*RHO*const.S*CD_k
+    k_m = (1/2)*RHO*const.S*const.MAC*Cm_k
 
     #---------------------------
     # 結果をデータファイルに書き込んで返す
@@ -404,13 +406,14 @@ def sys_id_LS(format_df):
     L = np.array(format_df['L'])
     D = np.array(format_df['D'])
     Ma = np.array(format_df['Ma'])
+    RHO = np.array(format_df['RHO'])
 
     #---------------------------
     # 揚力
     #---------------------------
 
     # n*1 揚力から計算された値のリスト
-    yL = (L/((1/2)*const.RHO*(Va**2)*const.S))
+    yL = (L/((1/2)*RHO*(Va**2)*const.S))
 
     # n*5 リグレッサー（独立変数）や実験データのリスト
     xL = np.zeros((data_size,5))
@@ -442,7 +445,7 @@ def sys_id_LS(format_df):
     #---------------------------
 
     # n*1 抗力から計算された値のリスト
-    yD = (D/((1/2)*const.RHO*(Va**2)*const.S))
+    yD = (D/((1/2)*RHO*(Va**2)*const.S))
 
     # n*3 リグレッサー（独立変数）や実験データのリスト
     xD = np.zeros((data_size,3))
@@ -466,7 +469,7 @@ def sys_id_LS(format_df):
     #---------------------------
 
     # n*1 空力モーメントから計算された値のリスト
-    ym = Ma/((1/2)*const.RHO*(Va**2)*const.S*const.MAC)
+    ym = Ma/((1/2)*RHO*(Va**2)*const.S*const.MAC)
 
     # n*5 リグレッサー（独立変数）や実験データのリスト
     xm = np.zeros((data_size,5))
@@ -497,17 +500,17 @@ def sys_id_LS(format_df):
     # 同定結果を用いて空力を再現
     #---------------------------
 
-    L_calc = (1/2)*const.RHO*const.S*(Va**2)*CL
-    D_calc = (1/2)*const.RHO*const.S*(Va**2)*CD
-    Ma_calc = (1/2)*const.RHO*const.S*(Va**2)*const.MAC*Cm
+    L_calc = (1/2)*RHO*const.S*(Va**2)*CL
+    D_calc = (1/2)*RHO*const.S*(Va**2)*CD
+    Ma_calc = (1/2)*RHO*const.S*(Va**2)*const.MAC*Cm
 
     #---------------------------
     # k_*を計算
     #---------------------------
 
-    k_L = (1/2)*const.RHO*const.S*CL_k
-    k_D = (1/2)*const.RHO*const.S*CD_k
-    k_m = (1/2)*const.RHO*const.S*const.MAC*Cm_k
+    k_L = (1/2)*RHO*const.S*CL_k
+    k_D = (1/2)*RHO*const.S*CD_k
+    k_m = (1/2)*RHO*const.S*const.MAC*Cm_k
 
     #---------------------------
     # 結果をデータファイルに書き込んで返す
@@ -574,13 +577,14 @@ def sys_id_LS_non_kv(format_df):
     L = np.array(format_df['L'])
     D = np.array(format_df['D'])
     Ma = np.array(format_df['Ma'])
+    RHO = np.array(format_df['RHO'])
 
     #---------------------------
     # 揚力
     #---------------------------
 
     # n*1 揚力から計算された値のリスト
-    yL = (L/((1/2)*const.RHO*(Va**2)*const.S))
+    yL = (L/((1/2)*RHO*(Va**2)*const.S))
 
     # n*5 リグレッサー（独立変数）や実験データのリスト
     xL = np.zeros((data_size,5))
@@ -612,7 +616,7 @@ def sys_id_LS_non_kv(format_df):
     #---------------------------
 
     # n*1 抗力から計算された値のリスト
-    yD = (D/((1/2)*const.RHO*(Va**2)*const.S))
+    yD = (D/((1/2)*RHO*(Va**2)*const.S))
 
     # n*2 リグレッサー（独立変数）や実験データのリスト
     xD = np.zeros((data_size,2))
@@ -634,7 +638,7 @@ def sys_id_LS_non_kv(format_df):
     #---------------------------
 
     # n*1 空力モーメントから計算された値のリスト
-    ym = Ma/((1/2)*const.RHO*(Va**2)*const.S*const.MAC)
+    ym = Ma/((1/2)*RHO*(Va**2)*const.S*const.MAC)
 
     # n*5 リグレッサー（独立変数）や実験データのリスト
     xm = np.zeros((data_size,5))
@@ -665,9 +669,9 @@ def sys_id_LS_non_kv(format_df):
     # 同定結果を用いて空力を再現
     #---------------------------
 
-    L_calc = (1/2)*const.RHO*const.S*(Va**2)*CL
-    D_calc = (1/2)*const.RHO*const.S*(Va**2)*CD
-    Ma_calc = (1/2)*const.RHO*const.S*(Va**2)*const.MAC*Cm
+    L_calc = (1/2)*RHO*const.S*(Va**2)*CL
+    D_calc = (1/2)*RHO*const.S*(Va**2)*CD
+    Ma_calc = (1/2)*RHO*const.S*(Va**2)*const.MAC*Cm
 
     #---------------------------
     # 結果をデータファイルに書き込んで返す
@@ -732,13 +736,14 @@ def sys_id_LS_ex_with_dalpha(format_df):
     L = np.array(format_df['L'])
     D = np.array(format_df['D'])
     Ma = np.array(format_df['Ma'])
+    RHO = np.array(format_df['RHO'])
 
     #---------------------------
     # 揚力
     #---------------------------
 
     # n*1 揚力から計算された値のリスト
-    yL = (L/((1/2)*const.RHO*(Va**2)*const.S))
+    yL = (L/((1/2)*RHO*(Va**2)*const.S))
 
     # n*6 リグレッサー（独立変数）や実験データのリスト
     xL = np.zeros((data_size,6))
@@ -773,7 +778,7 @@ def sys_id_LS_ex_with_dalpha(format_df):
     #---------------------------
 
     # n*1 抗力から計算された値のリスト
-    yD = (D/((1/2)*const.RHO*(Va**2)*const.S))
+    yD = (D/((1/2)*RHO*(Va**2)*const.S))
 
     # n*6 リグレッサー（独立変数）や実験データのリスト
     xD = np.zeros((data_size,6))
@@ -808,7 +813,7 @@ def sys_id_LS_ex_with_dalpha(format_df):
     #---------------------------
 
     # n*1 空力モーメントから計算された値のリスト
-    ym = Ma/((1/2)*const.RHO*(Va**2)*const.S*const.MAC)
+    ym = Ma/((1/2)*RHO*(Va**2)*const.S*const.MAC)
 
     # n*6 リグレッサー（独立変数）や実験データのリスト
     xm = np.zeros((data_size,6))
@@ -842,17 +847,17 @@ def sys_id_LS_ex_with_dalpha(format_df):
     # 同定結果を用いて空力を再現
     #---------------------------
 
-    L_calc = (1/2)*const.RHO*const.S*(Va**2)*CL
-    D_calc = (1/2)*const.RHO*const.S*(Va**2)*CD
-    Ma_calc = (1/2)*const.RHO*const.S*(Va**2)*const.MAC*Cm
+    L_calc = (1/2)*RHO*const.S*(Va**2)*CL
+    D_calc = (1/2)*RHO*const.S*(Va**2)*CD
+    Ma_calc = (1/2)*RHO*const.S*(Va**2)*const.MAC*Cm
 
     #---------------------------
     # k_*を計算
     #---------------------------
 
-    k_L = (1/2)*const.RHO*const.S*CL_k
-    k_D = (1/2)*const.RHO*const.S*CD_k
-    k_m = (1/2)*const.RHO*const.S*const.MAC*Cm_k
+    k_L = (1/2)*RHO*const.S*CL_k
+    k_D = (1/2)*RHO*const.S*CD_k
+    k_m = (1/2)*RHO*const.S*const.MAC*Cm_k
 
     #---------------------------
     # 結果をデータファイルに書き込んで返す
@@ -927,13 +932,14 @@ def sys_id_LS_ex_non_kv(format_df):
     L = np.array(format_df['L'])
     D = np.array(format_df['D'])
     Ma = np.array(format_df['Ma'])
+    RHO = np.array(format_df['RHO'])
 
     #---------------------------
     # 揚力
     #---------------------------
 
     # n*1 揚力から計算された値のリスト
-    yL = (L/((1/2)*const.RHO*(Va**2)*const.S))
+    yL = (L/((1/2)*RHO*(Va**2)*const.S))
 
     # n*6 リグレッサー（独立変数）や実験データのリスト
     xL = np.zeros((data_size,5))
@@ -965,7 +971,7 @@ def sys_id_LS_ex_non_kv(format_df):
     #---------------------------
 
     # n*1 抗力から計算された値のリスト
-    yD = (D/((1/2)*const.RHO*(Va**2)*const.S))
+    yD = (D/((1/2)*RHO*(Va**2)*const.S))
 
     # n*6 リグレッサー（独立変数）や実験データのリスト
     xD = np.zeros((data_size,5))
@@ -997,7 +1003,7 @@ def sys_id_LS_ex_non_kv(format_df):
     #---------------------------
 
     # n*1 空力モーメントから計算された値のリスト
-    ym = Ma/((1/2)*const.RHO*(Va**2)*const.S*const.MAC)
+    ym = Ma/((1/2)*RHO*(Va**2)*const.S*const.MAC)
 
     # n*6 リグレッサー（独立変数）や実験データのリスト
     xm = np.zeros((data_size,5))
@@ -1028,9 +1034,9 @@ def sys_id_LS_ex_non_kv(format_df):
     # 同定結果を用いて空力を再現
     #---------------------------
 
-    L_calc = (1/2)*const.RHO*const.S*(Va**2)*CL
-    D_calc = (1/2)*const.RHO*const.S*(Va**2)*CD
-    Ma_calc = (1/2)*const.RHO*const.S*(Va**2)*const.MAC*Cm
+    L_calc = (1/2)*RHO*const.S*(Va**2)*CL
+    D_calc = (1/2)*RHO*const.S*(Va**2)*CD
+    Ma_calc = (1/2)*RHO*const.S*(Va**2)*const.MAC*Cm
 
     #---------------------------
     # 結果をデータファイルに書き込んで返す

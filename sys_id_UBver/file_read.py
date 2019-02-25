@@ -14,7 +14,7 @@ import math_extention as matex
 import fourier_filter as ffilt
 
 
-def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log_data):
+def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, RHO, GAMMA, input_log_data):
     '''
     CSVファイルを読み込み，それぞれ必要な計算をして，DataFrameにまとめる.
 
@@ -30,6 +30,8 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
         風速．
     THRUST_EF : float64
         推力効率．
+    RHO : float64
+        大気密度．実験ごとに測定された気温などから計算．
     GAMMA: int
         ティルト角．
     input_log_data: pandas.DataFrame
@@ -297,9 +299,13 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
 
     # 空力モーメントを計算
     M = const.I_YY * dd_theta # 全軸モーメント
+
+    # ロータ推力によるモーメント
+    # ２行目は，ティルト軸が原点から微妙にずれているため追加．
     Mt = const.LEN_F*(Tf_up + Tf_down) \
+        + const.LEN_TILT*(Tf_up + Tf_down)*np.sin(tilt) \
         - const.LEN_M*(Tm_up + Tm_down)*np.cos(tilt) \
-        - const.LEN_R_X*(Tr_l + Tr_r) # ロータ推力によるモーメント
+        - const.LEN_R_X*(Tr_l + Tr_r)
 
     # 重力によるモーメント
     Lg = const.R_G_Z*const.MASS*const.GRA*np.cos(theta)*np.sin(phi)
@@ -326,9 +332,9 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
     # ログデータから算出した空力係数
     #---------------------------
 
-    CL_log = L / ((1/2)*const.RHO*(Va_mag)**2*const.S)
-    CD_log = D / ((1/2)*const.RHO*(Va_mag)**2*const.S)
-    Cm_log = Ma / ((1/2)*const.RHO*(Va_mag)**2*const.S*const.MAC)
+    CL_log = L / ((1/2)*RHO*(Va_mag)**2*const.S)
+    CD_log = D / ((1/2)*RHO*(Va_mag)**2*const.S)
+    Cm_log = Ma / ((1/2)*RHO*(Va_mag)**2*const.S*const.MAC)
 
     #---------------------------
     # データを一つにまとめる
@@ -364,6 +370,7 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
         'delta_e' : delta_e,
         'delta_a' : delta_a,
         'tilt' : tilt,
+        'RHO' : RHO,
         'F_x' : F_x,
         'T_x' : T_x,
         'F_z' : F_z,

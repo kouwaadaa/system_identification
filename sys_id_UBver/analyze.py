@@ -49,6 +49,7 @@ def linearlize(format_log_data):
     w = np.array(format_log_data['w'])
     delta_e = np.array(format_log_data['delta_e'])
     tilt = np.array(format_log_data['tilt'])
+    RHO = np.array(format_log_data['RHO'])
     L = np.array(format_log_data['L'])
     D = np.array(format_log_data['D'])
     Ma = np.array(format_log_data['Ma'])
@@ -92,15 +93,15 @@ def linearlize(format_log_data):
     p_diff_CL_to_delta_e = CL_delta_e
 
     # L
-    p_diff_L_to_u = const.RHO*const.S*CL*u/(cos_alpha)**2 \
-                    + const.RHO*const.S*u**2*p_diff_CL_to_u/(2*(cos_alpha)**2) \
+    p_diff_L_to_u = RHO*const.S*CL*u/(cos_alpha)**2 \
+                    + RHO*const.S*u**2*p_diff_CL_to_u/(2*(cos_alpha)**2) \
                     + k_L/cos_alpha
-    p_diff_L_to_alpha = const.RHO*const.S*u**2*CL*(sin_alpha/(cos_alpha**3)) \
-                        + const.RHO*const.S*u**2*p_diff_CL_to_alpha/(2*cos_alpha**2) \
+    p_diff_L_to_alpha = RHO*const.S*u**2*CL*(sin_alpha/(cos_alpha**3)) \
+                        + RHO*const.S*u**2*p_diff_CL_to_alpha/(2*cos_alpha**2) \
                         + k_L*u*(sin_alpha/(cos_alpha**2))
-    p_diff_L_to_d_alpha = const.RHO*const.S*u**2*p_diff_CL_to_d_alpha/(2*cos_alpha**2)
-    p_diff_L_to_q = const.RHO*const.S*u**2*p_diff_CL_to_q/(2*cos_alpha**2)
-    p_diff_L_to_delta_e = const.RHO*const.S*u**2*p_diff_CL_to_delta_e/(2*cos_alpha**2)
+    p_diff_L_to_d_alpha = RHO*const.S*u**2*p_diff_CL_to_d_alpha/(2*cos_alpha**2)
+    p_diff_L_to_q = RHO*const.S*u**2*p_diff_CL_to_q/(2*cos_alpha**2)
+    p_diff_L_to_delta_e = RHO*const.S*u**2*p_diff_CL_to_delta_e/(2*cos_alpha**2)
 
     # CD
     p_diff_CD_to_u = 2*kappa*CL*p_diff_CL_to_u
@@ -110,15 +111,15 @@ def linearlize(format_log_data):
     p_diff_CD_to_delta_e = 2*kappa*CL*p_diff_CL_to_delta_e
 
     # D
-    p_diff_D_to_u = const.RHO*const.S*CD*u/(cos_alpha)**2 \
-                    + const.RHO*const.S*u**2*p_diff_CD_to_u/(2*(cos_alpha)**2) \
+    p_diff_D_to_u = RHO*const.S*CD*u/(cos_alpha)**2 \
+                    + RHO*const.S*u**2*p_diff_CD_to_u/(2*(cos_alpha)**2) \
                     + k_D/cos_alpha
-    p_diff_D_to_alpha = const.RHO*const.S*u**2*CD*(sin_alpha/(cos_alpha**3)) \
-                        + const.RHO*const.S*u**2*p_diff_CD_to_alpha/(2*cos_alpha**2) \
+    p_diff_D_to_alpha = RHO*const.S*u**2*CD*(sin_alpha/(cos_alpha**3)) \
+                        + RHO*const.S*u**2*p_diff_CD_to_alpha/(2*cos_alpha**2) \
                         + k_D*u*(sin_alpha/(cos_alpha**2))
-    p_diff_D_to_d_alpha = const.RHO*const.S*u**2*p_diff_CD_to_d_alpha/(2*cos_alpha**2)
-    p_diff_D_to_q = const.RHO*const.S*u**2*p_diff_CD_to_q/(2*cos_alpha**2)
-    p_diff_D_to_delta_e = const.RHO*const.S*u**2*p_diff_CD_to_delta_e/(2*cos_alpha**2)
+    p_diff_D_to_d_alpha = RHO*const.S*u**2*p_diff_CD_to_d_alpha/(2*cos_alpha**2)
+    p_diff_D_to_q = RHO*const.S*u**2*p_diff_CD_to_q/(2*cos_alpha**2)
+    p_diff_D_to_delta_e = RHO*const.S*u**2*p_diff_CD_to_delta_e/(2*cos_alpha**2)
 
     # Cm
     p_diff_Cm_to_u = - (1/2)*Cm_q*const.MAC*cos_alpha*d_theta*(1/u**2)
@@ -128,15 +129,15 @@ def linearlize(format_log_data):
     p_diff_Cm_to_delta_e = Cm_delta_e
 
     # Ma
-    p_diff_Ma_to_u = const.RHO*const.S*Cm*u/(cos_alpha)**2 \
-                    + const.RHO*const.S*u**2*p_diff_Cm_to_u/(2*(cos_alpha)**2) \
+    p_diff_Ma_to_u = RHO*const.S*Cm*u/(cos_alpha)**2 \
+                    + RHO*const.S*u**2*p_diff_Cm_to_u/(2*(cos_alpha)**2) \
                     + k_m/cos_alpha
-    p_diff_Ma_to_alpha = const.RHO*const.S*u**2*Cm*(sin_alpha/(cos_alpha**3)) \
-                        + const.RHO*const.S*u**2*p_diff_Cm_to_alpha/(2*cos_alpha**2) \
+    p_diff_Ma_to_alpha = RHO*const.S*u**2*Cm*(sin_alpha/(cos_alpha**3)) \
+                        + RHO*const.S*u**2*p_diff_Cm_to_alpha/(2*cos_alpha**2) \
                         + k_m*u*(sin_alpha/(cos_alpha**2))
-    p_diff_Ma_to_d_alpha = const.RHO*const.S*u**2*p_diff_Cm_to_d_alpha/(2*cos_alpha**2)
-    p_diff_Ma_to_q = const.RHO*const.S*u**2*p_diff_Cm_to_q/(2*cos_alpha**2)
-    p_diff_Ma_to_delta_e = const.RHO*const.S*u**2*p_diff_Cm_to_delta_e/(2*cos_alpha**2)
+    p_diff_Ma_to_d_alpha = RHO*const.S*u**2*p_diff_Cm_to_d_alpha/(2*cos_alpha**2)
+    p_diff_Ma_to_q = RHO*const.S*u**2*p_diff_Cm_to_q/(2*cos_alpha**2)
+    p_diff_Ma_to_delta_e = RHO*const.S*u**2*p_diff_Cm_to_delta_e/(2*cos_alpha**2)
 
     # Xa
     p_diff_Xa_to_u = p_diff_L_to_u*sin_alpha \
@@ -292,6 +293,7 @@ def linearlize_non_d_alpha(format_log_data):
     w = np.array(format_log_data['w'])
     delta_e = np.array(format_log_data['delta_e'])
     tilt = np.array(format_log_data['tilt'])
+    RHO = np.array(format_log_data['RHO'])
     L = np.array(format_log_data['L'])
     D = np.array(format_log_data['D'])
     Ma = np.array(format_log_data['Ma'])
@@ -332,14 +334,14 @@ def linearlize_non_d_alpha(format_log_data):
     p_diff_CL_to_delta_e = CL_delta_e
 
     # L
-    p_diff_L_to_u = const.RHO*const.S*CL*u/(cos_alpha)**2 \
-                    + const.RHO*const.S*u**2*p_diff_CL_to_u/(2*(cos_alpha)**2) \
+    p_diff_L_to_u = RHO*const.S*CL*u/(cos_alpha)**2 \
+                    + RHO*const.S*u**2*p_diff_CL_to_u/(2*(cos_alpha)**2) \
                     + k_L/cos_alpha
-    p_diff_L_to_alpha = const.RHO*const.S*u**2*CL*(sin_alpha/(cos_alpha**3)) \
-                        + const.RHO*const.S*u**2*p_diff_CL_to_alpha/(2*cos_alpha**2) \
+    p_diff_L_to_alpha = RHO*const.S*u**2*CL*(sin_alpha/(cos_alpha**3)) \
+                        + RHO*const.S*u**2*p_diff_CL_to_alpha/(2*cos_alpha**2) \
                         + k_L*u*(sin_alpha/(cos_alpha**2))
-    p_diff_L_to_q = const.RHO*const.S*u**2*p_diff_CL_to_q/(2*cos_alpha**2)
-    p_diff_L_to_delta_e = const.RHO*const.S*u**2*p_diff_CL_to_delta_e/(2*cos_alpha**2)
+    p_diff_L_to_q = RHO*const.S*u**2*p_diff_CL_to_q/(2*cos_alpha**2)
+    p_diff_L_to_delta_e = RHO*const.S*u**2*p_diff_CL_to_delta_e/(2*cos_alpha**2)
 
     # CD
     p_diff_CD_to_u = 2*kappa*CL*p_diff_CL_to_u
@@ -348,14 +350,14 @@ def linearlize_non_d_alpha(format_log_data):
     p_diff_CD_to_delta_e = 2*kappa*CL*p_diff_CL_to_delta_e
 
     # D
-    p_diff_D_to_u = const.RHO*const.S*CD*u/(cos_alpha)**2 \
-                    + const.RHO*const.S*u**2*p_diff_CD_to_u/(2*(cos_alpha)**2) \
+    p_diff_D_to_u = RHO*const.S*CD*u/(cos_alpha)**2 \
+                    + RHO*const.S*u**2*p_diff_CD_to_u/(2*(cos_alpha)**2) \
                     + k_D/cos_alpha
-    p_diff_D_to_alpha = const.RHO*const.S*u**2*CD*(sin_alpha/(cos_alpha**3)) \
-                        + const.RHO*const.S*u**2*p_diff_CD_to_alpha/(2*cos_alpha**2) \
+    p_diff_D_to_alpha = RHO*const.S*u**2*CD*(sin_alpha/(cos_alpha**3)) \
+                        + RHO*const.S*u**2*p_diff_CD_to_alpha/(2*cos_alpha**2) \
                         + k_D*u*(sin_alpha/(cos_alpha**2))
-    p_diff_D_to_q = const.RHO*const.S*u**2*p_diff_CD_to_q/(2*cos_alpha**2)
-    p_diff_D_to_delta_e = const.RHO*const.S*u**2*p_diff_CD_to_delta_e/(2*cos_alpha**2)
+    p_diff_D_to_q = RHO*const.S*u**2*p_diff_CD_to_q/(2*cos_alpha**2)
+    p_diff_D_to_delta_e = RHO*const.S*u**2*p_diff_CD_to_delta_e/(2*cos_alpha**2)
 
     # Cm
     p_diff_Cm_to_u = - (1/2)*Cm_q*const.MAC*cos_alpha*d_theta*(1/u**2)
@@ -364,14 +366,14 @@ def linearlize_non_d_alpha(format_log_data):
     p_diff_Cm_to_delta_e = Cm_delta_e
 
     # Ma
-    p_diff_Ma_to_u = const.RHO*const.S*Cm*u/(cos_alpha)**2 \
-                    + const.RHO*const.S*u**2*p_diff_Cm_to_u/(2*(cos_alpha)**2) \
+    p_diff_Ma_to_u = RHO*const.S*Cm*u/(cos_alpha)**2 \
+                    + RHO*const.S*u**2*p_diff_Cm_to_u/(2*(cos_alpha)**2) \
                     + k_m/cos_alpha
-    p_diff_Ma_to_alpha = const.RHO*const.S*u**2*Cm*(sin_alpha/(cos_alpha**3)) \
-                        + const.RHO*const.S*u**2*p_diff_Cm_to_alpha/(2*cos_alpha**2) \
+    p_diff_Ma_to_alpha = RHO*const.S*u**2*Cm*(sin_alpha/(cos_alpha**3)) \
+                        + RHO*const.S*u**2*p_diff_Cm_to_alpha/(2*cos_alpha**2) \
                         + k_m*u*(sin_alpha/(cos_alpha**2))
-    p_diff_Ma_to_q = const.RHO*const.S*u**2*p_diff_Cm_to_q/(2*cos_alpha**2)
-    p_diff_Ma_to_delta_e = const.RHO*const.S*u**2*p_diff_Cm_to_delta_e/(2*cos_alpha**2)
+    p_diff_Ma_to_q = RHO*const.S*u**2*p_diff_Cm_to_q/(2*cos_alpha**2)
+    p_diff_Ma_to_delta_e = RHO*const.S*u**2*p_diff_Cm_to_delta_e/(2*cos_alpha**2)
 
     # Xa
     p_diff_Xa_to_u = p_diff_L_to_u*sin_alpha \
