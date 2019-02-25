@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-# author: ub
-
 '''
+author: ub
 ファイル読み込みに関する関数．
 '''
 
