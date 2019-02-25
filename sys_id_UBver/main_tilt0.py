@@ -98,20 +98,18 @@ format_df = format_df.reset_index()
 # パラメータ推定の結果を計算し，取得
 #---------------------------
 
-# format_df1 = sys_id.sys_id_LS(format_df)
-# format_df2 = sys_id.sys_id_LS_ex(format_df)
-format_df4 = sys_id.sys_id_LS_max_non_kv(format_df)
-format_df5 = sys_id.sys_id_LS_max_ub(format_df)
-format_df6 = sys_id.sys_id_LS_non_d_alpha_ub(format_df)
-format_df7 = sys_id.sys_id_LS_complete_ub(format_df)
-format_df8 = sys_id.sys_id_LS_max_non_kv_d_alpha(format_df)
+df_non_kv = sys_id.sys_id_LS_non_kv(format_df)
+df_with_dalpha = sys_id.sys_id_LS_with_dalpha(format_df)
+df_non_dalpha = sys_id.sys_id_LS(format_df)
+df_ex_with_dalpha = sys_id.sys_id_LS_ex_with_dalpha(format_df)
+df_ex_non_kv = sys_id.sys_id_LS_ex_non_kv(format_df)
 
 #---------------------------
 # 機体の状態方程式から固有振動数を解析する
 #---------------------------
 
-# anly_result = analyze.linearlize(format_df5)
-anly_result = analyze.linearlize_non_d_alpha(format_df6)
+# anly_result = analyze.linearlize(df_with_dalpha)
+anly_result = analyze.linearlize_non_d_alpha(df_non_dalpha)
 
 #---------------------------
 # データの取り出し
@@ -123,10 +121,10 @@ data_size = len(format_df) # 合計のデータサイズを取得
 # 結果をプロット
 #---------------------------
 
-format_df4 = statistics.calc_RMSE(format_df4)
-format_df5 = statistics.calc_RMSE(format_df5)
-format_df6 = statistics.calc_RMSE(format_df6)
-format_df7 = statistics.calc_RMSE(format_df7)
+df_with_dalpha = statistics.calc_RMSE(df_with_dalpha)
+df_non_dalpha = statistics.calc_RMSE(df_non_dalpha)
+df_non_kv = statistics.calc_RMSE(df_non_kv)
+df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
 # format_df8 = statistics.calc_RMSE(format_df8)
 
 # df5_V_filter = format_df5.query('4.5 <= Va <= 5.5')
@@ -280,25 +278,25 @@ format_df7 = statistics.calc_RMSE(format_df7)
 #----------------------------------------------------------------
 
 
-Va = np.array(format_df5['Va'])
-CD_log = np.array(format_df5['CD_log'])
-CD_4 = np.array(format_df4['CD']) # non kV
-CD_5 = np.array(format_df5['CD']) # max
-# CL_6 = np.array(format_df6['CL']) # non d_alpha
-
-# plt.figure(figsize=(12,10))
-plt.subplot(111)
-plt.xlim([2.2,7.4])
-plt.ylim([0.4,5.2])
-plt.scatter(Va,CD_log,label="Data1: log data",linewidth="3")
+# Va = np.array(format_df5['Va'])
+# CD_log = np.array(format_df5['CD_log'])
+# CD_4 = np.array(format_df4['CD']) # non kV
+# CD_5 = np.array(format_df5['CD']) # max
+# # CL_6 = np.array(format_df6['CL']) # non d_alpha
+#
+# # plt.figure(figsize=(12,10))
+# plt.subplot(111)
+# plt.xlim([2.2,7.4])
+# plt.ylim([0.4,5.2])
+# plt.scatter(Va,CD_log,label="Data1: log data",linewidth="3")
 # plt.scatter(Va,CD_4,label=r"Data2: model without $k_DV_a$")
 # plt.scatter(Va,CD_5,label=r"Data3: model with $k_DV_a$")
-# plt.scatter(Va,CD_6,label=r"Model:No $\dot{\alpha}$")
-# plt.legend()
-
-plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$')
-plt.ylabel(r'$C_D$')
-plt.tight_layout()
+# # plt.scatter(Va,CD_6,label=r"Model:No $\dot{\alpha}$")
+# # plt.legend()
+#
+# plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$')
+# plt.ylabel(r'$C_D$')
+# plt.tight_layout()
 
 # f_up_pwm = np.array(format_df5['f_up_pwm'])
 #

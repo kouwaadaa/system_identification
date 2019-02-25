@@ -106,12 +106,12 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
     theta = np.array(df['ATT_Pitch'])
     psi = np.array(df['ATT_Yaw'])
 
-    # 角速度
+    # 角速度 p,q,r
     d_phi = np.array(df['ATT_RollRate'])
     d_theta = np.array(df['ATT_PitchRate'])
     d_psi = np.array(df['ATT_YawRate'])
 
-    # 位置
+    # 位置 x,y,z
     position_x = np.array(df['LPOS_X'])
     position_y = np.array(df['LPOS_Y'])
     position_z = np.array(df['LPOS_Z'])
@@ -120,6 +120,7 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
     d_position_x = np.array(df['LPOS_VX'])
     d_position_y = np.array(df['LPOS_VY'])
     d_position_z = np.array(df['LPOS_VZ'])
+    Vp = np.array([d_position_x, d_position_y, d_position_z])
 
     # GPS高度
     gps_altitude = np.array(df['GPS_Alt'])
@@ -154,7 +155,7 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
     # 計算の必要がある値
     #---------------------------
 
-    # ロータ推力
+    # ロータ推力 推算値，要修正？
     Tm_up = THRUST_EF*0.5*const.GRA*(9.5636* 10**(-3)*m_up_pwm - 12.1379)
     Tm_down = THRUST_EF*0.5*const.GRA*(9.5636* 10**(-3)*m_down_pwm - 12.1379)
     Tr_r = const.GRA*(1.5701* 10**(-6) *(r_r_pwm)**2 - 3.3963*10**(-3)*r_r_pwm + 1.9386)
@@ -179,36 +180,29 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
     delta_a = (delta_e_l + delta_e_r)/2
 
     # 速度
-    Vi = []
-    Vi_wind = []
-
-    # 機体速度（対地）の計算
-    Vg_pixhawk = np.sqrt(
-        d_position_x**2 \
-        + d_position_y**2 \
-        + d_position_z**2
-    )
+    Vg = []
+    Vg_wind = []
 
     # 機体速度と風速を慣性座標系へ変換
     for i in range(data_size):
-        Vi.append(
+        Vg.append(
             matex.bc2ic(phi[i],theta[i],psi[i],d_position_x[i],d_position_y[i],d_position_z[i])
         )
-        Vi_wind.append(
+        Vg_wind.append(
             matex.bc2ic(phi[i],theta[i],0,V_W,0,0) # 風に対してヨー角はずれていないと仮定
         )
 
     # リストからnumpy配列に変換
-    Vi = np.array(Vi)
-    Vi_wind = np.array(Vi_wind)
+    Vg = np.array(Vg)
+    Vg_wind = np.array(Vg_wind)
 
     # センサー位置の補正
-    # 要修正？
-    # Vi[:,1] = Vi[:,1] - d_psi*const.LEN_P
-    Vi[:,2] = Vi[:,2] + d_theta*const.LEN_P
+    Vg[:,0] = Vg[:,0] + d_theta*const.LEN_PZ
+    Vg[:,1] = Vg[:,1] - d_psi*const.LEN_PX - d_phi*const.LEN_PZ
+    Vg[:,2] = Vg[:,2] + d_theta*const.LEN_PX
 
     # 対気速度を計算
-    Va = Vi - Vi_wind
+    Va = Vg - Vg_wind
     Va_mag = np.sqrt(
         Va[:,0]**2
         + Va[:,1]**2
@@ -230,15 +224,15 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
     # 加速度を計算
     # 各軸ごとに計算してまとめ，最後にそれぞれを分割している
     d_Va_list = np.array(
-    	matex.central_diff(Vi[:,0],time)
+    	matex.central_diff(Vg[:,0],time)
     ) # x軸
     d_Va_list = np.append(
         d_Va_list,
-        matex.central_diff(Vi[:,1],time)
+        matex.central_diff(Vg[:,1],time)
     ) # y軸
     d_Va_list = np.append(
         d_Va_list,
-        matex.central_diff(Vi[:,2],time)
+        matex.central_diff(Vg[:,2],time)
     ) # z軸
     d_Va =  np.reshape(d_Va_list,(data_size,3),order='F') # Unit
 
@@ -283,9 +277,9 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
             tilt = np.append(tilt,0)
 
     # 空力の計算
-    F_x = const.MASS * (d_Va[:,0] + d_theta*Vi[:,2]) \
+    F_x = const.MASS * (d_Va[:,0] + d_theta*Vg[:,2]) \
                         + const.MASS * const.GRA * np.sin(theta)
-    F_z = const.MASS * (d_Va[:,2] - d_theta*Vi[:,0]) \
+    F_z = const.MASS * (d_Va[:,2] - d_theta*Vg[:,0]) \
                         - const.MASS * const.GRA * np.cos(theta)
     T_x = (Tm_up + Tm_down) * np.sin(tilt)
     T_z = - (Tm_up + Tm_down) * np.cos(tilt) \
@@ -329,7 +323,7 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
     Ma = ffilt.fourier_filter(Ma,0.02,data_size,10)
 
     #---------------------------
-    # kawano
+    # ログデータから算出した空力係数
     #---------------------------
 
     CL_log = L / ((1/2)*const.RHO*(Va_mag)**2*const.S)
@@ -385,8 +379,6 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, GAMMA, input_log
         'CL_log' : CL_log,
         'CD_log' : CD_log,
         'Cm_log' : Cm_log,
-        # 'Time_DIFF' : time_diff,
-        'f_up_pwm' : f_up_pwm,
         })
     ])
 
