@@ -342,7 +342,7 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, RHO, GAMMA, inpu
     # データを一つにまとめる
     #---------------------------
 
-    format_log_data = pd.concat([input_log_data, pd.DataFrame({
+    read_log_data = pd.DataFrame({
         'phi' : phi,
         'theta' : theta,
         'psi' : psi,
@@ -388,7 +388,15 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, RHO, GAMMA, inpu
         'CL_log' : CL_log,
         'CD_log' : CD_log,
         'Cm_log' : Cm_log,
-        })
-    ])
+    })
+
+    #---------------------------
+    # データの整理と結合
+    #---------------------------
+
+    # 中央差分による両端を落とす
+    read_log_data = read_log_data.drop(index=[0,data_size-1])
+
+    format_log_data = pd.concat([input_log_data, read_log_data])
 
     return format_log_data,data_size

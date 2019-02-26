@@ -101,6 +101,8 @@ borderline_list.append(size+borderline_list[-1])
 # これを残しておけばログデータごとのプロットがしやすい．
 format_df = format_df.reset_index()
 
+format_df = format_df.query('2 < Va')
+
 #---------------------------
 # パラメータ推定の結果を計算し，取得
 #---------------------------
@@ -139,24 +141,29 @@ data_size = len(format_df) # 合計のデータサイズを取得
 # 結果をプロット
 #---------------------------
 
-# Va横軸で空力係数比較
-Va = np.array(df_with_dalpha['Va'])
-CD_log = np.array(df_with_dalpha['CD_log'])
-CD_non_kv = np.array(df_non_kv['CD']) # non kV
-CD_with_dalpha = np.array(df_with_dalpha['CD']) # max
-# CD_non_dalpha = np.array(df_non_dalpha['CD']) # non d_alpha
-
-# plt.figure(figsize=(12,10))
-plt.subplot(111)
-plt.scatter(Va,CD_log,label="Data1: log data",linewidth="3")
-plt.scatter(Va,CD_non_kv,label=r"Data2: model without $k_DV_a$")
-plt.scatter(Va,CD_with_dalpha,label=r"Data3: model with $k_DV_a$")
-# plt.scatter(Va,CD_non_dalpha,label=r"Model:No $\dot{\alpha}$")
-plt.legend()
-
-plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$')
-plt.ylabel(r'$C_D$')
+df_with_dalpha[['CL_log','CL','Va']].plot.line(x='Va', style='o')
+df_with_dalpha[['CD_log','CD','Va']].plot.line(x='Va', style='o')
+df_with_dalpha[['Cm_log','Cm','Va']].plot.line(x='Va', style='o')
 plt.tight_layout()
+
+# # Va横軸で空力係数比較
+# Va = np.array(df_with_dalpha['Va'])
+# CD_log = np.array(df_with_dalpha['CD_log'])
+# CD_non_kv = np.array(df_non_kv['CD']) # non kV
+# CD_with_dalpha = np.array(df_with_dalpha['CD']) # max
+# # CD_non_dalpha = np.array(df_non_dalpha['CD']) # non d_alpha
+#
+# # plt.figure(figsize=(12,10))
+# plt.subplot(111)
+# plt.scatter(Va,CD_log,label="Data1: log data",linewidth="3")
+# plt.scatter(Va,CD_non_kv,label=r"Data2: model without $k_DV_a$")
+# plt.scatter(Va,CD_with_dalpha,label=r"Data3: model with $k_DV_a$")
+# # plt.scatter(Va,CD_non_dalpha,label=r"Model:No $\dot{\alpha}$")
+# plt.legend()
+#
+# plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$')
+# plt.ylabel(r'$C_D$')
+# plt.tight_layout()
 #------------------------------------------------------------------
 # # 各空気力の再現性を見る
 # L = np.array(df_with_dalpha['L_calc'])
