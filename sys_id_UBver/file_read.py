@@ -13,7 +13,7 @@ import math_extention as matex
 import fourier_filter as ffilt
 
 
-def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, RHO, GAMMA, input_log_data):
+def file_read(filename, section_ST, section_ED, V_W, T_EF, RHO, GAMMA, input_log_data):
     '''
     CSVファイルを読み込み，それぞれ必要な計算をして，DataFrameにまとめる.
 
@@ -27,8 +27,8 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, RHO, GAMMA, inpu
         ファイル切り取り区間の終わり[s].
     V_W : float64
         風速．
-    THRUST_EF : float64
-        推力効率．
+    T_EF : float64
+        推力効率係数．メインとサブで均等に分配．
     RHO : float64
         大気密度．実験ごとに測定された気温などから計算．
     GAMMA: int
@@ -156,21 +156,25 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, RHO, GAMMA, inpu
     # 計算の必要がある値
     #---------------------------
 
+    # メイン，サブロータにかかる推力効率係数を算出
+    X_HOVER = 40 / T_EF
+    T_E = const.MASS*const.GRA / ((const.MASS*const.GRA-40)+X_HOVER)
+
     # ロータ推力 推算値，要修正？
-    Tm_up = THRUST_EF*0.5*const.GRA*(9.5636* 10**(-3)*m_up_pwm - 12.1379)
-    Tm_down = THRUST_EF*0.5*const.GRA*(9.5636* 10**(-3)*m_down_pwm - 12.1379)
-    Tr_r = const.GRA*(1.5701* 10**(-6) *(r_r_pwm)**2 - 3.3963*10**(-3)*r_r_pwm + 1.9386)
-    Tr_l = const.GRA*(1.5701* 10**(-6) *(r_l_pwm)**2 - 3.3963*10**(-3)*r_l_pwm + 1.9386)
-    Tf_up = const.GRA*(1.5701* 10**(-6) *(f_up_pwm)**2 - 3.3963*10**(-3)*f_up_pwm + 1.9386)
-    Tf_down = const.GRA*(1.5701* 10**(-6) *(f_down_pwm)**2 - 3.3963*10**(-3)*f_down_pwm + 1.9386)
+    Tm_up = T_E*0.5*const.GRA*(9.5636* 10**(-3)*m_up_pwm - 12.1379)
+    Tm_down = T_E*0.5*const.GRA*(9.5636* 10**(-3)*m_down_pwm - 12.1379)
+    Tr_r = T_E*const.GRA*(1.5701* 10**(-6) *(r_r_pwm)**2 - 3.3963*10**(-3)*r_r_pwm + 1.9386)
+    Tr_l = T_E*const.GRA*(1.5701* 10**(-6) *(r_l_pwm)**2 - 3.3963*10**(-3)*r_l_pwm + 1.9386)
+    Tf_up = T_E*const.GRA*(1.5701* 10**(-6) *(f_up_pwm)**2 - 3.3963*10**(-3)*f_up_pwm + 1.9386)
+    Tf_down = T_E*const.GRA*(1.5701* 10**(-6) *(f_down_pwm)**2 - 3.3963*10**(-3)*f_down_pwm + 1.9386)
 
     # ロータ推力に制限をかける
     Tm_up[Tm_up < 0] = 0
     Tm_down[Tm_down < 0] = 0
-    Tr_r[Tr_r > const.SUB_THRUST_MAX] = const.SUB_THRUST_MAX
-    Tr_l[Tr_l > const.SUB_THRUST_MAX] = const.SUB_THRUST_MAX
-    Tf_up[Tf_up > const.SUB_THRUST_MAX] = const.SUB_THRUST_MAX
-    Tf_down[Tf_down > const.SUB_THRUST_MAX] = const.SUB_THRUST_MAX
+    Tr_r[Tr_r > T_E*const.SUB_THRUST_MAX] = T_E*const.SUB_THRUST_MAX
+    Tr_l[Tr_l > T_E*const.SUB_THRUST_MAX] = T_E*const.SUB_THRUST_MAX
+    Tf_up[Tf_up > T_E*const.SUB_THRUST_MAX] = T_E*const.SUB_THRUST_MAX
+    Tf_down[Tf_down > T_E*const.SUB_THRUST_MAX] = T_E*const.SUB_THRUST_MAX
 
     # エレボン舵角
     delta_e_r = ((delta_e_r_command*400 + 1500)/8 - 1500/8)*pi/180
@@ -292,10 +296,6 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, RHO, GAMMA, inpu
     A_z = F_z - T_z
 
     # 揚力と抗力（実験値）
-    L_total = F_x * np.sin(alpha) - F_z * np.cos(alpha)
-    D_total = - F_x * np.cos(alpha) - F_z * np.sin(alpha)
-
-    # 揚力と抗力（実験値）
     L = A_x * np.sin(alpha) - A_z * np.cos(alpha)
     D = - A_x * np.cos(alpha) - A_z * np.sin(alpha)
 
@@ -380,8 +380,6 @@ def file_read(filename, section_ST, section_ED, V_W, THRUST_EF, RHO, GAMMA, inpu
         'L' : L,
         'D' : D,
         'M' : M,
-        'L_total' : L_total,
-        'D_total' : D_total,
         'Mt' : Mt,
         'Mg' : Mg,
         'Ma' : Ma,

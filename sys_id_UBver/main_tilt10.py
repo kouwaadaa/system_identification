@@ -101,8 +101,6 @@ borderline_list.append(size+borderline_list[-1])
 # これを残しておけばログデータごとのプロットがしやすい．
 format_df = format_df.reset_index()
 
-format_df = format_df.query('2 < Va')
-
 #---------------------------
 # パラメータ推定の結果を計算し，取得
 #---------------------------
@@ -141,10 +139,10 @@ data_size = len(format_df) # 合計のデータサイズを取得
 # 結果をプロット
 #---------------------------
 
-df_with_dalpha[['CL_log','CL','Va']].plot.line(x='Va', style='o')
-df_with_dalpha[['CD_log','CD','Va']].plot.line(x='Va', style='o')
-df_with_dalpha[['Cm_log','Cm','Va']].plot.line(x='Va', style='o')
-plt.tight_layout()
+# df_with_dalpha[['CL_log','CL','Va']].plot.line(x='Va', style='o')
+# df_with_dalpha[['CD_log','CD','Va']].plot.line(x='Va', style='o')
+# df_with_dalpha[['Cm_log','Cm','Va']].plot.line(x='Va', style='o')
+# plt.tight_layout()
 
 # # Va横軸で空力係数比較
 # Va = np.array(df_with_dalpha['Va'])
@@ -186,24 +184,24 @@ plt.tight_layout()
 # plt.ylabel(r'Lift$\mathrm{[N]}$')
 # plt.tight_layout()
 #----------------------------------------------------------------
-# lambda_A_abs = np.abs(anly_result[0])
-#
-# xxx = np.arange(data_size)
-# y = lambda_A_abs[:,0]
-# yy = lambda_A_abs[:,1]
-# yyy = lambda_A_abs[:,2]
-# yyyy = lambda_A_abs[:,3]
-#
-# plt.subplot(111)
-# plt.scatter(xxx,y,label="")
-# plt.scatter(xxx,yy,label="")
-# plt.scatter(xxx,yyy,label="")
-# plt.scatter(xxx,yyyy,label="")
-#
-# for j in borderline_list:
-#     plt.axvline(x=j, color="black", linestyle="--") # 実験データの境目で線を引く
-#
-# # plt.title('固有値散布図')
-# plt.xlabel('Data Number')
-# plt.ylabel('Absolute eigenvalue')
-# plt.tight_layout()
+lambda_A_abs = np.abs(anly_result[0])
+
+xxx = np.arange(data_size)
+y = lambda_A_abs[:,0]
+yy = lambda_A_abs[:,1]
+yyy = lambda_A_abs[:,2]
+yyyy = lambda_A_abs[:,3]
+
+plt.subplot(111)
+plt.scatter(xxx,y,label="")
+plt.scatter(xxx,yy,label="")
+plt.scatter(xxx,yyy,label="")
+plt.scatter(xxx,yyyy,label="")
+
+for j in borderline_list:
+    plt.axvline(x=j, color="black", linestyle="--") # 実験データの境目で線を引く
+
+# plt.title('固有値散布図')
+plt.xlabel('Data Number')
+plt.ylabel('Absolute eigenvalue')
+plt.tight_layout()
