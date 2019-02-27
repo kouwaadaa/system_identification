@@ -69,20 +69,20 @@ borderline_list.append(size+borderline_list[-1])
 format_df,size = file_read.file_read(600,'../log_data/Book6.csv',63.34,68.20,-2.00,40/47,1.282,10,format_df)
 borderline_list.append(size+borderline_list[-1])
 #---------------------------------------------------------
-format_df,size = file_read.file_read(700,'../log_data/Book7.csv',13.93,15.36,-1.25,40/47,1.281,10,format_df)
-borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(700,'../log_data/Book7.csv',55.40,56.85,-1.25,40/47,1.281,10,format_df)
-borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(700,'../log_data/Book7.csv',62.60,64.83,-1.25,40/47,1.281,10,format_df)
-borderline_list.append(size+borderline_list[-1])
+# format_df,size = file_read.file_read(700,'../log_data/Book7.csv',13.93,15.36,-1.25,40/47,1.281,10,format_df)
+# borderline_list.append(size+borderline_list[-1])
+# format_df,size = file_read.file_read(700,'../log_data/Book7.csv',55.40,56.85,-1.25,40/47,1.281,10,format_df)
+# borderline_list.append(size+borderline_list[-1])
+# format_df,size = file_read.file_read(700,'../log_data/Book7.csv',62.60,64.83,-1.25,40/47,1.281,10,format_df)
+# borderline_list.append(size+borderline_list[-1])
 #---------------------------------------------------------
-format_df,size = file_read.file_read(800,'../log_data/Book8.csv',43.24,45.90,-2.00,40/47,1.275,10,format_df)
+format_df,size = file_read.file_read(801,'../log_data/Book8.csv',43.24,45.90,-2.00,40/47,1.275,10,format_df)
 borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(800,'../log_data/Book8.csv',61.44,64.48,-2.00,40/47,1.275,10,format_df)
+format_df,size = file_read.file_read(802,'../log_data/Book8.csv',61.44,64.48,-2.00,40/47,1.275,10,format_df)
 borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(800,'../log_data/Book8.csv',71.60,80.56,-2.00,40/47,1.275,10,format_df)
+format_df,size = file_read.file_read(803,'../log_data/Book8.csv',71.60,80.56,-2.00,40/47,1.275,10,format_df)
 borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(800,'../log_data/Book8.csv',101.9,109.6,-2.00,40/47,1.275,10,format_df)
+format_df,size = file_read.file_read(804,'../log_data/Book8.csv',101.9,109.6,-2.00,40/47,1.275,10,format_df)
 borderline_list.append(size+borderline_list[-1])
 #---------------------------------------------------------
 format_df,size = file_read.file_read(1000,'../log_data/Book10.csv',15.56,17.40,-3.277,40/48,1.260,10,format_df)
@@ -142,28 +142,43 @@ data_size = len(format_df) # 合計のデータサイズを取得
 # 結果をプロット
 #---------------------------
 
-# プロットするときに実験データごとに見られるようにする．
-grouped_df = df_ex_with_dalpha.groupby('id')
+# df5_V_filter = df_with_dalpha.query('4.5 <= Va <= 5.5')
 
-#------------------------------------------------------------------
-# df_with_dalpha[['CL_log','CL','Va']].plot.line(x='Va', style='o')
+Tr_r = np.array(df_with_dalpha['Tr_r'])
+Tr_l = np.array(df_with_dalpha['Tr_l'])
+Tf_up = np.array(df_with_dalpha['Tf_up'])
+Tf_down = np.array(df_with_dalpha['Tf_down'])
+
+T_total = Tr_r + Tr_l + Tf_up + Tf_down
+print(T_total)
+
+# プロットするときに実験データごとに見られるようにする．
+grouped_df = df_ex_non_kv.groupby('id')
+#
+# #------------------------------------------------------------------
+# df_with_dalpha[['alpha_deg']].plot.line()
+# for j in borderline_list:
+#     plt.axvline(x=j, color="black",linestyle="--") # 実験データの境目で線を引く
 # df_with_dalpha[['CD_log','CD','Va']].plot.line(x='Va', style='o')
 # df_with_dalpha[['Cm_log','Cm','Va']].plot.line(x='Va', style='o')
 # plt.tight_layout()
 #------------------------------------------------------------------
 # Va横軸で空力係数比較
-Va = np.array(df_with_dalpha['Va'])
-Cm_log = np.array(df_with_dalpha['Cm_log'])
+Va = np.array(df_ex_non_kv['Va'])
+CD_log = np.array(df_ex_non_kv['CD_log'])
 
 # plt.figure(figsize=(12,10))
 plt.subplot(111)
-plt.scatter(Va,Cm_log,color="#333333")
+plt.scatter(Va,CD_log,color="#333333")
 
 for count,id in enumerate(grouped_df.groups):
-   d = grouped_df.get_group(id)
-   v_array = np.array(d['Va'])
-   d_array = np.array(d['Cm'])
-   plt.scatter(v_array,d_array,color=cm.Set1(count/9)) # Set1は9色まで
+    # if id == 600 or id == 1000:
+    #     a = 1
+    # else:
+       d = grouped_df.get_group(id)
+       v_array = np.array(d['Va'])
+       d_array = np.array(d['CD'])
+       plt.scatter(v_array,d_array,color=cm.Set1(count/9)) # Set1は9色まで
 
 # plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$')
 # plt.ylabel(r'$C_D$')

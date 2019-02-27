@@ -162,7 +162,7 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EF, RHO, GAMMA, input_
     # メイン，サブロータにかかる推力効率係数を算出
     X_HOVER = 40 / T_EF
     T_E = const.MASS*const.GRA / ((const.MASS*const.GRA-40)+X_HOVER)
-
+    # T_E = 57/70
     # ロータ推力 推算値，要修正？
     Tm_up = T_E*0.5*const.GRA*(9.5636* 10**(-3)*m_up_pwm - 12.1379)
     Tm_down = T_E*0.5*const.GRA*(9.5636* 10**(-3)*m_down_pwm - 12.1379)
