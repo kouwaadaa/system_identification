@@ -14,6 +14,7 @@ import numpy as np
 from numpy import pi
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.cm as cm
 from IPython import get_ipython
 
 import const
@@ -60,35 +61,35 @@ borderline_list = list()
 # format_df,size = file_read.file_read('../log_data/Book2.csv',70.68,83.38,-2.30,40/45,1.252,10,format_df)
 # borderline_list.append(size+borderline_list[-1])
 #---------------------------------------------------------
-format_df,size = file_read.file_read('../log_data/Book6.csv',17.47,19.08,-2.00,40/47,1.282,10,format_df)
+format_df,size = file_read.file_read(600,'../log_data/Book6.csv',17.47,19.08,-2.00,40/47,1.282,10,format_df)
 borderline_list.append(size)
 # borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read('../log_data/Book6.csv',21.36,24.67,-2.00,40/47,1.282,10,format_df)
+format_df,size = file_read.file_read(600,'../log_data/Book6.csv',21.36,24.67,-2.00,40/47,1.282,10,format_df)
 borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read('../log_data/Book6.csv',63.34,68.20,-2.00,40/47,1.282,10,format_df)
-borderline_list.append(size+borderline_list[-1])
-#---------------------------------------------------------
-format_df,size = file_read.file_read('../log_data/Book7.csv',13.93,15.36,-1.25,40/47,1.281,10,format_df)
-borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read('../log_data/Book7.csv',55.40,56.85,-1.25,40/47,1.281,10,format_df)
-borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read('../log_data/Book7.csv',62.60,64.83,-1.25,40/47,1.281,10,format_df)
+format_df,size = file_read.file_read(600,'../log_data/Book6.csv',63.34,68.20,-2.00,40/47,1.282,10,format_df)
 borderline_list.append(size+borderline_list[-1])
 #---------------------------------------------------------
-format_df,size = file_read.file_read('../log_data/Book8.csv',43.24,45.90,-2.00,40/47,1.275,10,format_df)
+format_df,size = file_read.file_read(700,'../log_data/Book7.csv',13.93,15.36,-1.25,40/47,1.281,10,format_df)
 borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read('../log_data/Book8.csv',61.44,64.48,-2.00,40/47,1.275,10,format_df)
+format_df,size = file_read.file_read(700,'../log_data/Book7.csv',55.40,56.85,-1.25,40/47,1.281,10,format_df)
 borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read('../log_data/Book8.csv',71.60,80.56,-2.00,40/47,1.275,10,format_df)
-borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read('../log_data/Book8.csv',101.9,109.6,-2.00,40/47,1.275,10,format_df)
+format_df,size = file_read.file_read(700,'../log_data/Book7.csv',62.60,64.83,-1.25,40/47,1.281,10,format_df)
 borderline_list.append(size+borderline_list[-1])
 #---------------------------------------------------------
-format_df,size = file_read.file_read('../log_data/Book10.csv',15.56,17.40,-3.277,40/48,1.260,10,format_df)
+format_df,size = file_read.file_read(800,'../log_data/Book8.csv',43.24,45.90,-2.00,40/47,1.275,10,format_df)
 borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read('../log_data/Book10.csv',94.13,101.5,-3.277,40/48,1.260,10,format_df)
+format_df,size = file_read.file_read(800,'../log_data/Book8.csv',61.44,64.48,-2.00,40/47,1.275,10,format_df)
 borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read('../log_data/Book10.csv',103.6,105.3,-3.277,40/48,1.260,10,format_df)
+format_df,size = file_read.file_read(800,'../log_data/Book8.csv',71.60,80.56,-2.00,40/47,1.275,10,format_df)
+borderline_list.append(size+borderline_list[-1])
+format_df,size = file_read.file_read(800,'../log_data/Book8.csv',101.9,109.6,-2.00,40/47,1.275,10,format_df)
+borderline_list.append(size+borderline_list[-1])
+#---------------------------------------------------------
+format_df,size = file_read.file_read(1000,'../log_data/Book10.csv',15.56,17.40,-3.277,40/48,1.260,10,format_df)
+borderline_list.append(size+borderline_list[-1])
+format_df,size = file_read.file_read(1000,'../log_data/Book10.csv',94.13,101.5,-3.277,40/48,1.260,10,format_df)
+borderline_list.append(size+borderline_list[-1])
+format_df,size = file_read.file_read(1000,'../log_data/Book10.csv',103.6,105.3,-3.277,40/48,1.260,10,format_df)
 borderline_list.append(size+borderline_list[-1])
 #---------------------------------------------------------
 
@@ -109,6 +110,7 @@ df_non_dalpha = sys_id.sys_id_LS(format_df)
 df_with_dalpha = sys_id.sys_id_LS_with_dalpha(format_df)
 df_non_kv = sys_id.sys_id_LS_non_kv(format_df)
 
+df_ex_non_dalpha = sys_id.sys_id_LS_ex_non_dalpha(format_df)
 df_ex_with_dalpha = sys_id.sys_id_LS_ex_with_dalpha(format_df)
 df_ex_non_kv = sys_id.sys_id_LS_ex_non_kv(format_df)
 
@@ -126,6 +128,7 @@ anly_result = analyze.linearlize_non_d_alpha(df_non_dalpha)
 df_non_dalpha = statistics.calc_RMSE(df_non_dalpha)
 df_with_dalpha = statistics.calc_RMSE(df_with_dalpha)
 df_non_kv = statistics.calc_RMSE(df_non_kv)
+df_ex_non_dalpha = statistics.calc_RMSE(df_ex_non_dalpha)
 df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
 df_ex_non_kv = statistics.calc_RMSE(df_ex_non_kv)
 
@@ -139,11 +142,33 @@ data_size = len(format_df) # 合計のデータサイズを取得
 # 結果をプロット
 #---------------------------
 
+# プロットするときに実験データごとに見られるようにする．
+grouped_df = df_ex_with_dalpha.groupby('id')
+
+#------------------------------------------------------------------
 # df_with_dalpha[['CL_log','CL','Va']].plot.line(x='Va', style='o')
 # df_with_dalpha[['CD_log','CD','Va']].plot.line(x='Va', style='o')
 # df_with_dalpha[['Cm_log','Cm','Va']].plot.line(x='Va', style='o')
 # plt.tight_layout()
+#------------------------------------------------------------------
+# Va横軸で空力係数比較
+Va = np.array(df_with_dalpha['Va'])
+Cm_log = np.array(df_with_dalpha['Cm_log'])
 
+# plt.figure(figsize=(12,10))
+plt.subplot(111)
+plt.scatter(Va,Cm_log,color="#333333")
+
+for count,id in enumerate(grouped_df.groups):
+   d = grouped_df.get_group(id)
+   v_array = np.array(d['Va'])
+   d_array = np.array(d['Cm'])
+   plt.scatter(v_array,d_array,color=cm.Set1(count/9)) # Set1は9色まで
+
+# plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$')
+# plt.ylabel(r'$C_D$')
+plt.tight_layout()
+#------------------------------------------------------------------
 # # Va横軸で空力係数比較
 # Va = np.array(df_with_dalpha['Va'])
 # CD_log = np.array(df_with_dalpha['CD_log'])
@@ -184,24 +209,24 @@ data_size = len(format_df) # 合計のデータサイズを取得
 # plt.ylabel(r'Lift$\mathrm{[N]}$')
 # plt.tight_layout()
 #----------------------------------------------------------------
-lambda_A_abs = np.abs(anly_result[0])
-
-xxx = np.arange(data_size)
-y = lambda_A_abs[:,0]
-yy = lambda_A_abs[:,1]
-yyy = lambda_A_abs[:,2]
-yyyy = lambda_A_abs[:,3]
-
-plt.subplot(111)
-plt.scatter(xxx,y,label="")
-plt.scatter(xxx,yy,label="")
-plt.scatter(xxx,yyy,label="")
-plt.scatter(xxx,yyyy,label="")
-
-for j in borderline_list:
-    plt.axvline(x=j, color="black", linestyle="--") # 実験データの境目で線を引く
-
-# plt.title('固有値散布図')
-plt.xlabel('Data Number')
-plt.ylabel('Absolute eigenvalue')
-plt.tight_layout()
+# lambda_A_abs = np.abs(anly_result[0])
+#
+# xxx = np.arange(data_size)
+# y = lambda_A_abs[:,0]
+# yy = lambda_A_abs[:,1]
+# yyy = lambda_A_abs[:,2]
+# yyyy = lambda_A_abs[:,3]
+#
+# plt.subplot(111)
+# plt.scatter(xxx,y,label="")
+# plt.scatter(xxx,yy,label="")
+# plt.scatter(xxx,yyy,label="")
+# plt.scatter(xxx,yyyy,label="")
+#
+# for j in borderline_list:
+#     plt.axvline(x=j, color="black", linestyle="--") # 実験データの境目で線を引く
+#
+# # plt.title('固有値散布図')
+# plt.xlabel('Data Number')
+# plt.ylabel('Absolute eigenvalue')
+# plt.tight_layout()

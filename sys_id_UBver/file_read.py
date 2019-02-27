@@ -13,12 +13,15 @@ import math_extention as matex
 import fourier_filter as ffilt
 
 
-def file_read(filename, section_ST, section_ED, V_W, T_EF, RHO, GAMMA, input_log_data):
+def file_read(id,filename, section_ST, section_ED, V_W, T_EF, RHO, GAMMA, input_log_data):
     '''
     CSVファイルを読み込み，それぞれ必要な計算をして，DataFrameにまとめる.
 
     Parameters
     ----------
+    id : int
+        読み込むファイルに番号をつける．
+        他と重複していなければなんでもいい．
     filename : str
         読み込むCSVファイル.
     section_ST : float64
@@ -171,10 +174,10 @@ def file_read(filename, section_ST, section_ED, V_W, T_EF, RHO, GAMMA, input_log
     # ロータ推力に制限をかける
     Tm_up[Tm_up < 0] = 0
     Tm_down[Tm_down < 0] = 0
-    Tr_r[Tr_r > T_E*const.SUB_THRUST_MAX] = T_E*const.SUB_THRUST_MAX
-    Tr_l[Tr_l > T_E*const.SUB_THRUST_MAX] = T_E*const.SUB_THRUST_MAX
-    Tf_up[Tf_up > T_E*const.SUB_THRUST_MAX] = T_E*const.SUB_THRUST_MAX
-    Tf_down[Tf_down > T_E*const.SUB_THRUST_MAX] = T_E*const.SUB_THRUST_MAX
+    Tr_r[Tr_r > const.SUB_THRUST_MAX] = const.SUB_THRUST_MAX
+    Tr_l[Tr_l > const.SUB_THRUST_MAX] = const.SUB_THRUST_MAX
+    Tf_up[Tf_up > const.SUB_THRUST_MAX] = const.SUB_THRUST_MAX
+    Tf_down[Tf_down > const.SUB_THRUST_MAX] = const.SUB_THRUST_MAX
 
     # エレボン舵角
     delta_e_r = ((delta_e_r_command*400 + 1500)/8 - 1500/8)*pi/180
@@ -343,6 +346,7 @@ def file_read(filename, section_ST, section_ED, V_W, T_EF, RHO, GAMMA, input_log
     #---------------------------
 
     read_log_data = pd.DataFrame({
+        'id' : id,
         'phi' : phi,
         'theta' : theta,
         'psi' : psi,
@@ -379,7 +383,7 @@ def file_read(filename, section_ST, section_ED, V_W, T_EF, RHO, GAMMA, input_log
         'T_z' : T_z,
         'L' : L,
         'D' : D,
-        'M' : M,
+        # 'M' : M,
         'Mt' : Mt,
         'Mg' : Mg,
         'Ma' : Ma,
