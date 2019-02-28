@@ -1,5 +1,5 @@
-# System Identification for Tilt rotor UAV
-ティルトロータ型UAVにおける飛行ログデータの閲覧と，システム同定を用いた飛行特性の解析．
+# System Identification Tool for Tilt rotor UAV
+ティルトロータ型UAVのシステム同定に関するデータ群です．
 
 ## Description
 
@@ -7,10 +7,9 @@
 ## Usage
 ### Install
 ```sh
-git clone https://github.com/ahuglajbclajep/my-project.git
-cd my-project
+git clone https://github.com/YubaHiroki/system_identification.git
+cd system_identification
 ```
-事前に必要なものなども
 
 ### Open
 特定のソフトで開くとき
