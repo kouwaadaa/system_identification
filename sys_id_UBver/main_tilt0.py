@@ -58,41 +58,46 @@ format_df = pd.DataFrame()
 # データ群ごとに線引き，綺麗でない
 borderline_list = list()
 
-#---------------------------------------------------------
-format_df,size = file_read.file_read(100,'../log_data/Book3.csv',17.52,19.14,-4.03,40/48,1.264,0,format_df)
-borderline_list.append(size)
-#---------------------------------------------------------
-# format_df = file_read.file_read(100,'../log_data/Book4.csv',11.97,13.30,-5.05,40/45,1.264,0,format_df)
-format_df,size = file_read.file_read(100,'../log_data/Book4.csv',18.66,21.08,-5.05,40/45,1.264,0,format_df)
-borderline_list.append(size+borderline_list[-1])
-#---------------------------------------------------------
-format_df,size = file_read.file_read(100,'../log_data/Book5.csv',12.45,13.66,-4.80,40/48,1.266,0,format_df)
-borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(100,'../log_data/Book5.csv',16.07,17.03,-4.80,40/48,1.266,0,format_df)
-borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(100,'../log_data/Book5.csv',18.95,22.88,-4.80,40/48,1.266,0,format_df)
-borderline_list.append(size+borderline_list[-1])
-#---------------------------------------------------------
-format_df,size = file_read.file_read(100,'../log_data/Book8.csv',15.41,20.10,-2.00,40/47,1.275,0,format_df)
-borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(100,'../log_data/Book8.csv',21.46,23.07,-2.00,40/47,1.275,0,format_df)
-borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(100,'../log_data/Book8.csv',23.44,24.64,-2.00,40/47,1.275,0,format_df)
-borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(100,'../log_data/Book8.csv',25.28,27.38,-2.00,40/47,1.275,0,format_df)
-borderline_list.append(size+borderline_list[-1])
-#---------------------------------------------------------
-format_df,size = file_read.file_read(100,'../log_data/Book9.csv',20.73,30.28,-2.647,40/48,1.251,0,format_df)
-borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(100,'../log_data/Book9.csv',98.05,104.1,-2.647,40/48,1.251,0,format_df)
-borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(100,'../log_data/Book9.csv',104.9,107.1,-2.647,40/48,1.251,0,format_df)
-borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(100,'../log_data/Book9.csv',107.7,109.7,-2.647,40/48,1.251,0,format_df)
-borderline_list.append(size+borderline_list[-1])
-#---------------------------------------------------------
-# format_df,size = file_read.file_read(100,'../log_data/Book11.csv',19.86,25.27,-1.467,40/48,1.268,0,format_df)
-# format_df = file_read.file_read(100,'../log_data/Book11.csv',26.43,29.83,-1.467,40/48,1.268,0,format_df)
+# #---2017/12/27 徳島 定点ホバリング MCパラメータ変更------------------------------------------------------
+# format_df,size = file_read.file_read(300,'../log_data/Book3.csv',17.52,19.14,-4.03,40/48,1.264,0,format_df)
+# borderline_list.append(size)
+#
+# #---2017/12/27 徳島 エレベータ（ピッチアップ） MCパラメータ変更------------------------------------------
+# # format_df = file_read.file_read(100,'../log_data/Book4.csv',11.97,13.30,-5.05,40/45,1.264,0,format_df)
+# format_df,size = file_read.file_read(400,'../log_data/Book4.csv',18.66,21.08,-5.05,40/45,1.264,0,format_df)
+# borderline_list.append(size+borderline_list[-1])
+#
+# #---2017/12/27 徳島 エレベータ（ピッチダウン） MCパラメータ変更-------------------------------------------
+# format_df,size = file_read.file_read(500,'../log_data/Book5.csv',12.45,13.66,-4.80,40/48,1.266,0,format_df)
+# borderline_list.append(size+borderline_list[-1])
+# format_df,size = file_read.file_read(500,'../log_data/Book5.csv',16.07,17.03,-4.80,40/48,1.266,0,format_df)
+# borderline_list.append(size+borderline_list[-1])
+# format_df,size = file_read.file_read(500,'../log_data/Book5.csv',18.95,22.88,-4.80,40/48,1.266,0,format_df)
+# borderline_list.append(size+borderline_list[-1])
+
+#---2018/01/14 徳島 ピッチ運動-----------------------------------------------------------
+format_df,size = file_read.file_read(800,'../log_data/Book8.csv',15.41,20.10,-2.00,40/47,1.275,0,format_df)
+# borderline_list.append(size+borderline_list[-1])
+format_df,size = file_read.file_read(800,'../log_data/Book8.csv',21.46,23.07,-2.00,40/47,1.275,0,format_df)
+# borderline_list.append(size+borderline_list[-1])
+format_df,size = file_read.file_read(800,'../log_data/Book8.csv',23.44,24.64,-2.00,40/47,1.275,0,format_df)
+# borderline_list.append(size+borderline_list[-1])
+format_df,size = file_read.file_read(800,'../log_data/Book8.csv',25.28,27.38,-2.00,40/47,1.275,0,format_df)
+# borderline_list.append(size+borderline_list[-1])
+
+#---2018/01/26 神戸 前進＆エレベータ制御-------------------------------------------------
+format_df,size = file_read.file_read(900,'../log_data/Book9.csv',20.73,30.28,-2.647,40/48,1.251,0,format_df)
+# borderline_list.append(size+borderline_list[-1])
+format_df,size = file_read.file_read(900,'../log_data/Book9.csv',98.05,104.1,-2.647,40/48,1.251,0,format_df)
+# borderline_list.append(size+borderline_list[-1])
+format_df,size = file_read.file_read(900,'../log_data/Book9.csv',104.9,107.1,-2.647,40/48,1.251,0,format_df)
+# borderline_list.append(size+borderline_list[-1])
+format_df,size = file_read.file_read(900,'../log_data/Book9.csv',107.7,109.7,-2.647,40/48,1.251,0,format_df)
+# borderline_list.append(size+borderline_list[-1])
+
+#---2018/01/26 神戸 前進-----------------------------------------------------------------
+format_df,size = file_read.file_read(1100,'../log_data/Book11.csv',19.86,25.27,-1.467,40/48,1.268,0,format_df)
+format_df,size = file_read.file_read(1100,'../log_data/Book11.csv',26.43,29.83,-1.467,40/48,1.268,0,format_df)
 #---------------------------------------------------------
 
 #---------------------------
@@ -108,9 +113,11 @@ format_df = format_df.reset_index()
 # パラメータ推定の結果を計算し，取得
 #---------------------------
 
-df_non_kv = sys_id.sys_id_LS_non_kv(format_df)
-df_with_dalpha = sys_id.sys_id_LS_with_dalpha(format_df)
 df_non_dalpha = sys_id.sys_id_LS(format_df)
+df_with_dalpha = sys_id.sys_id_LS_with_dalpha(format_df)
+df_non_kv = sys_id.sys_id_LS_non_kv(format_df)
+
+df_ex_non_dalpha = sys_id.sys_id_LS_ex_non_dalpha(format_df)
 df_ex_with_dalpha = sys_id.sys_id_LS_ex_with_dalpha(format_df)
 df_ex_non_kv = sys_id.sys_id_LS_ex_non_kv(format_df)
 
@@ -122,23 +129,32 @@ df_ex_non_kv = sys_id.sys_id_LS_ex_non_kv(format_df)
 anly_result = analyze.linearlize_non_d_alpha(df_non_dalpha)
 
 #---------------------------
-# データの取り出し
+# 統計データ算出
 #---------------------------
 
-data_size = len(format_df) # 合計のデータサイズを取得
+df_non_dalpha = statistics.calc_RMSE(df_non_dalpha)
+df_with_dalpha = statistics.calc_RMSE(df_with_dalpha)
+df_non_kv = statistics.calc_RMSE(df_non_kv)
+df_ex_non_dalpha = statistics.calc_RMSE(df_ex_non_dalpha)
+df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
+df_ex_non_kv = statistics.calc_RMSE(df_ex_non_kv)
+
+#---------------------------
+# データ取り出し作業
+#---------------------------
+
+# 合計のデータサイズを取得
+data_size = len(format_df)
+
+# 必要な結果のみをCSVファイルに書き出し
+df_ex_non_dalpha_filt = df_ex_non_dalpha.query('4.5 <= Va <= 5.5')
+df_ex_non_dalpha_filt.to_csv('../output_data/out_ex_non_dalpha.csv')
 
 #---------------------------
 # 結果をプロット
 #---------------------------
 
-df_with_dalpha = statistics.calc_RMSE(df_with_dalpha)
-df_non_dalpha = statistics.calc_RMSE(df_non_dalpha)
-df_non_kv = statistics.calc_RMSE(df_non_kv)
-df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
-
 # format_df8 = statistics.calc_RMSE(format_df8)
-
-# df5_V_filter = df_with_dalpha.query('4.5 <= Va <= 5.5')
 
 # format_df[['L_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['D_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
@@ -165,9 +181,9 @@ df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
 # df_with_dalpha[['D','D_calc']].plot.line()
 # df_with_dalpha[['Ma','Ma_calc']].plot.line()
 
-# df_non_dalpha[['L','L_calc']].plot.line()
-# df_non_dalpha[['D','D_calc']].plot.line()
-# df_non_dalpha[['Ma','Ma_calc']].plot.line()
+# df_ex_non_dalpha[['L','L_calc']].plot.line()
+# df_ex_non_dalpha[['D','D_calc']].plot.line()
+# df_ex_non_dalpha[['Ma','Ma_calc']].plot.line()
 
 # fq = np.fft.fftfreq(data_size,d=0.02)
 # format_df['fq'] = fq
@@ -175,9 +191,9 @@ df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
 
 # format_df8[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD_t_nonkv')
 
-# format_df7[['CL_log','CL','Va']].plot.line(x='Va', style='o', title='CL')
-# format_df7[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD_t')
-# format_df7[['Cm_log','Cm','Va']].plot.line(x='Va', style='o', title='Cm')
+df_ex_non_dalpha[['CL_log','CL','Va']].plot.line(x='Va', style='o', title='CL')
+df_ex_non_dalpha[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD_t')
+df_ex_non_dalpha[['Cm_log','Cm','Va']].plot.line(x='Va', style='o', title='Cm')
 
 
 # format_df7[['delta_e']].plot.line()
@@ -185,9 +201,9 @@ df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
 # df_with_dalpha[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD_dalpha')
 # df_non_kv[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD_nonkv')
 
-# df_non_kv[['CL_log','CL']].plot.line(title='CL_nonkv')
-# df_non_kv[['CD_log','CD']].plot.line(title='CD_nonkv')
-# df_non_kv[['Cm_log','Cm']].plot.line(title='Cm_nonkv')
+# df_ex_non_dalpha[['CL_log','CL']].plot.line()
+# df_ex_non_dalpha[['CD_log','CD']].plot.line()
+# df_ex_non_dalpha[['Cm_log','Cm']].plot.line()
 
 # df_with_dalpha[['CL_log','CL']].plot.line(title='CL_max')
 # df_with_dalpha[['CD_log','CD']].plot.line(title='CD_max')
@@ -357,23 +373,23 @@ df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
 # plt.ylabel(r'Pitch moment$\mathrm{[N \cdot m]}$')
 # plt.show()
 #----------------------------------------------------------------
-L = np.array(df_with_dalpha['L_calc'])
-L_log = np.array(df_with_dalpha['L'])
-D = np.array(df_with_dalpha['D_calc'])
-D_log = np.array(df_with_dalpha['D'])
-Ma = np.array(df_with_dalpha['Ma_calc'])
-Ma_log = np.array(df_with_dalpha['Ma'])
-
-# plt.figure(figsize=(12,10))
-plt.subplot(111)
-plt.plot(D_log,label=r"$D_{log}$")
-plt.plot(D,label=r"$D_{calc}$")
-plt.legend()
-
-for j in borderline_list:
-    plt.axvline(x=j, color="black",linestyle="--") # 実験データの境目で線を引く
-
-plt.xlabel('Data Number')
-plt.ylabel(r'Lift$\mathrm{[N]}$')
-plt.tight_layout()
-#----------------------------------------------------------------
+# L = np.array(df_with_dalpha['L_calc'])
+# L_log = np.array(df_with_dalpha['L'])
+# D = np.array(df_with_dalpha['D_calc'])
+# D_log = np.array(df_with_dalpha['D'])
+# Ma = np.array(df_with_dalpha['Ma_calc'])
+# Ma_log = np.array(df_with_dalpha['Ma'])
+#
+# # plt.figure(figsize=(12,10))
+# plt.subplot(111)
+# plt.plot(D_log,label=r"$D_{log}$")
+# plt.plot(D,label=r"$D_{calc}$")
+# plt.legend()
+#
+# for j in borderline_list:
+#     plt.axvline(x=j, color="black",linestyle="--") # 実験データの境目で線を引く
+#
+# plt.xlabel('Data Number')
+# plt.ylabel(r'Lift$\mathrm{[N]}$')
+# plt.tight_layout()
+# #----------------------------------------------------------------

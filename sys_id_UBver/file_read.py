@@ -159,17 +159,24 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EF, RHO, GAMMA, input_
     # 計算の必要がある値
     #---------------------------
 
-    # メイン，サブロータにかかる推力効率係数を算出
+    # メイン，サブロータ両方に等しくかかる推力効率係数T_Eを算出
     X_HOVER = 40 / T_EF
     T_E = const.MASS*const.GRA / ((const.MASS*const.GRA-40)+X_HOVER)
+
+    # サブロータ出力35%のとき
     # T_E = 57/70
+
+    # サブ前とサブ左右の係数比重を変えたとき
+    T_E_R = T_E * 10/18
+    T_E_F = T_E * 8/18
+
     # ロータ推力 推算値，要修正？
     Tm_up = T_E*0.5*const.GRA*(9.5636* 10**(-3)*m_up_pwm - 12.1379)
     Tm_down = T_E*0.5*const.GRA*(9.5636* 10**(-3)*m_down_pwm - 12.1379)
-    Tr_r = T_E*const.GRA*(1.5701* 10**(-6) *(r_r_pwm)**2 - 3.3963*10**(-3)*r_r_pwm + 1.9386)
-    Tr_l = T_E*const.GRA*(1.5701* 10**(-6) *(r_l_pwm)**2 - 3.3963*10**(-3)*r_l_pwm + 1.9386)
-    Tf_up = T_E*const.GRA*(1.5701* 10**(-6) *(f_up_pwm)**2 - 3.3963*10**(-3)*f_up_pwm + 1.9386)
-    Tf_down = T_E*const.GRA*(1.5701* 10**(-6) *(f_down_pwm)**2 - 3.3963*10**(-3)*f_down_pwm + 1.9386)
+    Tr_r = T_E_R*const.GRA*(1.5701* 10**(-6) *(r_r_pwm)**2 - 3.3963*10**(-3)*r_r_pwm + 1.9386)
+    Tr_l = T_E_R*const.GRA*(1.5701* 10**(-6) *(r_l_pwm)**2 - 3.3963*10**(-3)*r_l_pwm + 1.9386)
+    Tf_up = T_E_F*const.GRA*(1.5701* 10**(-6) *(f_up_pwm)**2 - 3.3963*10**(-3)*f_up_pwm + 1.9386)
+    Tf_down = T_E_F*const.GRA*(1.5701* 10**(-6) *(f_down_pwm)**2 - 3.3963*10**(-3)*f_down_pwm + 1.9386)
 
     # ロータ推力に制限をかける
     Tm_up[Tm_up < 0] = 0
