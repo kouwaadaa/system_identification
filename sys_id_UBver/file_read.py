@@ -13,7 +13,7 @@ import math_extention as matex
 import fourier_filter as ffilt
 
 
-def file_read(id,filename, section_ST, section_ED, V_W, T_EF, RHO, GAMMA, input_log_data):
+def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA, input_log_data):
     '''
     CSVファイルを読み込み，それぞれ必要な計算をして，DataFrameにまとめる.
 
@@ -30,8 +30,8 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EF, RHO, GAMMA, input_
         ファイル切り取り区間の終わり[s].
     V_W : float64
         風速．
-    T_EF : float64
-        推力効率係数．メインとサブで均等に分配．
+    T_EFF_array : array-like
+        推力効率係数が含まれる配列．
     RHO : float64
         大気密度．実験ごとに測定された気温などから計算．
     GAMMA: int
@@ -160,19 +160,20 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EF, RHO, GAMMA, input_
     #---------------------------
 
     # メイン，サブロータ両方に等しくかかる推力効率係数T_Eを算出
-    X_HOVER = 40 / T_EF
-    T_E = const.MASS*const.GRA / ((const.MASS*const.GRA-40)+X_HOVER)
+    # X_HOVER = 40 / T_EFF
+    # T_E = const.MASS*const.GRA / ((const.MASS*const.GRA-40)+X_HOVER)
 
     # サブロータ出力35%のとき
     # T_E = 57/70
 
-    # サブ前とサブ左右の係数比重を変えたとき
-    T_E_R = T_E * 10/18
-    T_E_F = T_E * 8/18
+    # 推力効率係数の取り出し
+    T_E_M = T_EFF_array[0]
+    T_E_R = T_EFF_array[1]
+    T_E_F = T_EFF_array[2]
 
     # ロータ推力 推算値，要修正？
-    Tm_up = T_E*0.5*const.GRA*(9.5636* 10**(-3)*m_up_pwm - 12.1379)
-    Tm_down = T_E*0.5*const.GRA*(9.5636* 10**(-3)*m_down_pwm - 12.1379)
+    Tm_up = T_E_M*0.5*const.GRA*(9.5636* 10**(-3)*m_up_pwm - 12.1379)
+    Tm_down = T_E_M*0.5*const.GRA*(9.5636* 10**(-3)*m_down_pwm - 12.1379)
     Tr_r = T_E_R*const.GRA*(1.5701* 10**(-6) *(r_r_pwm)**2 - 3.3963*10**(-3)*r_r_pwm + 1.9386)
     Tr_l = T_E_R*const.GRA*(1.5701* 10**(-6) *(r_l_pwm)**2 - 3.3963*10**(-3)*r_l_pwm + 1.9386)
     Tf_up = T_E_F*const.GRA*(1.5701* 10**(-6) *(f_up_pwm)**2 - 3.3963*10**(-3)*f_up_pwm + 1.9386)
@@ -181,6 +182,10 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EF, RHO, GAMMA, input_
     # ロータ推力に制限をかける
     Tm_up[Tm_up < 0] = 0
     Tm_down[Tm_down < 0] = 0
+    Tr_r[Tr_r < 0] = 0
+    Tr_l[Tr_l < 0] = 0
+    Tf_up[Tf_up < 0] = 0
+    Tf_down[Tf_down < 0] = 0
     Tr_r[Tr_r > const.SUB_THRUST_MAX] = const.SUB_THRUST_MAX
     Tr_l[Tr_l > const.SUB_THRUST_MAX] = const.SUB_THRUST_MAX
     Tf_up[Tf_up > const.SUB_THRUST_MAX] = const.SUB_THRUST_MAX
@@ -409,3 +414,218 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EF, RHO, GAMMA, input_
     format_log_data = pd.concat([input_log_data, read_log_data])
 
     return format_log_data,data_size
+
+
+def file_read_thrust(filename, section_ST, section_ED, V_W, RHO, GAMMA, input_log_data):
+    '''
+    CSVファイルを読み込み，それぞれ必要な計算をして，DataFrameにまとめる.
+
+    Parameters
+    ----------
+    filename : str
+        読み込むCSVファイル.
+    section_ST : float64
+        ファイル切り取り区間の始め[s].
+    section_ED : float64
+        ファイル切り取り区間の終わり[s].
+    V_W : float64
+        風速．
+    RHO : float64
+        大気密度．実験ごとに測定された気温などから計算．
+    GAMMA: int
+        ティルト角．
+    input_log_data: pandas.DataFrame
+        書き込むデータファイル．
+
+    Returns
+    -------
+    format_log_data : pandas.DataFrame
+        整理後のデータファイル．
+    '''
+
+
+    #---------------------------
+    # ファイルの読み込み
+    #---------------------------
+
+    # CSVファイルの読み込み
+    df = pd.read_csv(
+        filepath_or_buffer=filename,
+        encoding='ASCII',
+        sep=',',
+        header=0,
+        usecols=['ATT_Roll',
+                 'ATT_Pitch',
+                 'ATT_Yaw',
+                 'ATT_RollRate',
+                 'ATT_PitchRate',
+                 'ATT_YawRate',
+                 'LPOS_X',
+                 'LPOS_Y',
+                 'LPOS_Z',
+                 'LPOS_VX',
+                 'LPOS_VY',
+                 'LPOS_VZ',
+                 'OUT0_Out0',
+                 'OUT0_Out1',
+                 'OUT0_Out2',
+                 'OUT0_Out3',
+                 'OUT0_Out4',
+                 'OUT0_Out5',
+                 'TIME_StartTime'
+                 ]
+    )
+
+    # 空白行を削除
+    df = df.dropna(how='all')
+    df = df.reset_index(drop=True)
+
+    # 時間データを[秒]に変換
+    df['Time_ST'] = df.at[0,'TIME_StartTime']
+    df['Time_Conv'] = (df['TIME_StartTime'] - df['Time_ST'])/1000000
+
+    # 重複データの削除
+    df = df.drop_duplicates(subset='TIME_StartTime')
+
+    # 実験時間のみ切り取り
+    df = df[(section_ST <= df['Time_Conv']) & (df['Time_Conv'] <= section_ED)]
+
+    #---------------------------
+    # 各データを取り出す
+    #---------------------------
+
+    # 角度
+    phi = np.array(df['ATT_Roll'])
+    theta = np.array(df['ATT_Pitch'])
+    psi = np.array(df['ATT_Yaw'])
+
+    # 角速度 p,q,r
+    d_phi = np.array(df['ATT_RollRate'])
+    d_theta = np.array(df['ATT_PitchRate'])
+    d_psi = np.array(df['ATT_YawRate'])
+
+    # 位置 x,y,z
+    position_x = np.array(df['LPOS_X'])
+    position_y = np.array(df['LPOS_Y'])
+    position_z = np.array(df['LPOS_Z'])
+
+    # 速度
+    d_position_x = np.array(df['LPOS_VX'])
+    d_position_y = np.array(df['LPOS_VY'])
+    d_position_z = np.array(df['LPOS_VZ'])
+    Vp = np.array([d_position_x, d_position_y, d_position_z])
+
+    # ロータ指令値
+    m_up_pwm = np.array(df['OUT0_Out0']) # T1
+    m_down_pwm = np.array(df['OUT0_Out1']) # T2
+    r_r_pwm = np.array(df['OUT0_Out2']) # T3
+    r_l_pwm = np.array(df['OUT0_Out3']) # T4
+    f_up_pwm = np.array(df['OUT0_Out4']) # T5
+    f_down_pwm = np.array(df['OUT0_Out5']) # T6
+
+    # 時間
+    time = np.array(df['Time_Conv'])
+
+    # データサイズの取得（列方向）
+    data_size = len(df)
+
+    #---------------------------
+    # 計算の必要がある値
+    #---------------------------
+
+    # ロータ推力 推算値，要修正？
+    Tm_up = 0.5*const.GRA*(9.5636* 10**(-3)*m_up_pwm - 12.1379)
+    Tm_down = 0.5*const.GRA*(9.5636* 10**(-3)*m_down_pwm - 12.1379)
+
+    Tr_r = const.GRA*(1.5701* 10**(-6) *(r_r_pwm)**2 - 3.3963*10**(-3)*r_r_pwm + 1.9386)
+    Tr_l = const.GRA*(1.5701* 10**(-6) *(r_l_pwm)**2 - 3.3963*10**(-3)*r_l_pwm + 1.9386)
+    Tf_up = const.GRA*(1.5701* 10**(-6) *(f_up_pwm)**2 - 3.3963*10**(-3)*f_up_pwm + 1.9386)
+    Tf_down = const.GRA*(1.5701* 10**(-6) *(f_down_pwm)**2 - 3.3963*10**(-3)*f_down_pwm + 1.9386)
+
+    # ロータ推力に制限をかける
+    Tm_up[Tm_up < 0] = 0
+    Tm_down[Tm_down < 0] = 0
+    Tr_r[Tr_r < 0] = 0
+    Tr_l[Tr_l < 0] = 0
+    Tf_up[Tf_up < 0] = 0
+    Tf_down[Tf_down < 0] = 0
+    Tr_r[Tr_r > const.SUB_THRUST_MAX] = const.SUB_THRUST_MAX
+    Tr_l[Tr_l > const.SUB_THRUST_MAX] = const.SUB_THRUST_MAX
+    Tf_up[Tf_up > const.SUB_THRUST_MAX] = const.SUB_THRUST_MAX
+    Tf_down[Tf_down > const.SUB_THRUST_MAX] = const.SUB_THRUST_MAX
+
+    # 速度
+    Vg = []
+    Vg_wind = []
+
+    # 機体速度と風速を慣性座標系へ変換
+    for i in range(data_size):
+        Vg.append(
+            matex.bc2ic(phi[i],theta[i],psi[i],d_position_x[i],d_position_y[i],d_position_z[i])
+        )
+        Vg_wind.append(
+            matex.bc2ic(phi[i],theta[i],0,V_W,0,0) # 風に対してヨー角はずれていないと仮定
+        )
+
+    # リストからnumpy配列に変換
+    Vg = np.array(Vg)
+    Vg_wind = np.array(Vg_wind)
+
+    # センサー位置の補正
+    Vg[:,0] = Vg[:,0] + d_theta*const.LEN_PZ
+    Vg[:,1] = Vg[:,1] - d_psi*const.LEN_PX - d_phi*const.LEN_PZ
+    Vg[:,2] = Vg[:,2] + d_theta*const.LEN_PX
+
+    # 対気速度を計算
+    Va = Vg - Vg_wind
+    Va_mag = np.sqrt(
+        Va[:,0]**2
+        + Va[:,1]**2
+        + Va[:,2]**2
+    )
+
+    # 迎角を計算[rad]
+    alpha = np.arctan2(Va[:,2],Va[:,0])
+    alpha_deg = alpha*(180/pi)
+
+    #---------------------------
+    # データのフィルタリング処理
+    #---------------------------
+
+    alpha = ffilt.fourier_filter(alpha,0.02,data_size,10)
+    Tm_up = ffilt.fourier_filter(Tm_up,0.02,data_size,10)
+    Tm_down = ffilt.fourier_filter(Tm_down,0.02,data_size,10)
+    Tr_r = ffilt.fourier_filter(Tr_r,0.02,data_size,10)
+    Tr_l = ffilt.fourier_filter(Tr_l,0.02,data_size,10)
+    Tf_up = ffilt.fourier_filter(Tf_up,0.02,data_size,10)
+    Tf_down = ffilt.fourier_filter(Tf_down,0.02,data_size,10)
+
+    #---------------------------
+    # データを一つにまとめる
+    #---------------------------
+
+    read_log_data = pd.DataFrame({
+        'phi' : phi,
+        'theta' : theta,
+        'psi' : psi,
+        'alpha' : alpha,
+        'alpha_deg' : alpha_deg,
+        'position_x' : position_x,
+        'position_y' : position_y,
+        'position_z' : position_z,
+        'Va' : Va_mag,
+        'Tm_up' : Tm_up,
+        'Tm_down' : Tm_down,
+        'Tr_r' : Tr_r,
+        'Tr_l' : Tr_l,
+        'Tf_up' : Tf_up,
+        'Tf_down' : Tf_down,
+    })
+
+    #---------------------------
+    # データの整理と結合
+    #---------------------------
+
+    format_log_data = pd.concat([input_log_data, read_log_data])
+
+    return format_log_data

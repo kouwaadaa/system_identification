@@ -153,8 +153,8 @@ Tr_l = np.array(df_with_dalpha['Tr_l'])
 Tf_up = np.array(df_with_dalpha['Tf_up'])
 Tf_down = np.array(df_with_dalpha['Tf_down'])
 
-T_total = Tr_r + Tr_l + Tf_up + Tf_down
-print(T_total)
+T_R_mean = np.mean(Tr_r+Tr_l)
+T_F_mean = np.mean(Tf_up+Tf_down)
 
 # プロットするときに実験データごとに見られるようにする．
 grouped_df = df_ex_non_kv.groupby('id')
