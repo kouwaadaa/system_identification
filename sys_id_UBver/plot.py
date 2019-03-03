@@ -12,6 +12,81 @@ import matplotlib.pyplot as plt
 import const
 
 
+def plot_CL_compare_model(df1,df2):
+
+    # 必要なデータの取り出し
+    alpha_deg = np.array(df1['alpha_deg'])
+    d_alpha = np.array(df1['d_alpha'])
+    Va = np.array(df1['Va'])
+
+    CL_log = np.array(df1['CL_log'])
+    CL_non_kv = np.array(df1['CL'])
+    CL_non_dalpha = np.array(df2['CL'])
+
+    # プロット
+    plt.figure()
+    plt.subplot(111)
+    plt.scatter(Va,CL_log,label="aaa",linewidth="3")
+    plt.scatter(Va,CL_non_kv,label=r"bbb")
+    plt.scatter(Va,CL_non_dalpha,label=r"ccc")
+    plt.legend(fontsize='22')
+    plt.tick_params(labelsize='18')
+
+    plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$',fontsize='24')
+    plt.ylabel(r'$C_L$',fontsize='24')
+    plt.tight_layout()
+
+
+def plot_CD_compare_model(df1,df2):
+
+    # 必要なデータの取り出し
+    alpha_deg = np.array(df1['alpha_deg'])
+    d_alpha = np.array(df1['d_alpha'])
+    Va = np.array(df1['Va'])
+
+    CD_log = np.array(df1['CD_log'])
+    CD_non_kv = np.array(df1['CD'])
+    CD_non_dalpha = np.array(df2['CD'])
+
+    # プロット
+    plt.figure()
+    plt.subplot(111)
+    plt.scatter(Va,CD_log,label="aaa",linewidth="3")
+    plt.scatter(Va,CD_non_kv,label=r"bbb")
+    plt.scatter(Va,CD_non_dalpha,label=r"ccc")
+    plt.legend(fontsize='22')
+    plt.tick_params(labelsize='18')
+
+    plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$',fontsize='24')
+    plt.ylabel(r'$C_D$',fontsize='24')
+    plt.tight_layout()
+
+
+def plot_Cm_compare_model(df1,df2):
+
+    # 必要なデータの取り出し
+    alpha_deg = np.array(df1['alpha_deg'])
+    d_alpha = np.array(df1['d_alpha'])
+    Va = np.array(df1['Va'])
+
+    Cm_log = np.array(df1['Cm_log'])
+    Cm_non_kv = np.array(df1['Cm'])
+    Cm_non_dalpha = np.array(df2['Cm'])
+
+    # プロット
+    plt.figure()
+    plt.subplot(111)
+    plt.scatter(Va,Cm_log,label="aaa",linewidth="3")
+    plt.scatter(Va,Cm_non_kv,label=r"bbb")
+    plt.scatter(Va,Cm_non_dalpha,label=r"ccc")
+    plt.legend(fontsize='22')
+    plt.tick_params(labelsize='18')
+
+    plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$',fontsize='24')
+    plt.ylabel(r'$C_m$',fontsize='24')
+    plt.tight_layout()
+
+
 def plot_CL_compare_CFD(df):
 
     # Vaでフィルタリング

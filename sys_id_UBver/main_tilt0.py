@@ -248,7 +248,7 @@ data_size = len(format_df)
 # d_theta_filt = np.array(df_with_dalpha['d_theta_filt'])
 #
 # plt.subplot(111)
-# plt.plot(d_theta,label="Native data")
+# plt.plot(d_theta,label="Raw data")
 # plt.plot(d_theta_filt,label="Filtered data",linewidth="3")
 # plt.legend()
 #
@@ -256,65 +256,6 @@ data_size = len(format_df)
 # plt.ylabel('Pitch Rate [rad/s]')
 # plt.show()
 
-#----------------------------------------------------------------
-# # Va横軸で空力係数比較
-# alpha_deg = np.array(df_ex_non_dalpha['alpha_deg'])
-# d_alpha = np.array(df_ex_non_dalpha['d_alpha'])
-# Va = np.array(df_ex_non_dalpha['Va'])
-# CL_log = np.array(df_ex_non_dalpha['CL_log'])
-# CL_non_kv = np.array(df_ex_non_kv['CL'])
-# CL_non_dalpha = np.array(df_ex_non_dalpha['CL'])
-# CL_with_dalpha = np.array(df_ex_with_dalpha['CL'])
-#
-# plt.figure()
-# # plt.figure(figsize=(12,10))
-# plt.subplot(111)
-# plt.scatter(Va,CL_log,label="aaa",linewidth="3")
-# plt.scatter(Va,CL_non_kv,label=r"bbb")
-# plt.scatter(Va,CL_non_dalpha,label=r"ccc")
-# plt.scatter(Va,CL_with_dalpha,label=r"ddd")
-# plt.legend(fontsize='22')
-# plt.tick_params(labelsize='18')
-#
-# plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$',fontsize='24')
-# plt.ylabel(r'$C_L$',fontsize='24')
-# plt.tight_layout()
-#
-# CD_log = np.array(df_ex_non_dalpha['CD_log'])
-# CD_non_kv = np.array(df_ex_non_kv['CD'])
-# # CD_with_dalpha = np.array(df_ex_non_dalpha['CD'])
-# CD_non_dalpha = np.array(df_ex_non_dalpha['CD'])
-#
-# plt.figure()
-# plt.subplot(111)
-# plt.scatter(Va,CD_log,label="aaa",linewidth="3")
-# plt.scatter(Va,CD_non_kv,label=r"bbb")
-# # plt.scatter(Va,CD_with_dalpha,label=r"Data3: model with $k_DV_a$")
-# plt.scatter(Va,CD_non_dalpha,label=r"ccc")
-# plt.legend(fontsize='22')
-# plt.tick_params(labelsize='18')
-#
-# plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$',fontsize='24')
-# plt.ylabel(r'$C_D$',fontsize='24')
-# plt.tight_layout()
-#
-# Cm_log = np.array(df_ex_non_dalpha['Cm_log'])
-# Cm_non_kv = np.array(df_ex_non_kv['Cm'])
-# # Cm_with_dalpha = np.array(df_ex_non_dalpha['Cm'])
-# Cm_non_dalpha = np.array(df_ex_non_dalpha['Cm'])
-#
-# plt.figure()
-# plt.subplot(111)
-# plt.scatter(Va,Cm_log,label="aaa",linewidth="3")
-# plt.scatter(Va,Cm_non_kv,label=r"bbb")
-# # plt.scatter(Va,Cm_with_dalpha,label=r"Data3: model with $k_DV_a$")
-# plt.scatter(Va,Cm_non_dalpha,label=r"ccc")
-# plt.legend(fontsize='22')
-# plt.tick_params(labelsize='18')
-#
-# plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$',fontsize='24')
-# plt.ylabel(r'$C_m$',fontsize='24')
-# plt.tight_layout()
 #----------------------------------------------------------------
 
 # L = np.array(df_with_dalpha['L'])
@@ -367,6 +308,11 @@ data_size = len(format_df)
 # T_F_mean = np.mean(Tf_up+Tf_down)
 
 #----------------------------------------------------------------
+# Va横軸で空力係数を比較
+# plot.plot_CL_compare_model(df_ex_non_kv, df_ex_non_dalpha)
+# plot.plot_CD_compare_model(df_ex_non_kv, df_ex_non_dalpha)
+# plot.plot_Cm_compare_model(df_ex_non_kv, df_ex_non_dalpha)
+
 # CFDと同定結果との比較用
 # plot.plot_CL_compare_CFD(df_ex_non_dalpha)
 # plot.plot_CD_compare_CFD(df_ex_non_dalpha)
