@@ -157,23 +157,8 @@ data_size = len(format_df)
 # 結果をプロット
 #---------------------------
 
-# format_df8 = statistics.calc_RMSE(format_df8)
-
-# format_df[['L_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
-# format_df[['D_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
-# format_df[['M','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
-
-# format_df[['L','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
-# format_df[['Time_DIFF','D']].plot.line(subplots='True', layout=(2,1))
-
 # dfdf = format_df[format_df['Time_DIFF'] >= 0.03]
 # print(dfdf['index'])
-
-# format_df[['D_total','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
-# format_df[['M','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
-
-# format_df[['D','D_calc']].plot.line()
-# format_df[['Ma','Ma_calc']].plot.line()
 
 # format_df[['theta']].plot.line()
 # format_df[['d_theta']].plot.line()
@@ -184,29 +169,9 @@ data_size = len(format_df)
 # df_with_dalpha[['D','D_calc']].plot.line()
 # df_with_dalpha[['Ma','Ma_calc']].plot.line()
 #
-# df_ex_non_dalpha[['L','L_calc']].plot.line()
-# df_ex_non_dalpha[['D','D_calc']].plot.line()
-# df_ex_non_dalpha[['Ma','Ma_calc']].plot.line()
-
-# fq = np.fft.fftfreq(data_size,d=0.02)
-# format_df['fq'] = fq
-# format_df[['alpha_fft','fq']].plot.line(x='fq')
-
-# format_df8[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD_t_nonkv')
-
 # df_ex_non_dalpha[['CL_log','CL','alpha_deg']].plot.line(x='alpha_deg', style='o', title='CL')
 # df_ex_non_dalpha[['CD_log','CD','alpha_deg']].plot.line(x='alpha_deg', style='o', title='CD')
 # df_ex_non_dalpha[['Cm_log','Cm','alpha_deg']].plot.line(x='alpha_deg', style='o', title='Cm')
-
-
-# format_df7[['delta_e']].plot.line()
-
-# df_with_dalpha[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD_dalpha')
-# df_non_kv[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD_nonkv')
-
-# df_ex_non_dalpha[['CL_log','CL']].plot.line()
-# df_ex_non_dalpha[['CD_log','CD']].plot.line()
-# df_ex_non_dalpha[['Cm_log','Cm']].plot.line()
 
 # df_with_dalpha[['CL_log','CL']].plot.line(title='CL_max')
 # df_with_dalpha[['CD_log','CD']].plot.line(title='CD_max')
@@ -220,21 +185,9 @@ data_size = len(format_df)
 # format_df7[['CD_log','CD']].plot.line(title='CD_complete')
 # format_df7[['Cm_log','Cm']].plot.line(title='Cm_complete')
 
-# df_with_dalpha[['CL_log','CL','Va']].plot.line(x='Va', style=['o','p'], title='CL')
-# df_with_dalpha[['CD_log','CD','Va']].plot.line(x='Va', style=['o','p'], title='CD')
-# df_with_dalpha[['Cm_log','Cm','Va']].plot.line(x='Va', style=['o','p'], title='Cm')
-
-# theta = np.array(format_df7['theta'])
-# for j in borderline_list:
-#     plt.axvline(x=j, color="black") # 実験データの境目で線を引く
-
 # format_df[['L_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['D_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
 # format_df[['Ma_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
-
-# format_df[['CL_kawano','Va']].plot.line(x='Va', style=['o'])
-# format_df[['CD_kawano','Va']].plot.line(x='Va', style=['o'])
-# format_df[['Cm_kawano','Va']].plot.line(x='Va', style=['o'])
 
 #----------------------------------------------------------------
 
