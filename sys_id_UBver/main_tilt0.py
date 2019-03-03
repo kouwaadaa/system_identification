@@ -133,7 +133,7 @@ df_ex_non_kv = sys_id.sys_id_LS_ex_non_kv(format_df)
 #---------------------------
 
 # anly_result = analyze.linearlize(df_with_dalpha)
-# anly_result = analyze.linearlize_non_d_alpha(df_non_dalpha)
+anly_result = analyze.linearlize_non_d_alpha(df_non_dalpha)
 
 #---------------------------
 # 統計データ算出
@@ -152,10 +152,6 @@ df_ex_non_kv = statistics.calc_RMSE(df_ex_non_kv)
 
 # 合計のデータサイズを取得
 data_size = len(format_df)
-
-# 必要な結果のみをCSVファイルに書き出し
-df_ex_non_dalpha_filt = df_ex_non_dalpha.query('4.5 <= Va <= 5.5')
-df_ex_non_dalpha_filt.to_csv('../output_data/out_ex_non_dalpha.csv')
 
 #---------------------------
 # 結果をプロット
@@ -239,51 +235,6 @@ df_ex_non_dalpha_filt.to_csv('../output_data/out_ex_non_dalpha.csv')
 # format_df[['CL_kawano','Va']].plot.line(x='Va', style=['o'])
 # format_df[['CD_kawano','Va']].plot.line(x='Va', style=['o'])
 # format_df[['Cm_kawano','Va']].plot.line(x='Va', style=['o'])
-
-# window = np.hamming(data_size)
-# manual_T3 = window * manual_T3
-
-#----------------------------------------------------------------
-# lambda_A_abs = np.abs(anly_result[0])
-# lambda_A_abs= lambda_A_abs[np.all(lambda_A_abs < 10,axis=1)]
-# data_size_lam = lambda_A_abs.shape[0]
-#
-# xxx = np.arange(data_size_lam)
-#----------------------------------------------------------------
-# lambda_A_abs = np.abs(anly_result[0])
-#
-# y = lambda_A_abs[:,0]
-# yy = lambda_A_abs[:,1]
-# yyy = lambda_A_abs[:,2]
-# yyyy = lambda_A_abs[:,3]
-#
-# print(y.mean())
-# print(yy.mean())
-# print(yyy.mean())
-# print(yyyy.mean())
-
-#----------------------------------------------------------------
-# lambda_A_abs = np.abs(anly_result[0])
-#
-# xxx = np.arange(data_size)
-# y = lambda_A_abs[:,0]
-# yy = lambda_A_abs[:,1]
-# yyy = lambda_A_abs[:,2]
-# yyyy = lambda_A_abs[:,3]
-#
-# plt.subplot(111)
-# plt.scatter(xxx,y,label="")
-# plt.scatter(xxx,yy,label="")
-# plt.scatter(xxx,yyy,label="")
-# plt.scatter(xxx,yyyy,label="")
-
-# for j in borderline_list:
-#     plt.axvline(x=j, color="black", linestyle="--") # 実験データの境目で線を引く
-#
-# # plt.title('固有値散布図')
-# plt.xlabel('Data Number')
-# plt.ylabel('Absolute eigenvalue')
-# plt.tight_layout()
 
 #----------------------------------------------------------------
 
@@ -415,6 +366,11 @@ df_ex_non_dalpha_filt.to_csv('../output_data/out_ex_non_dalpha.csv')
 # T_R_mean = np.mean(Tr_r+Tr_l)
 # T_F_mean = np.mean(Tf_up+Tf_down)
 
+#----------------------------------------------------------------
+# CFDと同定結果との比較用
 # plot.plot_CL_compare_CFD(df_ex_non_dalpha)
 # plot.plot_CD_compare_CFD(df_ex_non_dalpha)
-plot.plot_Cm_compare_CFD(df_ex_non_dalpha)
+# plot.plot_Cm_compare_CFD(df_ex_non_dalpha)
+
+# 固有値の絶対値
+# plot.plot_eigen_abs(anly_result)

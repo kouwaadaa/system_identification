@@ -8,15 +8,11 @@ import numpy as np
 from numpy import pi
 import pandas as pd
 import matplotlib.pyplot as plt
-from IPython import get_ipython
 
 import const
 
 
 def plot_CL_compare_CFD(df):
-
-    # プロットデータを新しいウィンドウで表示する
-    get_ipython().run_line_magic('matplotlib', 'qt')
 
     # Vaでフィルタリング
     df_filt = df.query('4.5 <= Va <= 5.5')
@@ -58,9 +54,6 @@ def plot_CL_compare_CFD(df):
 
 def plot_CD_compare_CFD(df):
 
-    # プロットデータを新しいウィンドウで表示する
-    get_ipython().run_line_magic('matplotlib', 'qt')
-
     # Vaでフィルタリング
     df_filt = df.query('4.5 <= Va <= 5.5')
 
@@ -101,9 +94,6 @@ def plot_CD_compare_CFD(df):
 
 def plot_Cm_compare_CFD(df):
 
-    # プロットデータを新しいウィンドウで表示する
-    get_ipython().run_line_magic('matplotlib', 'qt')
-
     # Vaでフィルタリング
     df_filt = df.query('4.5 <= Va <= 5.5')
 
@@ -139,4 +129,32 @@ def plot_Cm_compare_CFD(df):
 
     plt.xlabel(r'$\alpha \mathrm{[deg]}$',fontsize='24')
     plt.ylabel(r'$C_m$',fontsize='24')
+    plt.tight_layout()
+
+
+def plot_eigen_abs(list):
+
+    # データの取り出し
+    lambda_A_abs = np.abs(list[0])
+    data_size = len(lambda_A_abs)
+    x = np.arange(data_size)
+    eigen1 = lambda_A_abs[:,0]
+    eigen2 = lambda_A_abs[:,1]
+    eigen3 = lambda_A_abs[:,2]
+    eigen4 = lambda_A_abs[:,3]
+
+    # プロット
+    plt.figure()
+    plt.subplot(111)
+    plt.scatter(x,eigen1,label="")
+    plt.scatter(x,eigen2,label="")
+    plt.scatter(x,eigen3,label="")
+    plt.scatter(x,eigen4,label="")
+    plt.grid()
+
+    plt.legend(fontsize='22')
+    plt.tick_params(labelsize='18')
+
+    plt.xlabel(r'Data Number',fontsize='24')
+    plt.ylabel(r'Absolute eigenvalue',fontsize='24')
     plt.tight_layout()
