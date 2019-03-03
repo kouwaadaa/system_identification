@@ -52,7 +52,7 @@ def calc_RMSE(format_df):
     format_df_return['Cm_RMSE'] = Cm_RMSE
 
     print(f'CL_RMSE:{CL_RMSE:.10f} CD_RMSE:{CD_RMSE:.10f} Cm_RMSE:{Cm_RMSE:.10f}')
-    # print(f'CL_MAE:{CL_MAE:.10f} CD_MAE:{CD_MAE:.10f} Cm_MAE:{Cm_MAE:.10f}')
-    # print(f'CL_h:{CL_h:.10f} CD_h:{CD_h:.10f} Cm_h:{Cm_h:.10f}\n')
+    print(f'CL_MAE:{CL_MAE:.10f} CD_MAE:{CD_MAE:.10f} Cm_MAE:{Cm_MAE:.10f}')
+    print(f'CL_h:{CL_h:.10f} CD_h:{CD_h:.10f} Cm_h:{Cm_h:.10f}\n')
 
     return format_df_return

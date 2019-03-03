@@ -2,7 +2,7 @@
 '''
 author: ub
 2018/12/14 Mon. 新座標系に変更．
-ティルト角10度の実験データを使う．
+ティルト角0度の実験データを使う．
 ファイル読み込み以外変更なし．
 '''
 
@@ -24,6 +24,7 @@ import calc_thrust
 import sys_id
 import analyze
 import statistics
+import plot
 
 #---------------------------
 # matplotlibの諸設定
@@ -42,19 +43,19 @@ get_ipython().run_line_magic('matplotlib', 'qt')
 # # for DeskPC
 # plt.rc('font', **{'family':'YuGothic'})
 
-plt.rcParams['font.size'] = 20
-plt.rcParams['xtick.labelsize'] = 15
-plt.rcParams['ytick.labelsize'] = 15 # default: 12
-
-# プロットデータのサイズ設定
-plt.rcParams["figure.figsize"] = [20, 12]
+# plt.rcParams['font.size'] = 20
+# plt.rcParams['xtick.labelsize'] = 15
+# plt.rcParams['ytick.labelsize'] = 15 # default: 12
+#
+# # プロットデータのサイズ設定
+# plt.rcParams["figure.figsize"] = [20, 12]
 
 #---------------------------
 # 推力効率係数の算出
 #---------------------------
 
-T_EFF_30 = calc_thrust.calc_thrust_eff(1)[0]
-T_EFF_35 = calc_thrust.calc_thrust_eff(1)[1]
+T_EFF_30 = calc_thrust.calc_thrust_eff(1.0)[0]
+T_EFF_35 = calc_thrust.calc_thrust_eff(1.0)[1]
 
 #---------------------------
 # ログデータの読み込み
@@ -113,8 +114,6 @@ format_df,size = file_read.file_read(1100,'../log_data/Book11.csv',19.86,25.27,-
 #---------------------------
 
 # indexの振り直し
-# ここで新たに"index"という列が生成されるが，
-# これを残しておけばログデータごとのプロットがしやすい．
 format_df = format_df.reset_index()
 
 #---------------------------
@@ -134,15 +133,15 @@ df_ex_non_kv = sys_id.sys_id_LS_ex_non_kv(format_df)
 #---------------------------
 
 # anly_result = analyze.linearlize(df_with_dalpha)
-anly_result = analyze.linearlize_non_d_alpha(df_non_dalpha)
+# anly_result = analyze.linearlize_non_d_alpha(df_non_dalpha)
 
 #---------------------------
 # 統計データ算出
 #---------------------------
 
-df_non_dalpha = statistics.calc_RMSE(df_non_dalpha)
-df_with_dalpha = statistics.calc_RMSE(df_with_dalpha)
-df_non_kv = statistics.calc_RMSE(df_non_kv)
+# df_non_dalpha = statistics.calc_RMSE(df_non_dalpha)
+# df_with_dalpha = statistics.calc_RMSE(df_with_dalpha)
+# df_non_kv = statistics.calc_RMSE(df_non_kv)
 df_ex_non_dalpha = statistics.calc_RMSE(df_ex_non_dalpha)
 df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
 df_ex_non_kv = statistics.calc_RMSE(df_ex_non_kv)
@@ -199,9 +198,9 @@ df_ex_non_dalpha_filt.to_csv('../output_data/out_ex_non_dalpha.csv')
 
 # format_df8[['CD_log','CD','Va']].plot.line(x='Va', style='o', title='CD_t_nonkv')
 
-# df_ex_non_dalpha[['CL_log','CL','Va']].plot.line(x='Va', style='o', title='CL')
-df_ex_non_dalpha[['D','D_calc','Va']].plot.line(x='Va', style='o')
-# df_ex_non_dalpha[['Cm_log','Cm','Va']].plot.line(x='Va', style='o', title='Cm')
+# df_ex_non_dalpha[['CL_log','CL','alpha_deg']].plot.line(x='alpha_deg', style='o', title='CL')
+# df_ex_non_dalpha[['CD_log','CD','alpha_deg']].plot.line(x='alpha_deg', style='o', title='CD')
+# df_ex_non_dalpha[['Cm_log','Cm','alpha_deg']].plot.line(x='alpha_deg', style='o', title='Cm')
 
 
 # format_df7[['delta_e']].plot.line()
@@ -307,56 +306,65 @@ df_ex_non_dalpha[['D','D_calc','Va']].plot.line(x='Va', style='o')
 # plt.show()
 
 #----------------------------------------------------------------
-
-
-# Va = np.array(df_with_dalpha['Va'])
-# CD_log = np.array(df_with_dalpha['CD_log'])
-# CD_4 = np.array(df_non_kv['CD']) # non kV
-# CD_5 = np.array(df_with_dalpha['CD']) # max
-# # CD_6 = np.array(df_non_dalpha['CD']) # non d_alpha
+# # Va横軸で空力係数比較
+# alpha_deg = np.array(df_ex_non_dalpha['alpha_deg'])
+# d_alpha = np.array(df_ex_non_dalpha['d_alpha'])
+# Va = np.array(df_ex_non_dalpha['Va'])
+# CL_log = np.array(df_ex_non_dalpha['CL_log'])
+# CL_non_kv = np.array(df_ex_non_kv['CL'])
+# CL_non_dalpha = np.array(df_ex_non_dalpha['CL'])
+# CL_with_dalpha = np.array(df_ex_with_dalpha['CL'])
 #
+# plt.figure()
 # # plt.figure(figsize=(12,10))
 # plt.subplot(111)
-# plt.scatter(Va,CD_log,label="Data1: log data",linewidth="3")
-# plt.scatter(Va,CD_4,label=r"Data2: model without $k_DV_a$")
-# plt.scatter(Va,CD_5,label=r"Data3: model with $k_DV_a$")
-# # plt.scatter(Va,CD_6,label=r"Model:No $\dot{\alpha}$")
-# plt.legend()
+# plt.scatter(Va,CL_log,label="aaa",linewidth="3")
+# plt.scatter(Va,CL_non_kv,label=r"bbb")
+# plt.scatter(Va,CL_non_dalpha,label=r"ccc")
+# plt.scatter(Va,CL_with_dalpha,label=r"ddd")
+# plt.legend(fontsize='22')
+# plt.tick_params(labelsize='18')
 #
-# plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$')
-# plt.ylabel(r'$C_D$')
+# plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$',fontsize='24')
+# plt.ylabel(r'$C_L$',fontsize='24')
 # plt.tight_layout()
-
-# f_up_pwm = np.array(df_with_dalpha['f_up_pwm'])
 #
-# # 高速フーリエ変換(FFT)
-# F = np.fft.fft(f_up_pwm) #
+# CD_log = np.array(df_ex_non_dalpha['CD_log'])
+# CD_non_kv = np.array(df_ex_non_kv['CD'])
+# # CD_with_dalpha = np.array(df_ex_non_dalpha['CD'])
+# CD_non_dalpha = np.array(df_ex_non_dalpha['CD'])
 #
-# # FFTの複素数結果を絶対に変換
-# F_abs = np.abs(F)
-# # 振幅をもとの信号に揃える
-# F_abs_am = F_abs / data_size * 2 # 交流成分はデータ数で割って2倍
-# F_abs_amp = F_abs_am / (1/0.02)
+# plt.figure()
+# plt.subplot(111)
+# plt.scatter(Va,CD_log,label="aaa",linewidth="3")
+# plt.scatter(Va,CD_non_kv,label=r"bbb")
+# # plt.scatter(Va,CD_with_dalpha,label=r"Data3: model with $k_DV_a$")
+# plt.scatter(Va,CD_non_dalpha,label=r"ccc")
+# plt.legend(fontsize='22')
+# plt.tick_params(labelsize='18')
 #
-# # 周波数軸のデータ作成
-# fq = np.linspace(1, 1.0/0.02, data_size) # 周波数軸　linspace(開始,終了,分割数)
+# plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$',fontsize='24')
+# plt.ylabel(r'$C_D$',fontsize='24')
+# plt.tight_layout()
 #
-# fig = plt.figure()
+# Cm_log = np.array(df_ex_non_dalpha['Cm_log'])
+# Cm_non_kv = np.array(df_ex_non_kv['Cm'])
+# # Cm_with_dalpha = np.array(df_ex_non_dalpha['Cm'])
+# Cm_non_dalpha = np.array(df_ex_non_dalpha['Cm'])
 #
-# # 時間軸
-# ax1 = fig.add_subplot(121)
-# plt.xlabel('Data Number')
-# plt.ylabel('PWM value')
-# plt.plot(f_up_pwm,label="Sub rotor command") # ナイキスト定数まで表示
-# plt.legend()
+# plt.figure()
+# plt.subplot(111)
+# plt.scatter(Va,Cm_log,label="aaa",linewidth="3")
+# plt.scatter(Va,Cm_non_kv,label=r"bbb")
+# # plt.scatter(Va,Cm_with_dalpha,label=r"Data3: model with $k_DV_a$")
+# plt.scatter(Va,Cm_non_dalpha,label=r"ccc")
+# plt.legend(fontsize='22')
+# plt.tick_params(labelsize='18')
 #
-# # FFTのグラフ（周波数軸）
-# ax2 = fig.add_subplot(122)
-# plt.xlabel('Freqency[Hz]')
-# plt.ylabel('Amplitude')
-# plt.plot(fq[1:int(data_size/2)], F_abs_amp[1:int(data_size/2)],label="Sub rotor command") # ナイキスト定数まで表示
-# plt.legend()
-# plt.show()
+# plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$',fontsize='24')
+# plt.ylabel(r'$C_m$',fontsize='24')
+# plt.tight_layout()
+#----------------------------------------------------------------
 
 # L = np.array(df_with_dalpha['L'])
 # L_calc = np.array(df_with_dalpha['L_calc'])
@@ -398,10 +406,15 @@ df_ex_non_dalpha[['D','D_calc','Va']].plot.line(x='Va', style='o')
 # plt.tight_layout()
 # #----------------------------------------------------------------
 
-Tr_r = np.array(df_with_dalpha['Tr_r'])
-Tr_l = np.array(df_with_dalpha['Tr_l'])
-Tf_up = np.array(df_with_dalpha['Tf_up'])
-Tf_down = np.array(df_with_dalpha['Tf_down'])
+# スラスト出力確認
+# Tr_r = np.array(df_with_dalpha['Tr_r'])
+# Tr_l = np.array(df_with_dalpha['Tr_l'])
+# Tf_up = np.array(df_with_dalpha['Tf_up'])
+# Tf_down = np.array(df_with_dalpha['Tf_down'])
+#
+# T_R_mean = np.mean(Tr_r+Tr_l)
+# T_F_mean = np.mean(Tf_up+Tf_down)
 
-T_R_mean = np.mean(Tr_r+Tr_l)
-T_F_mean = np.mean(Tf_up+Tf_down)
+# plot.plot_CL_compare_CFD(df_ex_non_dalpha)
+# plot.plot_CD_compare_CFD(df_ex_non_dalpha)
+plot.plot_Cm_compare_CFD(df_ex_non_dalpha)
