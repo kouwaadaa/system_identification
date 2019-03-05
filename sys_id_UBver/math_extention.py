@@ -51,6 +51,49 @@ def bc2ic(phi, theta, psi, x, y, z):
     return ic
 
 
+def ic2bc(phi, theta, psi, x, y, z):
+    '''
+    慣性座標系から機体座標系へ変換する関数.
+
+    Parameters
+    ----------
+    phi : float64
+        ロール角.
+    theta : float64
+        ピッチ角.
+    psi : float64
+        ヨー角.
+    x : float64
+        機体座標 x.
+    y : float64
+        機体座標 y.
+    z : float64
+        機体座標 z.
+
+    Returns
+    -------
+    bc : array-like
+        変換後の機体座標 [x, y, z]
+    '''
+
+    sin_phi = np.sin(phi)
+    cos_phi = np.cos(phi)
+    sin_theta = np.sin(theta)
+    cos_theta = np.cos(theta)
+    sin_psi = np.sin(psi)
+    cos_psi = np.cos(psi)
+
+    euler = np.array(
+        [[cos_theta*cos_psi, cos_theta*sin_psi, -sin_theta],
+        [sin_phi*sin_theta*cos_psi-cos_phi*sin_psi, sin_phi*sin_theta*sin_psi+cos_phi*cos_psi, sin_phi*cos_theta],
+        [cos_phi*sin_theta*cos_psi+sin_phi*sin_psi, cos_phi*sin_theta*sin_psi-sin_phi*cos_psi, cos_phi*cos_theta]]
+    )
+    ic = np.array([x, y, z])
+    bc = np.dot(euler.transpose(),ic.transpose())
+
+    return ic
+
+
 def both_side_diff(x):
     '''
     与えられたリストの中央差分リストを生成して返す関数.

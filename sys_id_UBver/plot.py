@@ -26,14 +26,14 @@ def plot_CL_compare_model(df1,df2):
     # プロット
     plt.figure()
     plt.subplot(111)
-    plt.scatter(Va,CL_log,label="aaa",linewidth="3")
-    plt.scatter(Va,CL_non_kv,label=r"bbb")
-    plt.scatter(Va,CL_non_dalpha,label=r"ccc")
-    plt.legend(fontsize='22')
-    plt.tick_params(labelsize='18')
+    plt.scatter(Va,CL_log,label="Log data",linewidth="3")
+    plt.scatter(Va,CL_non_kv,label=r"Model without $k_L V_a$")
+    plt.scatter(Va,CL_non_dalpha,label=r"Model with $k_L V_a$")
+    plt.legend(fontsize='25')
+    plt.tick_params(labelsize='28')
 
-    plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$',fontsize='24')
-    plt.ylabel(r'$C_L$',fontsize='24')
+    plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$',fontsize='36')
+    plt.ylabel(r'$C_L^{\prime}$',fontsize='36')
     plt.tight_layout()
 
 
@@ -51,14 +51,14 @@ def plot_CD_compare_model(df1,df2):
     # プロット
     plt.figure()
     plt.subplot(111)
-    plt.scatter(Va,CD_log,label="aaa",linewidth="3")
-    plt.scatter(Va,CD_non_kv,label=r"bbb")
-    plt.scatter(Va,CD_non_dalpha,label=r"ccc")
-    plt.legend(fontsize='22')
-    plt.tick_params(labelsize='18')
+    plt.scatter(Va,CD_log,label="Log data",linewidth="3")
+    plt.scatter(Va,CD_non_kv,label=r"Model without $k_D V_a$")
+    plt.scatter(Va,CD_non_dalpha,label=r"Model with $k_D V_a$")
+    plt.legend(fontsize='25')
+    plt.tick_params(labelsize='28')
 
-    plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$',fontsize='24')
-    plt.ylabel(r'$C_D$',fontsize='24')
+    plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$',fontsize='36')
+    plt.ylabel(r'$C_D^{\prime}$',fontsize='36')
     plt.tight_layout()
 
 
@@ -76,14 +76,14 @@ def plot_Cm_compare_model(df1,df2):
     # プロット
     plt.figure()
     plt.subplot(111)
-    plt.scatter(Va,Cm_log,label="aaa",linewidth="3")
-    plt.scatter(Va,Cm_non_kv,label=r"bbb")
-    plt.scatter(Va,Cm_non_dalpha,label=r"ccc")
-    plt.legend(fontsize='22')
-    plt.tick_params(labelsize='18')
+    plt.scatter(Va,Cm_log,label="Log data",linewidth="3")
+    plt.scatter(Va,Cm_non_kv,label=r"Model without $k_m V_a$")
+    plt.scatter(Va,Cm_non_dalpha,label=r"Model with $k_m V_a$")
+    plt.legend(fontsize='25')
+    plt.tick_params(labelsize='28')
 
-    plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$',fontsize='24')
-    plt.ylabel(r'$C_m$',fontsize='24')
+    plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$',fontsize='36')
+    plt.ylabel(r'$C_m^{\prime}$',fontsize='36')
     plt.tight_layout()
 
 
@@ -114,16 +114,16 @@ def plot_CL_compare_CFD(df):
     # プロット
     plt.figure()
     plt.subplot(111)
-    plt.scatter(alpha_deg,CL_log,label="aaa")
-    plt.scatter([0,-10,-20],[CL_if_alpha_0,CL_if_alpha_m10,CL_if_alpha_m20],label="bbb",linewidth="5")
-    plt.scatter([0,-10,-20],[CL_CFD_alpha_0,CL_CFD_alpha_m10,CL_CFD_alpha_m20],label="ccc",linewidth="5")
+    plt.scatter(alpha_deg,CL_log,label="Log data")
+    plt.scatter([0,-10,-20],[CL_if_alpha_0,CL_if_alpha_m10,CL_if_alpha_m20],label="Parameter identification",linewidth="8")
+    plt.scatter([0,-10,-20],[CL_CFD_alpha_0,CL_CFD_alpha_m10,CL_CFD_alpha_m20],label="CFD",color="r",linewidth="8")
     plt.grid()
 
-    plt.legend(fontsize='22')
-    plt.tick_params(labelsize='18')
+    plt.legend(fontsize='25')
+    plt.tick_params(labelsize='28')
 
-    plt.xlabel(r'$\alpha \mathrm{[deg]}$',fontsize='24')
-    plt.ylabel(r'$C_L$',fontsize='24')
+    plt.xlabel(r'$\alpha \mathrm{[deg]}$',fontsize='36')
+    plt.ylabel(r'$C_L^{\prime}$',fontsize='36')
     plt.tight_layout()
 
 
@@ -154,16 +154,16 @@ def plot_CD_compare_CFD(df):
     # プロット
     plt.figure()
     plt.subplot(111)
-    plt.scatter(alpha_deg,CD_log,label="aaa")
-    plt.scatter([0,-10,-20],[CD_if_alpha_0,CD_if_alpha_m10,CD_if_alpha_m20],label="bbb",linewidth="5")
-    plt.scatter([0,-10,-20],[CD_CFD_alpha_0,CD_CFD_alpha_m10,CD_CFD_alpha_m20],label="ccc",linewidth="5")
+    plt.scatter(alpha_deg,CD_log,label="Log data")
+    plt.scatter([0,-10,-20],[CD_if_alpha_0,CD_if_alpha_m10,CD_if_alpha_m20],label="Parameter identification",linewidth="8")
+    plt.scatter([0,-10,-20],[CD_CFD_alpha_0,CD_CFD_alpha_m10,CD_CFD_alpha_m20],label="CFD",color="r",linewidth="8")
     plt.grid()
 
-    plt.legend(fontsize='22')
-    plt.tick_params(labelsize='18')
+    plt.legend(fontsize='25')
+    plt.tick_params(labelsize='28')
 
-    plt.xlabel(r'$\alpha \mathrm{[deg]}$',fontsize='24')
-    plt.ylabel(r'$C_D$',fontsize='24')
+    plt.xlabel(r'$\alpha \mathrm{[deg]}$',fontsize='36')
+    plt.ylabel(r'$C_D^{\prime}$',fontsize='36')
     plt.tight_layout()
 
 
@@ -194,16 +194,16 @@ def plot_Cm_compare_CFD(df):
     # プロット
     plt.figure()
     plt.subplot(111)
-    plt.scatter(alpha_deg,Cm_log,label="aaa")
-    plt.scatter([0,-10,-20],[Cm_if_alpha_0,Cm_if_alpha_m10,Cm_if_alpha_m20],label="bbb",linewidth="5")
-    plt.scatter([0,-10,-20],[Cm_CFD_alpha_0,Cm_CFD_alpha_m10,Cm_CFD_alpha_m20],label="ccc",linewidth="5")
+    plt.scatter(alpha_deg,Cm_log,label="Log data")
+    plt.scatter([0,-10,-20],[Cm_if_alpha_0,Cm_if_alpha_m10,Cm_if_alpha_m20],label="Parameter identification",linewidth="8")
+    plt.scatter([0,-10,-20],[Cm_CFD_alpha_0,Cm_CFD_alpha_m10,Cm_CFD_alpha_m20],label="CFD",color="r",linewidth="8")
     plt.grid()
 
-    plt.legend(fontsize='22')
-    plt.tick_params(labelsize='18')
+    plt.legend(fontsize='25')
+    plt.tick_params(labelsize='28')
 
-    plt.xlabel(r'$\alpha \mathrm{[deg]}$',fontsize='24')
-    plt.ylabel(r'$C_m$',fontsize='24')
+    plt.xlabel(r'$\alpha \mathrm{[deg]}$',fontsize='36')
+    plt.ylabel(r'$C_m^{\prime}$',fontsize='36')
     plt.tight_layout()
 
 
@@ -227,9 +227,9 @@ def plot_eigen_abs(list):
     plt.scatter(x,eigen4,label="")
     plt.grid()
 
-    plt.legend(fontsize='22')
-    plt.tick_params(labelsize='18')
+    # plt.legend(fontsize='25')
+    plt.tick_params(labelsize='28')
 
-    plt.xlabel(r'Data Number',fontsize='24')
-    plt.ylabel(r'Absolute eigenvalue',fontsize='24')
+    plt.xlabel(r'Data Number',fontsize='36')
+    plt.ylabel(r'Absolute eigenvalue',fontsize='36')
     plt.tight_layout()

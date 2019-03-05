@@ -93,13 +93,13 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
 
     # 時間データを[秒]に変換
     df['Time_ST'] = df.at[0,'TIME_StartTime']
-    df['Time_Conv'] = (df['TIME_StartTime'] - df['Time_ST'])/1000000
+    df['Time_sec'] = (df['TIME_StartTime'] - df['Time_ST'])/1000000
 
     # 重複データの削除
     df = df.drop_duplicates(subset='TIME_StartTime')
 
     # 実験時間のみ切り取り
-    df = df[(section_ST <= df['Time_Conv']) & (df['Time_Conv'] <= section_ED)]
+    df = df[(section_ST <= df['Time_sec']) & (df['Time_sec'] <= section_ED)]
 
     #---------------------------
     # 各データを取り出す
@@ -150,7 +150,7 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
     manual_tilt = np.array(df['VTOL_Tilt'])
 
     # 時間
-    time = np.array(df['Time_Conv'])
+    time = np.array(df['Time_sec'])
 
     # データサイズの取得（列方向）
     data_size = len(df)
@@ -206,7 +206,7 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
     # 機体速度と風速を慣性座標系へ変換
     for i in range(data_size):
         Vg.append(
-            matex.bc2ic(phi[i],theta[i],psi[i],d_position_x[i],d_position_y[i],d_position_z[i])
+            matex.bc2ic(phi[i],theta[i],psi[i],Vp[0][i],Vp[1][i],Vp[2][i])
         )
         Vg_wind.append(
             matex.bc2ic(phi[i],theta[i],0,V_W,0,0) # 風に対してヨー角はずれていないと仮定
@@ -482,13 +482,13 @@ def file_read_thrust(filename, section_ST, section_ED, V_W, RHO, GAMMA, input_lo
 
     # 時間データを[秒]に変換
     df['Time_ST'] = df.at[0,'TIME_StartTime']
-    df['Time_Conv'] = (df['TIME_StartTime'] - df['Time_ST'])/1000000
+    df['Time_sec'] = (df['TIME_StartTime'] - df['Time_ST'])/1000000
 
     # 重複データの削除
     df = df.drop_duplicates(subset='TIME_StartTime')
 
     # 実験時間のみ切り取り
-    df = df[(section_ST <= df['Time_Conv']) & (df['Time_Conv'] <= section_ED)]
+    df = df[(section_ST <= df['Time_sec']) & (df['Time_sec'] <= section_ED)]
 
     #---------------------------
     # 各データを取り出す
@@ -524,7 +524,7 @@ def file_read_thrust(filename, section_ST, section_ED, V_W, RHO, GAMMA, input_lo
     f_down_pwm = np.array(df['OUT0_Out5']) # T6
 
     # 時間
-    time = np.array(df['Time_Conv'])
+    time = np.array(df['Time_sec'])
 
     # データサイズの取得（列方向）
     data_size = len(df)

@@ -47,8 +47,8 @@ get_ipython().run_line_magic('matplotlib', 'qt')
 # plt.rcParams['xtick.labelsize'] = 15
 # plt.rcParams['ytick.labelsize'] = 15 # default: 12
 #
-# # プロットデータのサイズ設定
-# plt.rcParams["figure.figsize"] = [20, 12]
+# プロットデータのサイズ設定
+plt.rcParams["figure.figsize"] = [20, 12]
 
 #---------------------------
 # 推力効率係数の算出
@@ -143,7 +143,7 @@ anly_result = analyze.linearlize_non_d_alpha(df_non_dalpha)
 # df_with_dalpha = statistics.calc_RMSE(df_with_dalpha)
 # df_non_kv = statistics.calc_RMSE(df_non_kv)
 df_ex_non_dalpha = statistics.calc_RMSE(df_ex_non_dalpha)
-df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
+# df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
 df_ex_non_kv = statistics.calc_RMSE(df_ex_non_kv)
 
 #---------------------------
@@ -160,8 +160,7 @@ data_size = len(format_df)
 # dfdf = format_df[format_df['Time_DIFF'] >= 0.03]
 # print(dfdf['index'])
 
-# format_df[['theta']].plot.line()
-# format_df[['d_theta']].plot.line()
+df_ex_with_dalpha[['alpha','theta']].plot.line()
 # df_non_kv[['D','D_calc']].plot.line()
 # df_non_kv[['Ma','Ma_calc']].plot.line()
 #
@@ -267,9 +266,9 @@ data_size = len(format_df)
 # plot.plot_Cm_compare_model(df_ex_non_kv, df_ex_non_dalpha)
 
 # CFDと同定結果との比較用
-# plot.plot_CL_compare_CFD(df_ex_non_dalpha)
-# plot.plot_CD_compare_CFD(df_ex_non_dalpha)
-# plot.plot_Cm_compare_CFD(df_ex_non_dalpha)
+plot.plot_CL_compare_CFD(df_ex_non_dalpha)
+plot.plot_CD_compare_CFD(df_ex_non_dalpha)
+plot.plot_Cm_compare_CFD(df_ex_non_dalpha)
 
 # 固有値の絶対値
 # plot.plot_eigen_abs(anly_result)
