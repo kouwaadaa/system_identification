@@ -203,13 +203,13 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
     Vg = []
     Vg_wind = []
 
-    # 機体速度と風速を慣性座標系へ変換
+    # 機体速度と風速を機体座標系へ変換
     for i in range(data_size):
         Vg.append(
-            matex.bc2ic(phi[i],theta[i],psi[i],Vp[0][i],Vp[1][i],Vp[2][i])
+            matex.ic2bc(phi[i],theta[i],psi[i],Vp[0][i],Vp[1][i],Vp[2][i])
         )
         Vg_wind.append(
-            matex.bc2ic(phi[i],theta[i],0,V_W,0,0) # 風に対してヨー角はずれていないと仮定
+            matex.ic2bc(phi[i],theta[i],0,V_W,0,0) # 風に対してヨー角はずれていないと仮定
         )
 
     # リストからnumpy配列に変換
@@ -337,6 +337,7 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
     #---------------------------
 
     alpha = ffilt.fourier_filter(alpha,0.02,data_size,10)
+    theta = ffilt.fourier_filter(theta,0.02,data_size,10)
     d_alpha = ffilt.fourier_filter(d_alpha,0.02,data_size,10)
     d_theta = ffilt.fourier_filter(d_theta,0.02,data_size,10)
     delta_e = ffilt.fourier_filter(delta_e,0.02,data_size,10)
@@ -561,10 +562,10 @@ def file_read_thrust(filename, section_ST, section_ED, V_W, RHO, GAMMA, input_lo
     # 機体速度と風速を慣性座標系へ変換
     for i in range(data_size):
         Vg.append(
-            matex.bc2ic(phi[i],theta[i],psi[i],d_position_x[i],d_position_y[i],d_position_z[i])
+            matex.ic2bc(phi[i],theta[i],psi[i],d_position_x[i],d_position_y[i],d_position_z[i])
         )
         Vg_wind.append(
-            matex.bc2ic(phi[i],theta[i],0,V_W,0,0) # 風に対してヨー角はずれていないと仮定
+            matex.ic2bc(phi[i],theta[i],0,V_W,0,0) # 風に対してヨー角はずれていないと仮定
         )
 
     # リストからnumpy配列に変換

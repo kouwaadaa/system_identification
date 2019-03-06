@@ -46,7 +46,7 @@ def bc2ic(phi, theta, psi, x, y, z):
         [cos_phi*sin_theta*cos_psi+sin_phi*sin_psi, cos_phi*sin_theta*sin_psi-sin_phi*cos_psi, cos_phi*cos_theta]]
     )
     bc = np.array([x, y, z])
-    ic = np.dot(euler,bc.transpose())
+    ic = np.dot(euler.transpose(),bc.transpose())
 
     return ic
 
@@ -89,9 +89,9 @@ def ic2bc(phi, theta, psi, x, y, z):
         [cos_phi*sin_theta*cos_psi+sin_phi*sin_psi, cos_phi*sin_theta*sin_psi-sin_phi*cos_psi, cos_phi*cos_theta]]
     )
     ic = np.array([x, y, z])
-    bc = np.dot(euler.transpose(),ic.transpose())
+    bc = np.dot(euler,ic.transpose())
 
-    return ic
+    return bc
 
 
 def both_side_diff(x):

@@ -161,6 +161,7 @@ data_size = len(format_df)
 # print(dfdf['index'])
 
 df_ex_with_dalpha[['alpha','theta']].plot.line()
+df_ex_with_dalpha[['d_alpha','d_theta']].plot.line()
 # df_non_kv[['D','D_calc']].plot.line()
 # df_non_kv[['Ma','Ma_calc']].plot.line()
 #
@@ -266,9 +267,9 @@ df_ex_with_dalpha[['alpha','theta']].plot.line()
 # plot.plot_Cm_compare_model(df_ex_non_kv, df_ex_non_dalpha)
 
 # CFDと同定結果との比較用
-plot.plot_CL_compare_CFD(df_ex_non_dalpha)
-plot.plot_CD_compare_CFD(df_ex_non_dalpha)
-plot.plot_Cm_compare_CFD(df_ex_non_dalpha)
+# plot.plot_CL_compare_CFD(df_ex_non_dalpha)
+# plot.plot_CD_compare_CFD(df_ex_non_dalpha)
+# plot.plot_Cm_compare_CFD(df_ex_non_dalpha)
 
 # 固有値の絶対値
 # plot.plot_eigen_abs(anly_result)
