@@ -76,20 +76,20 @@ format_df = fr.file_read(500,'../log_data/Book5.csv',16.07,17.03,-4.80,T_EFF_35,
 format_df = fr.file_read(500,'../log_data/Book5.csv',18.95,22.88,-4.80,T_EFF_35,1.266,0,format_df)
 
 # #---2018/01/14 徳島 ピッチ運動-----------------------------------------------------------
-# format_df = fr.file_read(800,'../log_data/Book8.csv',15.41,20.10,-2.00,T_EFF_30,1.275,0,format_df)
-# format_df = fr.file_read(800,'../log_data/Book8.csv',21.46,23.07,-2.00,T_EFF_30,1.275,0,format_df)
-# format_df = fr.file_read(800,'../log_data/Book8.csv',23.44,24.64,-2.00,T_EFF_30,1.275,0,format_df)
-# format_df = fr.file_read(800,'../log_data/Book8.csv',25.28,27.38,-2.00,T_EFF_30,1.275,0,format_df)
+format_df = fr.file_read(800,'../log_data/Book8.csv',15.41,20.10,-2.00,T_EFF_30,1.275,0,format_df)
+format_df = fr.file_read(800,'../log_data/Book8.csv',21.46,23.07,-2.00,T_EFF_30,1.275,0,format_df)
+format_df = fr.file_read(800,'../log_data/Book8.csv',23.44,24.64,-2.00,T_EFF_30,1.275,0,format_df)
+format_df = fr.file_read(800,'../log_data/Book8.csv',25.28,27.38,-2.00,T_EFF_30,1.275,0,format_df)
 
 # #---2018/01/26 神戸 前進＆エレベータ制御-------------------------------------------------
-# format_df = fr.file_read(900,'../log_data/Book9.csv',20.73,30.28,-2.647,T_EFF_30,1.251,0,format_df)
-# format_df = fr.file_read(900,'../log_data/Book9.csv',98.05,104.1,-2.647,T_EFF_30,1.251,0,format_df)
-# format_df = fr.file_read(900,'../log_data/Book9.csv',104.9,107.1,-2.647,T_EFF_30,1.251,0,format_df)
-# format_df = fr.file_read(900,'../log_data/Book9.csv',107.7,109.7,-2.647,T_EFF_30,1.251,0,format_df)
+format_df = fr.file_read(900,'../log_data/Book9.csv',20.73,30.28,-2.647,T_EFF_30,1.251,0,format_df)
+format_df = fr.file_read(900,'../log_data/Book9.csv',98.05,104.1,-2.647,T_EFF_30,1.251,0,format_df)
+format_df = fr.file_read(900,'../log_data/Book9.csv',104.9,107.1,-2.647,T_EFF_30,1.251,0,format_df)
+format_df = fr.file_read(900,'../log_data/Book9.csv',107.7,109.7,-2.647,T_EFF_30,1.251,0,format_df)
 #
 # #---2018/01/26 神戸 前進-----------------------------------------------------------------
-# format_df = fr.file_read(1100,'../log_data/Book11.csv',19.86,25.27,-1.467,T_EFF_30,1.268,0,format_df)
-# format_df = fr.file_read(1100,'../log_data/Book11.csv',26.43,29.83,-1.467,T_EFF_30,1.268,0,format_df)
+format_df = fr.file_read(1100,'../log_data/Book11.csv',19.86,25.27,-1.467,T_EFF_30,1.268,0,format_df)
+format_df = fr.file_read(1100,'../log_data/Book11.csv',26.43,29.83,-1.467,T_EFF_30,1.268,0,format_df)
 # #---------------------------------------------------------
 
 #---------------------------
@@ -140,14 +140,16 @@ data_size = len(format_df)
 # 結果をプロット
 #---------------------------
 
+df_ex_non_dalpha[['Va','alpha_deg']].plot.line(x='alpha_deg', style='o')
+
 # dfdf = format_df[format_df['Time_DIFF'] >= 0.03]
 # print(dfdf['index'])
 
 # df_ex_with_dalpha[['alpha','theta']].plot.line()
 # df_ex_with_dalpha[['d_alpha','d_theta']].plot.line()
 # df_ex_with_dalpha[['gps_alt','position_z']].plot.line()
-df_ex_with_dalpha[['delta_e']].plot.line()
-df_ex_with_dalpha[['Tf_up','Tf_down','Tr_r','Tr_l']].plot.line()
+# df_ex_with_dalpha[['delta_e']].plot.line()
+# df_ex_with_dalpha[['Tf_up','Tf_down','Tr_r','Tr_l']].plot.line()
 # df_non_kv[['D','D_calc']].plot.line()
 # df_non_kv[['Ma','Ma_calc']].plot.line()
 #
