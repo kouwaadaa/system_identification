@@ -60,6 +60,9 @@ condaコマンドで必ずと言っていいほど代用できます．調べま
 - main以外のモジュールを実行した場合は，デバッグに使えます
 
 ## Hints
+### Message
+`other_data`ディレクトリの中に，引き継ぎに関するものが色々と入っています．  
+必要に応じて参照すること．
 
 ### Developer Environment
 - OSとかPythonの環境とか
