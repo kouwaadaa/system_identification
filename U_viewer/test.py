@@ -9,7 +9,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import pandas as pd
 
-def generate_table(dataframe, max_rows=10):
+def generate_table(dataframe, max_rows=20000):
     return html.Table(
         # Header
         [html.Tr([html.Th(col) for col in dataframe.columns])] +
@@ -23,35 +23,35 @@ def generate_table(dataframe, max_rows=10):
 
 # CSVファイルの読み込み
 df = pd.read_csv(
-    filepath_or_buffer="../log_data/Book8.csv",
+    filepath_or_buffer="../log_data/2019_03_08_3.csv",
     encoding='ASCII',
     sep=',',
     header=0,
     usecols=['ATT_Roll',
              'ATT_Pitch',
-             # 'ATT_Yaw',
-             # 'ATT_RollRate',
+             'ATT_Yaw',
+             'ATT_RollRate',
              'ATT_PitchRate',
-             # 'ATT_YawRate',
-             # 'LPOS_X',
-             # 'LPOS_Y',
-             # 'LPOS_Z',
+             'ATT_YawRate',
+             'LPOS_X',
+             'LPOS_Y',
+             'LPOS_Z',
              'LPOS_VX',
              'LPOS_VY',
              'LPOS_VZ',
              'GPS_Alt',
-             # 'OUT0_Out0',
-             # 'OUT0_Out1',
-             # 'OUT0_Out2',
-             # 'OUT0_Out3',
-             # 'OUT0_Out4',
-             # 'OUT0_Out5',
-             # 'OUT1_Out0',
-             # 'OUT1_Out1',
-             # 'AIRS_TrueSpeed',
-             # 'MAN_pitch',
-             # 'MAN_thrust',
-             # 'VTOL_Tilt',
+             'OUT0_Out0',
+             'OUT0_Out1',
+             'OUT0_Out2',
+             'OUT0_Out3',
+             'OUT0_Out4',
+             'OUT0_Out5',
+             'OUT1_Out0',
+             'OUT1_Out1',
+             'AIRS_TrueSpeed',
+             'MAN_pitch',
+             'MAN_thrust',
+             'VTOL_Tilt',
              'TIME_StartTime'
              ]
 )
