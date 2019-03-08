@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 
 import const
-import file_read as fr
+import fileread as fr
 
 
 def calc_thrust_eff(share_per):

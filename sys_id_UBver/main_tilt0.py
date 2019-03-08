@@ -19,43 +19,42 @@ from IPython import get_ipython
 
 import const
 import math_extention as matex
-import file_read
-import calc_thrust
-import sys_id
+import fileread as fr
+import thrust
+import param_estimation as prme
 import analyze
-import statistics
+import statistics as stts
 import plot
 
 #---------------------------
 # matplotlibの諸設定
 #---------------------------
 
-# プロットデータを新しいウィンドウで表示する
+# プロットデータを新しいウィンドウで表示する．
+# Spyderなどで実行する場合に必要．
 get_ipython().run_line_magic('matplotlib', 'qt')
 
-# 日本語フォントの設定
-# 使用できるフォントを確認したいときは，次の行のコメントアウトを外して実行
+# 日本語フォントの設定 font_managerのimportが必要．
+# 使用できるフォントを確認したいときは，次の行のコメントアウトを外して実行．
 # print([f.name for f in matplotlib.font_manager.fontManager.ttflist])
 
-# # for NotePC
-# plt.rc('font', **{'family':'Gen Shin Gothic'})
-
-# # for DeskPC
+# 日本語フォントを使用したい場合は，このように指定する．
 # plt.rc('font', **{'family':'YuGothic'})
 
-# plt.rcParams['font.size'] = 20
-# plt.rcParams['xtick.labelsize'] = 15
-# plt.rcParams['ytick.labelsize'] = 15 # default: 12
-#
 # プロットデータのサイズ設定
+# すべて変更されてしまうため注意．
+plt.rcParams['font.size'] = 28
+plt.rcParams['xtick.labelsize'] = 24
+plt.rcParams['ytick.labelsize'] = 24 # default: 12
 plt.rcParams["figure.figsize"] = [20, 12]
 
 #---------------------------
 # 推力効率係数の算出
 #---------------------------
 
-T_EFF_30 = calc_thrust.calc_thrust_eff(1.0)[0]
-T_EFF_35 = calc_thrust.calc_thrust_eff(1.0)[1]
+# サブ推力30%，35%
+T_EFF_30 = thrust.calc_thrust_eff(1.0)[0]
+T_EFF_35 = thrust.calc_thrust_eff(1.0)[1]
 
 #---------------------------
 # ログデータの読み込み
@@ -64,49 +63,33 @@ T_EFF_35 = calc_thrust.calc_thrust_eff(1.0)[1]
 # 読み込みデータ初期化
 format_df = pd.DataFrame()
 
-# データ群ごとに線引き，綺麗でない
-borderline_list = list()
-
 #---2017/12/27 徳島 定点ホバリング MCパラメータ変更------------------------------------------------------
-# format_df,size = file_read.file_read(300,'../log_data/Book3.csv',17.52,19.14,-4.03,T_EFF_35,1.264,0,format_df)
-# borderline_list.append(size)
+# format_df = fr.file_read(300,'../log_data/Book3.csv',17.52,19.14,-4.03,T_EFF_35,1.264,0,format_df)
 #
 # #---2017/12/27 徳島 エレベータ（ピッチアップ） MCパラメータ変更------------------------------------------
-# format_df,size = file_read.file_read(400,'../log_data/Book4.csv',11.97,13.30,-5.05,T_EFF_35,1.264,0,format_df)
-format_df,size = file_read.file_read(400,'../log_data/Book4.csv',18.66,21.08,-5.05,T_EFF_35,1.264,0,format_df)
-# borderline_list.append(size+borderline_list[-1])
-#
+format_df = fr.file_read(400,'../log_data/Book4.csv',11.97,13.30,-5.05,T_EFF_35,1.264,0,format_df)
+format_df = fr.file_read(400,'../log_data/Book4.csv',18.66,21.08,-5.05,T_EFF_35,1.264,0,format_df)
+
 # #---2017/12/27 徳島 エレベータ（ピッチダウン） MCパラメータ変更-------------------------------------------
-format_df,size = file_read.file_read(500,'../log_data/Book5.csv',12.45,13.66,-4.80,T_EFF_35,1.266,0,format_df)
-# borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(500,'../log_data/Book5.csv',16.07,17.03,-4.80,T_EFF_35,1.266,0,format_df)
-# borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(500,'../log_data/Book5.csv',18.95,22.88,-4.80,T_EFF_35,1.266,0,format_df)
-# borderline_list.append(size+borderline_list[-1])
+format_df = fr.file_read(500,'../log_data/Book5.csv',12.45,13.66,-4.80,T_EFF_35,1.266,0,format_df)
+format_df = fr.file_read(500,'../log_data/Book5.csv',16.07,17.03,-4.80,T_EFF_35,1.266,0,format_df)
+format_df = fr.file_read(500,'../log_data/Book5.csv',18.95,22.88,-4.80,T_EFF_35,1.266,0,format_df)
 
 # #---2018/01/14 徳島 ピッチ運動-----------------------------------------------------------
-format_df,size = file_read.file_read(800,'../log_data/Book8.csv',15.41,20.10,-2.00,T_EFF_30,1.275,0,format_df)
-# # borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(800,'../log_data/Book8.csv',21.46,23.07,-2.00,T_EFF_30,1.275,0,format_df)
-# # borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(800,'../log_data/Book8.csv',23.44,24.64,-2.00,T_EFF_30,1.275,0,format_df)
-# # borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(800,'../log_data/Book8.csv',25.28,27.38,-2.00,T_EFF_30,1.275,0,format_df)
-# # borderline_list.append(size+borderline_list[-1])
-#
+# format_df = fr.file_read(800,'../log_data/Book8.csv',15.41,20.10,-2.00,T_EFF_30,1.275,0,format_df)
+# format_df = fr.file_read(800,'../log_data/Book8.csv',21.46,23.07,-2.00,T_EFF_30,1.275,0,format_df)
+# format_df = fr.file_read(800,'../log_data/Book8.csv',23.44,24.64,-2.00,T_EFF_30,1.275,0,format_df)
+# format_df = fr.file_read(800,'../log_data/Book8.csv',25.28,27.38,-2.00,T_EFF_30,1.275,0,format_df)
+
 # #---2018/01/26 神戸 前進＆エレベータ制御-------------------------------------------------
-format_df,size = file_read.file_read(900,'../log_data/Book9.csv',20.73,30.28,-2.647,T_EFF_30,1.251,0,format_df)
-# # borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(900,'../log_data/Book9.csv',98.05,104.1,-2.647,T_EFF_30,1.251,0,format_df)
-# # borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(900,'../log_data/Book9.csv',104.9,107.1,-2.647,T_EFF_30,1.251,0,format_df)
-# # borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(900,'../log_data/Book9.csv',107.7,109.7,-2.647,T_EFF_30,1.251,0,format_df)
-# # borderline_list.append(size+borderline_list[-1])
+# format_df = fr.file_read(900,'../log_data/Book9.csv',20.73,30.28,-2.647,T_EFF_30,1.251,0,format_df)
+# format_df = fr.file_read(900,'../log_data/Book9.csv',98.05,104.1,-2.647,T_EFF_30,1.251,0,format_df)
+# format_df = fr.file_read(900,'../log_data/Book9.csv',104.9,107.1,-2.647,T_EFF_30,1.251,0,format_df)
+# format_df = fr.file_read(900,'../log_data/Book9.csv',107.7,109.7,-2.647,T_EFF_30,1.251,0,format_df)
 #
 # #---2018/01/26 神戸 前進-----------------------------------------------------------------
-format_df,size = file_read.file_read(1100,'../log_data/Book11.csv',19.86,25.27,-1.467,T_EFF_30,1.268,0,format_df)
-# format_df,size = file_read.file_read(1100,'../log_data/Book11.csv',26.43,29.83,-1.467,T_EFF_30,1.268,0,format_df)
+# format_df = fr.file_read(1100,'../log_data/Book11.csv',19.86,25.27,-1.467,T_EFF_30,1.268,0,format_df)
+# format_df = fr.file_read(1100,'../log_data/Book11.csv',26.43,29.83,-1.467,T_EFF_30,1.268,0,format_df)
 # #---------------------------------------------------------
 
 #---------------------------
@@ -120,13 +103,13 @@ format_df = format_df.reset_index()
 # パラメータ推定の結果を計算し，取得
 #---------------------------
 
-df_non_dalpha = sys_id.sys_id_LS(format_df)
-df_with_dalpha = sys_id.sys_id_LS_with_dalpha(format_df)
-df_non_kv = sys_id.sys_id_LS_non_kv(format_df)
+df_non_dalpha = prme.LS_non_dalpha(format_df)
+df_with_dalpha = prme.LS_with_dalpha(format_df)
+df_non_kv = prme.LS_non_kv(format_df)
 
-df_ex_non_dalpha = sys_id.sys_id_LS_ex_non_dalpha(format_df)
-df_ex_with_dalpha = sys_id.sys_id_LS_ex_with_dalpha(format_df)
-df_ex_non_kv = sys_id.sys_id_LS_ex_non_kv(format_df)
+df_ex_non_dalpha = prme.LS_ex_non_dalpha(format_df)
+df_ex_with_dalpha = prme.LS_ex_with_dalpha(format_df)
+df_ex_non_kv = prme.LS_ex_non_kv(format_df)
 
 #---------------------------
 # 機体の状態方程式から固有振動数を解析する
@@ -139,12 +122,12 @@ anly_result = analyze.linearlize_non_d_alpha(df_non_dalpha)
 # 統計データ算出
 #---------------------------
 
-# df_non_dalpha = statistics.calc_RMSE(df_non_dalpha)
-# df_with_dalpha = statistics.calc_RMSE(df_with_dalpha)
-# df_non_kv = statistics.calc_RMSE(df_non_kv)
-df_ex_non_dalpha = statistics.calc_RMSE(df_ex_non_dalpha)
-# df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
-df_ex_non_kv = statistics.calc_RMSE(df_ex_non_kv)
+# stts.calc_RMSE(df_non_dalpha)
+# stts.calc_RMSE(df_with_dalpha)
+# stts.calc_RMSE(df_non_kv)
+stts.calc_RMSE(df_ex_non_dalpha)
+# stts.calc_RMSE(df_ex_with_dalpha)
+stts.calc_RMSE(df_ex_non_kv)
 
 #---------------------------
 # データ取り出し作業
@@ -160,8 +143,11 @@ data_size = len(format_df)
 # dfdf = format_df[format_df['Time_DIFF'] >= 0.03]
 # print(dfdf['index'])
 
-df_ex_with_dalpha[['alpha','theta']].plot.line()
-df_ex_with_dalpha[['d_alpha','d_theta']].plot.line()
+# df_ex_with_dalpha[['alpha','theta']].plot.line()
+# df_ex_with_dalpha[['d_alpha','d_theta']].plot.line()
+# df_ex_with_dalpha[['gps_alt','position_z']].plot.line()
+df_ex_with_dalpha[['delta_e']].plot.line()
+df_ex_with_dalpha[['Tf_up','Tf_down','Tr_r','Tr_l']].plot.line()
 # df_non_kv[['D','D_calc']].plot.line()
 # df_non_kv[['Ma','Ma_calc']].plot.line()
 #

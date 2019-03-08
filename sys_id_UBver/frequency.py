@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-# author: ub
-
 '''
+author: ub
 周波数領域に関する関数．
 '''
 

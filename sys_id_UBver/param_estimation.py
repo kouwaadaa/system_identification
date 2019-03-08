@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# author: ub
-
 '''
+author: ub
 パラメータ推定に関する関数．
+LS: 最小二乗法
 '''
 
 import numpy as np
@@ -12,7 +12,7 @@ import const
 import math_extention as matex
 
 
-def sys_id_LS_yoshimura(format_df):
+def LS_yoshimura(format_df):
     '''
     2018吉村さんの設定．
     最小二乗法を用いてパラメータ推定を行なう.
@@ -45,11 +45,6 @@ def sys_id_LS_yoshimura(format_df):
     RHO = np.array(format_df['RHO'])
 
     #---------------------------
-    # パラメータ推定（最小二乗法を用いる）
-    #---------------------------
-    T_CONST = 0.03
-
-    #---------------------------
     # 揚力
     #---------------------------
 
@@ -66,16 +61,8 @@ def sys_id_LS_yoshimura(format_df):
     xL[:,1] = delta_e
     xL[:,2] = 1/((1/2)*RHO*Va*const.S)
 
-    # # ３次ローパスフィルタをかける
-    # for i in range(3):
-    #     yL_filt = matex.lp_filter(T_CONST,const.T_DIFF,data_size,yL)
-    #     xL_filt = matex.lp_filter(T_CONST,const.T_DIFF,data_size,xL)
-
     # 擬似逆行列を用いた最小二乗解の計算
     L_theta_hat = np.dot((np.linalg.pinv(xL)),yL)
-
-    # # ローパスフィルタを用いたときの最小二乗解
-    # L_theta_hat = np.dot((np.linalg.pinv(xL_filt)),yL_filt)
 
     # 同定された未知パラメータの取り出し
     CL_q = L_theta_hat[0]
@@ -103,16 +90,8 @@ def sys_id_LS_yoshimura(format_df):
     xD[:,0] = CL**2
     xD[:,1] = 1/((1/2)*RHO*Va*const.S)
 
-    # # ３次ローパスフィルタをかける
-    # for i in range(3):
-    #     yD_filt = matex.lp_filter(T_CONST,const.T_DIFF,data_size,yD)
-    #     xD_filt = matex.lp_filter(T_CONST,const.T_DIFF,data_size,xD)
-
     # 擬似逆行列を用いた最小二乗解の計算
     D_theta_hat = np.dot((np.linalg.pinv(xD)),yD)
-
-    # # ローパスフィルタを用いたときの最小二乗解
-    # D_theta_hat = np.dot((np.linalg.pinv(xD_filt)),yD_filt)
 
     # 同定された未知パラメータの取り出し
     kappa = D_theta_hat[0]
@@ -136,16 +115,8 @@ def sys_id_LS_yoshimura(format_df):
     xm[:,3] = delta_e
     xm[:,4] = 1/((1/2)*RHO*Va*const.S*const.MAC)
 
-    # # ３次ローパスフィルタをかける
-    # for i in range(3):
-    #     ym_filt = matex.lp_filter(T_CONST,const.T_DIFF,data_size,ym)
-    #     xm_filt = matex.lp_filter(T_CONST,const.T_DIFF,data_size,xm)
-
     # 擬似逆行列を用いた最小二乗解の計算
     m_theta_hat = np.dot((np.linalg.pinv(xm)),ym)
-
-    # # ローパスフィルタを用いたときの最小二乗解
-    # m_theta_hat = np.dot((np.linalg.pinv(xm_filt)),ym_filt)
 
     # 同定された未知パラメータの取り出し
     Cm_0 = m_theta_hat[0]
@@ -198,7 +169,7 @@ def sys_id_LS_yoshimura(format_df):
     return format_df
 
 
-def sys_id_LS_with_dalpha(format_df):
+def LS_with_dalpha(format_df):
     '''
     最小二乗法を用いてパラメータ推定を行なう.
     すべて未知パラメータとして推定．d_alphaに関する項も追加．
@@ -235,7 +206,7 @@ def sys_id_LS_with_dalpha(format_df):
     #---------------------------
 
     # n*1 揚力から計算された値のリスト
-    yL = (L/((1/2)*RHO*(Va**2)*const.S))
+    yL = L/((1/2)*RHO*(Va**2)*const.S)
 
     # n*6 リグレッサー（独立変数）や実験データのリスト
     xL = np.zeros((data_size,6))
@@ -270,7 +241,7 @@ def sys_id_LS_with_dalpha(format_df):
     #---------------------------
 
     # n*1 抗力から計算された値のリスト
-    yD = (D/((1/2)*RHO*(Va**2)*const.S))
+    yD = D/((1/2)*RHO*(Va**2)*const.S)
 
     # n*3 リグレッサー（独立変数）や実験データのリスト
     xD = np.zeros((data_size,3))
@@ -377,7 +348,7 @@ def sys_id_LS_with_dalpha(format_df):
     return format_df_return
 
 
-def sys_id_LS(format_df):
+def LS_non_dalpha(format_df):
     '''
     最小二乗法を用いてパラメータ推定を行なう.
     すべて未知パラメータとして推定．d_alphaは省略．
@@ -413,7 +384,7 @@ def sys_id_LS(format_df):
     #---------------------------
 
     # n*1 揚力から計算された値のリスト
-    yL = (L/((1/2)*RHO*(Va**2)*const.S))
+    yL = L/((1/2)*RHO*(Va**2)*const.S)
 
     # n*5 リグレッサー（独立変数）や実験データのリスト
     xL = np.zeros((data_size,5))
@@ -445,7 +416,7 @@ def sys_id_LS(format_df):
     #---------------------------
 
     # n*1 抗力から計算された値のリスト
-    yD = (D/((1/2)*RHO*(Va**2)*const.S))
+    yD = D/((1/2)*RHO*(Va**2)*const.S)
 
     # n*3 リグレッサー（独立変数）や実験データのリスト
     xD = np.zeros((data_size,3))
@@ -547,7 +518,7 @@ def sys_id_LS(format_df):
     return format_df_return
 
 
-def sys_id_LS_non_kv(format_df):
+def LS_non_kv(format_df):
     '''
     最小二乗法を用いてパラメータ推定を行なう.
     すべて未知パラメータとして推定．kVの項が無い空気力モデルを採用．
@@ -584,7 +555,7 @@ def sys_id_LS_non_kv(format_df):
     #---------------------------
 
     # n*1 揚力から計算された値のリスト
-    yL = (L/((1/2)*RHO*(Va**2)*const.S))
+    yL = L/((1/2)*RHO*(Va**2)*const.S)
 
     # n*5 リグレッサー（独立変数）や実験データのリスト
     xL = np.zeros((data_size,5))
@@ -616,7 +587,7 @@ def sys_id_LS_non_kv(format_df):
     #---------------------------
 
     # n*1 抗力から計算された値のリスト
-    yD = (D/((1/2)*RHO*(Va**2)*const.S))
+    yD = D/((1/2)*RHO*(Va**2)*const.S)
 
     # n*2 リグレッサー（独立変数）や実験データのリスト
     xD = np.zeros((data_size,2))
@@ -704,7 +675,7 @@ def sys_id_LS_non_kv(format_df):
     return format_df_return
 
 
-def sys_id_LS_ex_with_dalpha(format_df):
+def LS_ex_with_dalpha(format_df):
     '''
     整理されたデータをもとに，
     最小二乗法を用いてパラメータ推定を行なう.
@@ -743,7 +714,7 @@ def sys_id_LS_ex_with_dalpha(format_df):
     #---------------------------
 
     # n*1 揚力から計算された値のリスト
-    yL = (L/((1/2)*RHO*(Va**2)*const.S))
+    yL = L/((1/2)*RHO*(Va**2)*const.S)
 
     # n*6 リグレッサー（独立変数）や実験データのリスト
     xL = np.zeros((data_size,6))
@@ -778,7 +749,7 @@ def sys_id_LS_ex_with_dalpha(format_df):
     #---------------------------
 
     # n*1 抗力から計算された値のリスト
-    yD = (D/((1/2)*RHO*(Va**2)*const.S))
+    yD = D/((1/2)*RHO*(Va**2)*const.S)
 
     # n*6 リグレッサー（独立変数）や実験データのリスト
     xD = np.zeros((data_size,6))
@@ -899,7 +870,7 @@ def sys_id_LS_ex_with_dalpha(format_df):
     return format_df_return
 
 
-def sys_id_LS_ex_non_dalpha(format_df):
+def LS_ex_non_dalpha(format_df):
     '''
     整理されたデータをもとに，
     最小二乗法を用いてパラメータ推定を行なう.
@@ -937,7 +908,7 @@ def sys_id_LS_ex_non_dalpha(format_df):
     #---------------------------
 
     # n*1 揚力から計算された値のリスト
-    yL = (L/((1/2)*RHO*(Va**2)*const.S))
+    yL = L/((1/2)*RHO*(Va**2)*const.S)
 
     # n*5 リグレッサー（独立変数）や実験データのリスト
     xL = np.zeros((data_size,5))
@@ -969,7 +940,7 @@ def sys_id_LS_ex_non_dalpha(format_df):
     #---------------------------
 
     # n*1 抗力から計算された値のリスト
-    yD = (D/((1/2)*RHO*(Va**2)*const.S))
+    yD = D/((1/2)*RHO*(Va**2)*const.S)
 
     # n*5 リグレッサー（独立変数）や実験データのリスト
     xD = np.zeros((data_size,5))
@@ -1081,7 +1052,7 @@ def sys_id_LS_ex_non_dalpha(format_df):
     return format_df_return
 
 
-def sys_id_LS_ex_non_kv(format_df):
+def LS_ex_non_kv(format_df):
     '''
     整理されたデータをもとに，
     最小二乗法を用いてパラメータ推定を行なう.
@@ -1120,7 +1091,7 @@ def sys_id_LS_ex_non_kv(format_df):
     #---------------------------
 
     # n*1 揚力から計算された値のリスト
-    yL = (L/((1/2)*RHO*(Va**2)*const.S))
+    yL = L/((1/2)*RHO*(Va**2)*const.S)
 
     # n*4 リグレッサー（独立変数）や実験データのリスト
     xL = np.zeros((data_size,4))
@@ -1149,7 +1120,7 @@ def sys_id_LS_ex_non_kv(format_df):
     #---------------------------
 
     # n*1 抗力から計算された値のリスト
-    yD = (D/((1/2)*RHO*(Va**2)*const.S))
+    yD = D/((1/2)*RHO*(Va**2)*const.S)
 
     # n*4 リグレッサー（独立変数）や実験データのリスト
     xD = np.zeros((data_size,5))

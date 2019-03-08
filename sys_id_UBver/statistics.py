@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-# author: ub
-
 '''
+author: ub
 統計的数値を算出する関数群．
 '''
 
@@ -13,12 +12,12 @@ from sklearn.metrics import mean_absolute_error
 import const
 import math_extention as matex
 
+
 def calc_RMSE(format_df):
     '''
-
+    RMSEを算出して，表示する関数．
     '''
 
-    # data_size = len(format_df)
 
     CL_log = np.array(format_df['CL_log'])
     CL = np.array(format_df['CL'])
@@ -42,17 +41,11 @@ def calc_RMSE(format_df):
     Cm_h = Cm_RMSE / Cm_MAE
 
     #---------------------------
-    # 結果をデータファイルに書き込んで返す
+    # 結果を表示する．
     #---------------------------
-
-    format_df_return = format_df.copy()
-
-    format_df_return['CL_RMSE'] = CL_RMSE
-    format_df_return['CD_RMSE'] = CD_RMSE
-    format_df_return['Cm_RMSE'] = Cm_RMSE
 
     print(f'CL_RMSE:{CL_RMSE:.10f} CD_RMSE:{CD_RMSE:.10f} Cm_RMSE:{Cm_RMSE:.10f}')
     print(f'CL_MAE:{CL_MAE:.10f} CD_MAE:{CD_MAE:.10f} Cm_MAE:{Cm_MAE:.10f}')
     print(f'CL_h:{CL_h:.10f} CD_h:{CD_h:.10f} Cm_h:{Cm_h:.10f}\n')
 
-    return format_df_return
+    return 0

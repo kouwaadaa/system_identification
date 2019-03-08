@@ -2,6 +2,7 @@
 '''
 author: ub
 ファイル読み込みに関する関数．
+ログデータを読み込んで，入力データフレームに連結する．
 '''
 
 import numpy as np
@@ -10,10 +11,10 @@ import pandas as pd
 
 import const
 import math_extention as matex
-import fourier_filter as ffilt
+import frequency as freq
 
 
-def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA, input_log_data):
+def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA, input_df):
     '''
     CSVファイルを読み込み，それぞれ必要な計算をして，DataFrameにまとめる.
 
@@ -36,15 +37,13 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
         大気密度．実験ごとに測定された気温などから計算．
     GAMMA: int
         ティルト角．
-    input_log_data: pandas.DataFrame
+    input_df: pandas.DataFrame
         書き込むデータファイル．
 
     Returns
     -------
-    format_log_data : pandas.DataFrame
+    format_df : pandas.DataFrame
         整理後のデータファイル．
-    data_size : int
-        各データファイルのサイズ．
     '''
 
 
@@ -52,7 +51,8 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
     # ファイルの読み込み
     #---------------------------
 
-    # CSVファイルの読み込み
+    # CSVファイルをPandas.DataFrameに読み込む．
+    # 基本的に使用しているのは以下の列だけ．
     df = pd.read_csv(
         filepath_or_buffer=filename,
         encoding='ASCII',
@@ -87,7 +87,7 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
                  ]
     )
 
-    # 空白行を削除
+    # 空白行を削除，元データ前半に空白行が含まれるため．
     df = df.dropna(how='all')
     df = df.reset_index(drop=True)
 
@@ -95,17 +95,19 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
     df['Time_ST'] = df.at[0,'TIME_StartTime']
     df['Time_sec'] = (df['TIME_StartTime'] - df['Time_ST'])/1000000
 
-    # 重複データの削除
+    # 重複データの削除，時間もデータも同じ行が存在するため．
+    # 使用しないデータの中に異なるものもあるが，よくわかっていない．
     df = df.drop_duplicates(subset='TIME_StartTime')
 
     # 実験時間のみ切り取り
+    # 引数として用意している．実験内の良いデータと思われるところを採用．
     df = df[(section_ST <= df['Time_sec']) & (df['Time_sec'] <= section_ED)]
 
     #---------------------------
     # 各データを取り出す
     #---------------------------
 
-    # 角度
+    # 姿勢角
     phi = np.array(df['ATT_Roll'])
     theta = np.array(df['ATT_Pitch'])
     psi = np.array(df['ATT_Yaw'])
@@ -127,10 +129,10 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
     Vp = np.array([d_position_x, d_position_y, d_position_z])
 
     # GPS高度
-    gps_altitude = np.array(df['GPS_Alt'])
+    gps_alt = np.array(df['GPS_Alt'])
 
     # ピトー管から得た対気速度
-    measurement_airspeed = np.array(df['AIRS_TrueSpeed'])
+    pitot_Va = np.array(df['AIRS_TrueSpeed'])
 
     # ロータ指令値
     m_up_pwm = np.array(df['OUT0_Out0']) # T1
@@ -158,13 +160,6 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
     #---------------------------
     # 計算の必要がある値
     #---------------------------
-
-    # メイン，サブロータ両方に等しくかかる推力効率係数T_Eを算出
-    # X_HOVER = 40 / T_EFF
-    # T_E = const.MASS*const.GRA / ((const.MASS*const.GRA-40)+X_HOVER)
-
-    # サブロータ出力35%のとき
-    # T_E = 57/70
 
     # 推力効率係数の取り出し
     T_E_M = T_EFF_array[0]
@@ -336,15 +331,15 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
     # データのフィルタリング処理
     #---------------------------
 
-    alpha = ffilt.fourier_filter(alpha,0.02,data_size,10)
-    theta = ffilt.fourier_filter(theta,0.02,data_size,10)
-    d_alpha = ffilt.fourier_filter(d_alpha,0.02,data_size,10)
-    d_theta = ffilt.fourier_filter(d_theta,0.02,data_size,10)
-    delta_e = ffilt.fourier_filter(delta_e,0.02,data_size,10)
-    Va_mag = ffilt.fourier_filter(Va_mag,0.02,data_size,10)
-    L = ffilt.fourier_filter(L,0.02,data_size,10)
-    D = ffilt.fourier_filter(D,0.02,data_size,10)
-    Ma = ffilt.fourier_filter(Ma,0.02,data_size,10)
+    alpha = freq.fourier_filter(alpha,0.02,data_size,10)
+    theta = freq.fourier_filter(theta,0.02,data_size,10)
+    d_alpha = freq.fourier_filter(d_alpha,0.02,data_size,10)
+    d_theta = freq.fourier_filter(d_theta,0.02,data_size,10)
+    delta_e = freq.fourier_filter(delta_e,0.02,data_size,10)
+    Va_mag = freq.fourier_filter(Va_mag,0.02,data_size,10)
+    L = freq.fourier_filter(L,0.02,data_size,10)
+    D = freq.fourier_filter(D,0.02,data_size,10)
+    Ma = freq.fourier_filter(Ma,0.02,data_size,10)
 
     #---------------------------
     # ログデータから算出した空力係数
@@ -358,7 +353,7 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
     # データを一つにまとめる
     #---------------------------
 
-    read_log_data = pd.DataFrame({
+    read_df = pd.DataFrame({
         'id' : id,
         'phi' : phi,
         'theta' : theta,
@@ -372,11 +367,10 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
         'position_x' : position_x,
         'position_y' : position_y,
         'position_z' : position_z,
-        'u' : Va[:,0],
-        'v' : Va[:,1],
-        'w' : Va[:,2],
+        'u' : Vg[:,0],
+        'v' : Vg[:,1],
+        'w' : Vg[:,2],
         'Va' : Va_mag,
-        # 'pitot_Va' : measurement_airspeed,
         'Tm_up' : Tm_up,
         'Tm_down' : Tm_down,
         'Tr_r' : Tr_r,
@@ -396,13 +390,13 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
         'T_z' : T_z,
         'L' : L,
         'D' : D,
-        # 'M' : M,
         'Mt' : Mt,
         'Mg' : Mg,
         'Ma' : Ma,
         'CL_log' : CL_log,
         'CD_log' : CD_log,
         'Cm_log' : Cm_log,
+        'gps_alt' : gps_alt,
     })
 
     #---------------------------
@@ -410,16 +404,17 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
     #---------------------------
 
     # 中央差分による両端を落とす
-    read_log_data = read_log_data.drop(index=[0,data_size-1])
+    read_df = read_df.drop(index=[0,data_size-1])
 
-    format_log_data = pd.concat([input_log_data, read_log_data])
+    format_df = pd.concat([input_df, read_df])
 
-    return format_log_data,data_size
+    return format_df
 
 
-def file_read_thrust(filename, section_ST, section_ED, V_W, RHO, GAMMA, input_log_data):
+def file_read_thrust(filename, section_ST, section_ED, V_W, RHO, GAMMA, input_df):
     '''
     CSVファイルを読み込み，それぞれ必要な計算をして，DataFrameにまとめる.
+    推力係数の計算のために作成．
 
     Parameters
     ----------
@@ -435,12 +430,12 @@ def file_read_thrust(filename, section_ST, section_ED, V_W, RHO, GAMMA, input_lo
         大気密度．実験ごとに測定された気温などから計算．
     GAMMA: int
         ティルト角．
-    input_log_data: pandas.DataFrame
+    input_df: pandas.DataFrame
         書き込むデータファイル．
 
     Returns
     -------
-    format_log_data : pandas.DataFrame
+    format_df : pandas.DataFrame
         整理後のデータファイル．
     '''
 
@@ -593,19 +588,19 @@ def file_read_thrust(filename, section_ST, section_ED, V_W, RHO, GAMMA, input_lo
     # データのフィルタリング処理
     #---------------------------
 
-    alpha = ffilt.fourier_filter(alpha,0.02,data_size,10)
-    Tm_up = ffilt.fourier_filter(Tm_up,0.02,data_size,10)
-    Tm_down = ffilt.fourier_filter(Tm_down,0.02,data_size,10)
-    Tr_r = ffilt.fourier_filter(Tr_r,0.02,data_size,10)
-    Tr_l = ffilt.fourier_filter(Tr_l,0.02,data_size,10)
-    Tf_up = ffilt.fourier_filter(Tf_up,0.02,data_size,10)
-    Tf_down = ffilt.fourier_filter(Tf_down,0.02,data_size,10)
+    alpha = freq.fourier_filter(alpha,0.02,data_size,10)
+    Tm_up = freq.fourier_filter(Tm_up,0.02,data_size,10)
+    Tm_down = freq.fourier_filter(Tm_down,0.02,data_size,10)
+    Tr_r = freq.fourier_filter(Tr_r,0.02,data_size,10)
+    Tr_l = freq.fourier_filter(Tr_l,0.02,data_size,10)
+    Tf_up = freq.fourier_filter(Tf_up,0.02,data_size,10)
+    Tf_down = freq.fourier_filter(Tf_down,0.02,data_size,10)
 
     #---------------------------
     # データを一つにまとめる
     #---------------------------
 
-    read_log_data = pd.DataFrame({
+    read_df = pd.DataFrame({
         'phi' : phi,
         'theta' : theta,
         'psi' : psi,
@@ -627,6 +622,6 @@ def file_read_thrust(filename, section_ST, section_ED, V_W, RHO, GAMMA, input_lo
     # データの整理と結合
     #---------------------------
 
-    format_log_data = pd.concat([input_log_data, read_log_data])
+    format_df = pd.concat([input_df, read_df])
 
-    return format_log_data
+    return format_df

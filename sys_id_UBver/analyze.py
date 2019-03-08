@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-# author: ub
-
 '''
+author: ub
 周波数特性の解析に関する関数．
 '''
 
@@ -14,14 +13,14 @@ import const
 import math_extention as matex
 
 
-def linearlize(format_log_data):
+def linearlize(format_df):
     '''
     微小擾乱を考えて線形化された運動方程式を用いて，
     周波数特性を計算する関数．
 
     Parameters
     ----------
-    format_log_data: pandas.DataFrame
+    format_df: pandas.DataFrame
         ピッチ角速度, 迎角, 迎角時間微分，対気速度, エレベータ舵角, 揚力, 抗力, ピッチモーメント
         のそれぞれの実験データを含むデータ群．
 
@@ -31,47 +30,44 @@ def linearlize(format_log_data):
     '''
 
     #---------------------------
-    # 定数を持ってくる
-    #---------------------------
-
-
-    #---------------------------
     # 整理されたデータから値を取り出す
     #---------------------------
 
-    data_size = len(format_log_data)
-    theta = np.array(format_log_data['theta'])
-    d_theta = np.array(format_log_data['d_theta'])
-    alpha = np.array(format_log_data['alpha'])
-    d_alpha = np.array(format_log_data['d_alpha'])
-    u = np.array(format_log_data['u'])
-    v = np.array(format_log_data['v'])
-    w = np.array(format_log_data['w'])
-    delta_e = np.array(format_log_data['delta_e'])
-    tilt = np.array(format_log_data['tilt'])
-    RHO = np.array(format_log_data['RHO'])
-    L = np.array(format_log_data['L'])
-    D = np.array(format_log_data['D'])
-    Ma = np.array(format_log_data['Ma'])
-    CL_0 = np.array(format_log_data['CL_0'])
-    CL_alpha = np.array(format_log_data['CL_alpha'])
-    CL_d_alpha = np.array(format_log_data['CL_d_alpha'])
-    CL_q = np.array(format_log_data['CL_q'])
-    CL_delta_e = np.array(format_log_data['CL_delta_e'])
-    k_L = np.array(format_log_data['k_L'])
-    CD_0 = np.array(format_log_data['CD_0'])
-    kappa = np.array(format_log_data['kappa'])
-    k_D = np.array(format_log_data['k_D'])
-    Cm_0 = np.array(format_log_data['Cm_0'])
-    Cm_alpha = np.array(format_log_data['Cm_alpha'])
-    Cm_d_alpha = np.array(format_log_data['Cm_d_alpha'])
-    Cm_q = np.array(format_log_data['Cm_q'])
-    Cm_delta_e = np.array(format_log_data['Cm_delta_e'])
-    k_m = np.array(format_log_data['k_m'])
-    CL = np.array(format_log_data['CL'])
-    CD = np.array(format_log_data['CD'])
-    Cm = np.array(format_log_data['Cm'])
+    data_size = len(format_df)
+    theta = np.array(format_df['theta'])
+    d_theta = np.array(format_df['d_theta'])
+    alpha = np.array(format_df['alpha'])
+    d_alpha = np.array(format_df['d_alpha'])
+    u = np.array(format_df['u'])
+    v = np.array(format_df['v'])
+    w = np.array(format_df['w'])
+    delta_e = np.array(format_df['delta_e'])
+    tilt = np.array(format_df['tilt'])
+    RHO = np.array(format_df['RHO'])
+    L = np.array(format_df['L'])
+    D = np.array(format_df['D'])
+    Ma = np.array(format_df['Ma'])
+    CL_0 = np.array(format_df['CL_0'])
+    CL_alpha = np.array(format_df['CL_alpha'])
+    CL_d_alpha = np.array(format_df['CL_d_alpha'])
+    CL_q = np.array(format_df['CL_q'])
+    CL_delta_e = np.array(format_df['CL_delta_e'])
+    k_L = np.array(format_df['k_L'])
+    CD_0 = np.array(format_df['CD_0'])
+    kappa = np.array(format_df['kappa'])
+    k_D = np.array(format_df['k_D'])
+    Cm_0 = np.array(format_df['Cm_0'])
+    Cm_alpha = np.array(format_df['Cm_alpha'])
+    Cm_d_alpha = np.array(format_df['Cm_d_alpha'])
+    Cm_q = np.array(format_df['Cm_q'])
+    Cm_delta_e = np.array(format_df['Cm_delta_e'])
+    k_m = np.array(format_df['k_m'])
+    CL = np.array(format_df['CL'])
+    CD = np.array(format_df['CD'])
+    Cm = np.array(format_df['Cm'])
 
+    # 近似する場合，しない場合．
+    # 結果は殆ど変わらない．
     # sin_alpha = alpha
     # cos_alpha = 1
 
@@ -259,14 +255,14 @@ def linearlize(format_log_data):
     return[lambda_A,v_A,A,B]
 
 
-def linearlize_non_d_alpha(format_log_data):
+def linearlize_non_d_alpha(format_df):
     '''
     微小擾乱を考えて線形化された運動方程式を用いて，
     周波数特性を計算する関数．d_alphaを除く．
 
     Parameters
     ----------
-    format_log_data: pandas.DataFrame
+    format_df: pandas.DataFrame
         ピッチ角速度, 迎角, 迎角時間微分，対気速度, エレベータ舵角, 揚力, 抗力, ピッチモーメント
         のそれぞれの実験データを含むデータ群．
 
@@ -284,35 +280,35 @@ def linearlize_non_d_alpha(format_log_data):
     # 整理されたデータから値を取り出す
     #---------------------------
 
-    data_size = len(format_log_data)
-    theta = np.array(format_log_data['theta'])
-    d_theta = np.array(format_log_data['d_theta'])
-    alpha = np.array(format_log_data['alpha'])
-    u = np.array(format_log_data['u'])
-    v = np.array(format_log_data['v'])
-    w = np.array(format_log_data['w'])
-    delta_e = np.array(format_log_data['delta_e'])
-    tilt = np.array(format_log_data['tilt'])
-    RHO = np.array(format_log_data['RHO'])
-    L = np.array(format_log_data['L'])
-    D = np.array(format_log_data['D'])
-    Ma = np.array(format_log_data['Ma'])
-    CL_0 = np.array(format_log_data['CL_0'])
-    CL_alpha = np.array(format_log_data['CL_alpha'])
-    CL_q = np.array(format_log_data['CL_q'])
-    CL_delta_e = np.array(format_log_data['CL_delta_e'])
-    k_L = np.array(format_log_data['k_L'])
-    CD_0 = np.array(format_log_data['CD_0'])
-    kappa = np.array(format_log_data['kappa'])
-    k_D = np.array(format_log_data['k_D'])
-    Cm_0 = np.array(format_log_data['Cm_0'])
-    Cm_alpha = np.array(format_log_data['Cm_alpha'])
-    Cm_q = np.array(format_log_data['Cm_q'])
-    Cm_delta_e = np.array(format_log_data['Cm_delta_e'])
-    k_m = np.array(format_log_data['k_m'])
-    CL = np.array(format_log_data['CL'])
-    CD = np.array(format_log_data['CD'])
-    Cm = np.array(format_log_data['Cm'])
+    data_size = len(format_df)
+    theta = np.array(format_df['theta'])
+    d_theta = np.array(format_df['d_theta'])
+    alpha = np.array(format_df['alpha'])
+    u = np.array(format_df['u'])
+    v = np.array(format_df['v'])
+    w = np.array(format_df['w'])
+    delta_e = np.array(format_df['delta_e'])
+    tilt = np.array(format_df['tilt'])
+    RHO = np.array(format_df['RHO'])
+    L = np.array(format_df['L'])
+    D = np.array(format_df['D'])
+    Ma = np.array(format_df['Ma'])
+    CL_0 = np.array(format_df['CL_0'])
+    CL_alpha = np.array(format_df['CL_alpha'])
+    CL_q = np.array(format_df['CL_q'])
+    CL_delta_e = np.array(format_df['CL_delta_e'])
+    k_L = np.array(format_df['k_L'])
+    CD_0 = np.array(format_df['CD_0'])
+    kappa = np.array(format_df['kappa'])
+    k_D = np.array(format_df['k_D'])
+    Cm_0 = np.array(format_df['Cm_0'])
+    Cm_alpha = np.array(format_df['Cm_alpha'])
+    Cm_q = np.array(format_df['Cm_q'])
+    Cm_delta_e = np.array(format_df['Cm_delta_e'])
+    k_m = np.array(format_df['k_m'])
+    CL = np.array(format_df['CL'])
+    CD = np.array(format_df['CD'])
+    Cm = np.array(format_df['Cm'])
 
     # sin_alpha = alpha
     # cos_alpha = 1
