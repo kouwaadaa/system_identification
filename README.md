@@ -70,8 +70,8 @@ condaコマンドで必ずと言っていいほど代用できます．調べま
   - [Atom](https://atom.io/)（テキストエディタ，今すぐEmacsなんてやめなさい）
   - Spyder（実行結果からPandasの表が見れるのが良い）
   - Excel,Googleスプレッドシート（ログがCSVファイルなので）
-  - [zsh,prezto](https://qiita.com/s_s_satoc/items/e3c1b9b3545fd572dd1c)（君のターミナルはださい）
-  - [Markdown](https://ja.wikipedia.org/wiki/Markdown)（進捗報告，引き継ぎ，などなんでも）
+  - [zsh,prezto](https://qiita.com/s_s_satoc/items/e3c1b9b3545fd572dd1c)（君のターミナルはださい）
+  - [Markdown](https://ja.wikipedia.org/wiki/Markdown)（進捗報告，引き継ぎ，などなんでも）
 
 ### Study References
 - UAVやドローンについて知る
