@@ -1,5 +1,5 @@
 # System Identification Tool for Tilt rotor UAV
-システム同定に必要なツール．Pythonで書いています．
+システム同定に必要なツール．Pythonで書いています．
 
 ## Description
 - 飛行ログの読み込み・閲覧
@@ -15,9 +15,9 @@
 `main_tilt0.py` : ティルト角0°の実験データのみ使用  
 `main_tilt10.py` : ティルト角10°の実験データのみ使用
 - モジュール  
-`analyze.py` : 固有値解析など  
+`analyze.py` : 固有値解析など  
 `const.py` : 機体情報などの定数ファイル  
-`fileread.py` : ファイル読み込み＆計算  
+`fileread.py` : ファイル読み込み＆計算  
 `math_extention.py` : 計算関数群  
 `param_estimation.py` : パラメータ推定  
 `plot.py` : プロット用（メモ的な側面も）  
@@ -32,7 +32,7 @@ cd system_identification
 ```
 
 ### Settings
-- 必須なライブラリ
+- 必須なライブラリ
   - [NumPy](http://www.numpy.org/)（数値計算）
   - [Pandas](https://pandas.pydata.org/)（データ分析）
   - [Matplotlib](https://matplotlib.org/)（プロット）
@@ -66,7 +66,7 @@ condaコマンドで必ずと言っていいほど代用できます．調べま
   - MacOS High Sierra
   - pyenv 1.2.8
   - anaconda3-5.3.0
-- 開発環境とか（以下，個人的な偏見が100%）
+- 開発環境とか（以下，個人的な偏見が100%）
   - [Atom](https://atom.io/)（テキストエディタ，今すぐEmacsなんてやめなさい）
   - Spyder（実行結果からPandasの表が見れるのが良い）
   - Excel,Googleスプレッドシート（ログがCSVファイルなので）
@@ -75,13 +75,13 @@ condaコマンドで必ずと言っていいほど代用できます．調べま
 
 ### Study References
 - UAVやドローンについて知る
-  - [浦久保孝光 : “VTOL型ドローンの研究開発―次世代ドローンの実現に向けて”,  一般社団法人システム制御情報学会 (2016)](https://www.jstage.jst.go.jp/article/isciesci/60/10/60_437/_pdf)
+  - [浦久保孝光 : “VTOL型ドローンの研究開発―次世代ドローンの実現に向けて”,  一般社団法人システム制御情報学会 (2016)](https://www.jstage.jst.go.jp/article/isciesci/60/10/60_437/_pdf)
   - ドローンとかUAVってYoutubeで調べる
-- 航空機力学を学ぶ
+- 航空機力学を学ぶ
   - [鳩ぽっぽ 初心者のための航空力学講座](https://pigeon-poppo.com/)
   - 加藤寛一郎, 他 : “航空機力学入門”, 東京大学出版会 (1982)
   - 片柳亮二 : “航空機の飛行力学と制御”, 森北出版株式会社 (2007)
-  - 嶋田有三, 他 : “飛行力学”, 森北出版株式会社 (2017)
+  - 嶋田有三, 他 : “飛行力学”, 森北出版株式会社 (2017)
   - Bernard Etkin et al. : “Dynamics of FLIGHT”, John Wiley Sons. Inc. (1959)
   - Eugene A.Morelli et al. : “Aircraft System Identification Theory and Practice Second Edition”, Sunflyte Enterprises (2016)
 - システム同定について学ぶ
