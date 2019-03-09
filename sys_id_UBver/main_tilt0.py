@@ -140,115 +140,34 @@ data_size = len(format_df)
 # 結果をプロット
 #---------------------------
 
-df_ex_non_dalpha[['Va','alpha_deg']].plot.line(x='alpha_deg', style='o')
+'''
+・時間軸に対してどんな動きのデータかざっくりみたいとき
+ex) ピッチ角速度
+df[['d_theta']].plot.line()
 
-# dfdf = format_df[format_df['Time_DIFF'] >= 0.03]
-# print(dfdf['index'])
+cf) 複数データを同時に見る
+df[['d_theta','d_phi']].plot.line()
 
-# df_ex_with_dalpha[['alpha','theta']].plot.line()
-# df_ex_with_dalpha[['d_alpha','d_theta']].plot.line()
-# df_ex_with_dalpha[['gps_alt','position_z']].plot.line()
-# df_ex_with_dalpha[['delta_e']].plot.line()
-# df_ex_with_dalpha[['Tf_up','Tf_down','Tr_r','Tr_l']].plot.line()
-# df_non_kv[['D','D_calc']].plot.line()
-# df_non_kv[['Ma','Ma_calc']].plot.line()
-#
-# df_with_dalpha[['L','L_calc']].plot.line()
-# df_with_dalpha[['D','D_calc']].plot.line()
-# df_with_dalpha[['Ma','Ma_calc']].plot.line()
-#
-# df_ex_non_dalpha[['CL_log','CL','alpha_deg']].plot.line(x='alpha_deg', style='o', title='CL')
-# df_ex_non_dalpha[['CD_log','CD','alpha_deg']].plot.line(x='alpha_deg', style='o', title='CD')
-# df_ex_non_dalpha[['Cm_log','Cm','alpha_deg']].plot.line(x='alpha_deg', style='o', title='Cm')
 
-# df_with_dalpha[['CL_log','CL']].plot.line(title='CL_max')
-# df_with_dalpha[['CD_log','CD']].plot.line(title='CD_max')
-# df_with_dalpha[['Cm_log','Cm']].plot.line(title='Cm_max')
+・横軸を指定してデータをみたいとき
+ex) Va横軸で迎角を見る
+df[['Va','alpha']].plot.line(x='Va')
 
-# df_non_dalpha[['CL_log','CL']].plot.line(title='CL_nonda')
-# df_non_dalpha[['CD_log','CD']].plot.line(title='CD_nonda')
-# df_non_dalpha[['Cm_log','Cm']].plot.line(title='Cm_nonda')
+cf) この場合，線でつながれて見にくいので
+df[['Va','alpha']].plot.line(x='Va',style='o')
+として散布図にする．
 
-# format_df7[['CL_log','CL']].plot.line(title='CL_complete')
-# format_df7[['CD_log','CD']].plot.line(title='CD_complete')
-# format_df7[['Cm_log','Cm']].plot.line(title='Cm_complete')
 
-# format_df[['L_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
-# format_df[['D_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
-# format_df[['Ma_calc','alpha_deg']].plot.line(x='alpha_deg', style=['o'])
+．ある条件でデータを切り出してプロットする
+ex) Vaが5以上のデータのみ
+dff = df[df['Va'] >= 5]
+としてdffをプロット．
 
-#----------------------------------------------------------------
 
-# ax = fig.add_subplot(2,1,2)
-#
-# ax.plot(xxx,d_alpha)
+Jupyterで試してみて，記録に残しておくか，
+plot.pyに関数として残して再利用しやすくすると良い．
+'''
 
-# df_with_dalpha[['Va']].plot.line()
-
-# d_theta = np.array(df_with_dalpha['d_theta'])
-# d_theta_filt = np.array(df_with_dalpha['d_theta_filt'])
-#
-# plt.subplot(111)
-# plt.plot(d_theta,label="Raw data")
-# plt.plot(d_theta_filt,label="Filtered data",linewidth="3")
-# plt.legend()
-#
-# plt.xlabel('Data Number')
-# plt.ylabel('Pitch Rate [rad/s]')
-# plt.show()
-
-#----------------------------------------------------------------
-
-# L = np.array(df_with_dalpha['L'])
-# L_calc = np.array(df_with_dalpha['L_calc'])
-# D = np.array(df_with_dalpha['D'])
-# D_calc = np.array(df_with_dalpha['D_calc'])
-# Ma = np.array(df_with_dalpha['Ma'])
-# Ma_calc = np.array(df_with_dalpha['Ma_calc'])
-#
-# plt.subplot(111)
-# plt.plot(Ma,label=r"$M_{a_{log}}$")
-# plt.plot(Ma_calc,label=r"$M_{a_{calc}}$")
-# plt.legend()
-#
-# for j in borderline_list:
-#     plt.axvline(x=j, color="black",linestyle="--") # 実験データの境目で線を引く
-#
-# plt.xlabel('Data Number')
-# plt.ylabel(r'Pitch moment$\mathrm{[N \cdot m]}$')
-# plt.show()
-#----------------------------------------------------------------
-# L = np.array(df_with_dalpha['L_calc'])
-# L_log = np.array(df_with_dalpha['L'])
-# D = np.array(df_with_dalpha['D_calc'])
-# D_log = np.array(df_with_dalpha['D'])
-# Ma = np.array(df_with_dalpha['Ma_calc'])
-# Ma_log = np.array(df_with_dalpha['Ma'])
-#
-# # plt.figure(figsize=(12,10))
-# plt.subplot(111)
-# plt.plot(D_log,label=r"$D_{log}$")
-# plt.plot(D,label=r"$D_{calc}$")
-# plt.legend()
-#
-# for j in borderline_list:
-#     plt.axvline(x=j, color="black",linestyle="--") # 実験データの境目で線を引く
-#
-# plt.xlabel('Data Number')
-# plt.ylabel(r'Lift$\mathrm{[N]}$')
-# plt.tight_layout()
-# #----------------------------------------------------------------
-
-# スラスト出力確認
-# Tr_r = np.array(df_with_dalpha['Tr_r'])
-# Tr_l = np.array(df_with_dalpha['Tr_l'])
-# Tf_up = np.array(df_with_dalpha['Tf_up'])
-# Tf_down = np.array(df_with_dalpha['Tf_down'])
-#
-# T_R_mean = np.mean(Tr_r+Tr_l)
-# T_F_mean = np.mean(Tf_up+Tf_down)
-
-#----------------------------------------------------------------
 # Va横軸で空力係数を比較
 # plot.plot_CL_compare_model(df_ex_non_kv, df_ex_non_dalpha)
 # plot.plot_CD_compare_model(df_ex_non_kv, df_ex_non_dalpha)

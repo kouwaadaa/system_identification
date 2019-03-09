@@ -103,10 +103,12 @@ app.layout = html.Div(
         # グラフプロット
         html.Div(
             [
-                dcc.Graph(id='plot-data')
+                dcc.Graph(
+                    id='plot-data',
+                    style={'height': '100vh'},
+                )
             ],
             style={
-                'background': '#262626',
             }
         ),
         # スライダー
@@ -138,9 +140,14 @@ app.layout = html.Div(
      Input('time-sec-slider', 'value')])
 # 入力2種類を受付ける．time_valueはlistなので注意．
 def update_figure(selected_item,time_value):
+
     # スライダーの値に応じて切り取り
     dff = df[time_value[0] <= df['Time_sec']]
     dff = dff[dff['Time_sec'] <= time_value[1]]
+
+    # データサイズ取り出し
+    data_size = len(dff)
+
     # 姿勢角の表示
     if selected_item == 'ATT':
         traces=[
@@ -163,6 +170,47 @@ def update_figure(selected_item,time_value):
                 name='ATT_Yaw'
             ),
         ]
+        # 実際の表示
+        return {
+            'data': traces,
+            'layout': go.Layout(
+                xaxis={'title': 'Time[sec]'},
+                yaxis={'title': selected_item},
+            )
+        }
+    elif selected_item == 'LPOS':
+        traces=[
+            go.Scatter3d(
+                x=dff['LPOS_X'],
+                y=dff['LPOS_Y'],
+                z=-dff['LPOS_Z'],
+                mode='lines',
+                name='Trace of UAV'
+            ),
+        ]
+        # 実際の表示
+        return {
+            'data': traces,
+            'layout': go.Layout(
+                updatemenus= [{
+                    'type': 'buttons',
+                    'buttons': [{
+                        'label': 'Flight Start',
+                        'method': 'animate',
+                        'args': [None]
+                    }]
+                }]
+            ),
+            'frames': [dict(
+                data=[dict(
+                    x=[dff['LPOS_X'][k]],
+                    y=[dff['LPOS_Y'][k]],
+                    z=[dff['LPOS_Z'][k]],
+                    mode='markers',
+                    marker=dict(color='red', size=8)
+                )]
+            ) for k in range(data_size)]
+        }
     # スラスト指令値の表示
     elif selected_item == 'OUT0':
         traces=[
@@ -203,19 +251,17 @@ def update_figure(selected_item,time_value):
                 name='Tf_down'
             ),
         ]
+        # 実際の表示
+        return {
+            'data': traces,
+            'layout': go.Layout(
+                xaxis={'title': 'Time[sec]'},
+                yaxis={'title': selected_item},
+            )
+        }
     # エラー回避
     else:
         return 1
-    # 実際の表示
-    return {
-        'data': traces,
-        'layout': go.Layout(
-            xaxis={'title': 'Time[sec]'},
-            yaxis={'title': selected_item},
-            # マウスオーバー時の挙動
-            # hovermode='closest'
-        )
-    }
 
 # メイン実行
 if __name__ == '__main__':
