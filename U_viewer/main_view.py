@@ -20,7 +20,7 @@ import pandas as pd
 
 # CSVファイルの読み込み
 df = pd.read_csv(
-    filepath_or_buffer="../log_data/Book8.csv",
+    filepath_or_buffer="../log_data/20190314-2.csv",
     encoding='ASCII',
     sep=',',
     header=0,
@@ -47,6 +47,8 @@ df = pd.read_csv(
              'OUT1_Out1',
              'AIRS_TrueSpeed',
              'MAN_pitch',
+             'MAN_roll',
+             'MAN_yaw',
              'MAN_thrust',
              'VTOL_Tilt',
              'TIME_StartTime'
@@ -87,7 +89,7 @@ app.layout = html.Div(
                         {'label': 'Attitude', 'value': 'ATT'},
                         {'label': 'Position & Speed', 'value': 'LPOS'},
                         {'label': 'Thrust Command', 'value': 'OUT0'},
-                        {'label': 'Elevon Command', 'value': 'OUT1'},
+                        {'label': 'Manual', 'value': 'MANUAL'},
                     ],
                     # 初期値
                     value='ATT'
@@ -211,44 +213,82 @@ def update_figure(selected_item,time_value):
                 )]
             ) for k in range(data_size)]
         }
+
     # スラスト指令値の表示
     elif selected_item == 'OUT0':
         traces=[
             go.Scatter(
                 x=dff['Time_sec'],
-                y=dff['OUT0_Out0'],
+                y=(dff['OUT0_Out0']-1000)/900,
                 mode='lines',
                 name='Tm_up'
             ),
             go.Scatter(
                 x=dff['Time_sec'],
-                y=dff['OUT0_Out1'],
+                y=(dff['OUT0_Out1']-1000)/900,
                 mode='lines',
                 name='Tm_down'
             ),
             go.Scatter(
                 x=dff['Time_sec'],
-                y=dff['OUT0_Out2'],
+                y=(dff['OUT0_Out2']-1000)/900,
                 mode='lines',
                 name='Tr_r'
             ),
             go.Scatter(
                 x=dff['Time_sec'],
-                y=dff['OUT0_Out3'],
+                y=(dff['OUT0_Out3']-1000)/900,
                 mode='lines',
                 name='Tr_l'
             ),
             go.Scatter(
                 x=dff['Time_sec'],
-                y=dff['OUT0_Out4'],
+                y=(dff['OUT0_Out4']-1000)/900,
                 mode='lines',
                 name='Tf_up'
             ),
             go.Scatter(
                 x=dff['Time_sec'],
-                y=dff['OUT0_Out5'],
+                y=(dff['OUT0_Out5']-1000)/900,
                 mode='lines',
                 name='Tf_down'
+            )
+
+        ]
+        # 実際の表示
+        return {
+            'data': traces,
+            'layout': go.Layout(
+                xaxis={'title': 'Time[sec]'},
+                yaxis={'title': selected_item},
+            )
+        }
+    # マニュアル操作指令値の表示
+    elif selected_item == 'MANUAL':
+        traces=[
+            go.Scatter(
+                x=dff['Time_sec'],
+                y=dff['MAN_roll'],
+                mode='lines',
+                name='Roll'
+            ),
+            go.Scatter(
+                x=dff['Time_sec'],
+                y=dff['MAN_pitch'],
+                mode='lines',
+                name='Pitch'
+            ),
+            go.Scatter(
+                x=dff['Time_sec'],
+                y=dff['MAN_yaw'],
+                mode='lines',
+                name='Yaw'
+            ),
+            go.Scatter(
+                x=dff['Time_sec'],
+                y=dff['MAN_thrust'],
+                mode='lines',
+                name='Thrust'
             ),
         ]
         # 実際の表示
