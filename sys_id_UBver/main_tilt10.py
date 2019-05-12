@@ -19,8 +19,8 @@ from IPython import get_ipython
 
 import const
 import math_extention as matex
-import file_read
-import sys_id
+import fileread as file_read
+import param_estimation as sys_id
 import analyze
 import statistics
 
@@ -29,7 +29,7 @@ import statistics
 #---------------------------
 
 # プロットデータを新しいウィンドウで表示する
-get_ipython().run_line_magic('matplotlib', 'qt')
+#get_ipython().run_line_magic('matplotlib', 'qt')
 
 # 日本語フォントの設定
 # # for NotePC

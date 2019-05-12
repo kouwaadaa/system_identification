@@ -32,7 +32,7 @@ import plot
 
 # プロットデータを新しいウィンドウで表示する．
 # Spyderなどで実行する場合に必要．
-get_ipython().run_line_magic('matplotlib', 'qt')
+#get_ipython().run_line_magic('matplotlib', 'qt')
 
 # 日本語フォントの設定 font_managerのimportが必要．
 # 使用できるフォントを確認したいときは，次の行のコメントアウトを外して実行．
