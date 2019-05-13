@@ -110,13 +110,13 @@ format_df = format_df.reset_index()
 # パラメータ推定の結果を計算し，取得
 #---------------------------
 
-df_non_dalpha = sys_id.sys_id_LS(format_df)
-df_with_dalpha = sys_id.sys_id_LS_with_dalpha(format_df)
-df_non_kv = sys_id.sys_id_LS_non_kv(format_df)
+df_non_dalpha = sys_id.LS_non_dalpha(format_df)
+df_with_dalpha = sys_id.LS_with_dalpha(format_df)
+df_non_kv = sys_id.LS_non_kv(format_df)
 
-df_ex_non_dalpha = sys_id.sys_id_LS_ex_non_dalpha(format_df)
-df_ex_with_dalpha = sys_id.sys_id_LS_ex_with_dalpha(format_df)
-df_ex_non_kv = sys_id.sys_id_LS_ex_non_kv(format_df)
+df_ex_non_dalpha = sys_id.LS_ex_non_dalpha(format_df)
+df_ex_with_dalpha = sys_id.LS_ex_with_dalpha(format_df)
+df_ex_non_kv = sys_id.LS_ex_non_kv(format_df)
 
 #---------------------------
 # 機体の状態方程式から固有振動数を解析する
