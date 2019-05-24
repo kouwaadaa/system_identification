@@ -35,6 +35,7 @@ def plot_CL_compare_model(df1,df2):
     plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$',fontsize='36')
     plt.ylabel(r'$C_L^{\prime}$',fontsize='36')
     plt.tight_layout()
+    plt.show()
 
 
 def plot_CD_compare_model(df1,df2):
@@ -60,6 +61,7 @@ def plot_CD_compare_model(df1,df2):
     plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$',fontsize='36')
     plt.ylabel(r'$C_D^{\prime}$',fontsize='36')
     plt.tight_layout()
+    plt.show()
 
 
 def plot_Cm_compare_model(df1,df2):
@@ -85,6 +87,7 @@ def plot_Cm_compare_model(df1,df2):
     plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$',fontsize='36')
     plt.ylabel(r'$C_m^{\prime}$',fontsize='36')
     plt.tight_layout()
+    plt.show()
 
 
 def plot_CL_compare_CFD(df):
@@ -125,6 +128,7 @@ def plot_CL_compare_CFD(df):
     plt.xlabel(r'$\alpha \mathrm{[deg]}$',fontsize='36')
     plt.ylabel(r'$C_L^{\prime}$',fontsize='36')
     plt.tight_layout()
+    plt.show()
 
 
 def plot_CD_compare_CFD(df):
@@ -165,6 +169,7 @@ def plot_CD_compare_CFD(df):
     plt.xlabel(r'$\alpha \mathrm{[deg]}$',fontsize='36')
     plt.ylabel(r'$C_D^{\prime}$',fontsize='36')
     plt.tight_layout()
+    plt.show()
 
 
 def plot_Cm_compare_CFD(df):
@@ -205,6 +210,7 @@ def plot_Cm_compare_CFD(df):
     plt.xlabel(r'$\alpha \mathrm{[deg]}$',fontsize='36')
     plt.ylabel(r'$C_m^{\prime}$',fontsize='36')
     plt.tight_layout()
+    plt.show()
 
 
 def plot_eigen_abs(list):
@@ -233,3 +239,4 @@ def plot_eigen_abs(list):
     plt.xlabel(r'Data Number',fontsize='36')
     plt.ylabel(r'Absolute eigenvalue',fontsize='36')
     plt.tight_layout()
+    plt.show()
