@@ -56,45 +56,45 @@ format_df = pd.DataFrame()
 borderline_list = list()
 
 #---2017/12/02 徳島 前進------------------------------------------------------
-# format_df,size = file_read.file_read('../log_data/Book2.csv',54.35,59.46,-2.30,40/45,1.252,10,format_df)
-# borderline_list.append(size)
-# format_df,size = file_read.file_read('../log_data/Book2.csv',70.68,83.38,-2.30,40/45,1.252,10,format_df)
-# borderline_list.append(size+borderline_list[-1])
+# format_df = file_read.file_read('../log_data/Book2.csv',54.35,59.46,-2.30,40/45,1.252,10,format_df)
+# borderline_list.append(len(format_df))
+# format_df = file_read.file_read('../log_data/Book2.csv',70.68,83.38,-2.30,40/45,1.252,10,format_df)
+# borderline_list.append(len(format_df)+borderline_list[-1])
 
 #---2018/01/14 徳島 エレベータ（ピッチアップ）------------------------------------------
-format_df,size = file_read.file_read(600,'../log_data/Book6.csv',17.47,19.08,-2.00,40/47,1.282,10,format_df)
-borderline_list.append(size)
-# borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(600,'../log_data/Book6.csv',21.36,24.67,-2.00,40/47,1.282,10,format_df)
-borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(600,'../log_data/Book6.csv',63.34,68.20,-2.00,40/47,1.282,10,format_df)
-borderline_list.append(size+borderline_list[-1])
+format_df = file_read.file_read(600,'../log_data/Book6.csv',17.47,19.08,-2.00,40/47,1.282,10,format_df)
+borderline_list.append(len(format_df))
+# borderline_list.append(len(format_df)+borderline_list[-1])
+format_df = file_read.file_read(600,'../log_data/Book6.csv',21.36,24.67,-2.00,40/47,1.282,10,format_df)
+borderline_list.append(len(format_df)+borderline_list[-1])
+format_df = file_read.file_read(600,'../log_data/Book6.csv',63.34,68.20,-2.00,40/47,1.282,10,format_df)
+borderline_list.append(len(format_df)+borderline_list[-1])
 
 #---2018/01/14 徳島 エレベータ（制御orピッチアップ）------------------------------------
-# format_df,size = file_read.file_read(700,'../log_data/Book7.csv',13.93,15.36,-1.25,40/47,1.281,10,format_df)
-# borderline_list.append(size+borderline_list[-1])
-# format_df,size = file_read.file_read(700,'../log_data/Book7.csv',55.40,56.85,-1.25,40/47,1.281,10,format_df)
-# borderline_list.append(size+borderline_list[-1])
-# format_df,size = file_read.file_read(700,'../log_data/Book7.csv',62.60,64.83,-1.25,40/47,1.281,10,format_df)
-# borderline_list.append(size+borderline_list[-1])
+# format_df = file_read.file_read(700,'../log_data/Book7.csv',13.93,15.36,-1.25,40/47,1.281,10,format_df)
+# borderline_list.append(len(format_df)+borderline_list[-1])
+# format_df = file_read.file_read(700,'../log_data/Book7.csv',55.40,56.85,-1.25,40/47,1.281,10,format_df)
+# borderline_list.append(len(format_df)+borderline_list[-1])
+# format_df = file_read.file_read(700,'../log_data/Book7.csv',62.60,64.83,-1.25,40/47,1.281,10,format_df)
+# borderline_list.append(len(format_df)+borderline_list[-1])
 
 #---2018/01/14 徳島 エレベータ（ピッチ運動＆前進）------------------------------------------
-format_df,size = file_read.file_read(801,'../log_data/Book8.csv',43.24,45.90,-2.00,40/47,1.275,10,format_df)
-borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(802,'../log_data/Book8.csv',61.44,64.48,-2.00,40/47,1.275,10,format_df)
-borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(803,'../log_data/Book8.csv',71.60,80.56,-2.00,40/47,1.275,10,format_df)
-borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(804,'../log_data/Book8.csv',101.9,109.6,-2.00,40/47,1.275,10,format_df)
-borderline_list.append(size+borderline_list[-1])
+format_df = file_read.file_read(801,'../log_data/Book8.csv',43.24,45.90,-2.00,40/47,1.275,10,format_df)
+borderline_list.append(len(format_df)+borderline_list[-1])
+format_df = file_read.file_read(802,'../log_data/Book8.csv',61.44,64.48,-2.00,40/47,1.275,10,format_df)
+borderline_list.append(len(format_df)+borderline_list[-1])
+format_df = file_read.file_read(803,'../log_data/Book8.csv',71.60,80.56,-2.00,40/47,1.275,10,format_df)
+borderline_list.append(len(format_df)+borderline_list[-1])
+format_df = file_read.file_read(804,'../log_data/Book8.csv',101.9,109.6,-2.00,40/47,1.275,10,format_df)
+borderline_list.append(len(format_df)+borderline_list[-1])
 
 #---2018/01/26 徳島 前進＆エレベータ制御---------------------------------------------------
-format_df,size = file_read.file_read(1000,'../log_data/Book10.csv',15.56,17.40,-3.277,40/48,1.260,10,format_df)
-borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(1000,'../log_data/Book10.csv',94.13,101.5,-3.277,40/48,1.260,10,format_df)
-borderline_list.append(size+borderline_list[-1])
-format_df,size = file_read.file_read(1000,'../log_data/Book10.csv',103.6,105.3,-3.277,40/48,1.260,10,format_df)
-borderline_list.append(size+borderline_list[-1])
+format_df = file_read.file_read(1000,'../log_data/Book10.csv',15.56,17.40,-3.277,40/48,1.260,10,format_df)
+borderline_list.append(len(format_df)+borderline_list[-1])
+format_df = file_read.file_read(1000,'../log_data/Book10.csv',94.13,101.5,-3.277,40/48,1.260,10,format_df)
+borderline_list.append(len(format_df)+borderline_list[-1])
+format_df = file_read.file_read(1000,'../log_data/Book10.csv',103.6,105.3,-3.277,40/48,1.260,10,format_df)
+borderline_list.append(len(format_df)+borderline_list[-1])
 #---------------------------------------------------------
 
 #---------------------------
@@ -129,11 +129,11 @@ anly_result = analyze.linearlize_non_d_alpha(df_non_dalpha)
 # 統計データ算出
 #---------------------------
 
-df_non_dalpha = statistics.calc_RMSE(df_non_dalpha)
-df_with_dalpha = statistics.calc_RMSE(df_with_dalpha)
-df_non_kv = statistics.calc_RMSE(df_non_kv)
+# df_non_dalpha = statistics.calc_RMSE(df_non_dalpha)
+# df_with_dalpha = statistics.calc_RMSE(df_with_dalpha)
+# df_non_kv = statistics.calc_RMSE(df_non_kv)
 df_ex_non_dalpha = statistics.calc_RMSE(df_ex_non_dalpha)
-df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
+# df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
 df_ex_non_kv = statistics.calc_RMSE(df_ex_non_kv)
 
 #---------------------------
