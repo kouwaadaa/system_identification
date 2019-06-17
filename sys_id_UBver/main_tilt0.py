@@ -43,10 +43,15 @@ import plot
 
 # プロットデータのサイズ設定
 # すべて変更されてしまうため注意．
+# plt.rcParams['font.size'] = 28
+# plt.rcParams['xtick.labelsize'] = 24
+# plt.rcParams['ytick.labelsize'] = 24 # default: 12
+# plt.rcParams["figure.figsize"] = [20, 12]
+
 plt.rcParams['font.size'] = 28
-plt.rcParams['xtick.labelsize'] = 24
-plt.rcParams['ytick.labelsize'] = 24 # default: 12
-plt.rcParams["figure.figsize"] = [20, 12]
+plt.rcParams['xtick.labelsize'] = 12
+plt.rcParams['ytick.labelsize'] = 12 # default: 12
+plt.rcParams["figure.figsize"] = [16, 10]
 
 #---------------------------
 # 推力効率係数の算出
