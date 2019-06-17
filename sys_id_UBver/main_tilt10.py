@@ -18,6 +18,8 @@ import matplotlib.cm as cm
 from IPython import get_ipython
 
 import const
+import thrust
+import plot
 import math_extention as matex
 import fileread as file_read
 import param_estimation as sys_id
@@ -46,6 +48,15 @@ plt.rcParams['ytick.labelsize'] = 15 # default: 12
 plt.rcParams["figure.figsize"] = [20, 12]
 
 #---------------------------
+# 推力効率係数の算出
+#---------------------------
+
+# サブ推力30%，35%
+T_EFF_30 = thrust.calc_thrust_eff(1.0)[0]
+T_EFF_35 = thrust.calc_thrust_eff(1.0)[1]
+
+
+#---------------------------
 # ログデータの読み込み
 #---------------------------
 
@@ -56,44 +67,44 @@ format_df = pd.DataFrame()
 borderline_list = list()
 
 #---2017/12/02 徳島 前進------------------------------------------------------
-# format_df = file_read.file_read('../log_data/Book2.csv',54.35,59.46,-2.30,40/45,1.252,10,format_df)
+# format_df = file_read.file_read('../log_data/Book2.csv',54.35,59.46,-2.30,T_EFF_30,1.252,10,format_df)
 # borderline_list.append(len(format_df))
-# format_df = file_read.file_read('../log_data/Book2.csv',70.68,83.38,-2.30,40/45,1.252,10,format_df)
+# format_df = file_read.file_read('../log_data/Book2.csv',70.68,83.38,-2.30,T_EFF_30,1.252,10,format_df)
 # borderline_list.append(len(format_df)+borderline_list[-1])
 
 #---2018/01/14 徳島 エレベータ（ピッチアップ）------------------------------------------
-format_df = file_read.file_read(600,'../log_data/Book6.csv',17.47,19.08,-2.00,40/47,1.282,10,format_df)
+format_df = file_read.file_read(600,'../log_data/Book6.csv',17.47,19.08,-2.00,T_EFF_30,1.282,10,format_df)
 borderline_list.append(len(format_df))
 # borderline_list.append(len(format_df)+borderline_list[-1])
-format_df = file_read.file_read(600,'../log_data/Book6.csv',21.36,24.67,-2.00,40/47,1.282,10,format_df)
+format_df = file_read.file_read(600,'../log_data/Book6.csv',21.36,24.67,-2.00,T_EFF_30,1.282,10,format_df)
 borderline_list.append(len(format_df)+borderline_list[-1])
-format_df = file_read.file_read(600,'../log_data/Book6.csv',63.34,68.20,-2.00,40/47,1.282,10,format_df)
+format_df = file_read.file_read(600,'../log_data/Book6.csv',63.34,68.20,-2.00,T_EFF_30,1.282,10,format_df)
 borderline_list.append(len(format_df)+borderline_list[-1])
 
 #---2018/01/14 徳島 エレベータ（制御orピッチアップ）------------------------------------
-# format_df = file_read.file_read(700,'../log_data/Book7.csv',13.93,15.36,-1.25,40/47,1.281,10,format_df)
+# format_df = file_read.file_read(700,'../log_data/Book7.csv',13.93,15.36,-1.25,T_EFF_30,1.281,10,format_df)
 # borderline_list.append(len(format_df)+borderline_list[-1])
-# format_df = file_read.file_read(700,'../log_data/Book7.csv',55.40,56.85,-1.25,40/47,1.281,10,format_df)
+# format_df = file_read.file_read(700,'../log_data/Book7.csv',55.40,56.85,-1.25,T_EFF_30,1.281,10,format_df)
 # borderline_list.append(len(format_df)+borderline_list[-1])
-# format_df = file_read.file_read(700,'../log_data/Book7.csv',62.60,64.83,-1.25,40/47,1.281,10,format_df)
+# format_df = file_read.file_read(700,'../log_data/Book7.csv',62.60,64.83,-1.25,T_EFF_30,1.281,10,format_df)
 # borderline_list.append(len(format_df)+borderline_list[-1])
 
 #---2018/01/14 徳島 エレベータ（ピッチ運動＆前進）------------------------------------------
-format_df = file_read.file_read(801,'../log_data/Book8.csv',43.24,45.90,-2.00,40/47,1.275,10,format_df)
+format_df = file_read.file_read(801,'../log_data/Book8.csv',43.24,45.90,-2.00,T_EFF_30,1.275,10,format_df)
 borderline_list.append(len(format_df)+borderline_list[-1])
-format_df = file_read.file_read(802,'../log_data/Book8.csv',61.44,64.48,-2.00,40/47,1.275,10,format_df)
+format_df = file_read.file_read(802,'../log_data/Book8.csv',61.44,64.48,-2.00,T_EFF_30,1.275,10,format_df)
 borderline_list.append(len(format_df)+borderline_list[-1])
-format_df = file_read.file_read(803,'../log_data/Book8.csv',71.60,80.56,-2.00,40/47,1.275,10,format_df)
+format_df = file_read.file_read(803,'../log_data/Book8.csv',71.60,80.56,-2.00,T_EFF_30,1.275,10,format_df)
 borderline_list.append(len(format_df)+borderline_list[-1])
-format_df = file_read.file_read(804,'../log_data/Book8.csv',101.9,109.6,-2.00,40/47,1.275,10,format_df)
+format_df = file_read.file_read(804,'../log_data/Book8.csv',101.9,109.6,-2.00,T_EFF_30,1.275,10,format_df)
 borderline_list.append(len(format_df)+borderline_list[-1])
 
 #---2018/01/26 徳島 前進＆エレベータ制御---------------------------------------------------
-format_df = file_read.file_read(1000,'../log_data/Book10.csv',15.56,17.40,-3.277,40/48,1.260,10,format_df)
+format_df = file_read.file_read(1000,'../log_data/Book10.csv',15.56,17.40,-3.277,T_EFF_30,1.260,10,format_df)
 borderline_list.append(len(format_df)+borderline_list[-1])
-format_df = file_read.file_read(1000,'../log_data/Book10.csv',94.13,101.5,-3.277,40/48,1.260,10,format_df)
+format_df = file_read.file_read(1000,'../log_data/Book10.csv',94.13,101.5,-3.277,T_EFF_30,1.260,10,format_df)
 borderline_list.append(len(format_df)+borderline_list[-1])
-format_df = file_read.file_read(1000,'../log_data/Book10.csv',103.6,105.3,-3.277,40/48,1.260,10,format_df)
+format_df = file_read.file_read(1000,'../log_data/Book10.csv',103.6,105.3,-3.277,T_EFF_30,1.260,10,format_df)
 borderline_list.append(len(format_df)+borderline_list[-1])
 #---------------------------------------------------------
 
@@ -129,12 +140,12 @@ anly_result = analyze.linearlize_non_d_alpha(df_non_dalpha)
 # 統計データ算出
 #---------------------------
 
-# df_non_dalpha = statistics.calc_RMSE(df_non_dalpha)
-# df_with_dalpha = statistics.calc_RMSE(df_with_dalpha)
-# df_non_kv = statistics.calc_RMSE(df_non_kv)
-df_ex_non_dalpha = statistics.calc_RMSE(df_ex_non_dalpha)
-# df_ex_with_dalpha = statistics.calc_RMSE(df_ex_with_dalpha)
-df_ex_non_kv = statistics.calc_RMSE(df_ex_non_kv)
+# statistics.calc_RMSE(df_non_dalpha)
+# statistics.calc_RMSE(df_with_dalpha)
+# statistics.calc_RMSE(df_non_kv)
+statistics.calc_RMSE(df_ex_non_dalpha)
+# statistics.calc_RMSE(df_ex_with_dalpha)
+statistics.calc_RMSE(df_ex_non_kv)
 
 #---------------------------
 # データの取り出し
@@ -145,6 +156,8 @@ data_size = len(format_df) # 合計のデータサイズを取得
 #---------------------------
 # 結果をプロット
 #---------------------------
+
+'''
 
 # df5_V_filter = df_with_dalpha.query('4.5 <= Va <= 5.5')
 
@@ -160,11 +173,11 @@ T_F_mean = np.mean(Tf_up+Tf_down)
 grouped_df = df_ex_non_kv.groupby('id')
 #
 # #------------------------------------------------------------------
-# df_with_dalpha[['alpha_deg']].plot.line()
+# df_with_dalpha[['alpha_deg']].plt.line()
 # for j in borderline_list:
 #     plt.axvline(x=j, color="black",linestyle="--") # 実験データの境目で線を引く
-# df_with_dalpha[['CD_log','CD','Va']].plot.line(x='Va', style='o')
-# df_with_dalpha[['Cm_log','Cm','Va']].plot.line(x='Va', style='o')
+# df_with_dalpha[['CD_log','CD','Va']].plt.line(x='Va', style='o')
+# df_with_dalpha[['Cm_log','Cm','Va']].plt.line(x='Va', style='o')
 # plt.tight_layout()
 #------------------------------------------------------------------
 # Va横軸で空力係数比較
@@ -217,8 +230,8 @@ plt.tight_layout()
 #
 # # plt.figure(figsize=(12,10))
 # plt.subplot(111)
-# plt.plot(D_log,label=r"$D_{log}$")
-# plt.plot(D,label=r"$D_{calc}$")
+# plt.plt(D_log,label=r"$D_{log}$")
+# plt.plt(D,label=r"$D_{calc}$")
 # plt.legend()
 #
 # for j in borderline_list:
@@ -249,3 +262,9 @@ plt.tight_layout()
 # plt.xlabel('Data Number')
 # plt.ylabel('Absolute eigenvalue')
 # plt.tight_layout()
+'''
+
+# Va横軸で空力係数を比較
+# plot.plot_CL_compare_model(df_ex_non_kv, df_ex_non_dalpha)
+# plot.plot_CD_compare_model(df_ex_non_kv, df_ex_non_dalpha)
+# plot.plot_Cm_compare_model(df_ex_non_kv, df_ex_non_dalpha)
