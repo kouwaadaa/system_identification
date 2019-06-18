@@ -264,7 +264,9 @@ plt.tight_layout()
 # plt.tight_layout()
 '''
 
+print(df_ex_non_dalpha.loc[0,'CL_0':'k_m'])
+
 # Va横軸で空力係数を比較
-# plot.plot_CL_compare_model(df_ex_non_kv, df_ex_non_dalpha)
-# plot.plot_CD_compare_model(df_ex_non_kv, df_ex_non_dalpha)
-# plot.plot_Cm_compare_model(df_ex_non_kv, df_ex_non_dalpha)
+plot.plot_CL_compare_model(df_ex_non_kv, df_ex_non_dalpha)
+plot.plot_CD_compare_model(df_ex_non_kv, df_ex_non_dalpha)
+plot.plot_Cm_compare_model(df_ex_non_kv, df_ex_non_dalpha)
