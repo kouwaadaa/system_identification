@@ -310,7 +310,9 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
     D = - A_x * np.cos(alpha) - A_z * np.sin(alpha)
 
     # 空力モーメントを計算
-    M = const.I_YY * dd_theta # 全軸モーメント
+    M = const.I_YY * dd_theta \
+         + const.MASS * (const.R_G_Z * (d_theta*Va[:,2] + d_Va[:,0]) \
+            - const.R_G_X * (- d_theta*Va[:,0] + d_Va[:,2]))# 全軸モーメント
 
     # ロータ推力によるモーメント
     # ２行目は，ティルト軸が原点から微妙にずれているため追加．
