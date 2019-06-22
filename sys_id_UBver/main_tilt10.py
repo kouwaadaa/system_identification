@@ -24,7 +24,7 @@ import math_extention as matex
 import fileread as file_read
 import param_estimation as sys_id
 import analyze
-import statistics
+import rmse
 
 #---------------------------
 # matplotlibの諸設定
@@ -140,12 +140,12 @@ anly_result = analyze.linearlize_non_d_alpha(df_non_dalpha)
 # 統計データ算出
 #---------------------------
 
-# statistics.calc_RMSE(df_non_dalpha)
-# statistics.calc_RMSE(df_with_dalpha)
-# statistics.calc_RMSE(df_non_kv)
-statistics.calc_RMSE(df_ex_non_dalpha)
-# statistics.calc_RMSE(df_ex_with_dalpha)
-statistics.calc_RMSE(df_ex_non_kv)
+# rmse.calc_RMSE(df_non_dalpha)
+# rmse.calc_RMSE(df_with_dalpha)
+# rmse.calc_RMSE(df_non_kv)
+rmse.calc_RMSE(df_ex_non_dalpha)
+# rmse.calc_RMSE(df_ex_with_dalpha)
+rmse.calc_RMSE(df_ex_non_kv)
 
 #---------------------------
 # データの取り出し

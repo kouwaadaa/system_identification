@@ -23,7 +23,7 @@ import fileread as fr
 import thrust
 import param_estimation as prme
 import analyze
-import statistics as stts
+import rmse as stts
 import plot
 
 #---------------------------

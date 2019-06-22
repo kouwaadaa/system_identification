@@ -46,6 +46,13 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
         整理後のデータファイル．
     '''
 
+    #---------------------------
+    # 時間シフト
+    #---------------------------
+
+    #指令を与えてから実際に動くまでの時間を仮定し設定．
+    shift = 5
+    shift_time = const.T_DIFF * shift
 
     #---------------------------
     # ファイルの読み込み
@@ -101,7 +108,28 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
 
     # 実験時間のみ切り取り
     # 引数として用意している．実験内の良いデータと思われるところを採用．
-    df = df[(section_ST <= df['Time_sec']) & (df['Time_sec'] <= section_ED)]
+    df = df[(section_ST - shift_time <= df['Time_sec']) & (df['Time_sec'] <= section_ED)]
+
+    # df.drop((df[section_ED - shift_time < df['Time_sec']]) &  (df['OUT0_Out0']), inplace=True)
+
+    # ロータ指令値
+    m_up_pwm = np.array(df['OUT0_Out0']) # T1
+    m_down_pwm = np.array(df['OUT0_Out1']) # T2
+    r_r_pwm = np.array(df['OUT0_Out2']) # T3
+    r_l_pwm = np.array(df['OUT0_Out3']) # T4
+    f_up_pwm = np.array(df['OUT0_Out4']) # T5
+    f_down_pwm = np.array(df['OUT0_Out5']) # T6
+
+    #drop
+
+    df = df[section_ST <= df['Time_sec']]
+
+    df['OUT0_Out0'] = m_up_pwm
+    df['OUT1_Out1'] = m_down_pwm
+    df['OUT2_Out2'] = r_r_pwm
+    df['OUT3_Out3'] = r_l_pwm
+    df['OUT4_Out4'] = f_up_pwm
+    df['OUT5_Out5'] = f_down_pwm
 
     #---------------------------
     # 各データを取り出す
@@ -342,6 +370,16 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
     L = freq.fourier_filter(L,0.02,data_size,10)
     D = freq.fourier_filter(D,0.02,data_size,10)
     Ma = freq.fourier_filter(Ma,0.02,data_size,10)
+
+    # alpha = freq.wavelet_filter(alpha, data_size)
+    # theta = freq.wavelet_filter(theta, data_size)
+    # d_alpha = freq.wavelet_filter(d_alpha, data_size)
+    # d_theta = freq.wavelet_filter(d_theta, data_size)
+    # delta_e = freq.wavelet_filter(delta_e, data_size)
+    # Va_mag = freq.wavelet_filter(Va_mag, data_size)
+    # L = freq.wavelet_filter(L, data_size)
+    # D = freq.wavelet_filter(D, data_size)
+    # Ma = freq.wavelet_filter(Ma, data_size)
 
     #---------------------------
     # ログデータから算出した空力係数

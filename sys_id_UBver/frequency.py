@@ -6,6 +6,9 @@ author: ub
 
 import numpy as np
 import pandas as pd
+import pywt
+from statistics import median
+from scipy import interpolate
 
 import const
 import math_extention as matex
@@ -44,5 +47,36 @@ def fourier_filter(data, dt, N, fc):
 
     # IFFT 実部だけ取り出す．
     filt_data = (np.fft.ifft(fft)).real
+
+    return filt_data
+
+def wavelet_filter(data, N):
+    '''
+    ウェーブレット変換を用いて，時系列データを時間周波数領域でフィルタリング処理する．
+
+    Parameters
+    ----------
+    data : array-like
+        処理を施したいファイル．
+    N : int
+        データサイズ
+
+    Returns
+    -------
+    filt_data : array-like
+        フィルタリング後のデータ．
+    '''
+
+    f = interpolate.interp1d(np.arange(1, N), data, kind='cubic')
+
+    coeff = pywt.wavedec(data,'Haar')
+
+    sigma = (1/0.6745) * median(coeff[-1]-median(coeff[-1]))
+
+    uthresh = sigma*np.sqrt(2*np.log(N))
+
+    coeff[1:] = (pywt.threshold(i, value=uthresh, mode='hard') for i in coeff[1:])
+    
+    filt_data = pywt.waverec(coeff,'Haar')
 
     return filt_data
