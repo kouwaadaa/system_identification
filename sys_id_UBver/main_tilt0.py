@@ -178,12 +178,12 @@ print(df_ex_non_dalpha.loc[0,'CL_0':'k_m'])
 # Va横軸で空力係数を比較
 # plot.plot_CL_compare_model(df_ex_non_kv, df_ex_non_dalpha)
 # plot.plot_CD_compare_model(df_ex_non_kv, df_ex_non_dalpha)
-# plot.plot_Cm_compare_model(df_ex_non_kv, df_ex_non_dalpha)
+plot.plot_Cm_compare_model(df_ex_non_kv, df_ex_non_dalpha)
 
 # CFDと同定結果との比較用
 # plot.plot_CL_compare_CFD(df_ex_non_dalpha)
 # plot.plot_CD_compare_CFD(df_ex_non_dalpha)
-# plot.plot_Cm_compare_CFD(df_ex_non_dalpha)
+plot.plot_Cm_compare_CFD(df_ex_non_dalpha)
 
 # 固有値の絶対値
 # plot.plot_eigen_abs(anly_result)

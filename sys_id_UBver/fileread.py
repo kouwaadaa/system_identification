@@ -50,8 +50,8 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
     # 時間シフト
     #---------------------------
 
-    #指令を与えてから実際に動くまでの時間を仮定し設定．
-    shift = 5
+    #指令を与えてから実際に動くまでの時間を仮定し設定．(shift>=0)
+    shift = 2
     shift_time = const.T_DIFF * shift
 
     #---------------------------
@@ -106,30 +106,36 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
     # 使用しないデータの中に異なるものもあるが，よくわかっていない．
     df = df.drop_duplicates(subset='TIME_StartTime')
 
-    # 実験時間のみ切り取り
-    # 引数として用意している．実験内の良いデータと思われるところを採用．
-    df = df[(section_ST - shift_time <= df['Time_sec']) & (df['Time_sec'] <= section_ED)]
+    if(shift>0):
+        #インデックスの振り直し
+        df.reset_index(inplace=True, drop=True)
+        df.reset_index(inplace=True)
 
-    # df.drop((df[section_ED - shift_time < df['Time_sec']]) &  (df['OUT0_Out0']), inplace=True)
+        # 実験時間のみ切り取り
+        # 引数として用意している．実験内の良いデータと思われるところを採用．
+        df_non_shift = df[(section_ST <= df['Time_sec']) & (df['Time_sec'] <= section_ED)]
+        df_shift = pd.DataFrame(df.loc[df_non_shift['index'].min()-shift:df_non_shift['index'].min()-1,:])
+        df = pd.concat([df_shift,df_non_shift])
 
-    # ロータ指令値
-    m_up_pwm = np.array(df['OUT0_Out0']) # T1
-    m_down_pwm = np.array(df['OUT0_Out1']) # T2
-    r_r_pwm = np.array(df['OUT0_Out2']) # T3
-    r_l_pwm = np.array(df['OUT0_Out3']) # T4
-    f_up_pwm = np.array(df['OUT0_Out4']) # T5
-    f_down_pwm = np.array(df['OUT0_Out5']) # T6
+        all_pwm = np.array(df.loc[:,'OUT0_Out0':'OUT0_Out5'].values)
 
-    #drop
+        for i in range(shift):
+             all_pwm = np.delete(all_pwm,-1,axis=0)
 
-    df = df[section_ST <= df['Time_sec']]
-
-    df['OUT0_Out0'] = m_up_pwm
-    df['OUT1_Out1'] = m_down_pwm
-    df['OUT2_Out2'] = r_r_pwm
-    df['OUT3_Out3'] = r_l_pwm
-    df['OUT4_Out4'] = f_up_pwm
-    df['OUT5_Out5'] = f_down_pwm
+        df = df[section_ST <= df['Time_sec']]
+       
+        df['OUT0_Out0'] = all_pwm[:,0]
+        df['OUT1_Out1'] = all_pwm[:,1]
+        df['OUT2_Out2'] = all_pwm[:,2]
+        df['OUT3_Out3'] = all_pwm[:,3]
+        df['OUT4_Out4'] = all_pwm[:,4]
+        df['OUT5_Out5'] = all_pwm[:,5]
+        
+    else:
+        # 実験時間のみ切り取り
+        # 引数として用意している．実験内の良いデータと思われるところを採用．
+        df = df[(section_ST <= df['Time_sec']) & (df['Time_sec'] <= section_ED)]
+    
 
     #---------------------------
     # 各データを取り出す
