@@ -80,6 +80,7 @@ def wavelet_filter(data, N):
     filt_data : array-like
         フィルタリング後のデータ．
     '''
+    #ゼロパッディング
     while True:
         count = 1
         if(N<=2**count):

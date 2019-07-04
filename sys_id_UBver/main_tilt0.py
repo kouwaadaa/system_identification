@@ -25,6 +25,7 @@ import param_estimation as prme
 import analyze
 import rmse as stts
 import plot
+import time
 
 #---------------------------
 # matplotlibの諸設定
@@ -64,7 +65,7 @@ T_EFF_35 = thrust.calc_thrust_eff(1.0)[1]
 #---------------------------
 # ログデータの読み込み
 #---------------------------
-
+start = time.time()
 # 読み込みデータ初期化
 format_df = pd.DataFrame()
 
@@ -96,7 +97,8 @@ format_df = fr.file_read(900,'../log_data/Book9.csv',107.7,109.7,-2.647,T_EFF_30
 format_df = fr.file_read(1100,'../log_data/Book11.csv',19.86,25.27,-1.467,T_EFF_30,1.268,0,format_df)
 format_df = fr.file_read(1100,'../log_data/Book11.csv',26.43,29.83,-1.467,T_EFF_30,1.268,0,format_df)
 # #---------------------------------------------------------
-
+p_time = time.time() - start
+print(p_time)
 #---------------------------
 # データの整理
 #---------------------------
@@ -132,7 +134,7 @@ anly_result = analyze.linearlize_non_d_alpha(df_non_dalpha)
 # stts.calc_RMSE(df_non_kv)
 stts.calc_RMSE(df_ex_non_dalpha)
 # stts.calc_RMSE(df_ex_with_dalpha)
-stts.calc_RMSE(df_ex_non_kv)
+# stts.calc_RMSE(df_ex_non_kv)
 
 #---------------------------
 # データ取り出し作業
@@ -178,12 +180,12 @@ print(df_ex_non_dalpha.loc[0,'CL_0':'k_m'])
 # Va横軸で空力係数を比較
 # plot.plot_CL_compare_model(df_ex_non_kv, df_ex_non_dalpha)
 # plot.plot_CD_compare_model(df_ex_non_kv, df_ex_non_dalpha)
-plot.plot_Cm_compare_model(df_ex_non_kv, df_ex_non_dalpha)
+# plot.plot_Cm_compare_model(df_ex_non_kv, df_ex_non_dalpha)
 
 # CFDと同定結果との比較用
 # plot.plot_CL_compare_CFD(df_ex_non_dalpha)
 # plot.plot_CD_compare_CFD(df_ex_non_dalpha)
-plot.plot_Cm_compare_CFD(df_ex_non_dalpha)
+# plot.plot_Cm_compare_CFD(df_ex_non_dalpha)
 
 # 固有値の絶対値
 # plot.plot_eigen_abs(anly_result)

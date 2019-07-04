@@ -15,6 +15,7 @@ for wave in pywt.wavelist(kind='discrete'):
     print(wave)
     print(f'RMSE:{RMSE:.10f}')
 
+
 # filt_data = freq.wavelet_filter(data, 1024, "sym6")
 
 # RMSE = np.sqrt(mean_squared_error(original,filt_data))
