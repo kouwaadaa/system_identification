@@ -18,7 +18,6 @@ def calc_RMSE(format_df):
     RMSEを算出して，表示する関数．
     '''
 
-
     CL_log = np.array(format_df['CL_log'])
     CL = np.array(format_df['CL'])
 
