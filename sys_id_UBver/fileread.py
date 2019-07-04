@@ -51,8 +51,15 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
     #---------------------------
 
     #指令を与えてから実際に動くまでの時間を仮定し設定．(shift>=0)
-    shift = 2
+    shift = 0
     shift_time = const.T_DIFF * shift
+
+    #---------------------------
+    # フィルタリング処理
+    #---------------------------
+
+    #1:fourier,2:wevelet
+    filt = 2
 
     #---------------------------
     # ファイルの読み込み
@@ -125,11 +132,11 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
         df = df[section_ST <= df['Time_sec']]
        
         df['OUT0_Out0'] = all_pwm[:,0]
-        df['OUT1_Out1'] = all_pwm[:,1]
-        df['OUT2_Out2'] = all_pwm[:,2]
-        df['OUT3_Out3'] = all_pwm[:,3]
-        df['OUT4_Out4'] = all_pwm[:,4]
-        df['OUT5_Out5'] = all_pwm[:,5]
+        df['OUT0_Out1'] = all_pwm[:,1]
+        df['OUT0_Out2'] = all_pwm[:,2]
+        df['OUT0_Out3'] = all_pwm[:,3]
+        df['OUT0_Out4'] = all_pwm[:,4]
+        df['OUT0_Out5'] = all_pwm[:,5]
         
     else:
         # 実験時間のみ切り取り
@@ -366,26 +373,26 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
     #---------------------------
     # データのフィルタリング処理
     #---------------------------
-
-    alpha = freq.fourier_filter(alpha,0.02,data_size,10)
-    theta = freq.fourier_filter(theta,0.02,data_size,10)
-    d_alpha = freq.fourier_filter(d_alpha,0.02,data_size,10)
-    d_theta = freq.fourier_filter(d_theta,0.02,data_size,10)
-    delta_e = freq.fourier_filter(delta_e,0.02,data_size,10)
-    Va_mag = freq.fourier_filter(Va_mag,0.02,data_size,10)
-    L = freq.fourier_filter(L,0.02,data_size,10)
-    D = freq.fourier_filter(D,0.02,data_size,10)
-    Ma = freq.fourier_filter(Ma,0.02,data_size,10)
-
-    # alpha = freq.wavelet_filter(alpha, data_size)
-    # theta = freq.wavelet_filter(theta, data_size)
-    # d_alpha = freq.wavelet_filter(d_alpha, data_size)
-    # d_theta = freq.wavelet_filter(d_theta, data_size)
-    # delta_e = freq.wavelet_filter(delta_e, data_size)
-    # Va_mag = freq.wavelet_filter(Va_mag, data_size)
-    # L = freq.wavelet_filter(L, data_size)
-    # D = freq.wavelet_filter(D, data_size)
-    # Ma = freq.wavelet_filter(Ma, data_size)
+    if(filt == 1):
+        alpha = freq.fourier_filter(alpha,0.02,data_size,10)
+        theta = freq.fourier_filter(theta,0.02,data_size,10)
+        d_alpha = freq.fourier_filter(d_alpha,0.02,data_size,10)
+        d_theta = freq.fourier_filter(d_theta,0.02,data_size,10)
+        delta_e = freq.fourier_filter(delta_e,0.02,data_size,10)
+        Va_mag = freq.fourier_filter(Va_mag,0.02,data_size,10)
+        L = freq.fourier_filter(L,0.02,data_size,10)
+        D = freq.fourier_filter(D,0.02,data_size,10)
+        Ma = freq.fourier_filter(Ma,0.02,data_size,10)
+    if(filt == 2):
+        alpha = freq.wavelet_filter(alpha, data_size)
+        theta = freq.wavelet_filter(theta, data_size)
+        d_alpha = freq.wavelet_filter(d_alpha, data_size)
+        d_theta = freq.wavelet_filter(d_theta, data_size)
+        delta_e = freq.wavelet_filter(delta_e, data_size)
+        Va_mag = freq.wavelet_filter(Va_mag, data_size)
+        L = freq.wavelet_filter(L, data_size)
+        D = freq.wavelet_filter(D, data_size)
+        Ma = freq.wavelet_filter(Ma, data_size)
 
     #---------------------------
     # ログデータから算出した空力係数

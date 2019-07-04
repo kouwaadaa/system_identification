@@ -12,6 +12,7 @@ from scipy import interpolate
 
 import const
 import math_extention as matex
+import matplotlib.pyplot as plt
 
 
 def fourier_filter(data, dt, N, fc):
@@ -48,6 +49,18 @@ def fourier_filter(data, dt, N, fc):
     # IFFT 実部だけ取り出す．
     filt_data = (np.fft.ifft(fft)).real
 
+    # plt.figure()
+    # plt.subplot(111)
+    # plt.plot(data,label="data",linewidth="3")
+    # plt.plot(filt_data,label="filt_data")
+    # # plt.legend(fontsize='25')
+    # # plt.tick_params(labelsize='28')
+
+    # # plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$',fontsize='36')
+    # # plt.ylabel(r'$C_L^{\prime}$',fontsize='36')
+    # plt.tight_layout()
+    # plt.show()
+
     return filt_data
 
 def wavelet_filter(data, N):
@@ -56,27 +69,63 @@ def wavelet_filter(data, N):
 
     Parameters
     ----------
-    data : array-like
+    data : array-likes
         処理を施したいファイル．
     N : int
         データサイズ
+    wavelet : str
 
     Returns
     -------
     filt_data : array-like
         フィルタリング後のデータ．
     '''
+    while True:
+        count = 1
+        if(N<=2**count):
+            data = np.pad(data, [0,2**count-N], 'constant')
+            break
+        else:
+            count += 1
 
-    f = interpolate.interp1d(np.arange(1, N), data, kind='cubic')
-
-    coeff = pywt.wavedec(data,'Haar')
-
-    sigma = (1/0.6745) * median(coeff[-1]-median(coeff[-1]))
-
-    uthresh = sigma*np.sqrt(2*np.log(N))
-
-    coeff[1:] = (pywt.threshold(i, value=uthresh, mode='hard') for i in coeff[1:])
+    #マザーウェーブレットの設定
+    wavelet = 'sym6'
     
-    filt_data = pywt.waverec(coeff,'Haar')
+    #変換
+    coeff = pywt.wavedec(data,wavelet)
+
+    #閾値設定
+    uthresh = (1/0.6745) * median(abs(abs(coeff[-1])-median(abs(coeff[-1])))) * np.sqrt(2*np.log(N))
+
+    #フィルタリング処理
+    coeff[1:] = (pywt.threshold(i, value=uthresh, mode='hard') for i in coeff[1:])
+    # for i in coeff[0:]:
+    #     if(coeff[i] < -uthresh):
+    #         coeff[i] = coeff[i] + uthresh
+    #     elif(coeff[i] > uthresh):
+    #         coeff[i] = coeff[i] - uthresh
+    #     else:
+    #         coeff[i] = 0
+
+    #逆変換
+    filt_data = pywt.waverec(coeff,wavelet)
+    filt_data = np.delete(filt_data, np.s_[-(2*count-N):])
+    
+    #データ数の調整
+    #よくわかっていない
+    # if(len(data)<len(filt_data)):
+    #     filt_data = np.delete(filt_data, -1)
+    
+    # plt.figure()
+    # plt.subplot(111)
+    # plt.plot(data,label="data",linewidth="3")
+    # plt.plot(filt_data,label="filt_data")
+    # # plt.legend(fontsize='25')
+    # # plt.tick_params(labelsize='28')
+
+    # # plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$',fontsize='36')
+    # # plt.ylabel(r'$C_L^{\prime}$',fontsize='36')
+    # plt.tight_layout()
+    # plt.show()
 
     return filt_data
