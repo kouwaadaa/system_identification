@@ -383,7 +383,7 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
         L = freq.fourier_filter(L,0.02,data_size,10)
         D = freq.fourier_filter(D,0.02,data_size,10)
         Ma = freq.fourier_filter(Ma,0.02,data_size,10)
-        
+
     if(filt == 2):
         alpha = freq.wavelet_filter(alpha, data_size)
         theta = freq.wavelet_filter(theta, data_size)

@@ -80,17 +80,17 @@ def wavelet_filter(data, N):
     filt_data : array-like
         フィルタリング後のデータ．
     '''
-    #ゼロパッディング(cannot run)
-    # while True:
-    #     count = 1
-    #     if(N<=2**count):
-    #         data = np.pad(data, [0,2**count-N], 'constant')
-    #         break
-    #     else:
-    #         count += 1
+    #ゼロパッディング(cannot run)　
+    count = 1
+    while True:
+        if(N<=2**count):
+            data = np.pad(data, [0,2**count-N], 'constant')
+            break
+        else:
+            count += 1
 
     #マザーウェーブレットの設定
-    wavelet = 'sym6'
+    wavelet = 'coif1'
     
     #変換
     coeff = pywt.wavedec(data,wavelet)
@@ -103,12 +103,12 @@ def wavelet_filter(data, N):
 
     #逆変換
     filt_data = pywt.waverec(coeff,wavelet)
-    # filt_data = np.delete(filt_data, np.s_[-(2**count-N):])
+    filt_data = np.delete(filt_data, np.s_[-(2**count-N):])
     
     #データ数の調整
     #よくわかっていない
-    if(len(data)<len(filt_data)):
-        filt_data = np.delete(filt_data, -1)
+    # if(len(data)<len(filt_data)):
+    #     filt_data = np.delete(filt_data, -1)
     
     # plt.figure()
     # plt.subplot(111)

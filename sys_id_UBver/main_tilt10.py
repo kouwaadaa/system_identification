@@ -126,6 +126,7 @@ df_with_dalpha = sys_id.LS_with_dalpha(format_df)
 df_non_kv = sys_id.LS_non_kv(format_df)
 
 df_ex_non_dalpha = sys_id.LS_ex_non_dalpha(format_df)
+df_ex_non_dalpha_non_clk = sys_id.LS_ex_non_dalpha_non_clk(format_df)
 df_ex_with_dalpha = sys_id.LS_ex_with_dalpha(format_df)
 df_ex_non_kv = sys_id.LS_ex_non_kv(format_df)
 
@@ -264,7 +265,7 @@ plt.tight_layout()
 # plt.tight_layout()
 '''
 
-print(df_ex_non_dalpha.loc[0,'CL_0':'k_m'])
+print(df_non_dalpha.loc[0,'CL_0':'k_m'])
 
 # Va横軸で空力係数を比較
 # plot.plot_CL_compare_model(df_ex_non_kv, df_ex_non_dalpha)

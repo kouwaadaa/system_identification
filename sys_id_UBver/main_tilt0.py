@@ -115,6 +115,7 @@ df_with_dalpha = prme.LS_with_dalpha(format_df)
 df_non_kv = prme.LS_non_kv(format_df)
 
 df_ex_non_dalpha = prme.LS_ex_non_dalpha(format_df)
+df_ex_non_dalpha_non_clk = prme.LS_ex_non_dalpha_non_clk(format_df)
 df_ex_with_dalpha = prme.LS_ex_with_dalpha(format_df)
 df_ex_non_kv = prme.LS_ex_non_kv(format_df)
 

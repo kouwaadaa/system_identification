@@ -1011,7 +1011,7 @@ def LS_ex_non_dalpha(format_df):
     # k_*を計算
     #---------------------------
 
-    # k_L = (1/2)*RHO*const.S*CL_k
+    k_L = (1/2)*RHO*const.S*CL_k
     k_D = (1/2)*RHO*const.S*CD_k
     k_m = (1/2)*RHO*const.S*const.MAC*Cm_k
 
@@ -1025,8 +1025,8 @@ def LS_ex_non_dalpha(format_df):
     format_df_return['CL_alpha'] = CL_alpha
     format_df_return['CL_q'] = CL_q
     format_df_return['CL_delta_e'] = CL_delta_e
-    # format_df_return['CL_k'] = CL_k
-    # format_df_return['k_L'] = k_L
+    format_df_return['CL_k'] = CL_k
+    format_df_return['k_L'] = k_L
 
     format_df_return['CD_0'] = CD_0
     format_df_return['CD_alpha'] = CD_alpha
@@ -1050,6 +1050,7 @@ def LS_ex_non_dalpha(format_df):
     format_df_return['Ma_calc'] = Ma_calc
 
     return format_df_return
+
 
 def LS_ex_non_dalpha_non_clk(format_df):
     '''
@@ -1232,6 +1233,7 @@ def LS_ex_non_dalpha_non_clk(format_df):
     format_df_return['Ma_calc'] = Ma_calc
 
     return format_df_return
+
 
 def LS_ex_non_kv(format_df):
     '''
