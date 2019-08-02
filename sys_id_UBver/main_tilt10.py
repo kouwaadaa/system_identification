@@ -135,7 +135,7 @@ df_ex_non_kv = sys_id.LS_ex_non_kv(format_df)
 #---------------------------
 
 # anly_result = analyze.linearlize(df_with_dalpha)
-anly_result = analyze.linearlize_non_d_alpha(df_non_dalpha)
+# anly_result = analyze.linearlize_non_d_alpha(df_non_dalpha)
 
 #---------------------------
 # 統計データ算出
@@ -146,7 +146,7 @@ anly_result = analyze.linearlize_non_d_alpha(df_non_dalpha)
 # rmse.calc_RMSE(df_non_kv)
 rmse.calc_RMSE(df_ex_non_dalpha)
 # rmse.calc_RMSE(df_ex_with_dalpha)
-rmse.calc_RMSE(df_ex_non_kv)
+# rmse.calc_RMSE(df_ex_non_kv)
 
 #---------------------------
 # データの取り出し
@@ -265,7 +265,7 @@ plt.tight_layout()
 # plt.tight_layout()
 '''
 
-print(df_non_dalpha.loc[0,'CL_0':'k_m'])
+print(df_ex_non_dalpha.loc[0,'CL_0':'k_m'])
 
 # Va横軸で空力係数を比較
 # plot.plot_CL_compare_model(df_ex_non_kv, df_ex_non_dalpha)

@@ -124,7 +124,7 @@ df_ex_non_kv = prme.LS_ex_non_kv(format_df)
 #---------------------------
 
 # anly_result = analyze.linearlize(df_with_dalpha)
-anly_result = analyze.linearlize_non_d_alpha(df_non_dalpha)
+# anly_result = analyze.linearlize_non_d_alpha(df_non_dalpha)
 
 #---------------------------
 # 統計データ算出

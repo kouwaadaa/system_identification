@@ -59,7 +59,7 @@ def file_read(id,filename, section_ST, section_ED, V_W, T_EFF_array, RHO, GAMMA,
     #---------------------------
 
     #1:fourier,2:wevelet
-    filt = 2
+    filt = 1
 
     #---------------------------
     # ファイルの読み込み

@@ -15,6 +15,7 @@ import const
 def plot_CL_compare_model(df1,df2):
 
     # 必要なデータの取り出し
+    id = np.array(df1['id'])
     alpha_deg = np.array(df1['alpha_deg'])
     d_alpha = np.array(df1['d_alpha'])
     Va = np.array(df1['Va'])
@@ -27,9 +28,9 @@ def plot_CL_compare_model(df1,df2):
     plt.figure()
     plt.subplot(111)
     plt.scatter(Va,CL_log,label="Log data",linewidth="3")
-    plt.scatter(Va,CL_non_kv,label=r"Model without $k_L V_a$")
+    # plt.scatter(Va,CL_non_kv,label=r"Model without $k_L V_a$")
     plt.scatter(Va,CL_non_dalpha,label=r"Model with $k_L V_a$")
-    plt.legend(fontsize='25')
+    # plt.legend(fontsize='25')
     plt.tick_params(labelsize='28')
 
     plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$',fontsize='36')
@@ -53,9 +54,9 @@ def plot_CD_compare_model(df1,df2):
     plt.figure()
     plt.subplot(111)
     plt.scatter(Va,CD_log,label="Log data",linewidth="3")
-    plt.scatter(Va,CD_non_kv,label=r"Model without $k_D V_a$")
+    # plt.scatter(Va,CD_non_kv,label=r"Model without $k_D V_a$")
     plt.scatter(Va,CD_non_dalpha,label=r"Model with $k_D V_a$")
-    plt.legend(fontsize='25')
+    # plt.legend(fontsize='25')
     plt.tick_params(labelsize='28')
 
     plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$',fontsize='36')
@@ -79,9 +80,9 @@ def plot_Cm_compare_model(df1,df2):
     plt.figure()
     plt.subplot(111)
     plt.scatter(Va,Cm_log,label="Log data",linewidth="3")
-    plt.scatter(Va,Cm_non_kv,label=r"Model without $k_m V_a$")
+    # plt.scatter(Va,Cm_non_kv,label=r"Model without $k_m V_a$")
     plt.scatter(Va,Cm_non_dalpha,label=r"Model with $k_m V_a$")
-    plt.legend(fontsize='25')
+    # plt.legend(fontsize='25')
     plt.tick_params(labelsize='28')
 
     plt.xlabel(r'$V_a \mathrm{[m s^{-1}]}$',fontsize='36')

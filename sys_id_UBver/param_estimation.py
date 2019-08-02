@@ -392,7 +392,7 @@ def LS_non_dalpha(format_df):
     xL[:,1] = alpha
     xL[:,2] = (const.MAC*d_theta)/(2*Va)
     xL[:,3] = delta_e
-    xL[:,4] = 1/Va
+    # xL[:,4] = 1/Va
 
     # 擬似逆行列を用いた最小二乗解の計算
     L_theta_hat = np.dot((np.linalg.pinv(xL)),yL)
@@ -402,14 +402,14 @@ def LS_non_dalpha(format_df):
     CL_alpha = L_theta_hat[1]
     CL_q = L_theta_hat[2]
     CL_delta_e = L_theta_hat[3]
-    CL_k = L_theta_hat[4]
+    # CL_k = L_theta_hat[4]
 
     # 同定結果から得られたCLを計算
     CL = CL_0 \
         + CL_alpha*alpha \
         + CL_q*(const.MAC/(2*Va))*d_theta \
         + CL_delta_e*delta_e \
-        + CL_k *(1/Va)
+        # + CL_k *(1/Va)
 
     #---------------------------
     # 抗力
@@ -479,7 +479,7 @@ def LS_non_dalpha(format_df):
     # k_*を計算
     #---------------------------
 
-    k_L = (1/2)*RHO*const.S*CL_k
+    # k_L = (1/2)*RHO*const.S*CL_k
     k_D = (1/2)*RHO*const.S*CD_k
     k_m = (1/2)*RHO*const.S*const.MAC*Cm_k
 
@@ -493,8 +493,8 @@ def LS_non_dalpha(format_df):
     format_df_return['CL_alpha'] = CL_alpha
     format_df_return['CL_q'] = CL_q
     format_df_return['CL_delta_e'] = CL_delta_e
-    format_df_return['CL_k'] = CL_k
-    format_df_return['k_L'] = k_L
+    # format_df_return['CL_k'] = CL_k
+    # format_df_return['k_L'] = k_L
 
     format_df_return['CD_0'] = CD_0
     format_df_return['kappa'] = kappa
