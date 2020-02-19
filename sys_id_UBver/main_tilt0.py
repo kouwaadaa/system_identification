@@ -72,15 +72,15 @@ format_df = pd.DataFrame()
 #---2017/12/27 徳島 定点ホバリング MCパラメータ変更------------------------------------------------------
 # format_df = fr.file_read(300,'../log_data/Book3.csv',17.52,19.14,-4.03,T_EFF_35,1.264,0,format_df)
 #
-# #---2017/12/27 徳島 エレベータ（ピッチアップ） MCパラメータ変更------------------------------------------
-format_df = fr.file_read(400,'../log_data/Book4.csv',11.97,13.30,-5.05,T_EFF_35,1.264,0,format_df)
-format_df = fr.file_read(400,'../log_data/Book4.csv',18.66,21.08,-5.05,T_EFF_35,1.264,0,format_df)
+#  #---2017/12/27 徳島 エレベータ（ピッチアップ） MCパラメータ変更------------------------------------------
+# format_df = fr.file_read(400,'../log_data/Book4.csv',11.97,13.30,-5.05,T_EFF_35,1.264,0,format_df)
+# format_df = fr.file_read(400,'../log_data/Book4.csv',18.66,21.08,-5.05,T_EFF_35,1.264,0,format_df)
 
-# #---2017/12/27 徳島 エレベータ（ピッチダウン） MCパラメータ変更-------------------------------------------
-format_df = fr.file_read(500,'../log_data/Book5.csv',12.45,13.66,-4.80,T_EFF_35,1.266,0,format_df)
-format_df = fr.file_read(500,'../log_data/Book5.csv',16.07,17.03,-4.80,T_EFF_35,1.266,0,format_df)
-format_df = fr.file_read(500,'../log_data/Book5.csv',18.95,22.88,-4.80,T_EFF_35,1.266,0,format_df)
-
+# # #---2017/12/27 徳島 エレベータ（ピッチダウン） MCパラメータ変更-------------------------------------------
+# format_df = fr.file_read(500,'../log_data/Book5.csv',12.45,13.66,-4.80,T_EFF_35,1.266,0,format_df)
+# format_df = fr.file_read(500,'../log_data/Book5.csv',16.07,17.03,-4.80,T_EFF_35,1.266,0,format_df)
+# format_df = fr.file_read(500,'../log_data/Book5.csv',18.95,22.88,-4.80,T_EFF_35,1.266,0,format_df)
+#
 # #---2018/01/14 徳島 ピッチ運動-----------------------------------------------------------
 format_df = fr.file_read(800,'../log_data/Book8.csv',15.41,20.10,-2.00,T_EFF_30,1.275,0,format_df)
 format_df = fr.file_read(800,'../log_data/Book8.csv',21.46,23.07,-2.00,T_EFF_30,1.275,0,format_df)
@@ -187,6 +187,11 @@ print(df_ex_non_dalpha.loc[0,'CL_0':'k_m'])
 # plot.plot_CL_compare_CFD(df_ex_non_dalpha)
 # plot.plot_CD_compare_CFD(df_ex_non_dalpha)
 # plot.plot_Cm_compare_CFD(df_ex_non_dalpha)
+
+# CFDと同定結果との比較用
+plot.plot_CL_compare_CFD2(df_ex_non_dalpha)
+plot.plot_CD_compare_CFD2(df_ex_non_dalpha)
+plot.plot_Cm_compare_CFD2(df_ex_non_dalpha)
 
 # 固有値の絶対値
 # plot.plot_eigen_abs(anly_result)
