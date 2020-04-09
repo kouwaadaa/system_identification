@@ -23,7 +23,7 @@
 `plot.py` : プロット用（メモ的な側面も）  
 `statistics.py` : 統計値の算出  
 `thrust.py` : 推力の係数算出
-- その他
+- その他  
 `wavelet_test.py` : ウェーブレット解析のためのテスト用プログラム 
 
 ## Usage
