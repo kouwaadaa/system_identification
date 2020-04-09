@@ -23,11 +23,13 @@
 `plot.py` : プロット用（メモ的な側面も）  
 `statistics.py` : 統計値の算出  
 `thrust.py` : 推力の係数算出
+- その他
+`wavelet_test.py` : ウェーブレット解析のためのテスト用プログラム 
 
 ## Usage
 ### Install
 ```sh
-git clone https://github.com/YubaHiroki/system_identification.git
+git clone https://github.com/kouwaadaa/system_identification.git
 cd system_identification
 ```
 
@@ -108,7 +110,3 @@ condaコマンドで必ずと言っていいほど代用できます．調べま
 4. Push to the branch  
 5. Create new Pull Request
 
-## Contact
-どうしても，どうしても，困ったときは  
-<&#121;&#117;&#98;&#97;&#51;&#104;&#105;&#114;&#111;&#107;&#105;&#50;&#54;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;>  
-まで，お気軽にどうぞ．
